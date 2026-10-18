@@ -170,6 +170,11 @@ body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);ou
 .addressbar .ic{width:12px;height:12px;color:var(--chrome-sub);flex-shrink:0;}
 .addressbar span#addrText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
+.menuwrap{position:relative;}
+.chromemenu{position:absolute;top:calc(100% + 6px);right:0;background:var(--chrome-bar);border:1px solid var(--chrome-border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:4px;z-index:70;min-width:200px;}
+.chromemenu button{width:100%;text-align:left;background:none;border:none;padding:9px 10px;border-radius:6px;font-size:12.5px;color:var(--chrome-text);cursor:pointer;font-family:inherit;}
+.chromemenu button:hover{background:var(--chrome-strip);}
+
 .wrap{max-width:1040px;margin:0 auto;}
 .panel{background:var(--bg);min-height:50vh;}
 
@@ -516,7 +521,12 @@ body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);ou
     </div>
     <button class="navbtn" aria-label="북마크"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg></button>
     <button class="navbtn" id="captureBtn" onclick="doCapture()" aria-label="캡처"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h1.3l.7-1.3A2 2 0 0 1 8.7 3.6h6.6a2 2 0 0 1 1.7 1.1L17.7 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.4"/></svg></button>
-    <button class="navbtn" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
+    <div class="menuwrap">
+      <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
+      <div class="chromemenu hidden" id="chromeMenu">
+        <button onclick="resetProgress()">진행 상황 초기화 (베타테스트용)</button>
+      </div>
+    </div>
   </div>
 </div>
 
@@ -863,6 +873,7 @@ function switchTab(id){
     document.getElementById('addrText').textContent = chromeAddr[k] || '';
     document.getElementById('backBtn').disabled = !chromeBackEnabled[k];
   }
+  if(typeof saveProgress === 'function') saveProgress();
 }
 
 function closeTab(id){
@@ -903,6 +914,15 @@ function chromeReload(){
   else if(k === 'article') aReload();
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
+
+function toggleChromeMenu(e){
+  e.stopPropagation();
+  document.getElementById('chromeMenu').classList.toggle('hidden');
+}
+document.addEventListener('click', (e) => {
+  const menu = document.getElementById('chromeMenu');
+  if(!menu.classList.contains('hidden') && !menu.contains(e.target)) menu.classList.add('hidden');
+});
 
 function copyText(btn, text){
   const done = () => {
@@ -976,6 +996,7 @@ function performCapture(i){
   capturedEvidence = record;
   exitCaptureMode();
   showCaptureToast(`캡처됨: ${record.date} · ${record.item} ${record.qty} → ${record.to}`, 'ok');
+  saveProgress();
 }
 
 function fadeRefresh(el){
@@ -1063,13 +1084,24 @@ function renderPhotos(){
   }).join('');
 }
 
+let dynamicArticles = [];
+function addDynamicArticle(id){
+  if(dynamicArticles.some(a => a.id === id)) return;
+  const a = HINTS.find(x => x.id === id);
+  if(!a) return;
+  dynamicArticles.unshift(a);
+  const activeTab = document.querySelector('#pills button.active');
+  renderTextList(activeTab ? activeTab.dataset.cat : '전체');
+}
+
 function renderTextList(cat){
   const list = document.getElementById('textlist');
+  const pool = [...dynamicArticles, ...ARTICLES];
   let items;
   if(cat === '전체'){
-    items = ARTICLES.filter(a => !PHOTO_IDS.includes(a.id));
+    items = pool.filter(a => !PHOTO_IDS.includes(a.id));
   } else {
-    items = ARTICLES.filter(a => a.cat === cat);
+    items = pool.filter(a => a.cat === cat);
   }
   list.innerHTML = items.map(a => `
     <button class="textrow" onclick="showArticle(${a.id})"><span class="cat">[${a.cat}]</span>${a.title}</button>
@@ -1305,6 +1337,7 @@ document.getElementById('foldernav').addEventListener('click', (e) => {
   closeDetail();
   renderList();
   setAddr('mail', currentFolder === 'inbox' ? 'mail.iskra.dg' : 'mail.iskra.dg/' + currentFolder);
+  saveProgress();
 });
 
 function openDetail(folder, id){
@@ -1330,6 +1363,7 @@ function openDetail(folder, id){
   renderList();
   setBack('mail', true);
   setAddr('mail', 'mail.iskra.dg/message/' + id);
+  saveProgress();
 }
 
 function renderActions(m){
@@ -1379,7 +1413,12 @@ function hideReply(){ document.getElementById('replyBox').classList.add('hidden'
 function sendReply(){
   replied = true;
   openDetail('inbox', NEW_MAIL.id);
-  setTimeout(() => { deliverMail(ASSIGNMENT_MAIL); }, 4000);
+  saveProgress();
+  setTimeout(() => {
+    deliverMail(ASSIGNMENT_MAIL);
+    addDynamicArticle(117);
+    saveProgress();
+  }, 4000);
 }
 
 function showAssignReply(){ document.getElementById('assignReplyBox').classList.remove('hidden'); }
@@ -1393,6 +1432,8 @@ function sendAssignReply(){
     assignmentPending = false;
     if(correct) assignmentResolved = true;
     deliverMail(correct ? SUCCESS_MAIL : RETRY_MAIL);
+    if(!correct) addDynamicArticle(116);
+    saveProgress();
   }, 4000);
 }
 
@@ -1407,6 +1448,7 @@ function deliverMail(mail){
   document.getElementById('toastSub').textContent = mail.sender + ' · ' + mail.subject;
   document.getElementById('toast').classList.add('show');
   setTimeout(() => { document.getElementById('toast').classList.remove('show'); }, 6000);
+  saveProgress();
 }
 function closeDetail(){
   document.getElementById('detailView').classList.add('hidden');
@@ -1431,7 +1473,9 @@ updateInboxBadge();
 setAddr('mail', 'mail.iskra.dg');
 setBack('mail', false);
 
-setTimeout(() => { deliverMail(NEW_MAIL); }, 5000);
+setTimeout(() => {
+  if(!FOLDERS.inbox.some(m => m.id === NEW_MAIL.id)) deliverMail(NEW_MAIL);
+}, 5000);
 
 /* ===================== 패널: 라덴통상 ERP ===================== */
 function mulberry32(a){
@@ -1570,6 +1614,7 @@ function goToPage(p){
   rdPage = p;
   renderRecords();
   document.querySelector('.tablewrap').scrollTo(0,0);
+  saveProgress();
 }
 function toggleRow(i){
   document.getElementById('detail'+i).classList.toggle('hidden');
@@ -1578,6 +1623,7 @@ document.getElementById('rdSearch').addEventListener('input', (e) => {
   rdFilterText = e.target.value;
   rdPage = 1;
   renderRecords();
+  saveProgress();
 });
 document.getElementById('rdCats').addEventListener('click', (e) => {
   const btn = e.target.closest('button');
@@ -1587,6 +1633,7 @@ document.getElementById('rdCats').addEventListener('click', (e) => {
   rdFilterCat = btn.dataset.cat;
   rdPage = 1;
   renderRecords();
+  saveProgress();
 });
 document.getElementById('kpiCount').textContent = RECORDS.length;
 
@@ -1599,6 +1646,7 @@ function doLogin(e){
     document.getElementById('appView').classList.remove('hidden');
     setAddr('raden', 'admin.raden-trading.dg/dashboard');
     renderRecords();
+    saveProgress();
   } else {
     document.getElementById('gateErr').classList.add('show');
   }
@@ -1610,6 +1658,7 @@ function doLogout(){
   document.getElementById('idInput').value = '';
   document.getElementById('pwInput').value = '';
   document.getElementById('gateErr').classList.remove('show');
+  saveProgress();
 }
 function rReload(){
   if(!document.getElementById('appView').classList.contains('hidden')) renderRecords();
@@ -1624,8 +1673,106 @@ document.getElementById('sidenav').addEventListener('click', (e) => {
   document.getElementById('dashPage').classList.toggle('hidden', page !== 'dash');
   document.getElementById('listPage').classList.toggle('hidden', page !== 'list');
   setAddr('raden', page === 'dash' ? 'admin.raden-trading.dg/dashboard' : 'admin.raden-trading.dg/exports');
+  saveProgress();
 });
 
 setAddr('raden', 'admin.raden-trading.dg');
 setBack('raden', false);
+
+/* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
+const SAVE_KEY = 'iskra_save_v1';
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id];
+
+function saveProgress(){
+  try {
+    const delivered = FOLDERS.inbox
+      .filter(m => DYNAMIC_MAIL_IDS.includes(m.id))
+      .map(m => ({id: m.id, unread: m.unread}));
+    localStorage.setItem(SAVE_KEY, JSON.stringify({
+      replied, assignmentResolved, capturedEvidence,
+      delivered,
+      dynamicArticleIds: dynamicArticles.map(a => a.id),
+      tabs: TABS, tabSeq, activeId,
+      radenLoggedIn: !document.getElementById('appView').classList.contains('hidden'),
+      radenPage: document.getElementById('listPage').classList.contains('hidden') ? 'dash' : 'list',
+      rdFilterCat, rdFilterText, rdPage,
+      mailFolder: currentFolder,
+      lastSRQuery
+    }));
+  } catch(e){}
+}
+
+function loadProgress(){
+  let saved;
+  try { saved = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); } catch(e){ saved = null; }
+  if(!saved) return;
+
+  replied = !!saved.replied;
+  assignmentResolved = !!saved.assignmentResolved;
+  capturedEvidence = saved.capturedEvidence || null;
+
+  const mailById = {};
+  mailById[NEW_MAIL.id] = NEW_MAIL;
+  mailById[ASSIGNMENT_MAIL.id] = ASSIGNMENT_MAIL;
+  mailById[RETRY_MAIL.id] = RETRY_MAIL;
+  mailById[SUCCESS_MAIL.id] = SUCCESS_MAIL;
+  (saved.delivered || []).slice().reverse().forEach(d => {
+    const mail = mailById[d.id];
+    if(!mail) return;
+    mail.unread = d.unread;
+    FOLDERS.inbox.unshift(mail);
+  });
+  if(saved.delivered && saved.delivered.length) lastDelivered = mailById[saved.delivered[0].id] || lastDelivered;
+  updateInboxBadge();
+
+  (saved.dynamicArticleIds || []).slice().reverse().forEach(id => addDynamicArticle(id));
+
+  if(saved.radenLoggedIn){
+    document.getElementById('gateView').classList.add('hidden');
+    document.getElementById('appView').classList.remove('hidden');
+  }
+  if(saved.radenPage === 'list'){
+    document.querySelectorAll('.navitem').forEach(n => n.classList.toggle('active', n.dataset.page === 'list'));
+    document.getElementById('dashPage').classList.add('hidden');
+    document.getElementById('listPage').classList.remove('hidden');
+  }
+  if(saved.rdFilterCat){
+    rdFilterCat = saved.rdFilterCat;
+    document.querySelectorAll('#rdCats button').forEach(b => b.classList.toggle('active', b.dataset.cat === rdFilterCat));
+  }
+  if(saved.rdFilterText){
+    rdFilterText = saved.rdFilterText;
+    document.getElementById('rdSearch').value = rdFilterText;
+  }
+  if(saved.rdPage) rdPage = saved.rdPage;
+  if(saved.radenLoggedIn) renderRecords();
+
+  if(saved.mailFolder && saved.mailFolder !== 'inbox'){
+    currentFolder = saved.mailFolder;
+    document.querySelectorAll('.folder').forEach(f => f.classList.toggle('active', f.dataset.folder === currentFolder));
+    renderList();
+  }
+
+  if(saved.lastSRQuery){
+    lastSRQuery = saved.lastSRQuery;
+    document.getElementById('srQuery').textContent = `'${lastSRQuery}'`;
+    renderSearchResults(lastSRQuery);
+  }
+
+  if(saved.tabs && saved.tabs.length){
+    TABS = saved.tabs;
+    tabSeq = saved.tabSeq || tabSeq;
+  }
+  if(saved.activeId && TABS.find(t => t.id === saved.activeId)){
+    switchTab(saved.activeId);
+  }
+}
+function resetProgress(){
+  if(confirm('진행 상황을 초기화하고 처음부터 다시 시작할까요?')){
+    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+    location.reload();
+  }
+}
+
+loadProgress();
 </script>
