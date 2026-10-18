@@ -1,0 +1,7 @@
+프로토타입/
+구버전_보관/
+.claude/
+.impeccable/
+._*
+.DS_Store
+*.code-workspace
