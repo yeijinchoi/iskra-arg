@@ -165,6 +165,8 @@ button{font:inherit;}
 
 body.capture-mode #panel-raden .raderow{cursor:crosshair;}
 body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);outline-offset:-2px;background:var(--hover-bg);}
+body.capture-mode #panel-orginfo .og-cert{cursor:crosshair;}
+body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);outline-offset:-2px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .addressbar{flex:1;min-width:0;background:var(--chrome-strip);border-radius:999px;padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--chrome-text);}
 .addressbar .ic{width:12px;height:12px;color:var(--chrome-sub);flex-shrink:0;}
@@ -508,6 +510,62 @@ body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);ou
 @media (max-width:620px){#panel-raden .detailgrid{grid-template-columns:1fr;}}
 #panel-raden .detailgrid div span{display:block;font-size:11px;color:var(--muted);margin-bottom:2px;}
 #panel-raden .detailgrid div b{font-size:12.5px;font-weight:700;}
+
+/* ===================== 패널: 단체정보마당 ===================== */
+#panel-orginfo{--og-navy:#0B2A4A;--og-navy2:#123E6B;--og-gold:#B68A2E;--og-bg:#F1F3F6;--og-ink:#1C2430;--og-muted:#6B7484;--og-border:#DADFE6;--og-red:#B3321F;--og-redbg:#FBEEEC;}
+#panel-orginfo{background:var(--og-bg);min-height:100%;}
+#panel-orginfo .og-topbar{background:var(--og-navy);color:#CFE0F2;font-size:10.5px;}
+#panel-orginfo .og-topbar-inner{max-width:760px;margin:0 auto;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;}
+#panel-orginfo .og-topbar-links{display:flex;gap:10px;opacity:.85;}
+#panel-orginfo .og-header{background:#fff;border-bottom:3px solid var(--og-navy);}
+#panel-orginfo .og-header-inner{max-width:760px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+#panel-orginfo .og-logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:900;color:var(--og-navy);letter-spacing:-.01em;}
+#panel-orginfo .og-logo-badge{background:var(--og-navy);color:#fff;font-size:9px;font-weight:700;line-height:1.25;text-align:center;padding:4px 6px;border-radius:4px;letter-spacing:0;}
+#panel-orginfo .og-nav{display:flex;gap:4px;flex-wrap:wrap;}
+#panel-orginfo .og-nav button{background:none;border:none;font-family:inherit;font-size:12px;color:var(--og-muted);padding:7px 11px;border-radius:5px;cursor:pointer;}
+#panel-orginfo .og-nav button.active{color:var(--og-navy);font-weight:800;background:#EAF0F7;}
+#panel-orginfo .og-nav button:hover:not(.active){background:#F4F6F8;}
+#panel-orginfo .og-page{max-width:760px;margin:0 auto;padding:30px 20px 60px;}
+#panel-orginfo .og-hero{text-align:center;padding:34px 10px 26px;}
+#panel-orginfo .og-hero h1{font-size:17px;font-weight:800;color:var(--og-ink);margin:0 0 18px;letter-spacing:-.01em;}
+#panel-orginfo .og-searchbar{max-width:480px;margin:0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--og-navy);border-radius:999px;padding:5px 6px 5px 18px;box-shadow:0 2px 10px rgba(11,42,74,.08);}
+#panel-orginfo .og-searchbar input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;color:var(--og-ink);background:none;}
+#panel-orginfo .og-searchbar button{width:34px;height:34px;flex-shrink:0;border:none;border-radius:999px;background:var(--og-navy);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+#panel-orginfo .og-searchbar button:hover{background:var(--og-navy2);}
+#panel-orginfo .og-searchbar .ic{width:15px;height:15px;}
+#panel-orginfo .og-quicklinks{display:flex;justify-content:center;gap:22px;margin-top:20px;flex-wrap:wrap;}
+#panel-orginfo .og-quicklinks span{font-size:11px;color:var(--og-muted);padding-bottom:2px;border-bottom:1px dashed transparent;}
+#panel-orginfo .og-noticebox{background:#fff;border:1px solid var(--og-border);border-radius:8px;padding:16px 20px;}
+#panel-orginfo .og-notice-head{font-size:12px;font-weight:800;color:var(--og-navy);margin-bottom:10px;padding-bottom:9px;border-bottom:2px solid var(--og-navy);}
+#panel-orginfo .og-noticebox ul{list-style:none;margin:0;padding:0;}
+#panel-orginfo .og-noticebox li{display:flex;gap:12px;font-size:12px;color:var(--og-ink);padding:7px 0;border-bottom:1px solid var(--og-border);}
+#panel-orginfo .og-noticebox li:last-child{border-bottom:none;}
+#panel-orginfo .og-noticebox li .d{color:var(--og-muted);font-variant-numeric:tabular-nums;flex-shrink:0;}
+#panel-orginfo .og-backlink{background:none;border:none;font-family:inherit;font-size:12px;color:var(--og-navy);font-weight:700;cursor:pointer;padding:0 0 16px;}
+#panel-orginfo .og-backlink:hover{text-decoration:underline;}
+#panel-orginfo .og-result-head{font-size:12.5px;color:var(--og-muted);margin-bottom:14px;}
+#panel-orginfo .og-result-head b{color:var(--og-ink);}
+#panel-orginfo .og-empty{background:#fff;border:1px solid var(--og-border);border-radius:8px;padding:32px 20px;text-align:center;font-size:12.5px;color:var(--og-muted);}
+#panel-orginfo .og-result-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--og-border);border-radius:8px;padding:14px 16px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
+#panel-orginfo .og-result-row:hover{border-color:var(--og-navy2);box-shadow:0 2px 8px rgba(11,42,74,.08);}
+#panel-orginfo .og-badge{font-size:10.5px;font-weight:800;color:#fff;background:#3C8A5E;padding:3px 8px;border-radius:4px;flex-shrink:0;}
+#panel-orginfo .og-rname{font-size:13px;font-weight:700;color:var(--og-ink);}
+#panel-orginfo .og-raddr{font-size:11.5px;color:var(--og-muted);margin-left:auto;}
+#panel-orginfo .og-cert{background:#fff;border:1px solid var(--og-border);border-radius:10px;overflow:hidden;}
+#panel-orginfo .og-cert-head{background:var(--og-navy);color:#fff;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;}
+#panel-orginfo .og-cert-title{font-size:13.5px;font-weight:800;}
+#panel-orginfo .og-cert-time{font-size:10.5px;color:#BFD2E8;}
+#panel-orginfo .og-cert-table{width:100%;border-collapse:collapse;}
+#panel-orginfo .og-cert-table tr{border-bottom:1px solid var(--og-border);}
+#panel-orginfo .og-cert-table tr:last-child{border-bottom:none;}
+#panel-orginfo .og-cert-table th{width:110px;text-align:left;background:#F6F8FA;color:var(--og-muted);font-size:11.5px;font-weight:700;padding:12px 16px;vertical-align:top;}
+#panel-orginfo .og-cert-table td{padding:12px 16px;font-size:12.5px;color:var(--og-ink);line-height:1.5;}
+#panel-orginfo .og-cert-flag{display:none;margin:0 20px 20px;padding:12px 14px;background:var(--og-redbg);border:1px solid #E7C4BD;border-radius:7px;font-size:12px;color:var(--og-red);line-height:1.5;font-weight:600;}
+#panel-orginfo .og-cert-flag.show{display:block;}
+@media (max-width:560px){
+  #panel-orginfo .og-cert-table th{width:84px;padding:10px 12px;font-size:11px;}
+  #panel-orginfo .og-cert-table td{padding:10px 12px;font-size:12px;}
+}
 </style>
 
 <div class="chrome">
@@ -825,6 +883,55 @@ body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);ou
 </div>
 </div>
 
+<div id="panel-orginfo" class="panel hidden">
+<div class="og-topbar"><div class="og-topbar-inner"><span>도렌그라드 행정전산포털</span><span class="og-topbar-links"><span>사이트맵</span><span>이용안내</span><span>ENG</span></span></div></div>
+<div class="og-header">
+  <div class="og-header-inner">
+    <div class="og-logo"><span class="og-logo-badge">단체<br>정보</span>단체정보마당</div>
+    <nav class="og-nav">
+      <button class="active">단체 등록정보 조회</button>
+      <button>결산서류 공시</button>
+      <button>등록 안내</button>
+      <button>자주 묻는 질문</button>
+    </nav>
+  </div>
+</div>
+
+<div id="ogHome" class="og-page">
+  <div class="og-hero">
+    <h1>등록된 민간단체 정보를 한 곳에서 확인하세요</h1>
+    <form class="og-searchbar" onsubmit="ogSearch(event)">
+      <input id="ogSearchInput" type="text" placeholder="단체명 또는 등록번호를 입력하세요" autocomplete="off">
+      <button type="submit" aria-label="검색"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </form>
+    <div class="og-quicklinks"><span>단체 등록현황</span><span>결산서류 공시</span><span>등록 절차 안내</span><span>자주 묻는 질문</span></div>
+  </div>
+  <div class="og-noticebox">
+    <div class="og-notice-head">공지사항</div>
+    <ul>
+      <li><span class="d">2026.10.19</span>2026년 하반기 결산서류 제출 안내</li>
+      <li><span class="d">2026.09.02</span>등록정보 변경 시 첨부서류 간소화 시행</li>
+      <li><span class="d">2026.07.14</span>시스템 정기 점검 안내 (매주 일요일 02:00~04:00)</li>
+    </ul>
+  </div>
+</div>
+
+<div id="ogResult" class="og-page hidden">
+  <button class="og-backlink" onclick="ogShowHome()">← 다시 검색</button>
+  <div class="og-result-head"><b id="ogResultQuery"></b> 검색결과 <span id="ogResultCount"></span></div>
+  <div id="ogResultList"></div>
+</div>
+
+<div id="ogDetail" class="og-page hidden">
+  <button class="og-backlink" onclick="ogShowResultBack()">← 목록으로</button>
+  <div class="og-cert" id="ogCertCard" onclick="ogDetailClick()">
+    <div class="og-cert-head"><span class="og-cert-title">비영리민간단체 등록현황</span><span class="og-cert-time" id="ogCertTime"></span></div>
+    <table class="og-cert-table" id="ogCertTable"></table>
+    <div class="og-cert-flag" id="ogCertFlag"></div>
+  </div>
+</div>
+</div>
+
 <div id="toast" onclick="mOpenFromToast()">
   <span class="ticon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
   <div class="tbody">
@@ -869,8 +976,9 @@ function switchTab(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
   const t = TABS.find(x => x.id === id);
   const k = t ? t.kind : 'search';
-  if(captureMode && k !== 'raden') exitCaptureMode();
+  if(captureMode && k !== 'raden' && k !== 'orginfo') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
+  if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'article' && t){
     renderArticleBody(t.articleId);
     document.getElementById('addrText').textContent = 'iskra.dg/article/' + t.articleId;
@@ -908,6 +1016,7 @@ function chromeBack(){
   const k = activeKind();
   if(k === 'mail') closeDetail();
   else if(k === 'article') articleGoBack();
+  else if(k === 'orginfo') ogGoBack();
 }
 function chromeReload(){
   const btn = document.getElementById('reloadBtn');
@@ -918,6 +1027,7 @@ function chromeReload(){
   else if(k === 'raden') rReload();
   else if(k === 'searchresult') srReload();
   else if(k === 'article') aReload();
+  else if(k === 'orginfo') ogReload();
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
@@ -970,9 +1080,13 @@ function showCaptureToast(msg, kind){
   clearTimeout(window.__captureToastTimer);
   window.__captureToastTimer = setTimeout(() => el.classList.remove('show'), 2400);
 }
+const CAPTURE_HINTS = {
+  raden: '캡처할 거래 내역을 클릭하세요 (Esc로 취소)',
+  orginfo: '캡처할 등록 정보 화면을 클릭하세요 (Esc로 취소)'
+};
 function doCapture(){
   if(captureMode){ exitCaptureMode(); return; }
-  if(activeKind() !== 'raden'){
+  if(!CAPTURE_HINTS[activeKind()]){
     showCaptureToast('현재 화면에서는 캡처할 수 있는 영역이 없습니다.', 'warn');
     return;
   }
@@ -982,7 +1096,7 @@ function enterCaptureMode(){
   captureMode = true;
   document.getElementById('captureBtn').classList.add('active');
   document.body.classList.add('capture-mode');
-  showCaptureToast('캡처할 거래 내역을 클릭하세요 (Esc로 취소)', 'info');
+  showCaptureToast(CAPTURE_HINTS[activeKind()] || CAPTURE_HINTS.raden, 'info');
 }
 function exitCaptureMode(){
   captureMode = false;
@@ -1002,6 +1116,18 @@ function performCapture(i){
   capturedEvidence = record;
   exitCaptureMode();
   showCaptureToast(`캡처됨: ${record.date} · ${record.item} ${record.qty} → ${record.to}`, 'ok');
+  refreshChips();
+  saveProgress();
+}
+function ogDetailClick(){
+  if(captureMode){ performCaptureOrg(); return; }
+}
+function performCaptureOrg(){
+  if(!ogCurrentRecord) return;
+  capturedEvidence2 = ogCurrentRecord;
+  exitCaptureMode();
+  showCaptureToast(`캡처됨: ${ogCurrentRecord.name} 등록 정보`, 'ok');
+  refreshChips();
   saveProgress();
 }
 
@@ -1268,9 +1394,39 @@ const RETRY_MAIL = {
     "확인되시면 해당 내역을 캡처해서 다시 회신해 주시면 됩니다."
   ]
 };
+const ASSIGNMENT2_MAIL = {
+  id:'assign2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 추가 확인 요청',
+  preview:'번거로우시겠지만 추가로 확인을 부탁드릴 일이 있습니다.', time:'방금 전', unread:true,
+  body:[
+    "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 안내드린 일정대로 처리될 예정입니다.",
+    "번거로우시겠지만 추가로 확인을 부탁드릴 일이 하나 더 있습니다. 다만 이번 건은 ERP 권한 없이 진행해 주셔야 합니다 — 지난번 임시 권한은 이미 만료 처리되었습니다.",
+    "캡처해 주신 내역의 도착지(그라노프 물류허브)로 들어간 물량의 최종 수취인 란에 '바르네시아 재건위원회'라는 이름이 함께 적혀 있었습니다. 이 단체가 정식으로 등록된 곳인지, 소재지가 실제로 존재하는지 확인해 주실 수 있을까요.",
+    "단체 등록 정보는 '단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 누구나 조회할 수 있습니다. 별도 로그인 없이, 단체명으로 검색해 보시면 될 것 같습니다."
+  ]
+};
+const SUCCESS2_MAIL = {
+  id:'success2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 확인 감사합니다',
+  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  body:[
+    "전달해 주신 등록 정보 잘 확인했습니다.",
+    "등록 주소지가 실제로는 비어있다는 게 좀 이상하네요. 저희 쪽에서도 조금 더 살펴보겠습니다.",
+    "다음 확인 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+  ]
+};
+const RETRY2_MAIL = {
+  id:'retry2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 다시 한번 확인 부탁드립니다',
+  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  body:[
+    "보내주신 내용을 확인했습니다만, 저희가 필요한 내용과는 조금 다른 것 같습니다.",
+    "'단체정보마당'(org-info.go.dg)에서 '바르네시아 재건위원회'로 검색하시면 등록현황 화면이 뜰 겁니다. 그 화면을 그대로 캡처해서 보내주시겠어요?",
+    "소재지와 대표자 정보가 함께 나오는 화면이면 됩니다."
+  ]
+};
 let replied = false;
 let assignmentPending = false;
 let assignmentResolved = false;
+let assignment2Pending = false;
+let assignment2Resolved = false;
 let lastDelivered = NEW_MAIL;
 
 const FOLDERS = {
@@ -1397,14 +1553,11 @@ function renderActions(m){
     if(assignmentPending){
       return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
     }
-    const chip = capturedEvidence
-      ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부: ${capturedEvidence.date} · ${capturedEvidence.item} ${capturedEvidence.qty} → ${capturedEvidence.to}</div>`
-      : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
     return `
       <div class="actions"><button class="live" onclick="showAssignReply()">답장</button><button>전달</button><button>삭제</button></div>
       <div class="replybox hidden" id="assignReplyBox">
         <textarea id="assignReplyText" rows="3">확인해 보니 아래 기록이 눈에 띄어 캡처해서 함께 보내드립니다.</textarea>
-        ${chip}
+        <div id="assignChip">${assignChipHtml()}</div>
         <div class="replyactions">
           <button class="sendbtn" onclick="sendAssignReply()">보내기</button>
           <button class="cancelbtn" onclick="hideAssignReply()">취소</button>
@@ -1412,7 +1565,42 @@ function renderActions(m){
       </div>
     `;
   }
+  if(m.id === ASSIGNMENT2_MAIL.id){
+    if(assignment2Resolved){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 회신을 전달했습니다.</div>`;
+    }
+    if(assignment2Pending){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
+    }
+    return `
+      <div class="actions"><button class="live" onclick="showAssign2Reply()">답장</button><button>전달</button><button>삭제</button></div>
+      <div class="replybox hidden" id="assign2ReplyBox">
+        <textarea id="assign2ReplyText" rows="3">확인해 보니 등록 정보 화면에 이상한 점이 있어 캡처해서 함께 보내드립니다.</textarea>
+        <div id="assign2Chip">${assign2ChipHtml()}</div>
+        <div class="replyactions">
+          <button class="sendbtn" onclick="sendAssign2Reply()">보내기</button>
+          <button class="cancelbtn" onclick="hideAssign2Reply()">취소</button>
+        </div>
+      </div>
+    `;
+  }
   return `<div class="actions"><button>답장</button><button>전달</button><button>삭제</button></div>`;
+}
+function assignChipHtml(){
+  return capturedEvidence
+    ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부: ${capturedEvidence.date} · ${capturedEvidence.item} ${capturedEvidence.qty} → ${capturedEvidence.to}</div>`
+    : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
+}
+function assign2ChipHtml(){
+  return capturedEvidence2
+    ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부: ${capturedEvidence2.name} 등록 정보</div>`
+    : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
+}
+function refreshChips(){
+  const a = document.getElementById('assignChip');
+  if(a) a.innerHTML = assignChipHtml();
+  const b = document.getElementById('assign2Chip');
+  if(b) b.innerHTML = assign2ChipHtml();
 }
 
 function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
@@ -1441,6 +1629,29 @@ function sendAssignReply(){
     if(correct) assignmentResolved = true;
     deliverMail(correct ? SUCCESS_MAIL : RETRY_MAIL);
     if(!correct) addDynamicArticle(116);
+    saveProgress();
+    if(correct){
+      setTimeout(() => {
+        if(!FOLDERS.inbox.some(m => m.id === ASSIGNMENT2_MAIL.id)){
+          deliverMail(ASSIGNMENT2_MAIL);
+          saveProgress();
+        }
+      }, 6000);
+    }
+  }, 4000);
+}
+
+function showAssign2Reply(){ document.getElementById('assign2ReplyBox').classList.remove('hidden'); }
+function hideAssign2Reply(){ document.getElementById('assign2ReplyBox').classList.add('hidden'); }
+
+function sendAssign2Reply(){
+  const correct = !!capturedEvidence2 && capturedEvidence2.id === 'org1';
+  assignment2Pending = true;
+  openDetail('inbox', ASSIGNMENT2_MAIL.id);
+  setTimeout(() => {
+    assignment2Pending = false;
+    if(correct) assignment2Resolved = true;
+    deliverMail(correct ? SUCCESS2_MAIL : RETRY2_MAIL);
     saveProgress();
   }, 4000);
 }
@@ -1687,9 +1898,113 @@ document.getElementById('sidenav').addEventListener('click', (e) => {
 setAddr('raden', 'admin.raden-trading.dg');
 setBack('raden', false);
 
+/* ===================== 패널: 단체정보마당 ===================== */
+const ORG_RECORDS = [
+  {
+    id:'org1', name:'바르네시아 재건위원회', regNo:'제2019-사회-0427호', status:'등록',
+    repMasked:'마르첸코 ○○○',
+    address:'그라노프 환적로 118, 3층 305호', addressFlagged:true,
+    foundedDate:'2019-04-02', authority:'그라노프 사회복지청',
+    purpose:'지역사회 재건 및 구호 활동 지원',
+    fieldNote:'현장 확인 결과: 등록 주소지에 해당 사무실이 존재하지 않음 (2026-09-28 확인)'
+  }
+];
+let capturedEvidence2 = null;
+let ogCurrentRecord = null;
+let ogLastQuery = '';
+
+function ogMatch(q){
+  const ql = q.trim().toLowerCase();
+  if(!ql) return [];
+  return ORG_RECORDS.filter(r => r.name.toLowerCase().includes(ql) || ql.includes(r.name.toLowerCase()) || r.regNo.toLowerCase().includes(ql));
+}
+function ogShowHome(){
+  document.getElementById('ogHome').classList.remove('hidden');
+  document.getElementById('ogResult').classList.add('hidden');
+  document.getElementById('ogDetail').classList.add('hidden');
+  setAddr('orginfo', 'org-info.go.dg');
+  setBack('orginfo', false);
+  saveProgress();
+}
+function ogSearch(e){
+  if(e) e.preventDefault();
+  const q = document.getElementById('ogSearchInput').value.trim();
+  if(!q) return;
+  ogLastQuery = q;
+  ogRenderResult(q);
+}
+function ogRenderResult(q){
+  const matches = ogMatch(q);
+  document.getElementById('ogHome').classList.add('hidden');
+  document.getElementById('ogDetail').classList.add('hidden');
+  document.getElementById('ogResult').classList.remove('hidden');
+  document.getElementById('ogResultQuery').textContent = `'${q}'`;
+  document.getElementById('ogResultCount').textContent = matches.length ? `${matches.length}건` : '0건';
+  const list = document.getElementById('ogResultList');
+  if(!matches.length){
+    list.innerHTML = `<div class="og-empty">검색결과가 없습니다. 단체명을 정확히 입력했는지 확인해 주세요.</div>`;
+  } else {
+    list.innerHTML = matches.map(r => `
+      <button class="og-result-row" onclick="ogShowDetail('${r.id}')">
+        <span class="og-badge">${r.status}</span>
+        <span class="og-rname">${r.name}</span>
+        <span class="og-raddr">${r.address.split(',')[0]}</span>
+      </button>
+    `).join('');
+  }
+  setAddr('orginfo', 'org-info.go.dg/search?q=' + encodeURIComponent(q));
+  setBack('orginfo', true);
+  saveProgress();
+}
+function ogShowResultBack(){
+  document.getElementById('ogDetail').classList.add('hidden');
+  document.getElementById('ogResult').classList.remove('hidden');
+  setAddr('orginfo', 'org-info.go.dg/search?q=' + encodeURIComponent(ogLastQuery));
+  setBack('orginfo', true);
+}
+function ogGoBack(){
+  if(!document.getElementById('ogDetail').classList.contains('hidden')) ogShowResultBack();
+  else if(!document.getElementById('ogResult').classList.contains('hidden')) ogShowHome();
+}
+function ogReload(){
+  if(!document.getElementById('ogDetail').classList.contains('hidden') && ogCurrentRecord) ogShowDetail(ogCurrentRecord.id);
+  else if(!document.getElementById('ogResult').classList.contains('hidden')) ogRenderResult(ogLastQuery);
+}
+function ogNowStr(){
+  const d = new Date();
+  const p = n => String(n).padStart(2,'0');
+  return `열람일시: ${d.getFullYear()}-${p(d.getMonth()+1)}-${p(d.getDate())} ${p(d.getHours())}:${p(d.getMinutes())}`;
+}
+function ogShowDetail(id){
+  const r = ORG_RECORDS.find(x => x.id === id);
+  if(!r) return;
+  ogCurrentRecord = r;
+  document.getElementById('ogResult').classList.add('hidden');
+  document.getElementById('ogDetail').classList.remove('hidden');
+  document.getElementById('ogCertTime').textContent = ogNowStr();
+  document.getElementById('ogCertTable').innerHTML = `
+    <tr><th>단체명</th><td>${r.name}</td></tr>
+    <tr><th>등록번호</th><td>${r.regNo}</td></tr>
+    <tr><th>대표자</th><td>${r.repMasked}</td></tr>
+    <tr><th>소재지</th><td>${r.address}</td></tr>
+    <tr><th>등록일</th><td>${r.foundedDate}</td></tr>
+    <tr><th>주무관청</th><td>${r.authority}</td></tr>
+    <tr><th>목적사업</th><td>${r.purpose}</td></tr>
+  `;
+  const flag = document.getElementById('ogCertFlag');
+  if(r.addressFlagged){ flag.classList.add('show'); flag.textContent = r.fieldNote; }
+  else { flag.classList.remove('show'); flag.textContent = ''; }
+  setAddr('orginfo', 'org-info.go.dg/view/' + r.id);
+  setBack('orginfo', true);
+  saveProgress();
+}
+
+setAddr('orginfo', 'org-info.go.dg');
+setBack('orginfo', false);
+
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
 const SAVE_KEY = 'iskra_save_v1';
-const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id];
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id];
 
 function saveProgress(){
   try {
@@ -1698,6 +2013,7 @@ function saveProgress(){
       .map(m => ({id: m.id, unread: m.unread}));
     localStorage.setItem(SAVE_KEY, JSON.stringify({
       replied, assignmentResolved, capturedEvidence,
+      assignment2Resolved, capturedEvidence2,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
       tabs: TABS, tabSeq, activeId,
@@ -1705,7 +2021,9 @@ function saveProgress(){
       radenPage: document.getElementById('listPage').classList.contains('hidden') ? 'dash' : 'list',
       rdFilterCat, rdFilterText, rdPage,
       mailFolder: currentFolder,
-      lastSRQuery
+      lastSRQuery,
+      ogDetailId: ogCurrentRecord && !document.getElementById('ogDetail').classList.contains('hidden') ? ogCurrentRecord.id : null,
+      ogLastQuery
     }));
   } catch(e){}
 }
@@ -1718,12 +2036,17 @@ function loadProgress(){
   replied = !!saved.replied;
   assignmentResolved = !!saved.assignmentResolved;
   capturedEvidence = saved.capturedEvidence || null;
+  assignment2Resolved = !!saved.assignment2Resolved;
+  capturedEvidence2 = saved.capturedEvidence2 || null;
 
   const mailById = {};
   mailById[NEW_MAIL.id] = NEW_MAIL;
   mailById[ASSIGNMENT_MAIL.id] = ASSIGNMENT_MAIL;
   mailById[RETRY_MAIL.id] = RETRY_MAIL;
   mailById[SUCCESS_MAIL.id] = SUCCESS_MAIL;
+  mailById[ASSIGNMENT2_MAIL.id] = ASSIGNMENT2_MAIL;
+  mailById[RETRY2_MAIL.id] = RETRY2_MAIL;
+  mailById[SUCCESS2_MAIL.id] = SUCCESS2_MAIL;
   (saved.delivered || []).slice().reverse().forEach(d => {
     const mail = mailById[d.id];
     if(!mail) return;
@@ -1755,6 +2078,13 @@ function loadProgress(){
   }
   if(saved.rdPage) rdPage = saved.rdPage;
   if(saved.radenLoggedIn) renderRecords();
+
+  if(saved.ogLastQuery) ogLastQuery = saved.ogLastQuery;
+  if(saved.ogDetailId){
+    ogShowDetail(saved.ogDetailId);
+  } else if(saved.ogLastQuery){
+    ogRenderResult(saved.ogLastQuery);
+  }
 
   if(saved.mailFolder && saved.mailFolder !== 'inbox'){
     currentFolder = saved.mailFolder;
