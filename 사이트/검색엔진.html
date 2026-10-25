@@ -1901,8 +1901,8 @@ function applyEffect(name){
   else if(name === 'hint117') addDynamicArticle(117);
   else if(name === 'hint118') addDynamicArticle(118);
   else if(name === 'hint122') addDynamicArticle(122);
-  else if(name === 'chainAssign2'){ queueDelivery('assign2', 100000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); showCutscene(118); }
-  else if(name === 'chainAssign3'){ queueDelivery('assign3', 100000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); showCutscene(122); }
+  else if(name === 'chainAssign2'){ queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); showCutscene(118); }
+  else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); showCutscene(122); }
 }
 
 /* ===== 의뢰 완료 컷씬 ===== */
@@ -1980,7 +1980,7 @@ function sendReply(){
   replied = true;
   openDetail('inbox', NEW_MAIL.id);
   saveProgress();
-  queueDelivery('assign1', 20000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
 }
 
 function showAssignReply(){ document.getElementById('assignReplyBox').classList.remove('hidden'); }
@@ -1989,7 +1989,7 @@ function hideAssignReply(){ document.getElementById('assignReplyBox').classList.
 function sendAssignReply(){
   const correct = !!capturedEvidence && capturedEvidence.item === '쌀' && capturedEvidence.to === '그라노프 물류허브';
   openDetail('inbox', ASSIGNMENT_MAIL.id);
-  queueDelivery('result1', 30000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
+  queueDelivery('result1', 15000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
     pendingFlag: 'assignmentPending',
     resolvedFlag: correct ? 'assignmentResolved' : null,
     effect: correct ? 'chainAssign2' : 'hint116'
@@ -2002,7 +2002,7 @@ function hideAssign2Reply(){ document.getElementById('assign2ReplyBox').classLis
 function sendAssign2Reply(){
   const correct = !!capturedEvidence2 && capturedEvidence2.id === 'org1' && !!capturedEvidence3 && capturedEvidence3.id === 'listing1';
   openDetail('inbox', ASSIGNMENT2_MAIL.id);
-  queueDelivery('result2', 30000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
+  queueDelivery('result2', 15000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
     pendingFlag: 'assignment2Pending',
     resolvedFlag: correct ? 'assignment2Resolved' : null,
     effect: correct ? 'chainAssign3' : null
@@ -2017,7 +2017,7 @@ function sendAssign3Reply(){
   const kw = (document.getElementById('assign3Keyword').value || '').trim();
   const correct = ASSIGN3_KEYWORDS.some(k => kw.includes(k));
   openDetail('inbox', ASSIGNMENT3_MAIL.id);
-  queueDelivery('result3', 30000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
+  queueDelivery('result3', 15000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
     pendingFlag: 'assignment3Pending',
     resolvedFlag: correct ? 'assignment3Resolved' : null
   });
