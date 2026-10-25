@@ -327,7 +327,13 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 .article img.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:18px;display:block;}
 .article .cat{color:var(--accent);font-weight:700;font-size:12px;}
 .article h1{font-size:21px;margin:6px 0 8px;line-height:1.35;}
-.article .byline{color:var(--muted);font-size:12px;margin-bottom:22px;}
+.article .byline{color:var(--muted);font-size:12px;}
+.article .bylinerow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;}
+.article .scrapbtn{flex-shrink:0;display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:700;color:var(--muted);background:none;border:1px solid var(--border);border-radius:999px;padding:5px 11px;cursor:pointer;transition:all .12s ease;}
+.article .scrapbtn .ic{width:12px;height:12px;}
+.article .scrapbtn:hover{border-color:var(--accent);color:var(--accent);}
+.article .scrapbtn.on{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+.article .scrapbtn.on .ic{fill:currentColor;}
 .article p{font-size:14.5px;line-height:1.85;margin:0 0 16px;}
 .article .cmts{margin-top:30px;padding-top:20px;border-top:1px solid var(--border);}
 .article .cmts-head{font-size:13px;font-weight:700;margin-bottom:6px;}
@@ -469,6 +475,26 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #captureToast .ic{width:14px;height:14px;flex-shrink:0;}
 #captureToast.show{opacity:1;transform:translate(-50%,0);}
 #captureToast.warn{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
+
+/* ===================== 스크랩 위젯(따라다니는 창) ===================== */
+.scrapwidget{position:fixed;left:max(20px, env(safe-area-inset-left,0px));bottom:max(20px, env(safe-area-inset-bottom,0px));z-index:65;}
+.scrapwidget.hidden{display:none;}
+.scraptoggle{position:relative;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 26px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);}
+.scraptoggle .ic{width:18px;height:18px;}
+.scraptoggle:hover{background:var(--hover-bg);}
+.scrapcount{position:absolute;top:-3px;right:-3px;min-width:17px;height:17px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 4px;}
+.scrappanel{position:absolute;left:0;bottom:calc(100% + 10px);width:280px;max-height:360px;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:12px;box-shadow:0 16px 40px rgba(0,0,0,.22);}
+.scrappanel.hidden{display:none;}
+.scrappanel-head{padding:12px 14px;font-size:12.5px;font-weight:700;border-bottom:1px solid var(--border);}
+.scrappanel-list{padding:6px;}
+.scrap-row{display:flex;align-items:center;gap:8px;padding:9px 8px;border-radius:8px;cursor:pointer;}
+.scrap-row:hover{background:var(--hover-bg);}
+.scrap-row .txt{flex:1;min-width:0;}
+.scrap-row .t{font-size:12.3px;font-weight:600;line-height:1.4;overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+.scrap-row .o{font-size:11px;color:var(--muted);margin-top:2px;}
+.scrap-row .rm{flex-shrink:0;width:14px;height:14px;color:var(--muted);}
+.scrap-row .rm:hover{color:#B5452E;}
+.scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
 
 /* ===================== 의뢰 완료 컷씬 ===================== */
 #cutsceneOverlay{
@@ -1098,6 +1124,17 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 <div id="captureToast"></div>
 
+<div id="scrapWidget" class="scrapwidget hidden">
+  <div class="scrappanel hidden" id="scrapPanel">
+    <div class="scrappanel-head">스크랩한 기사</div>
+    <div class="scrappanel-list" id="scrapList"></div>
+  </div>
+  <button class="scraptoggle" id="scrapToggle" onclick="toggleScrapPanel()" aria-label="스크랩 목록">
+    <svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>
+    <span class="scrapcount" id="scrapCount">0</span>
+  </button>
+</div>
+
 <div id="cutsceneOverlay">
   <div class="cutscene-card">
     <div class="cutscene-tag">의뢰 완료 · 관련 기사</div>
@@ -1451,7 +1488,12 @@ function renderArticleBody(id){
     ${a.img ? `<img class="hero-img" src="${a.img}" alt="">` : ''}
     <p class="cat">${a.cat}</p>
     <h1>${a.title}</h1>
-    <p class="byline">${a.outlet} · ${a.time} · 댓글 ${a.c}</p>
+    <div class="bylinerow">
+      <p class="byline">${a.outlet} · ${a.time} · 댓글 ${a.c}</p>
+      <button class="scrapbtn${isScrapped(a.id) ? ' on' : ''}" id="scrapBtn" onclick="toggleScrap(${a.id})" aria-label="${isScrapped(a.id) ? '스크랩 해제' : '스크랩'}">
+        <svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>스크랩
+      </button>
+    </div>
     ${a.body.map(p => `<p>${p}</p>`).join('')}
     ${a.comments && a.comments.length ? `
     <div class="cmts">
@@ -1736,6 +1778,52 @@ function renderBankcard(){
   bankTx.forEach(t => t.fresh = false);
 }
 renderBankcard();
+
+/* ===== 스크랩 — 기사/게시글을 모아 보는 따라다니는 창 ===== */
+let scrapped = [];
+function isScrapped(id){ return scrapped.includes(id); }
+function toggleScrap(id){
+  const idx = scrapped.indexOf(id);
+  if(idx === -1){
+    scrapped.unshift(id);
+    showCaptureToast('스크랩했습니다', 'ok');
+  } else {
+    scrapped.splice(idx, 1);
+  }
+  const btn = document.getElementById('scrapBtn');
+  if(btn){
+    const on = isScrapped(id);
+    btn.classList.toggle('on', on);
+    btn.setAttribute('aria-label', on ? '스크랩 해제' : '스크랩');
+  }
+  renderScrapWidget();
+  saveProgress();
+}
+function scrapGo(id){
+  document.getElementById('scrapPanel').classList.add('hidden');
+  showArticle(id);
+}
+function toggleScrapPanel(){
+  document.getElementById('scrapPanel').classList.toggle('hidden');
+}
+function renderScrapWidget(){
+  const widget = document.getElementById('scrapWidget');
+  const countEl = document.getElementById('scrapCount');
+  const listEl = document.getElementById('scrapList');
+  if(!widget) return;
+  widget.classList.toggle('hidden', scrapped.length === 0);
+  countEl.textContent = scrapped.length;
+  listEl.innerHTML = scrapped.length ? scrapped.map(id => {
+    const a = ARTICLES.find(x => x.id === id) || HINTS.find(x => x.id === id);
+    if(!a) return '';
+    return `
+      <div class="scrap-row" onclick="scrapGo(${a.id})">
+        <div class="txt"><div class="t">${a.title}</div><div class="o">${a.outlet}</div></div>
+        <svg class="ic rm" viewBox="0 0 24 24" onclick="event.stopPropagation();toggleScrap(${a.id})"><path d="M6 6l12 12M18 6 6 18"/></svg>
+      </div>
+    `;
+  }).join('') : `<div class="scrapempty">스크랩한 기사가 없습니다</div>`;
+}
 
 const FOLDERS = {
   inbox: [
@@ -2545,7 +2633,7 @@ function saveProgress(){
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
-      bankBalance, bankTx,
+      bankBalance, bankTx, scrapped,
       pendingDeliveries, pendingCutscene,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -2578,6 +2666,8 @@ function loadProgress(){
   bankBalance = saved.bankBalance || 0;
   bankTx = saved.bankTx || [];
   renderBankcard();
+  scrapped = saved.scrapped || [];
+  renderScrapWidget();
   pendingCutscene = saved.pendingCutscene || {};
 
   (saved.delivered || []).slice().reverse().forEach(d => {
