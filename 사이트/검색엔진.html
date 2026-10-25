@@ -287,6 +287,19 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #panel-search .financecard .head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;}
 #panel-search .financecard .sub{font-size:12px;color:var(--muted);margin-top:4px;}
 
+#panel-search .bankcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;}
+#panel-search .bankcard .head{display:flex;align-items:baseline;justify-content:space-between;font-size:13px;font-weight:700;}
+#panel-search .bankcard .bankname{font-size:11.5px;font-weight:600;color:var(--muted);}
+#panel-search .bankcard .bankbalance{font-size:24px;font-weight:700;font-family:'Oswald',sans-serif;font-variant-numeric:tabular-nums;margin-top:10px;}
+#panel-search .bankcard .bankbalance .won{font-size:13px;font-weight:600;color:var(--muted);margin-left:3px;font-family:inherit;}
+#panel-search .bankcard .bankowner{font-size:11.5px;color:var(--muted);margin-top:2px;}
+#panel-search .bankcard .banktx{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:7px;}
+#panel-search .bankcard .banktx-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px;}
+#panel-search .bankcard .banktx-row .tlabel{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#panel-search .bankcard .banktx-row .tamount{flex-shrink:0;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;}
+#panel-search .bankcard .banktx-row.fresh .tamount{color:#1E9E5A;}
+#panel-search .bankcard .bankempty{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted);}
+
 /* ===== 기사 본문 / 검색결과 오버레이 (panel-search, panel-searchresult 공용) ===== */
 .article{padding:20px 0 60px;max-width:680px;margin:0 auto;}
 .backlinks{display:flex;gap:16px;}
@@ -750,6 +763,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
           <span class="mctext"><b>레나 소린</b><span>이스크라 메일 열기</span></span>
           <svg class="ic chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
         </button>
+        <div class="bankcard" id="bankcard"></div>
         <div class="weathercard">
           <div class="top">
             <div>
@@ -1593,7 +1607,7 @@ const SUCCESS_MAIL = {
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "전달해 주신 자료 확인했습니다. 찾아주신 내용이 저희가 필요로 했던 부분과 정확히 일치합니다.",
-    "사례금은 영업일 기준 2~3일 내로 안내드린 계좌로 입금해 드리겠습니다.",
+    "사례금은 안내드린 계좌로 바로 입금해 드렸습니다. 인터넷뱅킹에서 확인해 보세요.",
     "협조해 주셔서 감사합니다. 다음 의뢰 건이 있으면 별도로 다시 안내드리겠습니다."
   ]
 };
@@ -1610,7 +1624,7 @@ const ASSIGNMENT2_MAIL = {
   id:'assign2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 추가 확인 요청',
   preview:'번거로우시겠지만 추가로 확인을 부탁드릴 일이 있습니다.', time:'방금 전', unread:true,
   body:[
-    "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 안내드린 일정대로 처리될 예정입니다.",
+    "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 이미 입금해 드렸으니 확인해 보시기 바랍니다.",
     "번거로우시겠지만 추가로 확인을 부탁드릴 일이 하나 더 있습니다. 다만 이번 건은 ERP 권한 없이 진행해 주셔야 합니다 — 지난번 임시 권한은 이미 만료 처리되었습니다.",
     "캡처해 주신 내역의 도착지(그라노프 물류허브)로 들어간 물량의 최종 수취인 란에 '바르네시아교민상회'라는 이름이 함께 적혀 있었습니다. 이 단체가 정식으로 등록된 곳인지 확인해 주실 수 있을까요. 등록 정보는 '단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 누구나 조회할 수 있습니다. 별도 로그인 없이, 단체명으로 검색해 보시면 될 것 같습니다.",
     "그리고 거기서 나오는 소재지가 실제로 쓰이고 있는 곳인지도 같이 확인해 주시면 좋겠습니다."
@@ -1622,7 +1636,7 @@ const SUCCESS2_MAIL = {
   body:[
     "전달해 주신 자료 잘 확인했습니다.",
     "등록 주소지가 매물로 나와 있다는 게 좀 이상하네요. 저희 쪽에서도 조금 더 살펴보겠습니다.",
-    "다음 확인 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+    "이번 건 사례금도 바로 입금해 드렸습니다. 다음 확인 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY2_MAIL = {
@@ -1649,7 +1663,7 @@ const SUCCESS3_MAIL = {
   body:[
     "찾아주신 내용 확인했습니다. 단순 구호단체일 가능성도 있겠네요.",
     "다만 저희 쪽 기록과는 여전히 안 맞는 부분이 있어서, 조금 더 살펴본 뒤에 다시 연락드리겠습니다.",
-    "협조해 주셔서 감사합니다."
+    "이번 건 사례금은 바로 입금해 드렸습니다. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY3_MAIL = {
@@ -1668,6 +1682,41 @@ let assignment2Resolved = false;
 let assignment3Pending = false;
 let assignment3Resolved = false;
 let lastDelivered = NEW_MAIL;
+
+const REWARD_BY_MAIL = {
+  [SUCCESS_MAIL.id]: {amount:150000, label:'D&K 리서치 그룹 · 1차 의뢰 사례금'},
+  [SUCCESS2_MAIL.id]: {amount:180000, label:'D&K 리서치 그룹 · 2차 의뢰 사례금'},
+  [SUCCESS3_MAIL.id]: {amount:220000, label:'D&K 리서치 그룹 · 3차 의뢰 사례금'}
+};
+let bankBalance = 0;
+let bankTx = [];
+function depositReward(mailId){
+  const r = REWARD_BY_MAIL[mailId];
+  if(!r) return;
+  bankBalance += r.amount;
+  bankTx.unshift({amount:r.amount, label:r.label, fresh:true});
+  renderBankcard();
+  showCaptureToast(r.amount.toLocaleString() + '원이 입금되었습니다', 'ok');
+}
+function renderBankcard(){
+  const el = document.getElementById('bankcard');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="head"><span>인터넷뱅킹</span><span class="bankname">도렌은행</span></div>
+    <div class="bankbalance">${bankBalance.toLocaleString()}<span class="won">원</span></div>
+    <div class="bankowner">예금주 레나 소린 · 입출금통장</div>
+    ${bankTx.length ? `<div class="banktx">
+      ${bankTx.slice(0,3).map(t => `
+        <div class="banktx-row${t.fresh ? ' fresh' : ''}">
+          <span class="tlabel">${t.label}</span>
+          <span class="tamount">+${t.amount.toLocaleString()}원</span>
+        </div>
+      `).join('')}
+    </div>` : `<div class="bankempty">입출금 내역이 없습니다</div>`}
+  `;
+  bankTx.forEach(t => t.fresh = false);
+}
+renderBankcard();
 
 const FOLDERS = {
   inbox: [
@@ -1934,7 +1983,10 @@ function fireDelivery(uid){
   if(d.pendingFlag) setFlag(d.pendingFlag, false);
   if(d.resolvedFlag) setFlag(d.resolvedFlag, true);
   const mail = MAIL_BY_ID[d.mailId];
-  if(mail && !(d.skipIfPresent && FOLDERS.inbox.some(m => m.id === mail.id))) deliverMail(mail);
+  if(mail && !(d.skipIfPresent && FOLDERS.inbox.some(m => m.id === mail.id))){
+    deliverMail(mail);
+    depositReward(mail.id);
+  }
   if(d.effect) applyEffect(d.effect);
   refreshChips();
   saveProgress();
@@ -2462,6 +2514,7 @@ function saveProgress(){
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
+      bankBalance, bankTx,
       pendingDeliveries,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -2491,6 +2544,9 @@ function loadProgress(){
   capturedEvidence2 = saved.capturedEvidence2 || null;
   capturedEvidence3 = saved.capturedEvidence3 || null;
   assignment3Resolved = !!saved.assignment3Resolved;
+  bankBalance = saved.bankBalance || 0;
+  bankTx = saved.bankTx || [];
+  renderBankcard();
 
   (saved.delivered || []).slice().reverse().forEach(d => {
     const mail = MAIL_BY_ID[d.id];
