@@ -439,6 +439,30 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #captureToast.show{opacity:1;transform:translate(-50%,0);}
 #captureToast.warn{background:var(--surface);color:var(--ink);border:1px solid var(--border);}
 
+/* ===================== 의뢰 완료 컷씬 ===================== */
+#cutsceneOverlay{
+  position:fixed;inset:0;background:rgba(10,12,16,.72);z-index:90;
+  display:flex;align-items:center;justify-content:center;padding:24px;
+  opacity:0;pointer-events:none;transition:opacity .3s ease;
+}
+#cutsceneOverlay.show{opacity:1;pointer-events:auto;}
+.cutscene-card{
+  width:100%;max-width:420px;background:var(--surface);border-radius:14px;overflow:hidden;
+  box-shadow:0 24px 60px rgba(0,0,0,.4);transform:translateY(14px) scale(.98);transition:transform .3s ease;
+}
+#cutsceneOverlay.show .cutscene-card{transform:translateY(0) scale(1);}
+.cutscene-tag{padding:12px 20px 0;font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.02em;}
+.cutscene-img{width:100%;max-height:220px;object-fit:cover;display:block;margin-top:8px;}
+.cutscene-body{padding:16px 20px 20px;}
+.cutscene-cat{font-size:11.5px;color:var(--muted);margin-bottom:4px;}
+.cutscene-title{font-size:17px;font-weight:800;line-height:1.4;margin-bottom:10px;}
+.cutscene-text{font-size:13px;line-height:1.7;color:var(--ink);margin-bottom:16px;}
+.cutscene-foot{display:flex;align-items:center;gap:12px;}
+.cutscene-bar-track{flex:1;height:3px;background:var(--border);border-radius:999px;overflow:hidden;}
+.cutscene-bar-fill{height:100%;width:0;background:var(--accent);}
+.cutscene-skip{flex-shrink:0;font-size:12px;font-weight:600;color:var(--muted);background:none;border:none;cursor:pointer;padding:4px 2px;}
+.cutscene-skip:hover{color:var(--ink);}
+
 /* ===================== 패널: 라덴통상 ERP ===================== */
 #panel-raden .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 0;}
 #panel-raden .gatebox{width:100%;max-width:340px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px 28px;}
@@ -1050,6 +1074,19 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 
 <div id="captureToast"></div>
+
+<div id="cutsceneOverlay">
+  <div class="cutscene-card">
+    <div class="cutscene-tag">의뢰 완료 · 관련 기사</div>
+    <div id="cutsceneBody"></div>
+    <div class="cutscene-body" style="padding-top:0;">
+      <div class="cutscene-foot">
+        <div class="cutscene-bar-track"><div class="cutscene-bar-fill" id="cutsceneBar"></div></div>
+        <button class="cutscene-skip" id="cutsceneSkip">건너뛰기</button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <script>
 /* ===================== 공유 셸: 멀티탭 ===================== */
@@ -1804,11 +1841,11 @@ function renderActions(m){
     return `
       <div class="actions"><button class="live" onclick="showAssign3Reply()">답장</button><button>전달</button><button>삭제</button></div>
       <div class="replybox hidden" id="assign3ReplyBox">
-        <div class="kwprompt">찾아본 내용을 한 문장으로 정리한다면—</div>
+        <div class="kwprompt">지금까지 찾은 기사들을 정리해 보면— 저소득 가정 장학금, 신규 이주민 정착 지원, 전통문화 축제 같은 활동이 꾸준히 이어지고 있었다. 이 단체가 전체적으로 어떤 목적의 단체인지 한 문장으로 정리한다면—</div>
         <div class="kwsentence">
-          <span>"이 단체는</span>
+          <span>"바르네시아교민상회는 도렌그라드에 정착한 교민들을 위한</span>
           <input type="text" id="assign3Keyword" class="kwinput-inline" autocomplete="off">
-          <span>성격에 가까운 것 같습니다."</span>
+          <span>성격의 단체에 가까운 것 같습니다."</span>
         </div>
         <div class="replyactions">
           <button class="sendbtn" onclick="sendAssign3Reply()">보내기</button>
@@ -1864,8 +1901,49 @@ function applyEffect(name){
   else if(name === 'hint117') addDynamicArticle(117);
   else if(name === 'hint118') addDynamicArticle(118);
   else if(name === 'hint122') addDynamicArticle(122);
-  else if(name === 'chainAssign2') queueDelivery('assign2', 100000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true, effect:'hint118'});
-  else if(name === 'chainAssign3') queueDelivery('assign3', 100000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true, effect:'hint122'});
+  else if(name === 'chainAssign2'){ queueDelivery('assign2', 100000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); showCutscene(118); }
+  else if(name === 'chainAssign3'){ queueDelivery('assign3', 100000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); showCutscene(122); }
+}
+
+/* ===== 의뢰 완료 컷씬 ===== */
+let cutsceneTimer = null;
+const CUTSCENE_MS = 6000;
+function goToMainScreen(){
+  let t = TABS.find(x => x.kind === 'search');
+  if(!t){ t = {id:'t'+(tabSeq++), kind:'search', title:'이스크라', favicon:'&#10022;'}; TABS.push(t); }
+  switchTab(t.id);
+}
+function showCutscene(hintId){
+  const a = HINTS.find(x => x.id === hintId);
+  if(!a) return;
+  addDynamicArticle(hintId);
+  const ov = document.getElementById('cutsceneOverlay');
+  document.getElementById('cutsceneBody').innerHTML = `
+    ${a.img ? `<img class="cutscene-img" src="${a.img}" alt="">` : ''}
+    <div class="cutscene-body">
+      <p class="cutscene-cat">${a.cat} · ${a.outlet}</p>
+      <h2 class="cutscene-title">${a.title}</h2>
+      <p class="cutscene-text">${a.body[0]}</p>
+    </div>
+  `;
+  const bar = document.getElementById('cutsceneBar');
+  bar.style.transition = 'none';
+  bar.style.width = '0%';
+  ov.classList.add('show');
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      bar.style.transition = `width ${CUTSCENE_MS}ms linear`;
+      bar.style.width = '100%';
+    });
+  });
+  const finish = () => {
+    if(cutsceneTimer){ clearTimeout(cutsceneTimer); cutsceneTimer = null; }
+    ov.classList.remove('show');
+    document.getElementById('cutsceneSkip').onclick = null;
+    goToMainScreen();
+  };
+  document.getElementById('cutsceneSkip').onclick = finish;
+  cutsceneTimer = setTimeout(finish, CUTSCENE_MS);
 }
 function armTimer(uid, ms){
   setTimeout(() => fireDelivery(uid), Math.max(0, ms));
