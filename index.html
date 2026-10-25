@@ -163,6 +163,24 @@ button{font:inherit;}
 .navbtn.active{background:var(--accent);color:var(--accent-ink);}
 .navbtn.active:hover{background:var(--accent);}
 
+#captureBtn{position:relative;}
+#captureBtn.hint{color:var(--accent);animation:captureGlow 1.6s ease-in-out infinite;}
+@keyframes captureGlow{
+  0%,100%{box-shadow:0 0 0 0 color-mix(in srgb, var(--accent) 45%, transparent);}
+  50%{box-shadow:0 0 0 7px color-mix(in srgb, var(--accent) 0%, transparent);}
+}
+#captureBtn .captip{
+  position:absolute;top:calc(100% + 10px);right:-6px;transform:translateY(-4px);
+  width:190px;background:var(--ink);color:var(--bg);font-size:11.5px;font-weight:600;line-height:1.5;
+  padding:10px 12px;border-radius:8px;text-align:left;white-space:normal;cursor:default;
+  opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease;z-index:70;
+}
+#captureBtn .captip::before{
+  content:'';position:absolute;bottom:100%;right:16px;
+  border:6px solid transparent;border-bottom-color:var(--ink);
+}
+#captureBtn.hint:hover .captip{opacity:1;transform:translateY(0);}
+
 body.capture-mode #panel-raden .raderow{cursor:crosshair;}
 body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);outline-offset:-2px;background:var(--hover-bg);}
 body.capture-mode #panel-orginfo .og-cert{cursor:crosshair;}
@@ -675,7 +693,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
       <span id="addrText">iskra.dg</span>
     </div>
     <button class="navbtn" aria-label="북마크"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg></button>
-    <button class="navbtn" id="captureBtn" onclick="doCapture()" aria-label="캡처"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h1.3l.7-1.3A2 2 0 0 1 8.7 3.6h6.6a2 2 0 0 1 1.7 1.1L17.7 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.4"/></svg></button>
+    <button class="navbtn" id="captureBtn" onclick="doCapture()" aria-label="캡처"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h1.3l.7-1.3A2 2 0 0 1 8.7 3.6h6.6a2 2 0 0 1 1.7 1.1L17.7 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.4"/></svg><span class="captip">의심스러운 거래 내역을 찾으면 이 버튼을 눌러 화면을 캡처하세요</span></button>
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="chromemenu hidden" id="chromeMenu">
@@ -1132,6 +1150,7 @@ function switchTab(id){
     document.getElementById('addrText').textContent = chromeAddr[k] || '';
     document.getElementById('backBtn').disabled = !chromeBackEnabled[k];
   }
+  if(typeof updateCaptureHint === 'function') updateCaptureHint();
   if(typeof saveProgress === 'function') saveProgress();
 }
 
@@ -1232,6 +1251,11 @@ const CAPTURE_HINTS = {
   orginfo: '캡처할 등록 정보 화면을 클릭하세요 (Esc로 취소)',
   listing: '캡처할 매물 정보 화면을 클릭하세요 (Esc로 취소)'
 };
+function updateCaptureHint(){
+  const btn = document.getElementById('captureBtn');
+  if(!btn) return;
+  btn.classList.toggle('hint', activeKind() === 'raden' && !capturedEvidence);
+}
 function doCapture(){
   if(captureMode){ exitCaptureMode(); return; }
   if(!CAPTURE_HINTS[activeKind()]){
@@ -1243,6 +1267,7 @@ function doCapture(){
 function enterCaptureMode(){
   captureMode = true;
   document.getElementById('captureBtn').classList.add('active');
+  document.getElementById('captureBtn').classList.remove('hint');
   document.body.classList.add('capture-mode');
   showCaptureToast(CAPTURE_HINTS[activeKind()] || CAPTURE_HINTS.raden, 'info');
 }
@@ -1250,6 +1275,7 @@ function exitCaptureMode(){
   captureMode = false;
   document.getElementById('captureBtn').classList.remove('active');
   document.body.classList.remove('capture-mode');
+  updateCaptureHint();
 }
 document.addEventListener('keydown', (e) => {
   if(e.key === 'Escape' && captureMode) exitCaptureMode();
@@ -1265,6 +1291,7 @@ function performCapture(i){
   exitCaptureMode();
   showCaptureToast(`캡처됨: ${record.date} · ${record.item} ${record.qty} → ${record.to}`, 'ok');
   refreshChips();
+  updateCaptureHint();
   saveProgress();
 }
 function ogDetailClick(){
