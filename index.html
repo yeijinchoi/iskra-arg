@@ -222,6 +222,13 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #panel-search .realtime b{color:var(--ink);font-weight:700;}
 #panel-search .realtime .chev{width:12px;height:12px;color:var(--muted);}
 
+#panel-search .serviceicons{display:flex;justify-content:center;flex-wrap:wrap;gap:26px;padding:22px 0 0;}
+#panel-search .svcitem{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;font-family:inherit;cursor:pointer;color:var(--ink);padding:0;}
+#panel-search .svcitem .ico{width:42px;height:42px;border-radius:13px;background:var(--surface);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;}
+#panel-search .svcitem .ico .ic{width:19px;height:19px;color:var(--accent);}
+#panel-search .svcitem .lbl{font-size:11px;color:var(--muted);}
+#panel-search .svcitem:hover .ico{background:var(--hover-bg);border-color:var(--accent2);}
+
 #panel-search .promorow{padding:22px 0 0;}
 #panel-search .adcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:16px;position:relative;}
 #panel-search .adcard .adtag{position:absolute;top:10px;right:12px;font-size:11px;color:var(--muted);border:1px solid var(--border);border-radius:4px;padding:1px 5px;letter-spacing:.03em;}
@@ -565,13 +572,13 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
   #panel-orginfo .og-cert-table td{padding:10px 12px;font-size:12px;}
 }
 
-/* ===================== 패널: 상가클릭 ===================== */
+/* ===================== 패널: 이스크라 부동산 ===================== */
 #panel-listing{--ls-teal:#0C8C7D;--ls-teal-dk:#086F63;--ls-ink:#1C2430;--ls-muted:#6B7484;--ls-bg:#F6F9F8;--ls-border:#DCE8E5;--ls-amber:#B8690C;--ls-amberbg:#FDF1E4;}
 #panel-listing{background:var(--ls-bg);min-height:100%;}
 #panel-listing .ls-header{background:#fff;border-bottom:1px solid var(--ls-border);}
 #panel-listing .ls-header-inner{max-width:760px;margin:0 auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
-#panel-listing .ls-logo{display:flex;align-items:center;gap:8px;font-size:17px;font-weight:900;color:var(--ls-teal-dk);letter-spacing:-.01em;}
-#panel-listing .ls-logo .dot{width:9px;height:9px;border-radius:50%;background:var(--ls-teal);}
+#panel-listing .ls-logo{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:900;color:var(--ls-ink);letter-spacing:-.01em;}
+#panel-listing .ls-logo .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;font-family:'Oswald',sans-serif;flex-shrink:0;}
 #panel-listing .ls-nav{display:flex;gap:4px;flex-wrap:wrap;}
 #panel-listing .ls-nav button{background:none;border:none;font-family:inherit;font-size:12px;color:var(--ls-muted);padding:7px 11px;border-radius:999px;cursor:pointer;}
 #panel-listing .ls-nav button.active{color:#fff;font-weight:800;background:var(--ls-teal);}
@@ -662,6 +669,16 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
           <b id="rtItem">레아 다닐로바 열애설</b>
           <svg class="ic chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
         </div>
+      </div>
+      <div class="serviceicons">
+        <button class="svcitem" onclick="openTab('mail','이스크라 메일','&#9993;')"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span class="lbl">메일</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 8h12v6a4 4 0 0 1-4 4H8a4 4 0 0 1-4-4V8Z"/><path d="M16 9h2a2 2 0 0 1 0 4h-2"/></svg></span><span class="lbl">카페</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 19.5V6a2 2 0 0 1 2-2h8l6 6v9.5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2Z"/><path d="M14 4v6h6"/></svg></span><span class="lbl">블로그</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7V5a3 3 0 0 1 6 0v2"/></svg></span><span class="lbl">쇼핑</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="14" height="16" rx="1"/><path d="M7 9h6M7 13h6M7 17h3"/><path d="M17 8h2a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2"/></svg></span><span class="lbl">뉴스</span></button>
+        <button class="svcitem" onclick="openTab('listing','이스크라 부동산','&#127970;')"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M4 21V10l8-6 8 6v11"/><path d="M9 21v-6h6v6"/></svg></span><span class="lbl">부동산</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2Z"/><path d="M9 4v14M15 6v14"/></svg></span><span class="lbl">지도</span></button>
+        <button class="svcitem"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="m3 15 5-5 4 4 4-4 5 5"/><circle cx="8" cy="9" r="1.5"/></svg></span><span class="lbl">웹툰</span></button>
       </div>
     </div>
 
@@ -978,7 +995,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <div id="panel-listing" class="panel hidden">
 <div class="ls-header">
   <div class="ls-header-inner">
-    <div class="ls-logo"><span class="dot"></span>상가클릭</div>
+    <div class="ls-logo"><span class="mark">I</span>이스크라 부동산</div>
     <nav class="ls-nav">
       <button class="active">매물 검색</button>
       <button>임대 내놓기</button>
@@ -1485,7 +1502,7 @@ const ASSIGNMENT2_MAIL = {
     "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 안내드린 일정대로 처리될 예정입니다.",
     "번거로우시겠지만 추가로 확인을 부탁드릴 일이 하나 더 있습니다. 다만 이번 건은 ERP 권한 없이 진행해 주셔야 합니다 — 지난번 임시 권한은 이미 만료 처리되었습니다.",
     "캡처해 주신 내역의 도착지(그라노프 물류허브)로 들어간 물량의 최종 수취인 란에 '바르네시아 재건위원회'라는 이름이 함께 적혀 있었습니다. 이 단체가 정식으로 등록된 곳인지 확인해 주실 수 있을까요. 등록 정보는 '단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 누구나 조회할 수 있습니다. 별도 로그인 없이, 단체명으로 검색해 보시면 될 것 같습니다.",
-    "거기서 나오는 소재지가 실제로 쓰이고 있는 곳인지도 같이 확인해 주시면 좋겠습니다. 저희 경험상 그런 건 '상가클릭'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('listing','상가클릭','&#127970;')\">sangga-click.dg</a>) 같은 매물 사이트에서 그 주소로 검색해 보면 금방 드러나더라고요."
+    "그리고 거기서 나오는 소재지가 실제로 쓰이고 있는 곳인지도 같이 확인해 주시면 좋겠습니다."
   ]
 };
 const SUCCESS2_MAIL = {
@@ -1502,8 +1519,8 @@ const RETRY2_MAIL = {
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 내용을 확인했습니다만, 저희가 필요한 내용과는 조금 다른 것 같습니다.",
-    "'단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 '바르네시아 재건위원회'로 검색하시면 등록현황(소재지 포함)을 캡처하실 수 있고, 그 소재지를 '상가클릭'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('listing','상가클릭','&#127970;')\">sangga-click.dg</a>) 같은 매물 사이트에서 다시 검색하시면 그 자리가 실제로 쓰이고 있는지 확인하실 수 있을 겁니다.",
-    "두 화면을 모두 캡처해서 보내주시면 될 것 같습니다."
+    "'단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 '바르네시아 재건위원회'로 검색하시면 등록현황(소재지 포함)을 캡처하실 수 있습니다. 그리고 그 소재지가 실제로 쓰이고 있는 곳인지 확인할 수 있는 자료도 하나 더 필요합니다.",
+    "두 가지를 모두 캡처해서 보내주시면 될 것 같습니다."
   ]
 };
 let replied = false;
@@ -2090,12 +2107,12 @@ function ogShowDetail(id){
 setAddr('orginfo', 'org-info.go.dg');
 setBack('orginfo', false);
 
-/* ===================== 패널: 상가클릭 ===================== */
+/* ===================== 패널: 이스크라 부동산 ===================== */
 const LISTINGS = [
   {
     id:'listing1', addr:'그라노프 트란지트나 대로 118, 3층 스위트 305', type:'사무실', status:'공실',
     area:'23㎡ (전용)', rent:'월 850,000원 (관리비 10만원 별도)', postedDate:'2026-08-02',
-    agent:'상가클릭 제휴중개 · 그라노프지점', note:'즉시 입주 가능 · 실측 권장'
+    agent:'이스크라 부동산 제휴중개 · 그라노프지점', note:'즉시 입주 가능 · 실측 권장'
   }
 ];
 let capturedEvidence3 = null;
@@ -2111,7 +2128,7 @@ function lsShowHome(){
   document.getElementById('lsHome').classList.remove('hidden');
   document.getElementById('lsResult').classList.add('hidden');
   document.getElementById('lsDetail').classList.add('hidden');
-  setAddr('listing', 'sangga-click.dg');
+  setAddr('listing', 'realty.iskra.dg');
   setBack('listing', false);
   saveProgress();
 }
@@ -2141,14 +2158,14 @@ function lsRenderResult(q){
       </button>
     `).join('');
   }
-  setAddr('listing', 'sangga-click.dg/search?q=' + encodeURIComponent(q));
+  setAddr('listing', 'realty.iskra.dg/search?q=' + encodeURIComponent(q));
   setBack('listing', true);
   saveProgress();
 }
 function lsShowResultBack(){
   document.getElementById('lsDetail').classList.add('hidden');
   document.getElementById('lsResult').classList.remove('hidden');
-  setAddr('listing', 'sangga-click.dg/search?q=' + encodeURIComponent(lsLastQuery));
+  setAddr('listing', 'realty.iskra.dg/search?q=' + encodeURIComponent(lsLastQuery));
   setBack('listing', true);
 }
 function lsGoBack(){
@@ -2176,7 +2193,7 @@ function lsShowDetail(id){
     <tr><th>담당</th><td>${r.agent}</td></tr>
     <tr><th>비고</th><td>${r.note}</td></tr>
   `;
-  setAddr('listing', 'sangga-click.dg/view/' + r.id);
+  setAddr('listing', 'realty.iskra.dg/view/' + r.id);
   setBack('listing', true);
   saveProgress();
 }
@@ -2192,7 +2209,7 @@ function performCaptureListing(){
   saveProgress();
 }
 
-setAddr('listing', 'sangga-click.dg');
+setAddr('listing', 'realty.iskra.dg');
 setBack('listing', false);
 
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
