@@ -1436,7 +1436,7 @@ function matchItems(q){
   return [...ARTICLES, ...HINTS].filter(a => {
     const inTitle = a.title.toLowerCase().includes(ql);
     const inCompany = a.company ? (a.company.toLowerCase().includes(ql) || ql.includes(a.company.toLowerCase())) : false;
-    const inTags = a.tags ? a.tags.some(t => t.toLowerCase().includes(ql) || ql.includes(t.toLowerCase())) : false;
+    const inTags = a.tags ? a.tags.some(t => t.toLowerCase().includes(ql)) : false;
     return inTitle || inCompany || inTags;
   });
 }
