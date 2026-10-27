@@ -496,19 +496,19 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 .scrap-row .rm:hover{color:#B5452E;}
 .scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
 
-/* ===================== 의뢰 완료 컷씬 ===================== */
-#cutsceneOverlay{
+/* ===================== 전체화면 리딩 오버레이(인트로 / 의뢰 완료 컷씬 공용) ===================== */
+.fullpage-overlay{
   position:fixed;inset:0;background:var(--bg);z-index:90;overflow-y:auto;
   opacity:0;pointer-events:none;transition:opacity .2s ease;
 }
-#cutsceneOverlay.show{opacity:1;pointer-events:auto;}
+.fullpage-overlay.show{opacity:1;pointer-events:auto;}
 .cutscene-card{max-width:680px;margin:0 auto;padding:56px 20px 80px;}
 .cutscene-tag{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.02em;margin-bottom:16px;}
 .cutscene-img{width:100%;max-height:360px;object-fit:cover;display:block;margin-bottom:18px;}
 .cutscene-cat{font-size:12px;color:var(--muted);margin-bottom:6px;}
 .cutscene-title{font-size:23px;font-weight:800;line-height:1.4;margin-bottom:16px;}
 .cutscene-text{font-size:14.5px;line-height:1.8;color:var(--ink);margin-bottom:16px;}
-.cutscene-sleep{display:block;margin-top:24px;background:none;border:none;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
+.cutscene-sleep{display:block;width:fit-content;margin:24px auto 0;background:none;border:none;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 .cutscene-sleep:hover{color:var(--accent);}
 
 /* ===================== 패널: 라덴통상 ERP ===================== */
@@ -1135,7 +1135,15 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   </button>
 </div>
 
-<div id="cutsceneOverlay">
+<div id="introOverlay" class="fullpage-overlay">
+  <div class="cutscene-card">
+    <div class="cutscene-tag">받은메일함</div>
+    <div id="introBody"></div>
+    <button class="cutscene-sleep" id="introGo">포털 메인으로 이동</button>
+  </div>
+</div>
+
+<div id="cutsceneOverlay" class="fullpage-overlay">
   <div class="cutscene-card">
     <div class="cutscene-tag">의뢰 완료 · 관련 기사</div>
     <div id="cutsceneBody"></div>
@@ -1608,8 +1616,7 @@ const TREND_KEYWORDS = [
   '그라노프',
   '케스테를룬드',
   '접경',
-  '통행 제한',
-  '바르네시아교민상회'
+  '통행 제한'
 ];
 let trendIdx = 0;
 let trendItemH = 0;
@@ -2054,6 +2061,25 @@ function applyEffect(name){
   else if(name === 'hint122') addDynamicArticle(122);
   else if(name === 'chainAssign2'){ queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS_MAIL.id] = 118; }
   else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
+}
+
+/* ===== 인트로 — 첫 실행 시 등록금 메일로 시작 ===== */
+let introSeen = false;
+function showIntro(){
+  const m = FOLDERS.inbox.find(x => x.id === 'm2');
+  if(!m) return;
+  const ov = document.getElementById('introOverlay');
+  document.getElementById('introBody').innerHTML = `
+    <p class="cutscene-cat">${m.sender} · ${m.time}</p>
+    <h2 class="cutscene-title">${m.subject}</h2>
+    ${m.body.map(p => `<p class="cutscene-text">${p.replace(/\n/g,'<br>')}</p>`).join('')}
+  `;
+  ov.classList.add('show');
+  document.getElementById('introGo').onclick = () => {
+    ov.classList.remove('show');
+    introSeen = true;
+    saveProgress();
+  };
 }
 
 /* ===== 의뢰 완료 컷씬 — 완료 메일을 연 다음에 표시 ===== */
@@ -2633,7 +2659,7 @@ function saveProgress(){
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
-      bankBalance, bankTx, scrapped,
+      bankBalance, bankTx, scrapped, introSeen,
       pendingDeliveries, pendingCutscene,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -2657,6 +2683,7 @@ function loadProgress(){
   if(!saved) return;
 
   replied = !!saved.replied;
+  introSeen = saved.introSeen != null ? !!saved.introSeen : replied;
   assignmentResolved = !!saved.assignmentResolved;
   capturedEvidence = saved.capturedEvidence || null;
   assignment2Resolved = !!saved.assignment2Resolved;
@@ -2746,4 +2773,5 @@ function resetProgress(){
 }
 
 loadProgress();
+if(!introSeen) showIntro();
 </script>
