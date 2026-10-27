@@ -509,16 +509,18 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .scrap-row .rm:hover{color:#B5452E;}
 .scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
 
-.bgmwidget{position:fixed;left:calc(max(20px, env(safe-area-inset-left,0px)) + 56px);bottom:max(20px, env(safe-area-inset-bottom,0px));z-index:65;}
-.bgmtoggle{position:relative;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 26px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);}
-.bgmtoggle:hover{background:var(--hover-bg);}
-.bgmtoggle .ic{width:17px;height:17px;}
+.bgmwidget{
+  position:fixed;right:max(20px, env(safe-area-inset-right,0px));bottom:calc(max(20px, env(safe-area-inset-bottom,0px)) + 90px);z-index:65;
+  display:flex;align-items:center;gap:10px;max-width:220px;
+  background:rgba(24,24,27,.55);backdrop-filter:blur(16px) saturate(160%);-webkit-backdrop-filter:blur(16px) saturate(160%);
+  border:1px solid rgba(255,255,255,.14);border-radius:999px;padding:6px 16px 6px 6px;
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+.bgmtoggle{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);border:none;display:flex;align-items:center;justify-content:center;cursor:pointer;color:#fff;}
+.bgmtoggle:hover{background:rgba(255,255,255,.26);}
+.bgmtoggle .ic{width:14px;height:14px;}
 .bgmicon-play,.bgmicon-pause{fill:currentColor;stroke:none;}
-.bgmtoggle.playing{color:var(--accent);}
-.bgmtip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);
-  white-space:nowrap;background:var(--ink);color:var(--bg);font-size:11px;font-weight:600;padding:6px 10px;border-radius:7px;
-  opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease;}
-.bgmtoggle:hover .bgmtip{opacity:1;transform:translateX(-50%) translateY(0);}
+.bgmtitle{font-size:12px;font-weight:600;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
 /* ===================== 전체화면 리딩 오버레이(인트로 / 의뢰 완료 컷씬 공용) ===================== */
 .fullpage-overlay{
@@ -1290,8 +1292,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <button class="bgmtoggle" id="bgmToggle" onclick="toggleBgm()" aria-label="배경음악 재생">
     <svg class="ic bgmicon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
     <svg class="ic bgmicon-pause hidden" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
-    <span class="bgmtip" id="bgmTip">배경음악</span>
   </button>
+  <span class="bgmtitle" id="bgmTitle"></span>
   <audio id="bgmAudio" src="bgm.mp3" loop preload="none"></audio>
 </div>
 
@@ -2042,6 +2044,7 @@ function renderScrapWidget(){
 }
 
 /* ===== 배경음악 플레이어 — 전역에서 따라다니는 위젯 ===== */
+const BGM_TITLE = '이스크라 테마';
 function toggleBgm(){
   const audio = document.getElementById('bgmAudio');
   if(!audio) return;
@@ -2057,19 +2060,18 @@ function toggleBgm(){
 (function initBgmWidget(){
   const audio = document.getElementById('bgmAudio');
   const btn = document.getElementById('bgmToggle');
-  const tip = document.getElementById('bgmTip');
+  const title = document.getElementById('bgmTitle');
   if(!audio || !btn) return;
+  title.textContent = BGM_TITLE;
   audio.addEventListener('play', () => {
     btn.classList.add('playing');
     btn.querySelector('.bgmicon-play').classList.add('hidden');
     btn.querySelector('.bgmicon-pause').classList.remove('hidden');
-    tip.textContent = '배경음악 끄기';
   });
   audio.addEventListener('pause', () => {
     btn.classList.remove('playing');
     btn.querySelector('.bgmicon-play').classList.remove('hidden');
     btn.querySelector('.bgmicon-pause').classList.add('hidden');
-    tip.textContent = '배경음악 켜기';
   });
 })();
 
