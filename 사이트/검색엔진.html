@@ -185,6 +185,8 @@ body.capture-mode #panel-raden .raderow{cursor:crosshair;}
 body.capture-mode #panel-raden .raderow:hover{outline:2px solid var(--accent);outline-offset:-2px;background:var(--hover-bg);}
 body.capture-mode #panel-orginfo .og-cert{cursor:crosshair;}
 body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);outline-offset:-2px;}
+body.capture-mode #panel-alumni .al-cert{cursor:crosshair;}
+body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon);outline-offset:-2px;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .addressbar{flex:1;min-width:0;background:var(--chrome-strip);border-radius:999px;padding:6px 14px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--chrome-text);}
 .addressbar .ic{width:12px;height:12px;color:var(--chrome-sub);flex-shrink:0;}
@@ -686,6 +688,58 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
   #panel-orginfo .og-cert-table td{padding:10px 12px;font-size:12px;}
 }
 
+/* ===================== 패널: 도렌그라드 국립대학교 총동문회 ===================== */
+#panel-alumni{--al-maroon:#6E1E2B;--al-maroon2:#8A2A39;--al-gold:#B9924A;--al-bg:#F4F1EC;--al-ink:#241C1D;--al-muted:#73675F;--al-border:#E1D9CC;}
+#panel-alumni{background:var(--al-bg);min-height:100%;}
+#panel-alumni .al-topbar{background:var(--al-maroon);color:#EBD9CE;font-size:11px;}
+#panel-alumni .al-topbar-inner{max-width:760px;margin:0 auto;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;}
+#panel-alumni .al-topbar-links{display:flex;gap:10px;opacity:.85;}
+#panel-alumni .al-header{background:#fff;border-bottom:3px solid var(--al-maroon);}
+#panel-alumni .al-header-inner{max-width:760px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+#panel-alumni .al-logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:900;color:var(--al-maroon);letter-spacing:-.01em;}
+#panel-alumni .al-logo-badge{background:var(--al-maroon);color:#fff;font-size:11px;font-weight:700;line-height:1.25;text-align:center;padding:4px 7px;border-radius:4px;letter-spacing:.02em;}
+#panel-alumni .al-nav{display:flex;gap:4px;flex-wrap:wrap;}
+#panel-alumni .al-nav button{background:none;border:none;font-family:inherit;font-size:12px;color:var(--al-muted);padding:7px 11px;border-radius:5px;cursor:pointer;}
+#panel-alumni .al-nav button.active{color:var(--al-maroon);font-weight:800;background:#F2E8E1;}
+#panel-alumni .al-nav button:hover:not(.active){background:#F7F3EE;}
+#panel-alumni .al-page{max-width:760px;margin:0 auto;padding:30px 20px 60px;}
+#panel-alumni .al-hero{text-align:center;padding:34px 10px 26px;}
+#panel-alumni .al-hero h1{font-size:17px;font-weight:800;color:var(--al-ink);margin:0 0 18px;letter-spacing:-.01em;}
+#panel-alumni .al-searchbar{max-width:480px;margin:0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--al-maroon);border-radius:999px;padding:5px 6px 5px 18px;box-shadow:0 2px 10px rgba(110,30,43,.08);}
+#panel-alumni .al-searchbar input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;color:var(--al-ink);background:none;}
+#panel-alumni .al-searchbar button{width:34px;height:34px;flex-shrink:0;border:none;border-radius:999px;background:var(--al-maroon);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+#panel-alumni .al-searchbar button:hover{background:var(--al-maroon2);}
+#panel-alumni .al-searchbar .ic{width:15px;height:15px;}
+#panel-alumni .al-tip{font-size:11px;color:var(--al-muted);margin-top:14px;}
+#panel-alumni .al-noticebox{background:#fff;border:1px solid var(--al-border);border-radius:8px;padding:16px 20px;}
+#panel-alumni .al-notice-head{font-size:12px;font-weight:800;color:var(--al-maroon);margin-bottom:10px;padding-bottom:9px;border-bottom:2px solid var(--al-maroon);}
+#panel-alumni .al-noticebox ul{list-style:none;margin:0;padding:0;}
+#panel-alumni .al-noticebox li{display:flex;gap:12px;font-size:12px;color:var(--al-ink);padding:7px 0;border-bottom:1px solid var(--al-border);}
+#panel-alumni .al-noticebox li:last-child{border-bottom:none;}
+#panel-alumni .al-noticebox li .d{color:var(--al-muted);font-variant-numeric:tabular-nums;flex-shrink:0;}
+#panel-alumni .al-backlink{background:none;border:none;font-family:inherit;font-size:12px;color:var(--al-maroon);font-weight:700;cursor:pointer;padding:0 0 16px;}
+#panel-alumni .al-backlink:hover{text-decoration:underline;}
+#panel-alumni .al-result-head{font-size:12.5px;color:var(--al-muted);margin-bottom:14px;}
+#panel-alumni .al-result-head b{color:var(--al-ink);}
+#panel-alumni .al-empty{background:#fff;border:1px solid var(--al-border);border-radius:8px;padding:32px 20px;text-align:center;font-size:12.5px;color:var(--al-muted);}
+#panel-alumni .al-result-row{display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;border:1px solid var(--al-border);border-radius:8px;padding:14px 16px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
+#panel-alumni .al-result-row:hover{border-color:var(--al-maroon2);box-shadow:0 2px 8px rgba(110,30,43,.08);}
+#panel-alumni .al-badge{font-size:10.5px;font-weight:800;color:#fff;background:var(--al-gold);padding:3px 8px;border-radius:4px;flex-shrink:0;}
+#panel-alumni .al-rname{font-size:13px;font-weight:700;color:var(--al-ink);}
+#panel-alumni .al-rsub{font-size:11.5px;color:var(--al-muted);margin-left:auto;}
+#panel-alumni .al-cert{background:#fff;border:1px solid var(--al-border);border-radius:10px;overflow:hidden;}
+#panel-alumni .al-cert-head{background:var(--al-maroon);color:#fff;padding:14px 20px;}
+#panel-alumni .al-cert-title{font-size:13.5px;font-weight:800;}
+#panel-alumni .al-cert-table{width:100%;border-collapse:collapse;}
+#panel-alumni .al-cert-table tr{border-bottom:1px solid var(--al-border);}
+#panel-alumni .al-cert-table tr:last-child{border-bottom:none;}
+#panel-alumni .al-cert-table th{width:110px;text-align:left;background:#FAF7F3;color:var(--al-muted);font-size:11.5px;font-weight:700;padding:12px 16px;vertical-align:top;}
+#panel-alumni .al-cert-table td{padding:12px 16px;font-size:12.5px;color:var(--al-ink);line-height:1.5;}
+@media (max-width:560px){
+  #panel-alumni .al-cert-table th{width:84px;padding:10px 12px;font-size:11px;}
+  #panel-alumni .al-cert-table td{padding:10px 12px;font-size:12px;}
+}
+
 /* ===================== 패널: 이스크라 부동산 ===================== */
 #panel-listing{--ls-teal:#0C8C7D;--ls-teal-dk:#086F63;--ls-ink:#1C2430;--ls-muted:#6B7484;--ls-bg:#F6F9F8;--ls-border:#DCE8E5;--ls-amber:#B8690C;--ls-amberbg:#FDF1E4;}
 #panel-listing{background:var(--ls-bg);min-height:100%;}
@@ -1142,6 +1196,54 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 </div>
 
+<div id="panel-alumni" class="panel hidden">
+<div class="al-topbar"><div class="al-topbar-inner"><span>DGNU PORTAL</span><span class="al-topbar-links"><span>학교 홈</span><span>도서관</span><span>포털</span></span></div></div>
+<div class="al-header">
+  <div class="al-header-inner">
+    <div class="al-logo"><span class="al-logo-badge">DGNU</span>도렌그라드 국립대학교 총동문회</div>
+    <nav class="al-nav">
+      <button class="active">동문찾기</button>
+      <button>동문회 소식</button>
+      <button>후원 안내</button>
+      <button>자주 묻는 질문</button>
+    </nav>
+  </div>
+</div>
+
+<div id="alHome" class="al-page">
+  <div class="al-hero">
+    <h1>동문수첩에서 반가운 얼굴을 찾아보세요</h1>
+    <form class="al-searchbar" onsubmit="alSearch(event)">
+      <input id="alSearchInput" type="text" placeholder="이름을 입력하세요" autocomplete="off">
+      <button type="submit" aria-label="검색"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </form>
+    <div class="al-tip">별도 로그인 없이 성명으로 조회할 수 있습니다</div>
+  </div>
+  <div class="al-noticebox">
+    <div class="al-notice-head">동문회 소식</div>
+    <ul>
+      <li><span class="d">2026.10.02</span>온라인 동문수첩 서비스 전면 개편 안내</li>
+      <li><span class="d">2026.08.21</span>2026 가을 동문 초청 행사 안내</li>
+      <li><span class="d">2026.06.03</span>동문 장학기금 모금 현황 보고</li>
+    </ul>
+  </div>
+</div>
+
+<div id="alResult" class="al-page hidden">
+  <button class="al-backlink" onclick="alShowHome()">← 다시 검색</button>
+  <div class="al-result-head"><b id="alResultQuery"></b> 검색결과 <span id="alResultCount"></span></div>
+  <div id="alResultList"></div>
+</div>
+
+<div id="alDetail" class="al-page hidden">
+  <button class="al-backlink" onclick="alShowResultBack()">← 목록으로</button>
+  <div class="al-cert" id="alCertCard" onclick="alDetailClick()">
+    <div class="al-cert-head"><span class="al-cert-title">동문 정보</span></div>
+    <table class="al-cert-table" id="alCertTable"></table>
+  </div>
+</div>
+</div>
+
 <div id="toast" onclick="mOpenFromToast()">
   <span class="ticon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
   <div class="tbody">
@@ -1220,7 +1322,7 @@ function switchTab(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
   const t = TABS.find(x => x.id === id);
   const k = t ? t.kind : 'search';
-  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing') exitCaptureMode();
+  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'article' && t){
@@ -1263,6 +1365,7 @@ function chromeBack(){
   else if(k === 'article') articleGoBack();
   else if(k === 'orginfo') ogGoBack();
   else if(k === 'listing') lsGoBack();
+  else if(k === 'alumni') alGoBack();
 }
 function chromeReload(){
   const btn = document.getElementById('reloadBtn');
@@ -1275,6 +1378,7 @@ function chromeReload(){
   else if(k === 'article') aReload();
   else if(k === 'orginfo') ogReload();
   else if(k === 'listing') lsReload();
+  else if(k === 'alumni') alReload();
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
@@ -1313,6 +1417,7 @@ function fallbackCopyText(text, done){
 }
 
 let capturedEvidence = null;
+let capturedEvidence4 = null;
 let captureMode = false;
 const CAPTURE_ICONS = {
   ok: '<svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>',
@@ -1330,7 +1435,8 @@ function showCaptureToast(msg, kind){
 const CAPTURE_HINTS = {
   raden: '캡처할 거래 내역을 클릭하세요 (Esc로 취소)',
   orginfo: '캡처할 등록 정보 화면을 클릭하세요 (Esc로 취소)',
-  listing: '캡처할 매물 정보 화면을 클릭하세요 (Esc로 취소)'
+  listing: '캡처할 매물 정보 화면을 클릭하세요 (Esc로 취소)',
+  alumni: '캡처할 동문 기록을 클릭하세요 (Esc로 취소)'
 };
 function updateCaptureHint(){
   const btn = document.getElementById('captureBtn');
@@ -1476,6 +1582,9 @@ const HINTS = [
   {id:123, company:'바르네시아교민상회', tags:['바르네시아','도렌그라드'], cat:"사회", title:"바르네시아교민상회, 매년 11월 조용한 추모모임…\"그저 기리는 자리\"", outlet:"도렌통신", time:"11개월 전", c:19,
     comments:[{u:'ㅇㅇ',t:'매년 11월이면 뭔가 특별한 날인가'},{u:'현지교민',t:'저희 부모님도 매년 그맘때 조용히 어디 다녀오시던데 이거였나보네'},{u:'지나가던사람',t:'비공개라니 더 궁금해지네'},{u:'교포2세',t:'그냥 먼저 떠난 분들 기리는 거겠죠 뭐'},{u:'구경꾼',t:'특정 사건 기념이라는 추측은 무슨 말이지'},{u:'크란츠**',t:'원로분들만 아시는 사연이 있나보다'}],
     body:["바르네시아교민상회가 매년 11월 중순 비공개로 작은 추모모임을 갖는 것으로 알려졌다. 외부에 널리 알려지지 않은 채 조용히 치러지는 행사다.","참석자는 수십 명 규모로, 상회 회원과 일부 원로 교민들이 주로 참석한다고 전해진다. 상회 측은 \"그저 먼저 떠난 이들을 기리는 자리일 뿐\"이라며 구체적인 설명은 자제했다.","매년 같은 시기에 열린다는 점에서 특정 사건을 기념하는 것 아니냐는 추측도 나오지만, 상회는 별다른 입장을 내놓지 않았다."]},
+  {id:124, company:'도렌그라드 국립대학교', tags:['도렌그라드'], cat:"사회", title:"도렌그라드 국립대학교 총동문회, 온라인 동문수첩 서비스 전면 개편", outlet:"도렌통신", time:"1개월 전", c:6,
+    comments:[{u:'ㅇㅇ',t:'오프라인 문의만 되던 거 이제 편해졌네요'},{u:'교포2세',t:'저희 학교도 좀 이렇게 해줬으면'},{u:'두보프**',t:'로그인 없이도 조회된다니 신기하다'},{u:'지나가던사람',t:'동문 근황까지 나온다니 다들 동의하고 올린건가'},{u:'구경꾼',t:'검색 많이 몰려서 서버 느려지겠네'},{u:'밀라21',t:'학과별로도 찾아지나요'}],
+    body:["도렌그라드 국립대학교 총동문회가 온라인 동문수첩 서비스를 전면 개편했다고 밝혔다. 기존에는 오프라인 문의로만 가능했던 동문 조회가 홈페이지를 통해 간편하게 가능해졌다.","총동문회 관계자는 \"다양한 분야에 진출한 동문들의 근황을 한눈에 볼 수 있도록 데이터베이스를 정비했다\"고 설명했다. 성명으로 검색할 수 있으며, 본인 동의를 거친 경우 간단한 근황도 함께 조회된다.","개편된 서비스는 홈페이지 내 '동문찾기' 메뉴에서 별도 로그인 없이 이용할 수 있다."]},
 ];
 
 function renderPhotos(){
@@ -1784,6 +1893,32 @@ const RETRY3_MAIL = {
     "'바르네시아교민상회'라는 이름으로 검색해 보시면 관련 기사가 나올 겁니다. 그 내용을 토대로 이 단체 성격을 한 단어로 정리해서 다시 회신해 주세요."
   ]
 };
+const ASSIGNMENT4_MAIL = {
+  id:'assign4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 대표자 신원 확인',
+  preview:'대표자 성함을 좀 더 확인해 주셨으면 합니다.', time:'방금 전', unread:true,
+  body:[
+    "지난 건들 전부 큰 도움이 됐습니다. 감사합니다.",
+    "이번엔 등록 서류에 '마르첸코 ○○○'로만 나와 있던 대표자 성함을 좀 더 확인해 주셨으면 합니다. 저희 쪽에서 확인한 바로는 도렌그라드 국립대학교 동문일 가능성이 있다고 합니다.",
+    "총동문회 동문수첩(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">alumni.dgnu.dg</a>)에서 성씨로 검색하시면 여러 명이 나올 텐데, 그 단체가 설립된 시점에 이미 사회생활을 하고 있었을 법한 분을 찾아 전체 성함을 확인한 뒤 캡처해서 보내주시면 될 것 같습니다."
+  ]
+};
+const SUCCESS4_MAIL = {
+  id:'success4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 확인 감사합니다',
+  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  body:[
+    "확인했습니다. 전체 성함을 알게 되어 정말 큰 도움이 됐습니다.",
+    "이번 건 사례금도 바로 입금해 드렸습니다.",
+    "다음 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+  ]
+};
+const RETRY4_MAIL = {
+  id:'retry4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 다시 한번 확인 부탁드립니다',
+  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  body:[
+    "보내주신 자료를 확인했습니다만, 시점이 맞지 않는 것 같습니다.",
+    "단체 설립 시점(2019년 무렵)에 이미 졸업해서 사회생활을 하고 있었을 법한 분을 다시 한번 찾아봐 주시겠어요?"
+  ]
+};
 let replied = false;
 let assignmentPending = false;
 let assignmentResolved = false;
@@ -1791,12 +1926,15 @@ let assignment2Pending = false;
 let assignment2Resolved = false;
 let assignment3Pending = false;
 let assignment3Resolved = false;
+let assignment4Pending = false;
+let assignment4Resolved = false;
 let lastDelivered = NEW_MAIL;
 
 const REWARD_BY_MAIL = {
   [SUCCESS_MAIL.id]: {amount:150000, label:'D&K 리서치 그룹 · 1차 의뢰 사례금'},
   [SUCCESS2_MAIL.id]: {amount:180000, label:'D&K 리서치 그룹 · 2차 의뢰 사례금'},
-  [SUCCESS3_MAIL.id]: {amount:220000, label:'D&K 리서치 그룹 · 3차 의뢰 사례금'}
+  [SUCCESS3_MAIL.id]: {amount:220000, label:'D&K 리서치 그룹 · 3차 의뢰 사례금'},
+  [SUCCESS4_MAIL.id]: {amount:260000, label:'D&K 리서치 그룹 · 4차 의뢰 사례금'}
 };
 let bankBalance = 0;
 let bankTx = [];
@@ -2054,6 +2192,25 @@ function renderActions(m){
       </div>
     `;
   }
+  if(m.id === ASSIGNMENT4_MAIL.id){
+    if(assignment4Resolved){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 회신을 전달했습니다.</div>`;
+    }
+    if(assignment4Pending){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
+    }
+    return `
+      <div class="actions"><button class="live" onclick="showAssign4Reply()">답장</button><button>전달</button><button>삭제</button></div>
+      <div class="replybox hidden" id="assign4ReplyBox">
+        <textarea id="assign4ReplyText" rows="3">동문수첩에서 시점이 맞는 분을 찾아 캡처해서 함께 보내드립니다.</textarea>
+        <div id="assign4Chip">${assign4ChipHtml()}</div>
+        <div class="replyactions">
+          <button class="sendbtn" onclick="sendAssign4Reply()">보내기</button>
+          <button class="cancelbtn" onclick="hideAssign4Reply()">취소</button>
+        </div>
+      </div>
+    `;
+  }
   return `<div class="actions"><button>답장</button><button>전달</button><button>삭제</button></div>`;
 }
 function assignChipHtml(){
@@ -2071,6 +2228,11 @@ function assign2ChipBHtml(){
     ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부2: ${capturedEvidence3.addr} 매물 정보</div>`
     : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부2: 매물 정보 캡처 없음</div>`;
 }
+function assign4ChipHtml(){
+  return capturedEvidence4
+    ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부: ${capturedEvidence4.name} 동문 기록</div>`
+    : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
+}
 function refreshChips(){
   const a = document.getElementById('assignChip');
   if(a) a.innerHTML = assignChipHtml();
@@ -2078,6 +2240,8 @@ function refreshChips(){
   if(b) b.innerHTML = assign2ChipHtml();
   const c = document.getElementById('assign2ChipB');
   if(c) c.innerHTML = assign2ChipBHtml();
+  const d = document.getElementById('assign4Chip');
+  if(d) d.innerHTML = assign4ChipHtml();
 }
 
 function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
@@ -2086,7 +2250,7 @@ function hideReply(){ document.getElementById('replyBox').classList.add('hidden'
 /* ===== 메일 지연 발송 스케줄러 (새로고침에도 살아남음) ===== */
 let pendingDeliveries = {};
 const MAIL_BY_ID = {};
-[NEW_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
+[NEW_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
 
 function setFlag(name, val){
   if(name === 'assignmentPending') assignmentPending = val;
@@ -2095,6 +2259,8 @@ function setFlag(name, val){
   else if(name === 'assignment2Resolved') assignment2Resolved = val;
   else if(name === 'assignment3Pending') assignment3Pending = val;
   else if(name === 'assignment3Resolved') assignment3Resolved = val;
+  else if(name === 'assignment4Pending') assignment4Pending = val;
+  else if(name === 'assignment4Resolved') assignment4Resolved = val;
 }
 function applyEffect(name){
   if(name === 'hint116') addDynamicArticle(116);
@@ -2103,6 +2269,7 @@ function applyEffect(name){
   else if(name === 'hint122') addDynamicArticle(122);
   else if(name === 'chainAssign2'){ queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS_MAIL.id] = 118; }
   else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
+  else if(name === 'chainAssign4'){ queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
 }
 
 /* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
@@ -2251,7 +2418,19 @@ function sendAssign3Reply(){
   openDetail('inbox', ASSIGNMENT3_MAIL.id);
   queueDelivery('result3', 15000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
     pendingFlag: 'assignment3Pending',
-    resolvedFlag: correct ? 'assignment3Resolved' : null
+    resolvedFlag: correct ? 'assignment3Resolved' : null,
+    effect: correct ? 'chainAssign4' : null
+  });
+}
+
+function showAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.remove('hidden'); }
+function hideAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.add('hidden'); }
+function sendAssign4Reply(){
+  const correct = !!capturedEvidence4 && capturedEvidence4.id === 'alum1';
+  openDetail('inbox', ASSIGNMENT4_MAIL.id);
+  queueDelivery('result4', 15000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
+    pendingFlag: 'assignment4Pending',
+    resolvedFlag: correct ? 'assignment4Resolved' : null
   });
 }
 
@@ -2577,6 +2756,7 @@ function ogShowDetail(id){
   const r = ORG_RECORDS.find(x => x.id === id);
   if(!r) return;
   ogCurrentRecord = r;
+  document.getElementById('ogHome').classList.add('hidden');
   document.getElementById('ogResult').classList.add('hidden');
   document.getElementById('ogDetail').classList.remove('hidden');
   document.getElementById('ogCertTime').textContent = ogNowStr();
@@ -2670,6 +2850,7 @@ function lsShowDetail(id){
   const r = LISTINGS.find(x => x.id === id);
   if(!r) return;
   lsCurrentRecord = r;
+  document.getElementById('lsHome').classList.add('hidden');
   document.getElementById('lsResult').classList.add('hidden');
   document.getElementById('lsDetail').classList.remove('hidden');
   document.getElementById('lsDetailAddr').textContent = r.addr;
@@ -2702,9 +2883,108 @@ function performCaptureListing(){
 setAddr('listing', 'realty.iskra.dg');
 setBack('listing', false);
 
+/* ===================== 패널: 도렌그라드 국립대학교 총동문회 ===================== */
+const ALUMNI_RECORDS = [
+  {id:'alum1', name:'마르첸코 이반', dept:'역사학과', gradYear:'2009년 졸업', status:'졸업', note:'동문 근황에 "현재 도렌그라드에서 교민 지원 관련 활동을 하고 있다"고 등록돼 있다.'},
+  {id:'alum2', name:'마르첸코 올가', dept:'간호학과', gradYear:'2022년 졸업', status:'졸업', note:'현재 도렌그라드 시립병원 간호사로 재직 중.'},
+  {id:'alum3', name:'마르첸코 세르게이', dept:'경영학과', gradYear:'재학 중 (4학년)', status:'재학', note:'아직 졸업하지 않았다.'},
+  {id:'alum4', name:'마르첸코 유리', dept:'기계공학과', gradYear:'1988년 졸업', status:'졸업', note:'현재 은퇴, 도렌그라드 거주.'}
+];
+let alCurrentRecord = null;
+let alLastQuery = '';
+
+function alMatch(q){
+  const ql = q.trim().toLowerCase();
+  if(!ql) return [];
+  return ALUMNI_RECORDS.filter(r => r.name.toLowerCase().includes(ql) || ql.includes(r.name.split(' ')[0]));
+}
+function alShowHome(){
+  document.getElementById('alHome').classList.remove('hidden');
+  document.getElementById('alResult').classList.add('hidden');
+  document.getElementById('alDetail').classList.add('hidden');
+  setAddr('alumni', 'alumni.dgnu.dg');
+  setBack('alumni', false);
+  saveProgress();
+}
+function alSearch(e){
+  if(e) e.preventDefault();
+  const q = document.getElementById('alSearchInput').value.trim();
+  if(!q) return;
+  alLastQuery = q;
+  alRenderResult(q);
+}
+function alRenderResult(q){
+  const matches = alMatch(q);
+  document.getElementById('alHome').classList.add('hidden');
+  document.getElementById('alDetail').classList.add('hidden');
+  document.getElementById('alResult').classList.remove('hidden');
+  document.getElementById('alResultQuery').textContent = `'${q}'`;
+  document.getElementById('alResultCount').textContent = matches.length ? `${matches.length}건` : '0건';
+  const list = document.getElementById('alResultList');
+  if(!matches.length){
+    list.innerHTML = `<div class="al-empty">검색결과가 없습니다. 이름을 정확히 입력했는지 확인해 주세요.</div>`;
+  } else {
+    list.innerHTML = matches.map(r => `
+      <button class="al-result-row" onclick="alShowDetail('${r.id}')">
+        <span class="al-badge">${r.status}</span>
+        <span class="al-rname">${r.name}</span>
+        <span class="al-rsub">${r.dept}</span>
+      </button>
+    `).join('');
+  }
+  setAddr('alumni', 'alumni.dgnu.dg/search?q=' + encodeURIComponent(q));
+  setBack('alumni', true);
+  saveProgress();
+}
+function alShowResultBack(){
+  document.getElementById('alDetail').classList.add('hidden');
+  document.getElementById('alResult').classList.remove('hidden');
+  setAddr('alumni', 'alumni.dgnu.dg/search?q=' + encodeURIComponent(alLastQuery));
+  setBack('alumni', true);
+}
+function alGoBack(){
+  if(!document.getElementById('alDetail').classList.contains('hidden')) alShowResultBack();
+  else if(!document.getElementById('alResult').classList.contains('hidden')) alShowHome();
+}
+function alReload(){
+  if(!document.getElementById('alDetail').classList.contains('hidden') && alCurrentRecord) alShowDetail(alCurrentRecord.id);
+  else if(!document.getElementById('alResult').classList.contains('hidden')) alRenderResult(alLastQuery);
+}
+function alShowDetail(id){
+  const r = ALUMNI_RECORDS.find(x => x.id === id);
+  if(!r) return;
+  alCurrentRecord = r;
+  document.getElementById('alHome').classList.add('hidden');
+  document.getElementById('alResult').classList.add('hidden');
+  document.getElementById('alDetail').classList.remove('hidden');
+  document.getElementById('alCertTable').innerHTML = `
+    <tr><th>성명</th><td>${r.name}</td></tr>
+    <tr><th>학과</th><td>${r.dept}</td></tr>
+    <tr><th>학적상태</th><td>${r.gradYear}</td></tr>
+    <tr><th>근황</th><td>${r.note}</td></tr>
+  `;
+  setAddr('alumni', 'alumni.dgnu.dg/view/' + r.id);
+  setBack('alumni', true);
+  saveProgress();
+}
+function alDetailClick(){
+  if(captureMode){ performCaptureAlumni(); return; }
+}
+function performCaptureAlumni(){
+  if(!alCurrentRecord) return;
+  capturedEvidence4 = alCurrentRecord;
+  exitCaptureMode();
+  showCaptureToast(`캡처됨: ${alCurrentRecord.name} 동문 기록`, 'ok');
+  refreshChips();
+  saveProgress();
+}
+
+setAddr('alumni', 'alumni.dgnu.dg');
+setBack('alumni', false);
+
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
 const SAVE_KEY = 'iskra_save_v1';
-const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id];
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id];
 
 function saveProgress(){
   try {
@@ -2715,6 +2995,7 @@ function saveProgress(){
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
+      assignment4Resolved, capturedEvidence4,
       bankBalance, bankTx, scrapped, introSeen,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -2728,7 +3009,9 @@ function saveProgress(){
       ogDetailId: ogCurrentRecord && !document.getElementById('ogDetail').classList.contains('hidden') ? ogCurrentRecord.id : null,
       ogLastQuery,
       lsDetailId: lsCurrentRecord && !document.getElementById('lsDetail').classList.contains('hidden') ? lsCurrentRecord.id : null,
-      lsLastQuery
+      lsLastQuery,
+      alDetailId: alCurrentRecord && !document.getElementById('alDetail').classList.contains('hidden') ? alCurrentRecord.id : null,
+      alLastQuery
     }));
   } catch(e){}
 }
@@ -2746,6 +3029,8 @@ function loadProgress(){
   capturedEvidence2 = saved.capturedEvidence2 || null;
   capturedEvidence3 = saved.capturedEvidence3 || null;
   assignment3Resolved = !!saved.assignment3Resolved;
+  assignment4Resolved = !!saved.assignment4Resolved;
+  capturedEvidence4 = saved.capturedEvidence4 || null;
   bankBalance = saved.bankBalance || 0;
   bankTx = saved.bankTx || [];
   renderBankcard();
@@ -2799,6 +3084,13 @@ function loadProgress(){
     lsShowDetail(saved.lsDetailId);
   } else if(saved.lsLastQuery){
     lsRenderResult(saved.lsLastQuery);
+  }
+
+  if(saved.alLastQuery) alLastQuery = saved.alLastQuery;
+  if(saved.alDetailId){
+    alShowDetail(saved.alDetailId);
+  } else if(saved.alLastQuery){
+    alRenderResult(saved.alLastQuery);
   }
 
   if(saved.mailFolder && saved.mailFolder !== 'inbox'){
