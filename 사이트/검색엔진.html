@@ -446,8 +446,6 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #panel-mail .replyactions .cancelbtn:hover{text-decoration:underline;}
 #panel-mail .sentnote{display:flex;align-items:center;gap:7px;margin-top:20px;color:var(--muted);font-size:12.5px;}
 #panel-mail .sentnote .ic{width:14px;height:14px;color:var(--accent);}
-#panel-mail .hintnote{display:flex;align-items:center;gap:7px;margin-bottom:14px;color:var(--muted);font-size:12px;}
-#panel-mail .hintnote .ic{width:14px;height:14px;color:var(--accent);flex-shrink:0;}
 #panel-mail .attachchip{display:flex;align-items:center;gap:7px;margin-top:10px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);font-size:12px;color:var(--ink);}
 #panel-mail .attachchip .ic{width:14px;height:14px;color:var(--accent);flex-shrink:0;}
 #panel-mail .attachchip.empty{color:var(--muted);}
@@ -1234,7 +1232,6 @@ function switchTab(id){
     document.getElementById('backBtn').disabled = !chromeBackEnabled[k];
   }
   if(typeof updateCaptureHint === 'function') updateCaptureHint();
-  if(typeof updateSearchHint === 'function') updateSearchHint();
   if(typeof saveProgress === 'function') saveProgress();
 }
 
@@ -1766,7 +1763,7 @@ const ASSIGNMENT3_MAIL = {
   preview:'단체가 어떤 곳인지 조금 더 알아봐 주시겠어요.', time:'방금 전', unread:true,
   body:[
     "지난 건도 확인 감사합니다. 저희 쪽에서도 왜 등록 주소가 비어 있는지 계속 들여다보고 있습니다.",
-    "그사이에 부탁드릴 일이 하나 있습니다 — '바르네시아교민상회'라는 단체가 그동안 어떤 활동을 해 왔는지 조금 더 알아봐 주시겠어요. 거창한 조사는 아니고, 이름으로 한번 검색해 보시는 정도면 충분할 것 같습니다.",
+    "그사이에 부탁드릴 일이 하나 있습니다 — '바르네시아교민상회'라는 단체가 그동안 어떤 활동을 해 왔는지 조금 더 알아봐 주시겠어요. 거창한 조사는 아니니 편하게 살펴봐 주시면 됩니다. 혹시 조사하다 막히시면, 관련 뉴스 기사를 검색해보시는 것도 방법일 것 같습니다.",
     "거창한 보고서까지는 필요 없고, 찾아보신 내용을 바탕으로 이 단체가 어떤 성격인지 한 단어 정도로 정리해서 회신해 주시면 됩니다."
   ]
 };
@@ -2042,7 +2039,6 @@ function renderActions(m){
       return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
     }
     return `
-      <div class="hintnote"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-1.2 2-2 2.8-.4.4-.5.8-.5 1.2"/><path d="M12 18h.01"/></svg>막히면 이스크라 메인 화면에서 검색해 보세요.</div>
       <div class="actions"><button class="live" onclick="showAssign3Reply()">답장</button><button>전달</button><button>삭제</button></div>
       <div class="replybox hidden" id="assign3ReplyBox">
         <div class="kwprompt">'바르네시아교민상회'를 검색해서 찾은 기사들을 참고해, 이 단체가 어떤 성격의 단체인지 핵심 단어로 정리해 보세요.</div>
@@ -2082,15 +2078,6 @@ function refreshChips(){
   if(b) b.innerHTML = assign2ChipHtml();
   const c = document.getElementById('assign2ChipB');
   if(c) c.innerHTML = assign2ChipBHtml();
-  updateSearchHint();
-}
-const SEARCH_HINT_PLACEHOLDER = '막히면 조사 중인 이름을 검색해 보세요';
-const DEFAULT_SEARCH_PLACEHOLDER = '검색어를 입력하세요';
-function updateSearchHint(){
-  const input = document.getElementById('searchInput');
-  if(!input) return;
-  const needHint = typeof FOLDERS !== 'undefined' && FOLDERS.inbox.some(m => m.id === ASSIGNMENT3_MAIL.id) && !assignment3Pending && !assignment3Resolved;
-  input.placeholder = needHint ? SEARCH_HINT_PLACEHOLDER : DEFAULT_SEARCH_PLACEHOLDER;
 }
 
 function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
@@ -2208,7 +2195,6 @@ function queueDelivery(uid, delayMs, mailId, opts){
   opts = opts || {};
   pendingDeliveries[uid] = {due: Date.now() + delayMs, mailId, pendingFlag: opts.pendingFlag || null, resolvedFlag: opts.resolvedFlag || null, effect: opts.effect || null, skipIfPresent: !!opts.skipIfPresent};
   if(opts.pendingFlag) setFlag(opts.pendingFlag, true);
-  if(typeof updateSearchHint === 'function') updateSearchHint();
   saveProgress();
   armTimer(uid, delayMs);
 }
