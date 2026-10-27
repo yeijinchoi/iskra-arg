@@ -509,6 +509,17 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .scrap-row .rm:hover{color:#B5452E;}
 .scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
 
+.bgmwidget{position:fixed;left:calc(max(20px, env(safe-area-inset-left,0px)) + 56px);bottom:max(20px, env(safe-area-inset-bottom,0px));z-index:65;}
+.bgmtoggle{position:relative;width:46px;height:46px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 26px rgba(0,0,0,.2);display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--ink);}
+.bgmtoggle:hover{background:var(--hover-bg);}
+.bgmtoggle .ic{width:17px;height:17px;}
+.bgmicon-play,.bgmicon-pause{fill:currentColor;stroke:none;}
+.bgmtoggle.playing{color:var(--accent);}
+.bgmtip{position:absolute;left:50%;bottom:calc(100% + 10px);transform:translateX(-50%) translateY(4px);
+  white-space:nowrap;background:var(--ink);color:var(--bg);font-size:11px;font-weight:600;padding:6px 10px;border-radius:7px;
+  opacity:0;pointer-events:none;transition:opacity .15s ease,transform .15s ease;}
+.bgmtoggle:hover .bgmtip{opacity:1;transform:translateX(-50%) translateY(0);}
+
 /* ===================== 전체화면 리딩 오버레이(인트로 / 의뢰 완료 컷씬 공용) ===================== */
 .fullpage-overlay{
   position:fixed;inset:0;background:var(--bg);z-index:90;overflow-y:auto;
@@ -1275,6 +1286,15 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   </button>
 </div>
 
+<div id="bgmWidget" class="bgmwidget">
+  <button class="bgmtoggle" id="bgmToggle" onclick="toggleBgm()" aria-label="배경음악 재생">
+    <svg class="ic bgmicon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+    <svg class="ic bgmicon-pause hidden" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+    <span class="bgmtip" id="bgmTip">배경음악</span>
+  </button>
+  <audio id="bgmAudio" src="bgm.mp3" loop preload="none"></audio>
+</div>
+
 <div id="introGate" class="fullpage-overlay introgate">
   <button class="introicon" id="introIcon" onclick="openIntroMail()" aria-label="메일함">
     <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
@@ -2020,6 +2040,38 @@ function renderScrapWidget(){
     `;
   }).join('') : `<div class="scrapempty">스크랩한 기사가 없습니다</div>`;
 }
+
+/* ===== 배경음악 플레이어 — 전역에서 따라다니는 위젯 ===== */
+function toggleBgm(){
+  const audio = document.getElementById('bgmAudio');
+  if(!audio) return;
+  if(audio.paused){
+    audio.volume = 0.45;
+    audio.play().catch(() => {
+      showCaptureToast('아직 배경음악 파일이 없습니다', 'warn');
+    });
+  } else {
+    audio.pause();
+  }
+}
+(function initBgmWidget(){
+  const audio = document.getElementById('bgmAudio');
+  const btn = document.getElementById('bgmToggle');
+  const tip = document.getElementById('bgmTip');
+  if(!audio || !btn) return;
+  audio.addEventListener('play', () => {
+    btn.classList.add('playing');
+    btn.querySelector('.bgmicon-play').classList.add('hidden');
+    btn.querySelector('.bgmicon-pause').classList.remove('hidden');
+    tip.textContent = '배경음악 끄기';
+  });
+  audio.addEventListener('pause', () => {
+    btn.classList.remove('playing');
+    btn.querySelector('.bgmicon-play').classList.remove('hidden');
+    btn.querySelector('.bgmicon-pause').classList.add('hidden');
+    tip.textContent = '배경음악 켜기';
+  });
+})();
 
 const FOLDERS = {
   inbox: [
