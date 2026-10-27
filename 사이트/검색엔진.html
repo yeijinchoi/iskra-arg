@@ -511,6 +511,21 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 .cutscene-sleep{display:block;width:fit-content;margin:24px auto 0;background:none;border:none;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 .cutscene-sleep:hover{color:var(--accent);}
 
+.introgate{display:flex;align-items:center;justify-content:center;}
+.introicon{position:relative;width:64px;height:64px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;}
+.introicon:hover{color:var(--ink);background:var(--hover-bg);}
+.introicon .ic{width:26px;height:26px;}
+.introicon.ding{animation:introDing .5s ease;}
+@keyframes introDing{
+  0%,100%{transform:rotate(0);}
+  20%{transform:rotate(-12deg);}
+  40%{transform:rotate(10deg);}
+  60%{transform:rotate(-6deg);}
+  80%{transform:rotate(4deg);}
+}
+.introbadge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1);}
+.introbadge.show{opacity:1;transform:scale(1);}
+
 /* ===================== 패널: 라덴통상 ERP ===================== */
 #panel-raden .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 0;}
 #panel-raden .gatebox{width:100%;max-width:340px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:32px 28px;}
@@ -1132,6 +1147,13 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <button class="scraptoggle" id="scrapToggle" onclick="toggleScrapPanel()" aria-label="스크랩 목록">
     <svg class="ic" viewBox="0 0 24 24"><path d="M6 3h12a1 1 0 0 1 1 1v17l-7-4-7 4V4a1 1 0 0 1 1-1Z"/></svg>
     <span class="scrapcount" id="scrapCount">0</span>
+  </button>
+</div>
+
+<div id="introGate" class="fullpage-overlay introgate">
+  <button class="introicon" id="introIcon" onclick="openIntroMail()" aria-label="메일함">
+    <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
+    <span class="introbadge" id="introBadge">1</span>
   </button>
 </div>
 
@@ -2063,8 +2085,21 @@ function applyEffect(name){
   else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
 }
 
-/* ===== 인트로 — 첫 실행 시 등록금 메일로 시작 ===== */
+/* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
 let introSeen = false;
+function startIntroSequence(){
+  document.getElementById('introGate').classList.add('show');
+  setTimeout(() => {
+    document.getElementById('introBadge').classList.add('show');
+    const icon = document.getElementById('introIcon');
+    icon.classList.add('ding');
+    setTimeout(() => icon.classList.remove('ding'), 500);
+  }, 1400);
+}
+function openIntroMail(){
+  document.getElementById('introGate').classList.remove('show');
+  showIntro();
+}
 function showIntro(){
   const m = FOLDERS.inbox.find(x => x.id === 'm2');
   if(!m) return;
@@ -2773,5 +2808,5 @@ function resetProgress(){
 }
 
 loadProgress();
-if(!introSeen) showIntro();
+if(!introSeen) startIntroSequence();
 </script>
