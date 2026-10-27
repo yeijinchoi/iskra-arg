@@ -2149,12 +2149,13 @@ function endDay(){
   goToMainScreen();
   saveProgress();
 }
+const CUTSCENE_DELAY_MS = 2600;
 function maybeShowCutscene(mailId){
   const hintId = pendingCutscene[mailId];
   if(!hintId) return;
   delete pendingCutscene[mailId];
   saveProgress();
-  showCutscene(hintId);
+  setTimeout(() => showCutscene(hintId), CUTSCENE_DELAY_MS);
 }
 function showCutscene(hintId){
   const a = HINTS.find(x => x.id === hintId);
