@@ -244,6 +244,17 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #panel-search .trendwin{height:1.35em;overflow:hidden;position:relative;display:inline-block;vertical-align:middle;}
 #panel-search .trendtrack{display:flex;flex-direction:column;transition:transform .5s cubic-bezier(.4,0,.2,1);}
 #panel-search .trenditem{height:1.35em;line-height:1.35em;color:var(--ink);font-weight:700;white-space:nowrap;}
+#panel-search .trendwrap{position:relative;display:inline-block;}
+#panel-search .trenddrop{
+  position:absolute;top:calc(100% + 8px);left:50%;transform:translateX(-50%) translateY(-4px);
+  width:200px;background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  box-shadow:0 16px 36px rgba(0,0,0,.18);padding:6px;opacity:0;pointer-events:none;
+  transition:opacity .15s ease,transform .15s ease;z-index:40;
+}
+#panel-search .trendwrap:hover .trenddrop{opacity:1;transform:translateX(-50%) translateY(0);pointer-events:auto;}
+#panel-search .trenddrop-row{display:flex;align-items:center;gap:9px;padding:7px 10px;border-radius:8px;cursor:pointer;font-size:12.5px;color:var(--ink);background:none;border:none;width:100%;text-align:left;font-family:inherit;}
+#panel-search .trenddrop-row:hover{background:var(--hover-bg);}
+#panel-search .trenddrop-row .rank{color:var(--muted);font-variant-numeric:tabular-nums;font-weight:700;width:12px;flex-shrink:0;}
 
 #panel-search .serviceicons{display:flex;justify-content:center;flex-wrap:wrap;gap:26px;padding:22px 0 0;}
 #panel-search .svcitem{display:flex;flex-direction:column;align-items:center;gap:6px;background:none;border:none;font-family:inherit;cursor:pointer;color:var(--ink);padding:0;}
@@ -435,6 +446,8 @@ body.capture-mode #panel-orginfo .og-cert:hover{outline:2px solid var(--accent);
 #panel-mail .replyactions .cancelbtn:hover{text-decoration:underline;}
 #panel-mail .sentnote{display:flex;align-items:center;gap:7px;margin-top:20px;color:var(--muted);font-size:12.5px;}
 #panel-mail .sentnote .ic{width:14px;height:14px;color:var(--accent);}
+#panel-mail .hintnote{display:flex;align-items:center;gap:7px;margin-bottom:14px;color:var(--muted);font-size:12px;}
+#panel-mail .hintnote .ic{width:14px;height:14px;color:var(--accent);flex-shrink:0;}
 #panel-mail .attachchip{display:flex;align-items:center;gap:7px;margin-top:10px;padding:8px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg);font-size:12px;color:var(--ink);}
 #panel-mail .attachchip .ic{width:14px;height:14px;color:var(--accent);flex-shrink:0;}
 #panel-mail .attachchip.empty{color:var(--muted);}
@@ -766,12 +779,15 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
         </form>
       </div>
       <div class="realtime">
-        <button class="pill trendpill" id="trendPill" onclick="trendClick()" aria-label="실시간 검색어로 검색">
-          <span class="tag">실시간</span>
-          <span class="trendrank" id="trendRank">1</span>
-          <span class="trendwin"><span class="trendtrack" id="trendTrack"></span></span>
-          <svg class="ic chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
-        </button>
+        <div class="trendwrap" id="trendWrap">
+          <button class="pill trendpill" id="trendPill" onclick="trendClick()" aria-label="실시간 검색어로 검색">
+            <span class="tag">실시간</span>
+            <span class="trendrank" id="trendRank">1</span>
+            <span class="trendwin"><span class="trendtrack" id="trendTrack"></span></span>
+            <svg class="ic chev" viewBox="0 0 24 24"><path d="m6 9 6 6 6-6"/></svg>
+          </button>
+          <div class="trenddrop" id="trendDrop"></div>
+        </div>
       </div>
       <div class="serviceicons">
         <button class="svcitem" onclick="openTab('mail','이스크라 메일','&#9993;')"><span class="ico"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span><span class="lbl">메일</span></button>
@@ -874,7 +890,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
         <button class="folder active" data-folder="inbox"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg><span class="lbl">받은메일함</span><span class="cnt hidden" id="inboxCnt">1</span></button>
         <button class="folder" data-folder="sent"><svg class="ic" viewBox="0 0 24 24"><path d="M4 12h14M12 6l7 6-7 6"/></svg><span class="lbl">보낸메일함</span></button>
         <button class="folder" data-folder="draft"><svg class="ic" viewBox="0 0 24 24"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/></svg><span class="lbl">임시보관함</span></button>
-        <button class="folder" data-folder="spam"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span class="lbl">스팸메일함</span><span class="cnt">3</span></button>
+        <button class="folder" data-folder="spam"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 9l6 6M15 9l-6 6"/></svg><span class="lbl">스팸메일함</span></button>
         <button class="folder" data-folder="trash"><svg class="ic" viewBox="0 0 24 24"><path d="M4 7h16M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/></svg><span class="lbl">휴지통</span></button>
       </div>
     </div>
@@ -1218,6 +1234,7 @@ function switchTab(id){
     document.getElementById('backBtn').disabled = !chromeBackEnabled[k];
   }
   if(typeof updateCaptureHint === 'function') updateCaptureHint();
+  if(typeof updateSearchHint === 'function') updateSearchHint();
   if(typeof saveProgress === 'function') saveProgress();
 }
 
@@ -1649,6 +1666,12 @@ function initTrend(){
   track.innerHTML = items.map(k => `<span class="trenditem">${k}</span>`).join('');
   trendItemH = track.children[0].offsetHeight;
   setInterval(advanceTrend, 3200);
+  const drop = document.getElementById('trendDrop');
+  if(drop){
+    drop.innerHTML = TREND_KEYWORDS.map((k, i) => `
+      <button type="button" class="trenddrop-row" onclick="runSearch('${k}')"><span class="rank">${i+1}</span>${k}</button>
+    `).join('');
+  }
 }
 function advanceTrend(){
   const track = document.getElementById('trendTrack');
@@ -2019,6 +2042,7 @@ function renderActions(m){
       return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
     }
     return `
+      <div class="hintnote"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 0 1 5 0c0 1.5-1.2 2-2 2.8-.4.4-.5.8-.5 1.2"/><path d="M12 18h.01"/></svg>막히면 이스크라 메인 화면에서 검색해 보세요.</div>
       <div class="actions"><button class="live" onclick="showAssign3Reply()">답장</button><button>전달</button><button>삭제</button></div>
       <div class="replybox hidden" id="assign3ReplyBox">
         <div class="kwprompt">'바르네시아교민상회'를 검색해서 찾은 기사들을 참고해, 이 단체가 어떤 성격의 단체인지 핵심 단어로 정리해 보세요.</div>
@@ -2058,6 +2082,15 @@ function refreshChips(){
   if(b) b.innerHTML = assign2ChipHtml();
   const c = document.getElementById('assign2ChipB');
   if(c) c.innerHTML = assign2ChipBHtml();
+  updateSearchHint();
+}
+const SEARCH_HINT_PLACEHOLDER = '막히면 조사 중인 이름을 검색해 보세요';
+const DEFAULT_SEARCH_PLACEHOLDER = '검색어를 입력하세요';
+function updateSearchHint(){
+  const input = document.getElementById('searchInput');
+  if(!input) return;
+  const needHint = typeof FOLDERS !== 'undefined' && FOLDERS.inbox.some(m => m.id === ASSIGNMENT3_MAIL.id) && !assignment3Pending && !assignment3Resolved;
+  input.placeholder = needHint ? SEARCH_HINT_PLACEHOLDER : DEFAULT_SEARCH_PLACEHOLDER;
 }
 
 function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
@@ -2175,6 +2208,7 @@ function queueDelivery(uid, delayMs, mailId, opts){
   opts = opts || {};
   pendingDeliveries[uid] = {due: Date.now() + delayMs, mailId, pendingFlag: opts.pendingFlag || null, resolvedFlag: opts.resolvedFlag || null, effect: opts.effect || null, skipIfPresent: !!opts.skipIfPresent};
   if(opts.pendingFlag) setFlag(opts.pendingFlag, true);
+  if(typeof updateSearchHint === 'function') updateSearchHint();
   saveProgress();
   armTimer(uid, delayMs);
 }
