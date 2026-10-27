@@ -755,6 +755,53 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
   #panel-alumni .al-cert-table td{padding:10px 12px;font-size:12px;}
 }
 
+/* ===================== 패널: 도렌통신 디지털 아카이브 ===================== */
+#panel-archive{--ar-green:#1F3B2C;--ar-green2:#2C5240;--ar-gold:#B08D3E;--ar-bg:#F3EFE4;--ar-ink:#241F18;--ar-muted:#726B5C;--ar-border:#DED5BE;}
+#panel-archive{background:var(--ar-bg);min-height:100%;}
+#panel-archive .ar-topbar{background:var(--ar-green);color:#D9E3D9;font-size:11px;}
+#panel-archive .ar-topbar-inner{max-width:760px;margin:0 auto;padding:5px 20px;display:flex;align-items:center;justify-content:space-between;}
+#panel-archive .ar-topbar-links{display:flex;gap:10px;opacity:.85;}
+#panel-archive .ar-header{background:#fff;border-bottom:3px solid var(--ar-green);}
+#panel-archive .ar-header-inner{max-width:760px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;}
+#panel-archive .ar-logo{display:flex;align-items:center;gap:9px;font-size:16px;font-weight:900;color:var(--ar-green);letter-spacing:-.01em;font-family:'Oswald',sans-serif;}
+#panel-archive .ar-logo-badge{background:var(--ar-green);color:#fff;font-size:13px;font-weight:700;line-height:1;text-align:center;padding:5px 8px;border-radius:4px;}
+#panel-archive .ar-nav{display:flex;gap:4px;flex-wrap:wrap;}
+#panel-archive .ar-nav button{background:none;border:none;font-family:inherit;font-size:12px;color:var(--ar-muted);padding:7px 11px;border-radius:5px;cursor:pointer;}
+#panel-archive .ar-nav button.active{color:var(--ar-green);font-weight:800;background:#E8E9DF;}
+#panel-archive .ar-nav button:hover:not(.active){background:#F2F1E8;}
+#panel-archive .ar-page{max-width:760px;margin:0 auto;padding:30px 20px 60px;}
+#panel-archive .ar-hero{text-align:center;padding:34px 10px 26px;}
+#panel-archive .ar-hero h1{font-size:17px;font-weight:800;color:var(--ar-ink);margin:0 0 18px;letter-spacing:-.01em;}
+#panel-archive .ar-searchbar{max-width:480px;margin:0 auto;display:flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--ar-green);border-radius:999px;padding:5px 6px 5px 18px;box-shadow:0 2px 10px rgba(31,59,44,.1);}
+#panel-archive .ar-searchbar input{flex:1;border:none;outline:none;font-family:inherit;font-size:13px;color:var(--ar-ink);background:none;}
+#panel-archive .ar-searchbar button{width:34px;height:34px;flex-shrink:0;border:none;border-radius:999px;background:var(--ar-green);color:#fff;display:flex;align-items:center;justify-content:center;cursor:pointer;}
+#panel-archive .ar-searchbar button:hover{background:var(--ar-green2);}
+#panel-archive .ar-searchbar .ic{width:15px;height:15px;}
+#panel-archive .ar-tip{font-size:11px;color:var(--ar-muted);margin-top:14px;}
+#panel-archive .ar-noticebox{background:#fff;border:1px solid var(--ar-border);border-radius:8px;padding:16px 20px;}
+#panel-archive .ar-notice-head{font-size:12px;font-weight:800;color:var(--ar-green);margin-bottom:10px;padding-bottom:9px;border-bottom:2px solid var(--ar-green);}
+#panel-archive .ar-noticebox ul{list-style:none;margin:0;padding:0;}
+#panel-archive .ar-noticebox li{display:flex;gap:12px;font-size:12px;color:var(--ar-ink);padding:7px 0;border-bottom:1px solid var(--ar-border);}
+#panel-archive .ar-noticebox li:last-child{border-bottom:none;}
+#panel-archive .ar-noticebox li .d{color:var(--ar-muted);font-variant-numeric:tabular-nums;flex-shrink:0;}
+#panel-archive .ar-backlink{background:none;border:none;font-family:inherit;font-size:12px;color:var(--ar-green);font-weight:700;cursor:pointer;padding:0 0 16px;}
+#panel-archive .ar-backlink:hover{text-decoration:underline;}
+#panel-archive .ar-result-head{font-size:12.5px;color:var(--ar-muted);margin-bottom:14px;}
+#panel-archive .ar-result-head b{color:var(--ar-ink);}
+#panel-archive .ar-empty{background:#fff;border:1px solid var(--ar-border);border-radius:8px;padding:32px 20px;text-align:center;font-size:12.5px;color:var(--ar-muted);}
+#panel-archive .ar-result-row{display:block;width:100%;text-align:left;background:#fff;border:1px solid var(--ar-border);border-radius:8px;padding:14px 16px;margin-bottom:8px;cursor:pointer;font-family:inherit;}
+#panel-archive .ar-result-row:hover{border-color:var(--ar-green2);box-shadow:0 2px 8px rgba(31,59,44,.1);}
+#panel-archive .ar-result-row .rtop{display:flex;align-items:center;gap:8px;margin-bottom:4px;}
+#panel-archive .ar-rsection{font-size:10.5px;font-weight:800;color:#fff;background:var(--ar-gold);padding:3px 8px;border-radius:4px;flex-shrink:0;}
+#panel-archive .ar-rdate{font-size:11px;color:var(--ar-muted);}
+#panel-archive .ar-rtitle{font-size:13px;font-weight:700;color:var(--ar-ink);}
+#panel-archive .ar-article{background:#fff;border:1px solid var(--ar-border);border-radius:10px;padding:28px 30px;}
+#panel-archive .ar-article-meta{font-size:11.5px;color:var(--ar-muted);margin-bottom:8px;}
+#panel-archive .ar-article-title{font-size:19px;font-weight:800;color:var(--ar-ink);line-height:1.4;margin:0 0 18px;padding-bottom:16px;border-bottom:1px solid var(--ar-border);}
+#panel-archive .ar-article-body p{font-size:13.5px;line-height:1.85;color:var(--ar-ink);margin:0 0 14px;}
+body.capture-mode #panel-archive .ar-article{cursor:crosshair;}
+body.capture-mode #panel-archive .ar-article:hover{outline:2px solid var(--ar-green2);outline-offset:-2px;}
+
 /* ===================== 패널: 이스크라 부동산 ===================== */
 #panel-listing{--ls-teal:#0C8C7D;--ls-teal-dk:#086F63;--ls-ink:#1C2430;--ls-muted:#6B7484;--ls-bg:#F6F9F8;--ls-border:#DCE8E5;--ls-amber:#B8690C;--ls-amberbg:#FDF1E4;}
 #panel-listing{background:var(--ls-bg);min-height:100%;}
@@ -1266,6 +1313,54 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 </div>
 
+<div id="panel-archive" class="panel hidden">
+<div class="ar-topbar"><div class="ar-topbar-inner"><span>도렌통신</span><span class="ar-topbar-links"><span>홈</span><span>지면보기</span><span>구독</span></span></div></div>
+<div class="ar-header">
+  <div class="ar-header-inner">
+    <div class="ar-logo"><span class="ar-logo-badge">道</span>도렌통신 디지털 아카이브</div>
+    <nav class="ar-nav">
+      <button class="active">아카이브 검색</button>
+      <button>오늘의 지면</button>
+      <button>자료 이용 안내</button>
+    </nav>
+  </div>
+</div>
+
+<div id="arHome" class="ar-page">
+  <div class="ar-hero">
+    <h1>지난 60년, 도렌통신이 기록한 이야기를 찾아보세요</h1>
+    <form class="ar-searchbar" onsubmit="arSearch(event)">
+      <input id="arSearchInput" type="text" placeholder="이름 또는 키워드를 입력하세요" autocomplete="off">
+      <button type="submit" aria-label="검색"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </form>
+    <div class="ar-tip">가입 없이 무료로 전체 지면을 검색할 수 있습니다</div>
+  </div>
+  <div class="ar-noticebox">
+    <div class="ar-notice-head">아카이브 안내</div>
+    <ul>
+      <li><span class="d">2026.10.06</span>창간 60주년 기념 디지털 아카이브 전면 공개</li>
+      <li><span class="d">2026.09.12</span>지면 스캔본 고해상도 전환 작업 완료</li>
+      <li><span class="d">2026.07.01</span>검색 결과 내 본문 하이라이트 기능 추가</li>
+    </ul>
+  </div>
+</div>
+
+<div id="arResult" class="ar-page hidden">
+  <button class="ar-backlink" onclick="arShowHome()">← 다시 검색</button>
+  <div class="ar-result-head"><b id="arResultQuery"></b> 검색결과 <span id="arResultCount"></span></div>
+  <div id="arResultList"></div>
+</div>
+
+<div id="arDetail" class="ar-page hidden">
+  <button class="ar-backlink" onclick="arShowResultBack()">← 목록으로</button>
+  <div class="ar-article" id="arArticleCard" onclick="arDetailClick()">
+    <div class="ar-article-meta" id="arArticleMeta"></div>
+    <h2 class="ar-article-title" id="arArticleTitle"></h2>
+    <div class="ar-article-body" id="arArticleBody"></div>
+  </div>
+</div>
+</div>
+
 <div id="toast" onclick="mOpenFromToast()">
   <span class="ticon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
   <div class="tbody">
@@ -1353,7 +1448,7 @@ function switchTab(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
   const t = TABS.find(x => x.id === id);
   const k = t ? t.kind : 'search';
-  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni') exitCaptureMode();
+  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni' && k !== 'archive') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'article' && t){
@@ -1397,6 +1492,7 @@ function chromeBack(){
   else if(k === 'orginfo') ogGoBack();
   else if(k === 'listing') lsGoBack();
   else if(k === 'alumni') alGoBack();
+  else if(k === 'archive') arGoBack();
 }
 function chromeReload(){
   const btn = document.getElementById('reloadBtn');
@@ -1410,6 +1506,7 @@ function chromeReload(){
   else if(k === 'orginfo') ogReload();
   else if(k === 'listing') lsReload();
   else if(k === 'alumni') alReload();
+  else if(k === 'archive') arReload();
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
@@ -1449,6 +1546,7 @@ function fallbackCopyText(text, done){
 
 let capturedEvidence = null;
 let capturedEvidence4 = null;
+let capturedEvidence5 = null;
 let captureMode = false;
 const CAPTURE_ICONS = {
   ok: '<svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>',
@@ -1467,7 +1565,8 @@ const CAPTURE_HINTS = {
   raden: '캡처할 거래 내역을 클릭하세요 (Esc로 취소)',
   orginfo: '캡처할 등록 정보 화면을 클릭하세요 (Esc로 취소)',
   listing: '캡처할 매물 정보 화면을 클릭하세요 (Esc로 취소)',
-  alumni: '캡처할 동문 기록을 클릭하세요 (Esc로 취소)'
+  alumni: '캡처할 동문 기록을 클릭하세요 (Esc로 취소)',
+  archive: '캡처할 기사를 클릭하세요 (Esc로 취소)'
 };
 function updateCaptureHint(){
   const btn = document.getElementById('captureBtn');
@@ -1616,6 +1715,9 @@ const HINTS = [
   {id:124, company:'도렌그라드 국립대학교', tags:['도렌그라드'], cat:"사회", title:"도렌그라드 국립대학교 총동문회, 온라인 동문수첩 서비스 전면 개편", outlet:"도렌통신", time:"1개월 전", c:6,
     comments:[{u:'ㅇㅇ',t:'오프라인 문의만 되던 거 이제 편해졌네요'},{u:'교포2세',t:'저희 학교도 좀 이렇게 해줬으면'},{u:'흐라벡**',t:'로그인 없이도 조회된다니 신기하다'},{u:'지나가던사람',t:'동문 근황까지 나온다니 다들 동의하고 올린건가'},{u:'구경꾼',t:'검색 많이 몰려서 서버 느려지겠네'},{u:'밀라21',t:'학과별로도 찾아지나요'}],
     body:["도렌그라드 국립대학교 총동문회가 온라인 동문수첩 서비스를 전면 개편했다고 밝혔다. 기존에는 오프라인 문의로만 가능했던 동문 조회가 홈페이지를 통해 간편하게 가능해졌다.","총동문회 관계자는 \"다양한 분야에 진출한 동문들의 근황을 한눈에 볼 수 있도록 데이터베이스를 정비했다\"고 설명했다. 성명으로 검색할 수 있으며, 본인 동의를 거친 경우 간단한 근황도 함께 조회된다.","개편된 서비스는 홈페이지 내 '동문찾기' 메뉴에서 별도 로그인 없이 이용할 수 있다."]},
+  {id:125, company:'도렌통신', tags:['도렌그라드'], cat:"사회", title:"도렌통신, 창간 60주년 맞아 디지털 아카이브 전면 공개", outlet:"도렌통신", time:"3주 전", c:7,
+    comments:[{u:'ㅇㅇ',t:'옛날 기사 찾아보는 맛이 있네요'},{u:'구경꾼',t:'60주년이라니 역사가 꽤 깊은 신문이었구나'},{u:'지나가던사람',t:'예전 기고문 코너 찾아보니 재밌는 글들 많더라'},{u:'노박**',t:'검색이 생각보다 잘 되네'},{u:'교포2세',t:'옛날 신문에 저희 동네 얘기도 나오려나'},{u:'할란**',t:'창간호도 볼 수 있나요'},{u:'밀란85',t:'아카이브 이용료 없는거 맞죠'}],
+    body:["지역 일간지 도렌통신이 창간 60주년을 맞아 디지털 아카이브를 전면 공개했다고 밝혔다. 지난 60년간 발행된 지면을 날짜·이름·키워드로 검색할 수 있다.","신문사 관계자는 \"그동안 자료실 방문 신청을 통해서만 열람 가능했던 과거 지면을, 이제는 온라인에서 누구나 무료로 찾아볼 수 있게 됐다\"고 설명했다. 기고문·인터뷰·동정란 등 지면 전체가 검색 대상이다.","아카이브는 도렌통신 홈페이지 내 '디지털 아카이브' 메뉴에서 별도 가입 없이 이용할 수 있다."]},
 ];
 
 function renderPhotos(){
@@ -1950,6 +2052,42 @@ const RETRY4_MAIL = {
     "2019년 4월 기준으로 최소 10년 이상 졸업해서 사회생활을 하고 있었을 분으로 범위를 좁힌 다음, 그중에서도 근황상 실제로 단체를 이끌고 있을 법한 분으로 다시 한번 찾아봐 주시겠어요? 해당 안 되는 분들은 근황을 잘 살펴보시면 걸러낼 수 있을 겁니다."
   ]
 };
+const ASSIGNMENT5_MAIL = {
+  id:'assign5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 과거 기고·인터뷰 확인',
+  preview:'이 분이 예전에 신문에 글을 쓴 적이 있는지 찾아봐 주셨으면 합니다.', time:'방금 전', unread:true,
+  body:[
+    "성함 확인 감사합니다 — '마르코비치 이보'.",
+    "이번엔 이 분이 예전에 신문에 기고문을 쓰거나 인터뷰에 응한 적이 있는지 찾아봐 주셨으면 합니다. 도렌통신에 디지털 아카이브(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">archive.dorentong.dg</a>)가 있다고 들었습니다 — 이름으로 검색하면 과거 기사도 나온다고 하네요.",
+    "단순 동정란 같은 건 말고, 이 분의 생각이나 입장이 드러나는 글이면 좋겠습니다. 찾으시면 캡처해서 보내주세요."
+  ]
+};
+const SUCCESS5_MAIL = {
+  id:'success5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 확인 감사합니다',
+  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  body:[
+    "전달해 주신 글 잘 읽었습니다. 이 정도면 이 인물에 대해 꽤 입체적으로 파악이 된 것 같습니다.",
+    "이번 건 사례금도 바로 입금해 드렸습니다.",
+    "다음 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+  ]
+};
+const RETRY5_MAIL = {
+  id:'retry5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 다시 한번 확인 부탁드립니다',
+  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  body:[
+    "보내주신 걸 봤는데, 이건 그냥 지역 소식란이네요.",
+    "저희가 찾는 건 이 분의 생각이나 입장이 드러나는 글입니다. 다시 한번 찾아봐 주시겠어요?"
+  ]
+};
+const CONTACT1_MAIL = {
+  id:'contact1', sender:'두샨카 보스코', addr:'', subject:'오랜만이야, 레나',
+  preview:'요즘 잘 지내지? 너희 어머니는 어떠셔.', time:'방금 전', unread:true,
+  body:[
+    "레나, 오랜만이다. 두샨카 아줌마야 — 너희 어머니랑 연합회에서 자주 뵙는.",
+    "요즘 잘 지내지? 어머니는 좀 어떠셔, 요새 몸이 안 좋으시다고 들었는데.",
+    "그런데 얼마 전에 네가 이것저것 옛날 얘기들을 찾아보고 다닌다는 얘기를 들었어. 학교 과제 때문인가 싶었는데, 궁금해서 연락해봤어.",
+    "이번 주 토요일에 연합회에서 조촐하게 모임이 있는데, 시간 되면 한번 들르지 않을래? 어머니도 아는 분들 많이 오실 거야."
+  ]
+};
 let replied = false;
 let assignmentPending = false;
 let assignmentResolved = false;
@@ -1959,13 +2097,16 @@ let assignment3Pending = false;
 let assignment3Resolved = false;
 let assignment4Pending = false;
 let assignment4Resolved = false;
+let assignment5Pending = false;
+let assignment5Resolved = false;
 let lastDelivered = NEW_MAIL;
 
 const REWARD_BY_MAIL = {
   [SUCCESS_MAIL.id]: {amount:150000, label:'D&K 리서치 그룹 · 1차 의뢰 사례금'},
   [SUCCESS2_MAIL.id]: {amount:180000, label:'D&K 리서치 그룹 · 2차 의뢰 사례금'},
   [SUCCESS3_MAIL.id]: {amount:220000, label:'D&K 리서치 그룹 · 3차 의뢰 사례금'},
-  [SUCCESS4_MAIL.id]: {amount:260000, label:'D&K 리서치 그룹 · 4차 의뢰 사례금'}
+  [SUCCESS4_MAIL.id]: {amount:260000, label:'D&K 리서치 그룹 · 4차 의뢰 사례금'},
+  [SUCCESS5_MAIL.id]: {amount:300000, label:'D&K 리서치 그룹 · 5차 의뢰 사례금'}
 };
 let bankBalance = 0;
 let bankTx = [];
@@ -2274,6 +2415,25 @@ function renderActions(m){
       </div>
     `;
   }
+  if(m.id === ASSIGNMENT5_MAIL.id){
+    if(assignment5Resolved){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 회신을 전달했습니다.</div>`;
+    }
+    if(assignment5Pending){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 답장을 기다리는 중입니다.</div>`;
+    }
+    return `
+      <div class="actions"><button class="live" onclick="showAssign5Reply()">답장</button><button>전달</button><button>삭제</button></div>
+      <div class="replybox hidden" id="assign5ReplyBox">
+        <textarea id="assign5ReplyText" rows="3">아카이브에서 생각이 드러나는 글을 찾아 캡처해서 함께 보내드립니다.</textarea>
+        <div id="assign5Chip">${assign5ChipHtml()}</div>
+        <div class="replyactions">
+          <button class="sendbtn" onclick="sendAssign5Reply()">보내기</button>
+          <button class="cancelbtn" onclick="hideAssign5Reply()">취소</button>
+        </div>
+      </div>
+    `;
+  }
   return `<div class="actions"><button>답장</button><button>전달</button><button>삭제</button></div>`;
 }
 function assignChipHtml(){
@@ -2296,6 +2456,11 @@ function assign4ChipHtml(){
     ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부: ${capturedEvidence4.name} 동문 기록</div>`
     : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
 }
+function assign5ChipHtml(){
+  return capturedEvidence5
+    ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부: ${capturedEvidence5.title}</div>`
+    : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
+}
 function refreshChips(){
   const a = document.getElementById('assignChip');
   if(a) a.innerHTML = assignChipHtml();
@@ -2305,6 +2470,8 @@ function refreshChips(){
   if(c) c.innerHTML = assign2ChipBHtml();
   const d = document.getElementById('assign4Chip');
   if(d) d.innerHTML = assign4ChipHtml();
+  const e = document.getElementById('assign5Chip');
+  if(e) e.innerHTML = assign5ChipHtml();
 }
 
 function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
@@ -2313,7 +2480,7 @@ function hideReply(){ document.getElementById('replyBox').classList.add('hidden'
 /* ===== 메일 지연 발송 스케줄러 (새로고침에도 살아남음) ===== */
 let pendingDeliveries = {};
 const MAIL_BY_ID = {};
-[NEW_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
+[NEW_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL, ASSIGNMENT5_MAIL, RETRY5_MAIL, SUCCESS5_MAIL, CONTACT1_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
 
 function setFlag(name, val){
   if(name === 'assignmentPending') assignmentPending = val;
@@ -2324,6 +2491,8 @@ function setFlag(name, val){
   else if(name === 'assignment3Resolved') assignment3Resolved = val;
   else if(name === 'assignment4Pending') assignment4Pending = val;
   else if(name === 'assignment4Resolved') assignment4Resolved = val;
+  else if(name === 'assignment5Pending') assignment5Pending = val;
+  else if(name === 'assignment5Resolved') assignment5Resolved = val;
 }
 function applyEffect(name){
   if(name === 'hint116') addDynamicArticle(116);
@@ -2333,6 +2502,8 @@ function applyEffect(name){
   else if(name === 'chainAssign2'){ queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS_MAIL.id] = 118; }
   else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
   else if(name === 'chainAssign4'){ queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
+  else if(name === 'chainAssign5'){ queueDelivery('assign5', 45000, ASSIGNMENT5_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS4_MAIL.id] = 125; }
+  else if(name === 'chainContact1'){ queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true}); }
 }
 
 /* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
@@ -2493,7 +2664,20 @@ function sendAssign4Reply(){
   openDetail('inbox', ASSIGNMENT4_MAIL.id);
   queueDelivery('result4', 15000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
     pendingFlag: 'assignment4Pending',
-    resolvedFlag: correct ? 'assignment4Resolved' : null
+    resolvedFlag: correct ? 'assignment4Resolved' : null,
+    effect: correct ? 'chainAssign5' : null
+  });
+}
+
+function showAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.remove('hidden'); }
+function hideAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.add('hidden'); }
+function sendAssign5Reply(){
+  const correct = !!capturedEvidence5 && (capturedEvidence5.id === 'arc2' || capturedEvidence5.id === 'arc3');
+  openDetail('inbox', ASSIGNMENT5_MAIL.id);
+  queueDelivery('result5', 15000, correct ? SUCCESS5_MAIL.id : RETRY5_MAIL.id, {
+    pendingFlag: 'assignment5Pending',
+    resolvedFlag: correct ? 'assignment5Resolved' : null,
+    effect: correct ? 'chainContact1' : null
   });
 }
 
@@ -3092,9 +3276,131 @@ function performCaptureAlumni(){
 setAddr('alumni', 'alumni.dgnu.dg');
 setBack('alumni', false);
 
+/* ===================== 패널: 도렌통신 디지털 아카이브 ===================== */
+const ARCHIVE_RECORDS = [
+  {
+    id:'arc1', section:'스포츠', date:'2008.05.12', query:['마르코비치','이보'],
+    title:'도렌그라드 국립대, 교내 학과 대항 축구대회 역사학과 준우승',
+    body:[
+      '도렌그라드 국립대학교 교내 학과 대항 축구대회에서 역사학과가 준우승을 차지했다.',
+      '역사학과팀은 주장 마르코비치 이보 선수를 중심으로 조별리그를 무패로 통과했으나, 결승에서 경영학과에 아쉽게 패했다.',
+      '대회는 매년 봄학기 말 열리는 교내 행사로, 올해도 많은 학생들의 응원 속에 치러졌다.'
+    ]
+  },
+  {
+    id:'arc2', section:'기고', date:'2008.11.18', query:['마르코비치','이보'],
+    title:'기고 — 국경 너머, 지워지는 이름들',
+    byline:'마르코비치 이보 (도렌그라드 국립대학교 역사학과 재학)',
+    body:[
+      '나는 도렌그라드에서 태어났다. 바르네시아어는 서툴고, 명절에나 몇 마디 흉내 낼 뿐이다. 그런데도 매년 이맘때가 되면, 설명할 수 없는 무게가 가슴 한쪽에 내려앉는다.',
+      '어릴 적 할머니는 밤마다 고향 이야기를 들려주셨다. 지명도, 사람 이름도 낯설어서 잘 기억하지 못했는데, 돌아가신 뒤에야 그 이야기들을 다시 찾을 방법이 없다는 걸 깨달았다.',
+      '역사학을 공부하면서 알게 된 건, 큰 사건의 연도와 숫자는 기록에 남지만 그 사이를 살아낸 사람들의 이름은 쉽게 지워진다는 사실이었다. 할머니의 이름도 그렇게 지워질까 봐, 요즘은 틈날 때마다 어머니께 옛날 이야기를 여쭤보고 받아 적는다.',
+      '거창한 결심은 아니다. 그저 누군가는 이름을 기억해두어야 한다고 생각했을 뿐이다.'
+    ]
+  },
+  {
+    id:'arc3', section:'인터뷰', date:'2017.03.02', query:['마르코비치','이보'],
+    title:'인터뷰 — "기억을 기록하는 일부터 시작했습니다"',
+    byline:'마르코비치 이보 씨 인터뷰',
+    body:[
+      '도렌그라드에 정착한 바르네시아 출신 1세대 교민들의 구술을 기록하는 작은 모임이 조용히 활동을 이어가고 있다. 본지는 이 모임을 이끄는 마르코비치 이보 씨를 만나 이야기를 들어봤다.',
+      '— 어떻게 이 일을 시작하게 되셨나요. "대학 때 할머니 이야기를 글로 써본 적이 있는데, 그 뒤로 비슷한 사연을 가진 분들이 하나둘 연락을 주셨습니다. 각자 기억은 다르지만, \'누군가 들어줬으면 좋겠다\'는 마음은 다들 비슷하더라고요."',
+      '— 기록은 어떻게 하시나요. "거창한 장비는 없습니다. 녹음기 하나 들고 찾아뵙고, 편하게 이야기를 나누는 정도예요. 1세대 분들이 연세가 있으셔서, 서두르지 않으면 영영 못 듣는 이야기들이 많습니다."',
+      '— 앞으로 계획은요. "일단은 기록을 모으는 게 우선입니다. 나중에 여유가 되면 교민 사회 안에서 더 다양한 방식으로 나눌 수 있는 자리를 만들어보고 싶어요."'
+    ]
+  }
+];
+let arCurrentRecord = null;
+let arLastQuery = '';
+
+function arMatch(q){
+  const ql = q.trim().toLowerCase();
+  if(!ql) return [];
+  return ARCHIVE_RECORDS.filter(r => r.title.toLowerCase().includes(ql) || (r.query || []).some(k => k.toLowerCase() === ql || ql.includes(k.toLowerCase())));
+}
+function arShowHome(){
+  document.getElementById('arHome').classList.remove('hidden');
+  document.getElementById('arResult').classList.add('hidden');
+  document.getElementById('arDetail').classList.add('hidden');
+  setAddr('archive', 'archive.dorentong.dg');
+  setBack('archive', false);
+  saveProgress();
+}
+function arSearch(e){
+  if(e) e.preventDefault();
+  const q = document.getElementById('arSearchInput').value.trim();
+  if(!q) return;
+  arLastQuery = q;
+  arRenderResult(q);
+}
+function arRenderResult(q){
+  const matches = arMatch(q);
+  document.getElementById('arHome').classList.add('hidden');
+  document.getElementById('arDetail').classList.add('hidden');
+  document.getElementById('arResult').classList.remove('hidden');
+  document.getElementById('arResultQuery').textContent = `'${q}'`;
+  document.getElementById('arResultCount').textContent = matches.length ? `${matches.length}건` : '0건';
+  const list = document.getElementById('arResultList');
+  if(!matches.length){
+    list.innerHTML = `<div class="ar-empty">검색결과가 없습니다. 다른 이름이나 키워드로 찾아보세요.</div>`;
+  } else {
+    list.innerHTML = matches.map(r => `
+      <button class="ar-result-row" onclick="arShowDetail('${r.id}')">
+        <div class="rtop"><span class="ar-rsection">${r.section}</span><span class="ar-rdate">${r.date}</span></div>
+        <div class="ar-rtitle">${r.title}</div>
+      </button>
+    `).join('');
+  }
+  setAddr('archive', 'archive.dorentong.dg/search?q=' + encodeURIComponent(q));
+  setBack('archive', true);
+  saveProgress();
+}
+function arShowResultBack(){
+  document.getElementById('arDetail').classList.add('hidden');
+  document.getElementById('arResult').classList.remove('hidden');
+  setAddr('archive', 'archive.dorentong.dg/search?q=' + encodeURIComponent(arLastQuery));
+  setBack('archive', true);
+}
+function arGoBack(){
+  if(!document.getElementById('arDetail').classList.contains('hidden')) arShowResultBack();
+  else if(!document.getElementById('arResult').classList.contains('hidden')) arShowHome();
+}
+function arReload(){
+  if(!document.getElementById('arDetail').classList.contains('hidden') && arCurrentRecord) arShowDetail(arCurrentRecord.id);
+  else if(!document.getElementById('arResult').classList.contains('hidden')) arRenderResult(arLastQuery);
+}
+function arShowDetail(id){
+  const r = ARCHIVE_RECORDS.find(x => x.id === id);
+  if(!r) return;
+  arCurrentRecord = r;
+  document.getElementById('arHome').classList.add('hidden');
+  document.getElementById('arResult').classList.add('hidden');
+  document.getElementById('arDetail').classList.remove('hidden');
+  document.getElementById('arArticleMeta').textContent = `[${r.section}] 도렌통신 · ${r.date}` + (r.byline ? ' · ' + r.byline : '');
+  document.getElementById('arArticleTitle').textContent = r.title;
+  document.getElementById('arArticleBody').innerHTML = r.body.map(p => `<p>${p}</p>`).join('');
+  setAddr('archive', 'archive.dorentong.dg/view/' + r.id);
+  setBack('archive', true);
+  saveProgress();
+}
+function arDetailClick(){
+  if(captureMode){ performCaptureArchive(); return; }
+}
+function performCaptureArchive(){
+  if(!arCurrentRecord) return;
+  capturedEvidence5 = arCurrentRecord;
+  exitCaptureMode();
+  showCaptureToast(`캡처됨: ${arCurrentRecord.title}`, 'ok');
+  refreshChips();
+  saveProgress();
+}
+
+setAddr('archive', 'archive.dorentong.dg');
+setBack('archive', false);
+
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
 const SAVE_KEY = 'iskra_save_v1';
-const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id];
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id];
 
 function saveProgress(){
   try {
@@ -3106,6 +3412,7 @@ function saveProgress(){
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
+      assignment5Resolved, capturedEvidence5,
       bankBalance, bankTx, scrapped, introSeen,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -3121,7 +3428,9 @@ function saveProgress(){
       lsDetailId: lsCurrentRecord && !document.getElementById('lsDetail').classList.contains('hidden') ? lsCurrentRecord.id : null,
       lsLastQuery,
       alDetailId: alCurrentRecord && !document.getElementById('alDetail').classList.contains('hidden') ? alCurrentRecord.id : null,
-      alLastQuery
+      alLastQuery,
+      arDetailId: arCurrentRecord && !document.getElementById('arDetail').classList.contains('hidden') ? arCurrentRecord.id : null,
+      arLastQuery
     }));
   } catch(e){}
 }
@@ -3141,6 +3450,8 @@ function loadProgress(){
   assignment3Resolved = !!saved.assignment3Resolved;
   assignment4Resolved = !!saved.assignment4Resolved;
   capturedEvidence4 = saved.capturedEvidence4 || null;
+  assignment5Resolved = !!saved.assignment5Resolved;
+  capturedEvidence5 = saved.capturedEvidence5 || null;
   bankBalance = saved.bankBalance || 0;
   bankTx = saved.bankTx || [];
   renderBankcard();
@@ -3201,6 +3512,13 @@ function loadProgress(){
     alShowDetail(saved.alDetailId);
   } else if(saved.alLastQuery){
     alRenderResult(saved.alLastQuery);
+  }
+
+  if(saved.arLastQuery) arLastQuery = saved.arLastQuery;
+  if(saved.arDetailId){
+    arShowDetail(saved.arDetailId);
+  } else if(saved.arLastQuery){
+    arRenderResult(saved.arLastQuery);
   }
 
   if(saved.mailFolder && saved.mailFolder !== 'inbox'){
