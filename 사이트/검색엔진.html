@@ -1996,6 +1996,16 @@ const NEW_MAIL = {
     "아래 링크로 접속하시면 베타 버전을 바로 이용하실 수 있습니다.<br><a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();enterBetaPortal()\">베타 버전 체험하기 →</a>"
   ]
 };
+const TUTORIAL_MAIL = {
+  id:'tutorial1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[베타 테스트 안내] 검색 기능부터 가볍게 써보세요',
+  preview:'본격적인 테스트 전에 검색 기능부터 살펴봐 주세요.', time:'방금 전', unread:true,
+  body:[
+    "베타 버전 접속 확인됐습니다. 본격적인 테스트에 들어가기 전에, 저희 핵심 기능인 검색부터 한번 가볍게 써보셨으면 해요.",
+    "화면 위쪽 검색창에 관심 가는 단어를 아무거나 입력해 보시면 됩니다. 예를 들어 '바르네시아'처럼 평소 안 쳐보셨을 법한 단어로 검색해 보시면, 저희가 여러 사이트에서 모아온 결과가 한 번에 뜨는 걸 보실 수 있을 거예요. 마음에 드는 기사가 있으면 오른쪽 아래 스크랩 기능으로 저장해 두셔도 좋고요.",
+    "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('search','이스크라','&#10022;')\">검색창 열어보기 →</a>",
+    "다 둘러보셨으면 편하게 다음 테스트로 넘어가시면 됩니다. 곧 본격적인 테스트 안내를 드릴게요."
+  ]
+};
 const ASSIGNMENT_MAIL = {
   id:'assign1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 테스트] 기업 시스템 연동 테스트 안내',
   preview:'첫 번째 테스트 시나리오를 안내드립니다.', time:'방금 전', unread:true,
@@ -2508,7 +2518,7 @@ function refreshChips(){
 /* ===== 메일 지연 발송 스케줄러 (새로고침에도 살아남음) ===== */
 let pendingDeliveries = {};
 const MAIL_BY_ID = {};
-[NEW_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL, ASSIGNMENT5_MAIL, RETRY5_MAIL, SUCCESS5_MAIL, CONTACT1_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
+[NEW_MAIL, TUTORIAL_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL, ASSIGNMENT5_MAIL, RETRY5_MAIL, SUCCESS5_MAIL, CONTACT1_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
 
 function setFlag(name, val){
   if(name === 'assignmentPending') assignmentPending = val;
@@ -2586,7 +2596,8 @@ function omShowStep2(){
 function enterBetaPortal(){
   replied = true;
   introSeen = true;
-  queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  queueDelivery('tutorial1', 8000, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  queueDelivery('assign1', 35000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
   goToMainScreen();
   saveProgress();
 }
@@ -3445,7 +3456,7 @@ setBack('archive', false);
 
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
 const SAVE_KEY = 'iskra_save_v1';
-const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id];
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, TUTORIAL_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id];
 
 function saveProgress(){
   try {
