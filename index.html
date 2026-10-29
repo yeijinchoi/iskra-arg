@@ -131,7 +131,7 @@ button{font:inherit;}
 /* ===== 전역 인터랙션 다듬기: 호버/활성 전환을 부드럽게, 주요 뷰 전환에 은은한 페이드 ===== */
 .navbtn,.tab,.folder,.navitem,#panel-search .pills button,#panel-raden .rdcats button,#panel-raden .rdpage button,
 #panel-search .photoitem,#panel-search .textrow,#panel-searchresult .sr-link,#panel-searchresult .srnavitem,#panel-mail .mrow,
-#panel-raden tbody tr,.copybtn,.backlink,.inlink,#panel-search .mailcard,#panel-oldmail .omicon,#panel-oldmail .omnextbtn,
+#panel-raden tbody tr,.copybtn,.backlink,.inlink,#panel-search .mailcard,#panel-oldmail .omicon,#panel-oldmail .omrow,#panel-oldmail .ombacklink,
 #panel-mail .detail .actions button,#panel-search .searchform button.icon{
   transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, opacity .15s ease;
 }
@@ -520,9 +520,25 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 }
 #panel-oldmail .ombadge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1);}
 #panel-oldmail .ombadge.show{opacity:1;transform:scale(1);}
+#panel-oldmail .omfoldertitle{font-size:15px;font-weight:700;margin:20px 0 12px;}
+#panel-oldmail .omlist{display:flex;flex-direction:column;max-width:680px;}
+#panel-oldmail .omrow{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--border);cursor:pointer;min-width:0;}
+#panel-oldmail .omrow:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
+#panel-oldmail .omrow.unread{background:var(--unread-bg);}
+#panel-oldmail .omrow.unread:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
+#panel-oldmail .omrow .omdot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;visibility:hidden;}
+#panel-oldmail .omrow.unread .omdot{visibility:visible;}
+#panel-oldmail .omrow .omsender{width:160px;flex-shrink:0;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#panel-oldmail .omrow.unread .omsender{color:var(--ink);font-weight:700;}
+#panel-oldmail .omrow .omsubjwrap{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;}
+#panel-oldmail .omrow .omsubjwrap b{font-weight:400;}
+#panel-oldmail .omrow.unread .omsubjwrap b{font-weight:700;}
+#panel-oldmail .omrow .omsubjwrap .omprev{color:var(--muted);margin-left:8px;}
+#panel-oldmail .omrow .omdate{width:64px;flex-shrink:0;text-align:right;color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums;}
 #panel-oldmail .omreader{max-width:680px;padding-top:16px;}
-#panel-oldmail .omcrumb{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--muted);margin:0 0 16px;}
-#panel-oldmail .omcrumb .ic{width:14px;height:14px;}
+#panel-oldmail .ombacklink{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-family:inherit;font-size:12.5px;cursor:pointer;padding:0;margin-bottom:16px;}
+#panel-oldmail .ombacklink:hover{color:var(--ink);}
+#panel-oldmail .ombacklink .ic{width:14px;height:14px;}
 #panel-oldmail .omdetail .omsubj{font-size:19px;font-weight:700;margin:0 0 10px;line-height:1.4;}
 #panel-oldmail .omdetail .ommeta{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:18px;}
 #panel-oldmail .omdetail .omavatar2{width:34px;height:34px;border-radius:50%;background:var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
@@ -530,9 +546,6 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-oldmail .omdetail .omwho span{display:block;font-size:11.5px;color:var(--muted);}
 #panel-oldmail .omdetail .omwhen{margin-left:auto;font-size:11.5px;color:var(--muted);flex-shrink:0;}
 #panel-oldmail .omdetail p{font-size:14.5px;line-height:1.85;margin:0 0 16px;}
-#panel-oldmail .omnextbtn{display:flex;align-items:center;gap:6px;border:none;border-radius:8px;padding:9px 16px;font-size:12.5px;font-weight:700;font-family:inherit;cursor:pointer;background:var(--accent);color:var(--accent-ink);margin-top:6px;}
-#panel-oldmail .omnextbtn .ic{width:14px;height:14px;}
-#panel-oldmail .omnextbtn:hover{background:var(--accent2);}
 
 #toast{
   position:fixed;right:max(20px, env(safe-area-inset-right,0px));bottom:max(20px, env(safe-area-inset-bottom,0px));
@@ -938,10 +951,13 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
       <span class="ombadge" id="omBadge">1</span>
     </button>
   </div>
+  <div class="omlistwrap hidden" id="omListWrap">
+    <h1 class="omfoldertitle">받은메일함</h1>
+    <div class="omlist" id="omlist"></div>
+  </div>
   <div class="omreader hidden" id="omReader">
-    <p class="omcrumb"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8l9 6 9-6"/><rect x="3" y="5" width="18" height="14" rx="2"/></svg>받은메일함</p>
+    <button class="ombacklink" onclick="omCloseDetail()"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>목록으로</button>
     <div class="omdetail" id="omReaderBody"></div>
-    <button class="omnextbtn hidden" id="omReaderGo">다음 메일 <svg class="ic" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button>
   </div>
 </div>
 </div>
@@ -1556,7 +1572,8 @@ function setBack(kind, enabled){
 }
 function chromeBack(){
   const k = activeKind();
-  if(k === 'mail') closeDetail();
+  if(k === 'oldmail') omCloseDetail();
+  else if(k === 'mail') closeDetail();
   else if(k === 'article') articleGoBack();
   else if(k === 'orginfo') ogGoBack();
   else if(k === 'listing') lsGoBack();
@@ -1567,7 +1584,8 @@ function chromeReload(){
   const btn = document.getElementById('reloadBtn');
   btn.classList.remove('spin'); void btn.offsetWidth; btn.classList.add('spin');
   const k = activeKind();
-  if(k === 'search') sReload();
+  if(k === 'oldmail') omReload();
+  else if(k === 'search') sReload();
   else if(k === 'mail') mReload();
   else if(k === 'raden') rReload();
   else if(k === 'searchresult') srReload();
@@ -2631,10 +2649,22 @@ function omStartGate(){
     setTimeout(() => icon.classList.remove('ding'), 500);
   }, 1400);
 }
+const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL];
 function omOpenMail(){
   document.getElementById('omGate').classList.add('hidden');
   document.getElementById('omTop').classList.remove('hidden');
-  omShowStep1();
+  document.getElementById('omListWrap').classList.remove('hidden');
+  omRenderList();
+}
+function omRenderList(){
+  document.getElementById('omlist').innerHTML = OLDMAIL_LIST.map(m => `
+    <div class="omrow ${m.unread ? 'unread' : ''}" onclick="omOpenDetail('${m.id}')">
+      <span class="omdot"></span>
+      <span class="omsender">${m.sender}</span>
+      <span class="omsubjwrap"><b>${m.subject}</b><span class="omprev">${m.preview || ''}</span></span>
+      <span class="omdate">${m.time}</span>
+    </div>
+  `).join('');
 }
 function omRenderMail(m){
   document.getElementById('omReaderBody').innerHTML = `
@@ -2647,19 +2677,23 @@ function omRenderMail(m){
     ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
   `;
 }
-function omShowStep1(){
-  omRenderMail(INTRO_TUITION_MAIL);
-  const btn = document.getElementById('omReaderGo');
-  btn.classList.remove('hidden');
+function omOpenDetail(id){
+  const m = OLDMAIL_LIST.find(x => x.id === id);
+  if(!m) return;
+  m.unread = false;
+  omRenderList();
+  document.getElementById('omListWrap').classList.add('hidden');
   document.getElementById('omReader').classList.remove('hidden');
-  btn.onclick = () => { omShowStep2(); };
+  omRenderMail(m);
+  setBack('oldmail', true);
   saveProgress();
 }
-function omShowStep2(){
-  omRenderMail(NEW_MAIL);
-  document.getElementById('omReaderGo').classList.add('hidden');
-  saveProgress();
+function omCloseDetail(){
+  document.getElementById('omReader').classList.add('hidden');
+  document.getElementById('omListWrap').classList.remove('hidden');
+  setBack('oldmail', false);
 }
+function omReload(){ omCloseDetail(); omRenderList(); }
 function enterBetaPortal(){
   replied = true;
   introSeen = true;
