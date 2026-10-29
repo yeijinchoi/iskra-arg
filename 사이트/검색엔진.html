@@ -906,7 +906,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 <div id="panel-oldmail" class="panel">
 <div class="wrap">
-  <div class="omtop">
+  <div class="omtop hidden" id="omTop">
     <div class="ombrand"><span class="mark">N</span>노을메일</div>
   </div>
   <div class="omgate" id="omGate">
@@ -2559,6 +2559,7 @@ function omStartGate(){
 }
 function omOpenMail(){
   document.getElementById('omGate').classList.add('hidden');
+  document.getElementById('omTop').classList.remove('hidden');
   omShowStep1();
 }
 function omRenderMail(m){
