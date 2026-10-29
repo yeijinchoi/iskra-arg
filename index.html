@@ -2100,6 +2100,14 @@ let assignment4Resolved = false;
 let assignment5Pending = false;
 let assignment5Resolved = false;
 let lastDelivered = NEW_MAIL;
+let gameDay = 0;
+function mailTimeLabel(m){
+  if(typeof m.deliveredDay !== 'number') return m.time;
+  const diff = gameDay - m.deliveredDay;
+  if(diff <= 0) return '오늘';
+  if(diff === 1) return '어제';
+  return diff + '일 전';
+}
 
 const REWARD_BY_MAIL = {
   [SUCCESS_MAIL.id]: {amount:150000, label:'D&K 리서치 그룹 · 1차 의뢰 사례금'},
@@ -2267,7 +2275,7 @@ function renderList(){
       <svg class="ic star" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg>
       <span class="sender">${m.sender}</span>
       <span class="subjwrap"><b>${m.subject}</b><span class="prev">${m.preview}</span></span>
-      <span class="date">${m.time}</span>
+      <span class="date">${mailTimeLabel(m)}</span>
     </div>
   `).join('');
 }
@@ -2305,7 +2313,7 @@ function openDetail(folder, id){
     <div class="meta">
       <span class="avatar2">${initials(m.sender)}</span>
       <span class="who"><b>${m.sender}</b><span>${m.addr || ''}</span></span>
-      <span class="when">${m.time}</span>
+      <span class="when">${mailTimeLabel(m)}</span>
     </div>
     ${m.translated ? '<div class="note">원문: 바르네시아어 · 자동 번역됨</div>' : ''}
     ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
@@ -2546,6 +2554,8 @@ function goToMainScreen(){
   switchTab(t.id);
 }
 function endDay(){
+  gameDay++;
+  renderList();
   TABS = TABS.filter(t => t.kind === 'search' || t.kind === 'mail');
   goToMainScreen();
   saveProgress();
@@ -2621,12 +2631,12 @@ function hideAssignReply(){ document.getElementById('assignReplyBox').classList.
 
 function sendAssignReply(){
   const correct = !!capturedEvidence && capturedEvidence.item === '쌀' && capturedEvidence.to === '그라노프 물류허브';
-  openDetail('inbox', ASSIGNMENT_MAIL.id);
   queueDelivery('result1', 15000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
     pendingFlag: 'assignmentPending',
     resolvedFlag: correct ? 'assignmentResolved' : null,
     effect: correct ? 'chainAssign2' : 'hint116'
   });
+  openDetail('inbox', ASSIGNMENT_MAIL.id);
 }
 
 function showAssign2Reply(){ document.getElementById('assign2ReplyBox').classList.remove('hidden'); }
@@ -2634,12 +2644,12 @@ function hideAssign2Reply(){ document.getElementById('assign2ReplyBox').classLis
 
 function sendAssign2Reply(){
   const correct = !!capturedEvidence2 && capturedEvidence2.id === 'org1' && !!capturedEvidence3 && capturedEvidence3.id === 'listing1';
-  openDetail('inbox', ASSIGNMENT2_MAIL.id);
   queueDelivery('result2', 15000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
     pendingFlag: 'assignment2Pending',
     resolvedFlag: correct ? 'assignment2Resolved' : null,
     effect: correct ? 'chainAssign3' : null
   });
+  openDetail('inbox', ASSIGNMENT2_MAIL.id);
 }
 
 function showAssign3Reply(){ document.getElementById('assign3ReplyBox').classList.remove('hidden'); }
@@ -2649,40 +2659,41 @@ const ASSIGN3_KEYWORDS = ['구호','자선','봉사','나눔','교민','동포',
 function sendAssign3Reply(){
   const kw = (document.getElementById('assign3Keyword').value || '').trim();
   const correct = ASSIGN3_KEYWORDS.some(k => kw.includes(k));
-  openDetail('inbox', ASSIGNMENT3_MAIL.id);
   queueDelivery('result3', 15000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
     pendingFlag: 'assignment3Pending',
     resolvedFlag: correct ? 'assignment3Resolved' : null,
     effect: correct ? 'chainAssign4' : null
   });
+  openDetail('inbox', ASSIGNMENT3_MAIL.id);
 }
 
 function showAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.remove('hidden'); }
 function hideAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.add('hidden'); }
 function sendAssign4Reply(){
   const correct = !!capturedEvidence4 && capturedEvidence4.id === 'alum1';
-  openDetail('inbox', ASSIGNMENT4_MAIL.id);
   queueDelivery('result4', 15000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
     pendingFlag: 'assignment4Pending',
     resolvedFlag: correct ? 'assignment4Resolved' : null,
     effect: correct ? 'chainAssign5' : null
   });
+  openDetail('inbox', ASSIGNMENT4_MAIL.id);
 }
 
 function showAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.remove('hidden'); }
 function hideAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.add('hidden'); }
 function sendAssign5Reply(){
   const correct = !!capturedEvidence5 && (capturedEvidence5.id === 'arc2' || capturedEvidence5.id === 'arc3');
-  openDetail('inbox', ASSIGNMENT5_MAIL.id);
   queueDelivery('result5', 15000, correct ? SUCCESS5_MAIL.id : RETRY5_MAIL.id, {
     pendingFlag: 'assignment5Pending',
     resolvedFlag: correct ? 'assignment5Resolved' : null,
     effect: correct ? 'chainContact1' : null
   });
+  openDetail('inbox', ASSIGNMENT5_MAIL.id);
 }
 
 function deliverMail(mail){
   mail._flash = true;
+  mail.deliveredDay = gameDay;
   FOLDERS.inbox.unshift(mail);
   lastDelivered = mail;
   updateInboxBadge();
@@ -3406,8 +3417,9 @@ function saveProgress(){
   try {
     const delivered = FOLDERS.inbox
       .filter(m => DYNAMIC_MAIL_IDS.includes(m.id))
-      .map(m => ({id: m.id, unread: m.unread}));
+      .map(m => ({id: m.id, unread: m.unread, deliveredDay: m.deliveredDay}));
     localStorage.setItem(SAVE_KEY, JSON.stringify({
+      gameDay,
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
@@ -3440,6 +3452,7 @@ function loadProgress(){
   try { saved = JSON.parse(localStorage.getItem(SAVE_KEY) || 'null'); } catch(e){ saved = null; }
   if(!saved) return;
 
+  gameDay = saved.gameDay || 0;
   replied = !!saved.replied;
   introSeen = saved.introSeen != null ? !!saved.introSeen : replied;
   assignmentResolved = !!saved.assignmentResolved;
@@ -3463,6 +3476,7 @@ function loadProgress(){
     const mail = MAIL_BY_ID[d.id];
     if(!mail) return;
     mail.unread = d.unread;
+    mail.deliveredDay = typeof d.deliveredDay === 'number' ? d.deliveredDay : 0;
     FOLDERS.inbox.unshift(mail);
   });
   if(saved.delivered && saved.delivered.length) lastDelivered = MAIL_BY_ID[saved.delivered[0].id] || lastDelivered;
