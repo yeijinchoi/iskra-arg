@@ -1955,6 +1955,11 @@ setBack('search', false);
 initTrend();
 
 /* ===================== 패널: 이스크라 메일 ===================== */
+const INTRO_TUITION_MAIL = {
+  id:'tuition', sender:'도렌그라드 국립대학교 학사지원팀', subject:'2학기 등록금 납부 안내',
+  time:'방금 전',
+  body:["학생님께,","2학기 등록금 납부 기한이 1주일 앞으로 다가왔습니다. 분할납부를 원하시는 경우 학사지원팀으로 별도 문의 바랍니다.","납부 기한: 이번 달 말일","도렌그라드 국립대학교 학사지원팀"]
+};
 const NEW_MAIL = {
   id:'new1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[이스크라] 베타테스터로 선정되셨습니다',
   preview:'새로운 검색 포털 베타 버전을 체험해 보세요.', time:'방금 전', unread:true,
@@ -2246,22 +2251,7 @@ function toggleBgm(){
 })();
 
 const FOLDERS = {
-  inbox: [
-    {id:'m1', sender:'도렌그라드 바르네시아인 연합회', subject:'11월 정기모임 안내 — 이번 주 토요일 오후 2시', preview:'안녕하세요 회원님, 이번 달 정기모임은 커뮤니티센터 2층에서 진행됩니다.', time:'2일 전', unread:false,
-      body:["안녕하세요, 회원님.","11월 정기모임을 아래와 같이 안내드립니다.","일시: 이번 주 토요일 오후 2시\n장소: 커뮤니티센터 2층 소강당","이번 달에는 최근 접경 지역 소식과 관련해 함께 이야기 나누는 시간을 마련했습니다. 바쁘시더라도 많은 참석 부탁드립니다.","도렌그라드 바르네시아인 연합회 드림"]},
-    {id:'m2', sender:'도렌그라드 국립대학교 학사지원팀', subject:'2학기 등록금 납부 안내', preview:'등록금 납부 기한이 일주일 앞으로 다가왔습니다.', time:'3일 전', unread:false,
-      body:["학생님께,","2학기 등록금 납부 기한이 1주일 앞으로 다가왔습니다. 분할납부를 원하시는 경우 학사지원팀으로 별도 문의 바랍니다.","납부 기한: 이번 달 말일","도렌그라드 국립대학교 학사지원팀"]},
-    {id:'m3', sender:'마리야 소린', subject:'[번역됨] 거기는 춥지 않니', preview:'요즘 잘 지내는지 궁금하구나. 여기는 벌써 춥다.', time:'4일 전', unread:false, translated:true,
-      body:["잘 지내니. 요즘 연락이 뜸해서 걱정했다. 거기는 춥지 않니, 옷은 따뜻하게 입고 다니고.","여기는 요즘 여러모로 뒤숭숭하다. 자세한 얘기는 다음에 통화할 때 하자. 밥은 제때 챙겨 먹고."]},
-    {id:'m4', sender:'카페 소베크 점장', subject:'이번 주 근무표 확인해주세요', preview:'다음 주 근무표 올렸어요. 화·목 시간 변경된 거 확인 부탁드려요.', time:'5일 전', unread:false,
-      body:["다음 주 근무표 올렸습니다. 화요일, 목요일 오픈 시간이 바뀌었으니 확인 부탁드려요.","급한 일 있으면 미리 연락 주세요.","카페 소베크"]},
-    {id:'m5', sender:'도렌마트', subject:'주문하신 상품이 발송되었습니다 (생수 외 2건)', preview:'주문번호 DM-88213 상품이 발송되었습니다.', time:'6일 전', unread:false,
-      body:["주문번호 DM-88213 상품이 발송되었습니다.","배송 예정일: 1~2일 이내","문의사항은 고객센터로 연락 바랍니다."]},
-    {id:'m6', sender:'도렌그라드 전력공사', subject:'11월 전기요금 청구서', preview:'11월분 전기요금이 청구되었습니다. 납부기한 확인 바랍니다.', time:'7일 전', unread:false,
-      body:["고객님의 11월분 전기요금이 청구되었습니다.","납부기한: 이번 달 25일","자동이체 계좌에서 기한 내 출금될 예정입니다.","도렌그라드 전력공사"]},
-    {id:'m7', sender:'도렌마트', subject:'배송이 완료되었습니다', preview:'주문하신 상품이 배송 완료되었습니다.', time:'8일 전', unread:false,
-      body:["주문하신 상품이 배송 완료되었습니다.","상품에 문제가 있으신 경우 7일 이내 교환/반품 신청이 가능합니다."]},
-  ],
+  inbox: [],
   sent: [],
   draft: [],
   spam: [
@@ -2275,7 +2265,7 @@ const FOLDERS = {
   trash: [],
 };
 const FOLDER_LABEL = {inbox:'받은메일함', sent:'보낸메일함', draft:'임시보관함', spam:'스팸메일함', trash:'휴지통'};
-const FOLDER_EMPTY = {sent:'보낸 메일이 없습니다.', draft:'임시보관함이 비어 있습니다.', trash:'휴지통이 비어 있습니다.'};
+const FOLDER_EMPTY = {inbox:'받은 메일이 없습니다.', sent:'보낸 메일이 없습니다.', draft:'임시보관함이 비어 있습니다.', trash:'휴지통이 비어 있습니다.'};
 
 let currentFolder = 'inbox';
 
@@ -2349,21 +2339,6 @@ function openDetail(folder, id){
 }
 
 function renderActions(m){
-  if(m.id === NEW_MAIL.id){
-    if(replied){
-      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>베타 버전에 접속했습니다.</div>`;
-    }
-    return `
-      <div class="actions"><button class="live" onclick="showReply()">답장</button><button>전달</button><button>삭제</button></div>
-      <div class="replybox hidden" id="replyBox">
-        <textarea id="replyText" rows="3">참여하겠습니다. 자세한 내용 안내 부탁드립니다.</textarea>
-        <div class="replyactions">
-          <button class="sendbtn" onclick="sendReply()">보내기</button>
-          <button class="cancelbtn" onclick="hideReply()">취소</button>
-        </div>
-      </div>
-    `;
-  }
   if(m.id === ASSIGNMENT_MAIL.id){
     if(assignmentResolved){
       return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 회신을 전달했습니다.</div>`;
@@ -2504,9 +2479,6 @@ function refreshChips(){
   if(e) e.innerHTML = assign5ChipHtml();
 }
 
-function showReply(){ document.getElementById('replyBox').classList.remove('hidden'); }
-function hideReply(){ document.getElementById('replyBox').classList.add('hidden'); }
-
 /* ===== 메일 지연 발송 스케줄러 (새로고침에도 살아남음) ===== */
 let pendingDeliveries = {};
 const MAIL_BY_ID = {};
@@ -2572,9 +2544,7 @@ function renderIntroMail(m){
   `;
 }
 function showIntroStep1(){
-  const m = FOLDERS.inbox.find(x => x.id === 'm2');
-  if(!m) return;
-  renderIntroMail(m);
+  renderIntroMail(INTRO_TUITION_MAIL);
   const btn = document.getElementById('introGo');
   btn.classList.remove('hidden');
   btn.textContent = '확인';
@@ -2588,13 +2558,6 @@ function showIntroStep2(){
 function enterBetaPortal(){
   document.getElementById('introOverlay').classList.remove('show');
   document.getElementById('introGo').classList.remove('hidden');
-  if(!FOLDERS.inbox.some(m => m.id === NEW_MAIL.id)){
-    NEW_MAIL.unread = false;
-    NEW_MAIL.deliveredDay = gameDay;
-    FOLDERS.inbox.unshift(NEW_MAIL);
-    lastDelivered = NEW_MAIL;
-    updateInboxBadge();
-  }
   replied = true;
   introSeen = true;
   queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
@@ -2672,13 +2635,6 @@ function resumePendingDeliveries(saved){
     if(d.pendingFlag) setFlag(d.pendingFlag, true);
     armTimer(uid, d.due - Date.now());
   });
-}
-
-function sendReply(){
-  replied = true;
-  openDetail('inbox', NEW_MAIL.id);
-  saveProgress();
-  queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
 }
 
 function showAssignReply(){ document.getElementById('assignReplyBox').classList.remove('hidden'); }
