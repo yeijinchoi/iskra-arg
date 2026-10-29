@@ -214,6 +214,21 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 /* ===== 검색 히어로 ===== */
 #panel-search .hero{padding:36px 0 0;}
 #panel-search .heroinner{max-width:600px;margin:0 auto;}
+#panel-search .betalogo{display:none;align-items:baseline;justify-content:center;gap:8px;margin-bottom:22px;}
+#panel-search .betalogo-word{font-family:'Oswald',sans-serif;font-size:40px;font-weight:700;color:var(--accent);letter-spacing:-.02em;}
+#panel-search .betalogo-tag{font-size:11px;font-weight:700;color:var(--muted);border:1px solid var(--border);border-radius:5px;padding:2px 6px;}
+
+/* ===== 베타 버전(업데이트 전) — 구글풍 최소 홈 ===== */
+#panel-search.beta-mode .realtime,
+#panel-search.beta-mode .promorow,
+#panel-search.beta-mode .maincols{display:none;}
+#panel-search.beta-mode .betalogo{display:flex;}
+#panel-search.beta-mode #homeView{min-height:calc(100vh - 220px);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+#panel-search.beta-mode .hero{padding:0;width:100%;}
+#panel-search.beta-mode .heroinner{max-width:560px;}
+#panel-search.beta-mode .searchform .mark{display:none;}
+#panel-search.beta-mode .serviceicons{padding-top:26px;}
+#panel-search.beta-mode .serviceicons .svcitem:nth-child(2){display:none;}
 #panel-search .searchform{
   display:flex;align-items:center;border-radius:999px;padding:5px 6px;
   border:2px solid transparent;
@@ -885,6 +900,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <div id="homeView">
     <div class="hero">
       <div class="heroinner">
+        <div class="betalogo"><span class="betalogo-word">이스크라</span><span class="betalogo-tag">BETA</span></div>
         <form class="searchform" onsubmit="doSearch(event)">
           <span class="mark">I</span>
           <input id="searchInput" type="text" placeholder="검색어를 입력하세요" autocomplete="off">
@@ -1940,22 +1956,27 @@ initTrend();
 
 /* ===================== 패널: 이스크라 메일 ===================== */
 const NEW_MAIL = {
-  id:'new1', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[제안] 바르네시아 커뮤니티 리서치 참여 안내',
-  preview:'귀하의 이력을 살펴보고 연락드리게 되었습니다.', time:'방금 전', unread:true,
-  body:["안녕하세요. 바르네시아 출신 이주 공동체를 대상으로 소규모 리서치를 진행하는 D&K 리서치 그룹입니다.","귀하의 이력을 살펴보고 연락드리게 되었습니다. 검색이나 자료 조사로 확인 가능한 정보를 정리하는 간단한 작업이며, 건당 사례금을 넉넉히 지급해 드립니다.","관심 있으시면 간단히 회신 부탁드립니다. 첫 번째 의뢰와 함께 상세 안내를 보내드리겠습니다."]
+  id:'new1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[이스크라] 베타테스터로 선정되셨습니다',
+  preview:'새로운 검색 포털 베타 버전을 체험해 보세요.', time:'방금 전', unread:true,
+  body:[
+    "안녕하세요. 새로운 검색 포털 '이스크라' 베타테스트팀입니다.",
+    "최근 진행한 체험단 모집 결과, 귀하께서 베타테스터로 선정되셨음을 안내드립니다. 이스크라는 여러 사이트의 정보를 한 곳에서 찾을 수 있도록 돕는 검색 포털로, 정식 출시 전 소수의 체험단에게만 먼저 공개하고 있습니다.",
+    "체험 중 간단한 과제에 참여해 주시는 분께는 건별로 소정의 사례금을 드리고 있으니, 과제 안내를 받으시면 편하게 참여해 보셔도 좋습니다.",
+    "아래 링크로 접속하시면 베타 버전을 바로 이용하실 수 있습니다.<br><a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();enterBetaPortal()\">베타 버전 체험하기 →</a>"
+  ]
 };
 const ASSIGNMENT_MAIL = {
-  id:'assign1', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[1차 의뢰] 접속 정보 안내',
+  id:'assign1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 접속 정보 안내',
   preview:'첫 번째 의뢰 내용을 안내드립니다.', time:'방금 전', unread:true,
   body:[
-    "회신 감사합니다. 첫 번째 의뢰 내용을 안내드립니다.",
+    "안녕하세요, 이스크라 베타테스트팀입니다. 말씀드렸던 첫 번째 과제 내용을 안내드립니다.",
     "최근 일부 수입 물류 거래에서 통상적이지 않은 정황이 포착되어 확인이 필요한 업체가 있습니다. 아래는 해당 업체 내부 관리시스템에 접속할 수 있는 임시 권한입니다.",
     "사이트: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('raden','라덴통상 ERP','R')\">admin.raden-trading.dg</a><br>아이디: <span class=\"copyable\"><span class=\"mono\">audit_temp7</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'audit_temp7')\" aria-label=\"아이디 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span><br>비밀번호: <span class=\"copyable\"><span class=\"mono\">Rd7!temp</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'Rd7!temp')\" aria-label=\"비밀번호 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span>",
     "'반출목록' 항목을 중심으로 확인해 주시고, 눈에 띄는 기록이 있으면 캡처해서 회신해 주세요. 확인되는 내용에 따라 사례금을 지급해 드립니다. 혹시 반출목록만으로 판단하기 어려우시면, 거래처 이름으로 뉴스를 검색해 보시는 것도 참고가 될 것 같습니다."
   ]
 };
 const SUCCESS_MAIL = {
-  id:'success1', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[1차 의뢰] 확인 감사합니다',
+  id:'success1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "전달해 주신 자료 확인했습니다. 찾아주신 내용이 저희가 필요로 했던 부분과 정확히 일치합니다.",
@@ -1964,7 +1985,7 @@ const SUCCESS_MAIL = {
   ]
 };
 const RETRY_MAIL = {
-  id:'retry1', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[1차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 내용을 확인했습니다만, 저희가 찾고 있는 기록과는 조금 다른 것 같습니다.",
@@ -1973,7 +1994,7 @@ const RETRY_MAIL = {
   ]
 };
 const ASSIGNMENT2_MAIL = {
-  id:'assign2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 추가 확인 요청',
+  id:'assign2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 추가 확인 요청',
   preview:'번거로우시겠지만 추가로 확인을 부탁드릴 일이 있습니다.', time:'방금 전', unread:true,
   body:[
     "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 이미 입금해 드렸으니 확인해 보시기 바랍니다.",
@@ -1983,7 +2004,7 @@ const ASSIGNMENT2_MAIL = {
   ]
 };
 const SUCCESS2_MAIL = {
-  id:'success2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 확인 감사합니다',
+  id:'success2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "전달해 주신 자료 잘 확인했습니다.",
@@ -1992,7 +2013,7 @@ const SUCCESS2_MAIL = {
   ]
 };
 const RETRY2_MAIL = {
-  id:'retry2', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[2차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 내용을 확인했습니다만, 저희가 필요한 내용과는 조금 다른 것 같습니다.",
@@ -2001,7 +2022,7 @@ const RETRY2_MAIL = {
   ]
 };
 const ASSIGNMENT3_MAIL = {
-  id:'assign3', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[3차 의뢰] 단체 배경 확인',
+  id:'assign3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 단체 배경 확인',
   preview:'단체가 어떤 곳인지 조금 더 알아봐 주시겠어요.', time:'방금 전', unread:true,
   body:[
     "지난 건도 확인 감사합니다. 저희 쪽에서도 왜 등록 주소가 비어 있는지 계속 들여다보고 있습니다.",
@@ -2010,7 +2031,7 @@ const ASSIGNMENT3_MAIL = {
   ]
 };
 const SUCCESS3_MAIL = {
-  id:'success3', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[3차 의뢰] 확인 감사합니다',
+  id:'success3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "찾아주신 내용 확인했습니다. 단순 구호단체일 가능성도 있겠네요.",
@@ -2019,7 +2040,7 @@ const SUCCESS3_MAIL = {
   ]
 };
 const RETRY3_MAIL = {
-  id:'retry3', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[3차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 다시 한번 확인 부탁드립니다',
   preview:'아직 관련 내용을 못 찾으신 것 같습니다.', time:'방금 전', unread:true,
   body:[
     "아직 관련 내용을 못 찾으신 것 같습니다.",
@@ -2027,7 +2048,7 @@ const RETRY3_MAIL = {
   ]
 };
 const ASSIGNMENT4_MAIL = {
-  id:'assign4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 대표자 신원 확인',
+  id:'assign4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 대표자 신원 확인',
   preview:'대표자 성함을 좀 더 확인해 주셨으면 합니다.', time:'방금 전', unread:true,
   body:[
     "지난 건들 전부 큰 도움이 됐습니다. 감사합니다.",
@@ -2036,7 +2057,7 @@ const ASSIGNMENT4_MAIL = {
   ]
 };
 const SUCCESS4_MAIL = {
-  id:'success4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 확인 감사합니다',
+  id:'success4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "확인했습니다. 전체 성함을 알게 되어 정말 큰 도움이 됐습니다.",
@@ -2045,7 +2066,7 @@ const SUCCESS4_MAIL = {
   ]
 };
 const RETRY4_MAIL = {
-  id:'retry4', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[4차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 자료를 확인했습니다만, 맞지 않는 것 같습니다.",
@@ -2053,7 +2074,7 @@ const RETRY4_MAIL = {
   ]
 };
 const ASSIGNMENT5_MAIL = {
-  id:'assign5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 과거 기고·인터뷰 확인',
+  id:'assign5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 과거 기고·인터뷰 확인',
   preview:'이 분이 예전에 신문에 글을 쓴 적이 있는지 찾아봐 주셨으면 합니다.', time:'방금 전', unread:true,
   body:[
     "성함 확인 감사합니다 — '마르코비치 이보'.",
@@ -2062,7 +2083,7 @@ const ASSIGNMENT5_MAIL = {
   ]
 };
 const SUCCESS5_MAIL = {
-  id:'success5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 확인 감사합니다',
+  id:'success5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
     "전달해 주신 글 잘 읽었습니다. 이 정도면 이 인물에 대해 꽤 입체적으로 파악이 된 것 같습니다.",
@@ -2071,7 +2092,7 @@ const SUCCESS5_MAIL = {
   ]
 };
 const RETRY5_MAIL = {
-  id:'retry5', sender:'D&K 리서치 그룹', addr:'contact@dk-research.biz', subject:'[5차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 걸 봤는데, 이건 그냥 지역 소식란이네요.",
@@ -2110,11 +2131,11 @@ function mailTimeLabel(m){
 }
 
 const REWARD_BY_MAIL = {
-  [SUCCESS_MAIL.id]: {amount:150000, label:'D&K 리서치 그룹 · 1차 의뢰 사례금'},
-  [SUCCESS2_MAIL.id]: {amount:180000, label:'D&K 리서치 그룹 · 2차 의뢰 사례금'},
-  [SUCCESS3_MAIL.id]: {amount:220000, label:'D&K 리서치 그룹 · 3차 의뢰 사례금'},
-  [SUCCESS4_MAIL.id]: {amount:260000, label:'D&K 리서치 그룹 · 4차 의뢰 사례금'},
-  [SUCCESS5_MAIL.id]: {amount:300000, label:'D&K 리서치 그룹 · 5차 의뢰 사례금'}
+  [SUCCESS_MAIL.id]: {amount:150000, label:'이스크라 베타테스트팀 · 1차 의뢰 사례금'},
+  [SUCCESS2_MAIL.id]: {amount:180000, label:'이스크라 베타테스트팀 · 2차 의뢰 사례금'},
+  [SUCCESS3_MAIL.id]: {amount:220000, label:'이스크라 베타테스트팀 · 3차 의뢰 사례금'},
+  [SUCCESS4_MAIL.id]: {amount:260000, label:'이스크라 베타테스트팀 · 4차 의뢰 사례금'},
+  [SUCCESS5_MAIL.id]: {amount:300000, label:'이스크라 베타테스트팀 · 5차 의뢰 사례금'}
 };
 let bankBalance = 0;
 let bankTx = [];
@@ -2324,12 +2345,13 @@ function openDetail(folder, id){
   setAddr('mail', 'mail.iskra.dg/message/' + id);
   saveProgress();
   maybeShowCutscene(m.id);
+  if(m.id === SUCCESS_MAIL.id) updateIskra();
 }
 
 function renderActions(m){
   if(m.id === NEW_MAIL.id){
     if(replied){
-      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>참여 의사를 전달했습니다. 답장을 기다리는 중입니다.</div>`;
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>베타 버전에 접속했습니다.</div>`;
     }
     return `
       <div class="actions"><button class="live" onclick="showReply()">답장</button><button>전달</button><button>삭제</button></div>
@@ -2516,6 +2538,19 @@ function applyEffect(name){
 
 /* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
 let introSeen = false;
+let iskraUpdated = false;
+function applyIskraTheme(){
+  const panel = document.getElementById('panel-search');
+  if(!panel) return;
+  panel.classList.toggle('beta-mode', !iskraUpdated);
+}
+function updateIskra(){
+  if(iskraUpdated) return;
+  iskraUpdated = true;
+  applyIskraTheme();
+  showCaptureToast('이스크라가 새 버전으로 업데이트되었습니다', 'ok');
+  saveProgress();
+}
 function startIntroSequence(){
   document.getElementById('introGate').classList.add('show');
   setTimeout(() => {
@@ -2527,23 +2562,43 @@ function startIntroSequence(){
 }
 function openIntroMail(){
   document.getElementById('introGate').classList.remove('show');
-  showIntro();
+  showIntroStep1();
 }
-function showIntro(){
-  const m = FOLDERS.inbox.find(x => x.id === 'm2');
-  if(!m) return;
-  const ov = document.getElementById('introOverlay');
+function renderIntroMail(m){
   document.getElementById('introBody').innerHTML = `
     <p class="cutscene-cat">${m.sender} · ${m.time}</p>
     <h2 class="cutscene-title">${m.subject}</h2>
     ${m.body.map(p => `<p class="cutscene-text">${p.replace(/\n/g,'<br>')}</p>`).join('')}
   `;
-  ov.classList.add('show');
-  document.getElementById('introGo').onclick = () => {
-    ov.classList.remove('show');
-    introSeen = true;
-    saveProgress();
-  };
+}
+function showIntroStep1(){
+  const m = FOLDERS.inbox.find(x => x.id === 'm2');
+  if(!m) return;
+  renderIntroMail(m);
+  const btn = document.getElementById('introGo');
+  btn.classList.remove('hidden');
+  btn.textContent = '확인';
+  document.getElementById('introOverlay').classList.add('show');
+  btn.onclick = () => { showIntroStep2(); };
+}
+function showIntroStep2(){
+  renderIntroMail(NEW_MAIL);
+  document.getElementById('introGo').classList.add('hidden');
+}
+function enterBetaPortal(){
+  document.getElementById('introOverlay').classList.remove('show');
+  document.getElementById('introGo').classList.remove('hidden');
+  if(!FOLDERS.inbox.some(m => m.id === NEW_MAIL.id)){
+    NEW_MAIL.unread = false;
+    NEW_MAIL.deliveredDay = gameDay;
+    FOLDERS.inbox.unshift(NEW_MAIL);
+    lastDelivered = NEW_MAIL;
+    updateInboxBadge();
+  }
+  replied = true;
+  introSeen = true;
+  queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  saveProgress();
 }
 
 /* ===== 의뢰 완료 컷씬 — 완료 메일을 연 다음에 표시 ===== */
@@ -2727,10 +2782,6 @@ renderList();
 updateInboxBadge();
 setAddr('mail', 'mail.iskra.dg');
 setBack('mail', false);
-
-setTimeout(() => {
-  if(!FOLDERS.inbox.some(m => m.id === NEW_MAIL.id)) deliverMail(NEW_MAIL);
-}, 5000);
 
 /* ===================== 패널: 라덴통상 ERP ===================== */
 function mulberry32(a){
@@ -3419,7 +3470,7 @@ function saveProgress(){
       .filter(m => DYNAMIC_MAIL_IDS.includes(m.id))
       .map(m => ({id: m.id, unread: m.unread, deliveredDay: m.deliveredDay}));
     localStorage.setItem(SAVE_KEY, JSON.stringify({
-      gameDay,
+      gameDay, iskraUpdated,
       replied, assignmentResolved, capturedEvidence,
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
@@ -3456,6 +3507,8 @@ function loadProgress(){
   replied = !!saved.replied;
   introSeen = saved.introSeen != null ? !!saved.introSeen : replied;
   assignmentResolved = !!saved.assignmentResolved;
+  iskraUpdated = saved.iskraUpdated != null ? !!saved.iskraUpdated : assignmentResolved;
+  applyIskraTheme();
   capturedEvidence = saved.capturedEvidence || null;
   assignment2Resolved = !!saved.assignment2Resolved;
   capturedEvidence2 = saved.capturedEvidence2 || null;
@@ -3563,5 +3616,6 @@ function resetProgress(){
 }
 
 loadProgress();
+applyIskraTheme();
 if(!introSeen) startIntroSequence();
 </script>
