@@ -62,6 +62,19 @@ html[data-theme="dark"] #panel-raden{
   --rm-sea:#131B21; --rm-land:#1D2219; --rm-land2:#1A2018; --rm-grid:#253035; --rm-coast:#3A4A50;
 }
 
+/* 원래 쓰던 메일 사이트("노을메일") 전용 톤 — 빨간 테마 */
+#panel-oldmail{
+  --bg:#FBF2F0; --surface:#FFFFFF; --ink:#2A1512; --muted:#8B5E57; --accent:#C7311F; --accent2:#E35B3F; --accent-ink:#FFFFFF; --border:#F0D8D3; --hover-bg:#FCE8E3; --unread-bg:#FDEEEA;
+}
+@media (prefers-color-scheme: dark){
+  html:not([data-theme="light"]) #panel-oldmail{
+    --bg:#1B1210; --surface:#241815; --ink:#F3E4E1; --muted:#B98A82; --accent:#E35B3F; --accent2:#F0876D; --accent-ink:#1B1210; --border:#3A2520; --hover-bg:#2C1C18; --unread-bg:#2E1D18;
+  }
+}
+html[data-theme="dark"] #panel-oldmail{
+  --bg:#1B1210; --surface:#241815; --ink:#F3E4E1; --muted:#B98A82; --accent:#E35B3F; --accent2:#F0876D; --accent-ink:#1B1210; --border:#3A2520; --hover-bg:#2C1C18; --unread-bg:#2E1D18;
+}
+
 /* 브라우저 크롬(=실제 OS 브라우저) 전용 중립 톤 — 사이트 자체 팔레트와 분리 */
 :root{
   --chrome-strip:#DEE1E6;
@@ -478,6 +491,39 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .copybtn .ic{width:11px;height:11px;}
 .copybtn.copied{opacity:1;color:var(--accent);}
 
+/* ===================== 패널: 노을메일(원래 쓰던 메일 사이트) ===================== */
+#panel-oldmail .omtop{display:flex;align-items:center;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);}
+#panel-oldmail .ombrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;gap:8px;}
+#panel-oldmail .ombrand .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:13px;}
+#panel-oldmail .omfoldertitle{font-size:15px;font-weight:700;margin:20px 0 12px;}
+#panel-oldmail .omlist{display:flex;flex-direction:column;max-width:680px;}
+#panel-oldmail .omrow{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--border);cursor:pointer;min-width:0;}
+#panel-oldmail .omrow:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
+#panel-oldmail .omrow.unread{background:var(--unread-bg);}
+#panel-oldmail .omrow.unread:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
+#panel-oldmail .omrow.flash{animation:omflashin .9s ease-out;}
+@keyframes omflashin{0%{background:var(--accent2);}100%{background:var(--unread-bg);}}
+#panel-oldmail .omrow .omdot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0;visibility:hidden;}
+#panel-oldmail .omrow.unread .omdot{visibility:visible;}
+#panel-oldmail .omrow .omsender{width:160px;flex-shrink:0;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#panel-oldmail .omrow.unread .omsender{color:var(--ink);font-weight:700;}
+#panel-oldmail .omrow .omsubjwrap{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:13px;}
+#panel-oldmail .omrow .omsubjwrap b{font-weight:400;}
+#panel-oldmail .omrow.unread .omsubjwrap b{font-weight:700;}
+#panel-oldmail .omrow .omsubjwrap .omprev{color:var(--muted);margin-left:8px;}
+#panel-oldmail .omrow .omdate{width:64px;flex-shrink:0;text-align:right;color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums;}
+#panel-oldmail .omdetail{max-width:680px;}
+#panel-oldmail .omdetail .omsubj{font-size:19px;font-weight:700;margin:20px 0 10px;line-height:1.4;}
+#panel-oldmail .omdetail .commeta{display:flex;align-items:center;gap:10px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:18px;}
+#panel-oldmail .omdetail .omavatar{width:34px;height:34px;border-radius:50%;background:var(--border);color:var(--muted);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;flex-shrink:0;}
+#panel-oldmail .omdetail .omwho b{display:block;font-size:13px;}
+#panel-oldmail .omdetail .omwho span{display:block;font-size:11.5px;color:var(--muted);}
+#panel-oldmail .omdetail .omwhen{margin-left:auto;font-size:11.5px;color:var(--muted);flex-shrink:0;}
+#panel-oldmail .omdetail p{font-size:14.5px;line-height:1.85;margin:0 0 16px;}
+#panel-oldmail .ombacklink{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-family:inherit;font-size:12.5px;cursor:pointer;padding:0;margin-bottom:16px;}
+#panel-oldmail .ombacklink:hover{color:var(--ink);}
+#panel-oldmail .ombacklink .ic{width:14px;height:14px;}
+
 #toast{
   position:fixed;right:max(20px, env(safe-area-inset-right,0px));bottom:max(20px, env(safe-area-inset-bottom,0px));
   width:320px;max-width:calc(100vw - 40px);background:var(--surface);border:1px solid var(--border);border-radius:12px;
@@ -551,21 +597,6 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .cutscene-text{font-size:14.5px;line-height:1.8;color:var(--ink);margin-bottom:16px;}
 .cutscene-sleep{display:block;width:fit-content;margin:24px auto 0;background:none;border:none;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
 .cutscene-sleep:hover{color:var(--accent);}
-
-.introgate{display:flex;align-items:center;justify-content:center;}
-.introicon{position:relative;width:64px;height:64px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.14);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;}
-.introicon:hover{color:var(--ink);background:var(--hover-bg);}
-.introicon .ic{width:26px;height:26px;}
-.introicon.ding{animation:introDing .5s ease;}
-@keyframes introDing{
-  0%,100%{transform:rotate(0);}
-  20%{transform:rotate(-12deg);}
-  40%{transform:rotate(10deg);}
-  60%{transform:rotate(-6deg);}
-  80%{transform:rotate(4deg);}
-}
-.introbadge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1);}
-.introbadge.show{opacity:1;transform:scale(1);}
 
 /* ===================== 패널: 라덴통상 ERP ===================== */
 #panel-raden .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 0;}
@@ -886,7 +917,21 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   </div>
 </div>
 
-<div id="panel-search" class="panel">
+<div id="panel-oldmail" class="panel">
+<div class="wrap">
+  <div class="omtop">
+    <div class="ombrand"><span class="mark">N</span>노을메일</div>
+  </div>
+  <h1 class="omfoldertitle" id="omFolderTitle">받은메일함</h1>
+  <div class="omlist" id="omlist"></div>
+  <div class="omdetail hidden" id="omDetailView">
+    <button class="ombacklink" onclick="omCloseDetail()"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>목록으로</button>
+    <div id="omDetailBody"></div>
+  </div>
+</div>
+</div>
+
+<div id="panel-search" class="panel hidden">
 <div class="wrap">
   <div class="utility">
     <div class="right">
@@ -1065,7 +1110,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <div class="hidden" id="appView">
     <div class="topbar">
       <div class="sysname">RADEN TRADING ERP</div>
-      <div class="whoami">접속: <span class="mono">audit_temp7</span> (임시권한)<a onclick="doLogout()">로그아웃</a></div>
+      <div class="whoami">접속: <span class="mono">audit_temp7</span> (테스트 계정)<a onclick="doLogout()">로그아웃</a></div>
     </div>
     <div class="applayout">
       <div class="sidenav" id="sidenav">
@@ -1408,24 +1453,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <audio id="bgmAudio" src="bgm.mp3" loop preload="none"></audio>
 </div>
 
-<div id="introGate" class="fullpage-overlay introgate">
-  <button class="introicon" id="introIcon" onclick="openIntroMail()" aria-label="메일함">
-    <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
-    <span class="introbadge" id="introBadge">1</span>
-  </button>
-</div>
-
-<div id="introOverlay" class="fullpage-overlay">
-  <div class="cutscene-card">
-    <div class="cutscene-tag">받은메일함</div>
-    <div id="introBody"></div>
-    <button class="cutscene-sleep" id="introGo">포털 메인으로 이동</button>
-  </div>
-</div>
-
 <div id="cutsceneOverlay" class="fullpage-overlay">
   <div class="cutscene-card">
-    <div class="cutscene-tag">의뢰 완료 · 관련 기사</div>
+    <div class="cutscene-tag">테스트 완료 · 관련 기사</div>
     <div id="cutsceneBody"></div>
     <button class="cutscene-sleep" id="cutsceneSleep">오늘은 이만 잠들기</button>
   </div>
@@ -1433,7 +1463,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 <script>
 /* ===================== 공유 셸: 멀티탭 ===================== */
-let TABS = [{id:'t0', kind:'search', title:'이스크라', favicon:'&#10022;'}];
+let TABS = [{id:'t0', kind:'oldmail', title:'노을메일', favicon:'&#9993;'}];
 let activeId = 't0';
 let tabSeq = 1;
 let chromeAddr = {};
@@ -1503,7 +1533,8 @@ function setBack(kind, enabled){
 }
 function chromeBack(){
   const k = activeKind();
-  if(k === 'mail') closeDetail();
+  if(k === 'oldmail') omCloseDetail();
+  else if(k === 'mail') closeDetail();
   else if(k === 'article') articleGoBack();
   else if(k === 'orginfo') ogGoBack();
   else if(k === 'listing') lsGoBack();
@@ -1514,7 +1545,8 @@ function chromeReload(){
   const btn = document.getElementById('reloadBtn');
   btn.classList.remove('spin'); void btn.offsetWidth; btn.classList.add('spin');
   const k = activeKind();
-  if(k === 'search') sReload();
+  if(k === 'oldmail') omReload();
+  else if(k === 'search') sReload();
   else if(k === 'mail') mReload();
   else if(k === 'raden') rReload();
   else if(k === 'searchresult') srReload();
@@ -1950,14 +1982,16 @@ function trendClick(){
 
 renderPhotos();
 renderTextList('전체');
+setAddr('oldmail', 'noeulmail.dg');
+setBack('oldmail', false);
 setAddr('search', 'iskra.dg');
 setBack('search', false);
 initTrend();
 
 /* ===================== 패널: 이스크라 메일 ===================== */
 const INTRO_TUITION_MAIL = {
-  id:'tuition', sender:'도렌그라드 국립대학교 학사지원팀', subject:'2학기 등록금 납부 안내',
-  time:'방금 전',
+  id:'tuition', sender:'도렌그라드 국립대학교 학사지원팀', addr:'support@dgnu.dg', subject:'2학기 등록금 납부 안내',
+  preview:'2학기 등록금 납부 기한이 1주일 앞으로 다가왔습니다.', time:'방금 전', unread:true,
   body:["학생님께,","2학기 등록금 납부 기한이 1주일 앞으로 다가왔습니다. 분할납부를 원하시는 경우 학사지원팀으로 별도 문의 바랍니다.","납부 기한: 이번 달 말일","도렌그라드 국립대학교 학사지원팀"]
 };
 const NEW_MAIL = {
@@ -1971,137 +2005,137 @@ const NEW_MAIL = {
   ]
 };
 const ASSIGNMENT_MAIL = {
-  id:'assign1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 접속 정보 안내',
-  preview:'첫 번째 의뢰 내용을 안내드립니다.', time:'방금 전', unread:true,
+  id:'assign1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 테스트] 기업 시스템 연동 테스트 안내',
+  preview:'첫 번째 테스트 시나리오를 안내드립니다.', time:'방금 전', unread:true,
   body:[
-    "안녕하세요, 이스크라 베타테스트팀입니다. 말씀드렸던 첫 번째 과제 내용을 안내드립니다.",
-    "최근 일부 수입 물류 거래에서 통상적이지 않은 정황이 포착되어 확인이 필요한 업체가 있습니다. 아래는 해당 업체 내부 관리시스템에 접속할 수 있는 임시 권한입니다.",
-    "사이트: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('raden','라덴통상 ERP','R')\">admin.raden-trading.dg</a><br>아이디: <span class=\"copyable\"><span class=\"mono\">audit_temp7</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'audit_temp7')\" aria-label=\"아이디 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span><br>비밀번호: <span class=\"copyable\"><span class=\"mono\">Rd7!temp</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'Rd7!temp')\" aria-label=\"비밀번호 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span>",
-    "'반출목록' 항목을 중심으로 확인해 주시고, 눈에 띄는 기록이 있으면 캡처해서 회신해 주세요. 확인되는 내용에 따라 사례금을 지급해 드립니다. 혹시 반출목록만으로 판단하기 어려우시면, 거래처 이름으로 뉴스를 검색해 보시는 것도 참고가 될 것 같습니다."
+    "안녕하세요, 이스크라 베타테스트팀입니다. 말씀드렸던 첫 번째 테스트 시나리오를 안내드립니다.",
+    "저희가 준비 중인 '기업 시스템 연동' 기능의 테스트 환경입니다. 실제 거래 데이터를 본떠 만든 샘플 데이터가 들어가 있는데, 정식 적용 전에 데이터가 깨지거나 이상하게 보이는 부분은 없는지 한번 봐주셨으면 합니다. 접속 정보는 아래와 같습니다.",
+    "사이트: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('raden','라덴통상 ERP','R')\">admin.raden-trading.dg</a><br>테스트 계정 ID: <span class=\"copyable\"><span class=\"mono\">audit_temp7</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'audit_temp7')\" aria-label=\"아이디 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span><br>비밀번호: <span class=\"copyable\"><span class=\"mono\">Rd7!temp</span><button class=\"copybtn\" type=\"button\" onclick=\"copyText(this,'Rd7!temp')\" aria-label=\"비밀번호 복사\"><svg class=\"ic\" viewBox=\"0 0 24 24\"><rect x=\"9\" y=\"9\" width=\"11\" height=\"11\" rx=\"2\"/><path d=\"M5 15V5a2 2 0 0 1 2-2h10\"/></svg></button></span>",
+    "'반출목록' 메뉴를 쭉 한번 봐주시고, 수량이든 뭐든 눈에 띄게 이상해 보이는 데이터가 있으면 캡처해서 보내주시면 됩니다. 테스트에 참여해 주실 때마다 소정의 사례금을 드리고 있어요. 어떤 걸 봐야 할지 감이 잘 안 잡히시면, 거래처 이름으로 뉴스를 검색해 보시는 것도 참고가 될 것 같습니다."
   ]
 };
 const SUCCESS_MAIL = {
-  id:'success1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 확인 감사합니다',
-  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  id:'success1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 테스트] 확인 감사합니다',
+  preview:'테스트해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "전달해 주신 자료 확인했습니다. 찾아주신 내용이 저희가 필요로 했던 부분과 정확히 일치합니다.",
+    "테스트해 주신 내용 확인했습니다. 찾아주신 부분이 저희가 점검하려던 부분과 정확히 일치하네요.",
     "사례금은 안내드린 계좌로 바로 입금해 드렸습니다. 인터넷뱅킹에서 확인해 보세요.",
-    "협조해 주셔서 감사합니다. 다음 의뢰 건이 있으면 별도로 다시 안내드리겠습니다."
+    "참여해 주셔서 감사합니다. 다음 테스트 건이 있으면 다시 안내드릴게요."
   ]
 };
 const RETRY_MAIL = {
-  id:'retry1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 의뢰] 다시 한번 확인 부탁드립니다',
-  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  id:'retry1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[1차 테스트] 다시 한번 봐주시겠어요',
+  preview:'보내주신 내용으로는 테스트가 끝나질 않네요.', time:'방금 전', unread:true,
   body:[
-    "보내주신 내용을 확인했습니다만, 저희가 찾고 있는 기록과는 조금 다른 것 같습니다.",
-    "'반출목록'에서 다른 품목들과 비교했을 때 수량이 유독 눈에 띄는 기록이 있는지 다시 한번 살펴봐 주시겠어요?",
-    "확인되시면 해당 내역을 캡처해서 다시 회신해 주시면 됩니다."
+    "보내주신 내용을 확인했는데, 저희가 보려던 부분이랑은 좀 다른 것 같아요.",
+    "'반출목록'에서 다른 품목들이랑 비교했을 때 수량이 유독 튀는 기록이 있는지 한번 더 봐주시겠어요?",
+    "확인되시면 그 내역을 캡처해서 다시 보내주시면 됩니다."
   ]
 };
 const ASSIGNMENT2_MAIL = {
-  id:'assign2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 추가 확인 요청',
-  preview:'번거로우시겠지만 추가로 확인을 부탁드릴 일이 있습니다.', time:'방금 전', unread:true,
+  id:'assign2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 테스트] 공공데이터 연동 테스트',
+  preview:'번거로우시겠지만 테스트 하나 더 부탁드려요.', time:'방금 전', unread:true,
   body:[
-    "1차 의뢰 건, 다시 한번 감사드립니다. 사례금은 이미 입금해 드렸으니 확인해 보시기 바랍니다.",
-    "번거로우시겠지만 추가로 확인을 부탁드릴 일이 하나 더 있습니다. 다만 이번 건은 ERP 권한 없이 진행해 주셔야 합니다 — 지난번 임시 권한은 이미 만료 처리되었습니다.",
-    "캡처해 주신 내역의 도착지(그라노프 물류허브)로 들어간 물량의 최종 수취인 란에 '바르네시아교민상회'라는 이름이 함께 적혀 있었습니다. 이 단체가 정식으로 등록된 곳인지 확인해 주실 수 있을까요. 등록 정보는 '단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 누구나 조회할 수 있습니다. 별도 로그인 없이, 단체명으로 검색해 보시면 될 것 같습니다.",
-    "그리고 그 소재지에 실제로 사무실이 있는지도 같이 확인해 주시면 좋겠습니다."
+    "1차 테스트, 다시 한번 감사드려요. 사례금은 이미 입금해 드렸으니 확인해 보세요.",
+    "번거로우시겠지만 테스트가 하나 더 있어요. 이번엔 ERP 쪽 계정은 안 쓰셔도 되는데 — 지난번 테스트 계정은 이미 만료 처리됐어요.",
+    "지난 테스트 데이터에 찍혀 있던 수취인 이름 중에 '바르네시아교민상회'라는 게 있었는데요, 저희가 지금 '공공 등록정보 연동' 기능도 같이 테스트 중이라 — 이 이름으로 한번 조회해 봐주시겠어요? 연동 대상은 '단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)이고, 로그인 없이 단체명 검색만 하시면 돼요.",
+    "그리고 연동된 데이터가 실제랑 맞는지 보는 것도 이번 테스트의 포인트라, 그 주소에 진짜로 사무실이 있는지도 같이 확인해 주시면 좋겠어요."
   ]
 };
 const SUCCESS2_MAIL = {
-  id:'success2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 확인 감사합니다',
-  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  id:'success2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 테스트] 확인 감사합니다',
+  preview:'테스트해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "전달해 주신 자료 잘 확인했습니다.",
-    "등록 주소지가 매물로 나와 있다는 게 좀 이상하네요. 저희 쪽에서도 조금 더 살펴보겠습니다.",
-    "이번 건 사례금도 바로 입금해 드렸습니다. 다음 확인 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+    "확인했습니다. 등록 주소지가 매물로 나와 있다는 게 좀 이상하긴 하네요 — 저희 쪽에서도 좀 더 살펴볼게요.",
+    "이번 테스트 사례금도 바로 입금해 드렸어요.",
+    "다음 테스트는 정리되는 대로 다시 안내드릴게요. 참여해 주셔서 감사합니다."
   ]
 };
 const RETRY2_MAIL = {
-  id:'retry2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 의뢰] 다시 한번 확인 부탁드립니다',
-  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  id:'retry2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[2차 테스트] 다시 한번 부탁드려요',
+  preview:'보내주신 내용으로는 테스트가 끝나질 않네요.', time:'방금 전', unread:true,
   body:[
-    "보내주신 내용을 확인했습니다만, 저희가 필요한 내용과는 조금 다른 것 같습니다.",
-    "'단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 '바르네시아교민상회'로 검색하시면 등록현황(소재지 포함)을 캡처하실 수 있습니다. 그리고 그 소재지에 실제로 사무실이 있는지 확인할 수 있는 자료도 하나 더 필요합니다.",
-    "두 가지를 모두 캡처해서 보내주시면 될 것 같습니다."
+    "보내주신 내용 확인했는데, 저희가 필요한 거랑은 좀 다른 것 같아요.",
+    "'단체정보마당'(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dg</a>)에서 '바르네시아교민상회'로 검색하시면 등록현황(소재지 포함)이 나와요. 그거 캡처해 주시고, 그 주소에 실제로 사무실이 있는지 확인할 수 있는 자료도 하나 더 있으면 좋겠어요.",
+    "두 개 다 캡처해서 보내주시면 될 것 같아요."
   ]
 };
 const ASSIGNMENT3_MAIL = {
-  id:'assign3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 단체 배경 확인',
-  preview:'단체가 어떤 곳인지 조금 더 알아봐 주시겠어요.', time:'방금 전', unread:true,
+  id:'assign3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 테스트] 검색 결과 정확도 테스트',
+  preview:'검색 결과가 실제랑 맞는지 한번 봐주시겠어요.', time:'방금 전', unread:true,
   body:[
-    "지난 건도 확인 감사합니다. 저희 쪽에서도 왜 등록 주소가 비어 있는지 계속 들여다보고 있습니다.",
-    "그사이에 부탁드릴 일이 하나 있습니다 — '바르네시아교민상회'라는 단체가 그동안 어떤 활동을 해 왔는지 조금 더 알아봐 주시겠어요. 거창한 조사는 아니니 편하게 살펴봐 주시면 됩니다. 혹시 조사하다 막히시면, 관련 뉴스 기사를 검색해보시는 것도 방법일 것 같습니다.",
-    "거창한 보고서까지는 필요 없고, 찾아보신 내용을 바탕으로 이 단체가 어떤 성격인지 한 단어 정도로 정리해서 회신해 주시면 됩니다."
+    "지난 테스트도 감사해요. 등록 주소가 왜 비어 있는 걸로 나오는지는 저희 쪽에서도 계속 들여다보고 있어요.",
+    "그사이에 테스트 하나 부탁드릴게요 — '검색 결과 정확도' 테스트인데, '바르네시아교민상회'로 검색했을 때 나오는 결과가 실제 활동 내역이랑 맞는지 한번 봐주시겠어요. 거창하게 조사하실 필요는 없고 가볍게 검색해 보시면 돼요. 혹시 막히시면, 이름 그대로 검색해 보시는 것도 방법이에요.",
+    "결과 보시고 이 단체가 어떤 성격인지 한 단어 정도로만 정리해서 회신해 주시면 됩니다."
   ]
 };
 const SUCCESS3_MAIL = {
-  id:'success3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 확인 감사합니다',
-  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  id:'success3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 테스트] 확인 감사합니다',
+  preview:'테스트해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "찾아주신 내용 확인했습니다. 단순 구호단체일 가능성도 있겠네요.",
-    "다만 저희 쪽 기록과는 여전히 안 맞는 부분이 있어서, 조금 더 살펴본 뒤에 다시 연락드리겠습니다.",
-    "이번 건 사례금은 바로 입금해 드렸습니다. 협조해 주셔서 감사합니다."
+    "확인했습니다. 단순 친목·구호단체일 가능성도 있겠네요.",
+    "저희 쪽 데이터랑은 여전히 안 맞는 부분이 있어서 좀 더 살펴보고 다시 연락드릴게요.",
+    "이번 테스트 사례금도 바로 입금해 드렸어요. 참여해 주셔서 감사합니다."
   ]
 };
 const RETRY3_MAIL = {
-  id:'retry3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[3차 테스트] 다시 한번 부탁드려요',
   preview:'아직 관련 내용을 못 찾으신 것 같습니다.', time:'방금 전', unread:true,
   body:[
-    "아직 관련 내용을 못 찾으신 것 같습니다.",
-    "'바르네시아교민상회'라는 이름으로 검색해 보시면 관련 기사가 나올 겁니다. 그 내용을 토대로 이 단체 성격을 한 단어로 정리해서 다시 회신해 주세요."
+    "아직 관련 내용을 못 찾으신 것 같아요.",
+    "'바르네시아교민상회'로 검색해 보시면 관련 기사가 나올 거예요. 그 내용 보시고 이 단체 성격을 한 단어로 정리해서 다시 보내주세요."
   ]
 };
 const ASSIGNMENT4_MAIL = {
-  id:'assign4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 대표자 신원 확인',
-  preview:'대표자 성함을 좀 더 확인해 주셨으면 합니다.', time:'방금 전', unread:true,
+  id:'assign4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 테스트] 동문 네트워크 연동 테스트',
+  preview:'이름을 조금 더 확인해 주셨으면 해요.', time:'방금 전', unread:true,
   body:[
-    "지난 건들 전부 큰 도움이 됐습니다. 감사합니다.",
-    "이번엔 등록 서류에 '마르코비치 ○○○'로만 나와 있던 대표자 성함을 좀 더 확인해 주셨으면 합니다. 저희 쪽에서 확인한 바로는 도렌그라드 국립대학교 동문일 가능성이 있다고 합니다.",
-    "총동문회 동문수첩(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">alumni.dgnu.dg</a>)에서 성씨로 검색하시면 여러 명이 나올 겁니다. 이 정도 규모의 단체를 설립하고 지금까지 이끌어 올 정도면 설립 시점(2019년 4월) 기준으로 최소 10년 이상은 졸업하고 사회생활을 하고 있었을 겁니다. 거기 해당하는 분들 중에서, 근황을 보고 실제로 단체를 이끌고 있을 법한 분을 추려서 전체 성함을 확인한 뒤 캡처해서 보내주시면 될 것 같습니다."
+    "지난 테스트들 전부 큰 도움이 됐어요. 감사합니다.",
+    "이번엔 등록 서류에 '마르코비치 ○○○'로만 나와 있던 이름을 좀 더 확인해 주셨으면 해요. 저희 데이터로는 도렌그라드 국립대학교 동문일 가능성이 있다고 나와서요 — 마침 '동문 네트워크 연동' 기능도 테스트 중이거든요.",
+    "총동문회 동문수첩(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">alumni.dgnu.dg</a>)에서 성씨로 검색하면 여러 명이 나올 거예요. 이 정도 규모 단체를 설립해서 지금까지 이끌어 올 정도면, 설립 시점(2019년 4월) 기준으로 최소 10년 이상은 졸업하고 사회생활을 하고 있었겠죠. 거기 해당하는 분들 중에서 근황 보고 실제로 단체를 이끌고 있을 법한 분을 추려서, 전체 이름 확인되면 캡처해서 보내주시면 돼요."
   ]
 };
 const SUCCESS4_MAIL = {
-  id:'success4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 확인 감사합니다',
+  id:'success4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 테스트] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "확인했습니다. 전체 성함을 알게 되어 정말 큰 도움이 됐습니다.",
-    "이번 건 사례금도 바로 입금해 드렸습니다.",
-    "다음 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
+    "확인했습니다. 전체 성함을 알게 되어 정말 큰 도움이 됐어요.",
+    "이번 테스트 사례금도 바로 입금해 드렸습니다.",
+    "다음 건은 정리되는 대로 다시 안내드릴게요. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY4_MAIL = {
-  id:'retry4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[4차 테스트] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
-    "보내주신 자료를 확인했습니다만, 맞지 않는 것 같습니다.",
-    "2019년 4월 기준으로 최소 10년 이상 졸업해서 사회생활을 하고 있었을 분으로 범위를 좁힌 다음, 그중에서도 근황상 실제로 단체를 이끌고 있을 법한 분으로 다시 한번 찾아봐 주시겠어요? 해당 안 되는 분들은 근황을 잘 살펴보시면 걸러낼 수 있을 겁니다."
+    "보내주신 자료를 확인했습니다만, 맞지 않는 것 같아요.",
+    "2019년 4월 기준으로 최소 10년 이상 졸업해서 사회생활을 하고 있었을 분으로 범위를 좁힌 다음, 그중에서도 근황상 실제로 단체를 이끌고 있을 법한 분으로 다시 한번 찾아봐 주시겠어요? 해당 안 되는 분들은 근황을 잘 살펴보시면 걸러낼 수 있을 거예요."
   ]
 };
 const ASSIGNMENT5_MAIL = {
-  id:'assign5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 과거 기고·인터뷰 확인',
-  preview:'이 분이 예전에 신문에 글을 쓴 적이 있는지 찾아봐 주셨으면 합니다.', time:'방금 전', unread:true,
+  id:'assign5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 테스트] 아카이브 검색 연동 테스트',
+  preview:'이 분이 예전에 쓴 글이 있는지 찾아봐 주셨으면 해요.', time:'방금 전', unread:true,
   body:[
-    "성함 확인 감사합니다 — '마르코비치 이보'.",
-    "이번엔 이 분이 예전에 신문에 기고문을 쓰거나 인터뷰에 응한 적이 있는지 찾아봐 주셨으면 합니다. 도렌통신에 디지털 아카이브(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">archive.dorentong.dg</a>)가 있다고 들었습니다 — 이름으로 검색하면 과거 기사도 나온다고 하네요.",
-    "단순 동정란 같은 건 말고, 이 분의 생각이나 입장이 드러나는 글이면 좋겠습니다. 찾으시면 캡처해서 보내주세요."
+    "이름 확인 감사해요 — '마르코비치 이보'.",
+    "이번엔 이 분이 예전에 신문에 기고문을 쓰거나 인터뷰에 응한 적이 있는지 찾아봐 주셨으면 해요. 저희가 '뉴스 아카이브 연동' 기능도 테스트하고 있는데, 도렌통신 디지털 아카이브(<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">archive.dorentong.dg</a>)에서 이름으로 검색하면 과거 기사도 나온다고 하네요.",
+    "단순 동정란 같은 건 말고, 이 분의 생각이나 입장이 드러나는 글이면 좋겠어요. 찾으시면 캡처해서 보내주세요."
   ]
 };
 const SUCCESS5_MAIL = {
-  id:'success5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 확인 감사합니다',
+  id:'success5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 테스트] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "전달해 주신 글 잘 읽었습니다. 이 정도면 이 인물에 대해 꽤 입체적으로 파악이 된 것 같습니다.",
+    "전달해 주신 글 잘 읽었습니다. 이 정도면 이 분에 대해 꽤 입체적으로 파악이 된 것 같아요.",
     "이번 건 사례금도 바로 입금해 드렸습니다.",
     "다음 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY5_MAIL = {
-  id:'retry5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 의뢰] 다시 한번 확인 부탁드립니다',
+  id:'retry5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dg', subject:'[5차 테스트] 다시 한번 확인 부탁드립니다',
   preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
   body:[
     "보내주신 걸 봤는데, 이건 그냥 지역 소식란이네요.",
-    "저희가 찾는 건 이 분의 생각이나 입장이 드러나는 글입니다. 다시 한번 찾아봐 주시겠어요?"
+    "저희가 찾는 건 이 분의 생각이나 입장이 드러나는 글이에요. 다시 한번 찾아봐 주시겠어요?"
   ]
 };
 const CONTACT1_MAIL = {
@@ -2136,11 +2170,11 @@ function mailTimeLabel(m){
 }
 
 const REWARD_BY_MAIL = {
-  [SUCCESS_MAIL.id]: {amount:150000, label:'이스크라 베타테스트팀 · 1차 의뢰 사례금'},
-  [SUCCESS2_MAIL.id]: {amount:180000, label:'이스크라 베타테스트팀 · 2차 의뢰 사례금'},
-  [SUCCESS3_MAIL.id]: {amount:220000, label:'이스크라 베타테스트팀 · 3차 의뢰 사례금'},
-  [SUCCESS4_MAIL.id]: {amount:260000, label:'이스크라 베타테스트팀 · 4차 의뢰 사례금'},
-  [SUCCESS5_MAIL.id]: {amount:300000, label:'이스크라 베타테스트팀 · 5차 의뢰 사례금'}
+  [SUCCESS_MAIL.id]: {amount:150000, label:'이스크라 베타테스트팀 · 1차 테스트 사례금'},
+  [SUCCESS2_MAIL.id]: {amount:180000, label:'이스크라 베타테스트팀 · 2차 테스트 사례금'},
+  [SUCCESS3_MAIL.id]: {amount:220000, label:'이스크라 베타테스트팀 · 3차 테스트 사례금'},
+  [SUCCESS4_MAIL.id]: {amount:260000, label:'이스크라 베타테스트팀 · 4차 테스트 사례금'},
+  [SUCCESS5_MAIL.id]: {amount:300000, label:'이스크라 베타테스트팀 · 5차 테스트 사례금'}
 };
 let bankBalance = 0;
 let bankTx = [];
@@ -2523,44 +2557,51 @@ function updateIskra(){
   showCaptureToast('이스크라가 새 버전으로 업데이트되었습니다', 'ok');
   saveProgress();
 }
-function startIntroSequence(){
-  document.getElementById('introGate').classList.add('show');
-  setTimeout(() => {
-    document.getElementById('introBadge').classList.add('show');
-    const icon = document.getElementById('introIcon');
-    icon.classList.add('ding');
-    setTimeout(() => icon.classList.remove('ding'), 500);
-  }, 1400);
+const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL];
+function omRenderList(){
+  const list = document.getElementById('omlist');
+  list.innerHTML = OLDMAIL_LIST.map(m => `
+    <div class="omrow ${m.unread ? 'unread' : ''} ${m._flash ? 'flash' : ''}" onclick="omOpenDetail('${m.id}')">
+      <span class="omdot"></span>
+      <span class="omsender">${m.sender}</span>
+      <span class="omsubjwrap"><b>${m.subject}</b><span class="omprev">${m.preview || ''}</span></span>
+      <span class="omdate">${mailTimeLabel(m)}</span>
+    </div>
+  `).join('');
 }
-function openIntroMail(){
-  document.getElementById('introGate').classList.remove('show');
-  showIntroStep1();
-}
-function renderIntroMail(m){
-  document.getElementById('introBody').innerHTML = `
-    <p class="cutscene-cat">${m.sender} · ${m.time}</p>
-    <h2 class="cutscene-title">${m.subject}</h2>
-    ${m.body.map(p => `<p class="cutscene-text">${p.replace(/\n/g,'<br>')}</p>`).join('')}
+function omOpenDetail(id){
+  const m = OLDMAIL_LIST.find(x => x.id === id);
+  if(!m) return;
+  m.unread = false;
+  delete m._flash;
+  omRenderList();
+  document.getElementById('omFolderTitle').classList.add('hidden');
+  document.getElementById('omlist').classList.add('hidden');
+  document.getElementById('omDetailView').classList.remove('hidden');
+  document.getElementById('omDetailBody').innerHTML = `
+    <p class="omsubj">${m.subject}</p>
+    <div class="commeta">
+      <span class="omavatar">${initials(m.sender)}</span>
+      <span class="omwho"><b>${m.sender}</b><span>${m.addr || ''}</span></span>
+      <span class="omwhen">${mailTimeLabel(m)}</span>
+    </div>
+    ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
   `;
+  setBack('oldmail', true);
+  saveProgress();
 }
-function showIntroStep1(){
-  renderIntroMail(INTRO_TUITION_MAIL);
-  const btn = document.getElementById('introGo');
-  btn.classList.remove('hidden');
-  btn.textContent = '확인';
-  document.getElementById('introOverlay').classList.add('show');
-  btn.onclick = () => { showIntroStep2(); };
+function omCloseDetail(){
+  document.getElementById('omDetailView').classList.add('hidden');
+  document.getElementById('omlist').classList.remove('hidden');
+  document.getElementById('omFolderTitle').classList.remove('hidden');
+  setBack('oldmail', false);
 }
-function showIntroStep2(){
-  renderIntroMail(NEW_MAIL);
-  document.getElementById('introGo').classList.add('hidden');
-}
+function omReload(){ omCloseDetail(); omRenderList(); }
 function enterBetaPortal(){
-  document.getElementById('introOverlay').classList.remove('show');
-  document.getElementById('introGo').classList.remove('hidden');
   replied = true;
   introSeen = true;
   queueDelivery('assign1', 10000, ASSIGNMENT_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  goToMainScreen();
   saveProgress();
 }
 
@@ -2574,7 +2615,7 @@ function goToMainScreen(){
 function endDay(){
   gameDay++;
   renderList();
-  TABS = TABS.filter(t => t.kind === 'search' || t.kind === 'mail');
+  TABS = TABS.filter(t => t.kind === 'search' || t.kind === 'mail' || t.kind === 'oldmail');
   goToMainScreen();
   saveProgress();
 }
@@ -3571,7 +3612,8 @@ function resetProgress(){
   }
 }
 
+omRenderList();
 loadProgress();
 applyIskraTheme();
-if(!introSeen) startIntroSequence();
+if(!introSeen) switchTab(TABS[0].id);
 </script>
