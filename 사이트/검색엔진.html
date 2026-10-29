@@ -130,7 +130,7 @@ button{font:inherit;}
 
 /* ===== 전역 인터랙션 다듬기: 호버/활성 전환을 부드럽게, 주요 뷰 전환에 은은한 페이드 ===== */
 .navbtn,.tab,.folder,.navitem,#panel-search .pills button,#panel-raden .rdcats button,#panel-raden .rdpage button,
-#panel-search .photoitem,#panel-search .textrow,#panel-search .sr-row,#panel-mail .mrow,
+#panel-search .photoitem,#panel-search .textrow,#panel-searchresult .sr-link,#panel-searchresult .srnavitem,#panel-mail .mrow,
 #panel-raden tbody tr,.copybtn,.backlink,.inlink,#panel-search .mailcard,
 #panel-mail .detail .actions button,#panel-search .searchform button.icon{
   transition: background-color .15s ease, color .15s ease, border-color .15s ease, box-shadow .15s ease, opacity .15s ease;
@@ -384,20 +384,31 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .article .cmt-user{font-weight:700;color:var(--ink);margin-right:8px;}
 .article .cmt-text{color:var(--ink);}
 
-.srview{padding:20px 0 60px;max-width:680px;margin:0 auto;}
-.srtitle{font-size:16px;font-weight:700;margin:0 0 20px;color:var(--muted);}
-.srtitle strong{color:var(--ink);}
-.sr-section{margin-bottom:28px;}
-.sr-head{display:flex;align-items:center;gap:8px;font-size:12.5px;font-weight:700;color:var(--accent);margin-bottom:10px;padding-bottom:8px;border-bottom:2px solid var(--border);}
-.sr-head .cnt{color:var(--muted);font-weight:400;}
-.sr-row{display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;cursor:pointer;padding:10px 10px;margin:0 -10px;border-radius:8px;}
-.sr-row:hover{background:var(--hover-bg);}
-.sr-row .t{font-size:14px;font-weight:700;color:var(--ink);margin:0 0 4px;}
-.sr-row .meta{font-size:11.5px;color:var(--muted);margin-bottom:4px;}
-.sr-row .snip{font-size:12.5px;color:var(--muted);line-height:1.6;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
-.sr-empty{padding:40px 0;text-align:center;}
-.sr-empty p{color:var(--muted);font-size:13px;margin:6px 0;}
-.sr-empty strong{color:var(--ink);}
+#panel-searchresult .wrap{max-width:720px;}
+#panel-searchresult .srtopbar{display:flex;align-items:center;gap:28px;padding:18px 0 14px;}
+#panel-searchresult .srlogo{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;color:var(--accent);cursor:pointer;flex-shrink:0;}
+#panel-searchresult .srsearchform{flex:1;max-width:480px;display:flex;align-items:center;gap:6px;border-radius:999px;padding:4px 6px 4px 14px;border:1px solid var(--border);background:var(--surface);}
+#panel-searchresult .srsearchform:focus-within{border-color:var(--accent);box-shadow:0 1px 6px rgba(0,0,0,.08);}
+#panel-searchresult .srsearchform input{flex:1;min-width:0;border:none;background:none;padding:8px 2px;font-size:13.5px;color:var(--ink);outline:none;font-family:inherit;}
+#panel-searchresult .srsearchform button.icon{width:30px;height:30px;border-radius:50%;border:none;background:none;color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#panel-searchresult .srsearchform button.icon .ic{width:15px;height:15px;}
+#panel-searchresult .srsearchform button.icon:hover{background:var(--hover-bg);color:var(--ink);}
+#panel-searchresult .srnav{display:flex;gap:4px;border-bottom:1px solid var(--border);margin-bottom:18px;padding-left:2px;}
+#panel-searchresult .srnavitem{background:none;border:none;font-family:inherit;cursor:pointer;padding:10px 12px;font-size:13px;color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px;}
+#panel-searchresult .srnavitem:hover{color:var(--ink);}
+#panel-searchresult .srnavitem.active{color:var(--accent);font-weight:700;border-bottom-color:var(--accent);}
+#panel-searchresult .srview{padding:0 0 60px;max-width:600px;}
+#panel-searchresult .srmeta{font-size:12px;color:var(--muted);margin:0 0 18px;}
+#panel-searchresult .sr-row{margin-bottom:22px;}
+#panel-searchresult .sr-link{display:block;width:100%;text-align:left;background:none;border:none;font-family:inherit;cursor:pointer;padding:6px 10px;margin:0 -10px;border-radius:8px;}
+#panel-searchresult .sr-link:hover{background:var(--hover-bg);}
+#panel-searchresult .sr-link:hover .sr-t{text-decoration:underline;}
+#panel-searchresult .sr-crumb{font-size:12px;color:var(--muted);margin:0 0 2px;}
+#panel-searchresult .sr-t{font-size:17px;color:var(--accent);margin:0 0 4px;font-weight:500;line-height:1.35;}
+#panel-searchresult .sr-snip{font-size:13px;color:var(--muted);line-height:1.6;margin:0;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;}
+#panel-searchresult .sr-empty{padding:40px 0;text-align:center;}
+#panel-searchresult .sr-empty p{color:var(--muted);font-size:13px;margin:6px 0;}
+#panel-searchresult .sr-empty strong{color:var(--ink);}
 
 /* ===================== 패널: 이스크라 메일 ===================== */
 #panel-mail .mailtop{display:flex;align-items:center;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);flex-wrap:wrap;}
@@ -1038,8 +1049,16 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 <div id="panel-searchresult" class="panel hidden">
 <div class="wrap">
+  <div class="srtopbar">
+    <div class="srlogo" onclick="goHome()">이스크라</div>
+    <form class="srsearchform" onsubmit="srDoSearch(event)">
+      <input id="srSearchInput" type="text" autocomplete="off">
+      <button type="submit" class="icon" aria-label="검색"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
+    </form>
+  </div>
+  <div class="srnav" id="srNav"></div>
   <div class="srview" id="srListWrap">
-    <h1 class="srtitle"><strong id="srQuery"></strong> 검색결과</h1>
+    <p class="srmeta" id="srMeta"></p>
     <div id="srBody"></div>
   </div>
 </div>
@@ -1876,30 +1895,58 @@ function matchItems(q){
   });
 }
 
+const SR_LABELS = {news:'뉴스', blog:'블로그', hot:'핫이슈'};
+let srFilter = '전체';
+
 function renderSearchResults(q){
   const matches = matchItems(q);
   const body = document.getElementById('srBody');
+  const meta = document.getElementById('srMeta');
+  const nav = document.getElementById('srNav');
+
+  const groups = {news:[], blog:[], hot:[]};
+  matches.forEach(a => { const t = groups[a.type] ? a.type : 'news'; groups[t].push(a); });
+
   if(matches.length === 0){
+    nav.innerHTML = '';
+    meta.textContent = '';
     body.innerHTML = `<div class="sr-empty"><p><strong>'${q}'</strong>에 대한 검색결과가 없습니다.</p><p>다른 검색어로 다시 시도해 보세요.</p></div>`;
     fadeRefresh(body);
     return;
   }
-  const LABELS = {news:'뉴스', blog:'블로그', hot:'핫이슈'};
-  const groups = {news:[], blog:[], hot:[]};
-  matches.forEach(a => { const t = groups[a.type] ? a.type : 'news'; groups[t].push(a); });
-  body.innerHTML = ['news','blog','hot'].filter(k => groups[k].length).map(k => `
-    <div class="sr-section">
-      <div class="sr-head">${LABELS[k]}<span class="cnt">${groups[k].length}건</span></div>
-      ${groups[k].map(a => `
-        <button class="sr-row" onclick="showArticle(${a.id})">
-          <p class="t">${a.title}</p>
-          <p class="meta">${a.outlet} · ${a.time}</p>
-          <p class="snip">${(a.body && a.body[0]) || ''}</p>
-        </button>
-      `).join('')}
+
+  if(!groups[srFilter] && srFilter !== '전체') srFilter = '전체';
+  const tabs = [['전체', matches.length, '전체']].concat(
+    Object.keys(SR_LABELS).filter(k => groups[k].length).map(k => [SR_LABELS[k], groups[k].length, k])
+  );
+  nav.innerHTML = tabs.map(([label, count, key]) => `
+    <button class="srnavitem ${srFilter === key ? 'active' : ''}" onclick="srSetFilter('${key}')">${label}</button>
+  `).join('');
+
+  const list = srFilter === '전체' ? matches : groups[srFilter];
+  if(list.length === 0){
+    meta.textContent = '';
+    body.innerHTML = `<div class="sr-empty"><p>해당 분류에는 결과가 없습니다.</p></div>`;
+    fadeRefresh(body);
+    return;
+  }
+  meta.textContent = `결과 약 ${list.length}건`;
+  body.innerHTML = list.map(a => `
+    <div class="sr-row">
+      <button class="sr-link" onclick="showArticle(${a.id})">
+        <p class="sr-crumb">${a.outlet} · ${a.time}</p>
+        <p class="sr-t">${a.title}</p>
+        <p class="sr-snip">${(a.body && a.body[0]) || ''}</p>
+      </button>
     </div>
   `).join('');
   fadeRefresh(body);
+}
+
+function srSetFilter(key){
+  srFilter = key;
+  renderSearchResults(lastSRQuery);
+  saveProgress();
 }
 
 let lastSRQuery = '';
@@ -1910,10 +1957,17 @@ function doSearch(e){
   if(!q) return;
   runSearch(q);
 }
+function srDoSearch(e){
+  e.preventDefault();
+  const q = document.getElementById('srSearchInput').value.trim();
+  if(!q) return;
+  runSearch(q);
+}
 function runSearch(q){
   lastSRQuery = q;
+  srFilter = '전체';
   openTab('searchresult', `'${q}' 검색`, '&#128269;');
-  document.getElementById('srQuery').textContent = `'${q}'`;
+  document.getElementById('srSearchInput').value = q;
   renderSearchResults(q);
   setBack('searchresult', false);
   setAddr('searchresult', 'iskra.dg/search?q=' + encodeURIComponent(q));
@@ -3479,7 +3533,7 @@ function saveProgress(){
       radenPage: document.getElementById('listPage').classList.contains('hidden') ? 'dash' : 'list',
       rdFilterCat, rdFilterText, rdPage,
       mailFolder: currentFolder,
-      lastSRQuery,
+      lastSRQuery, srFilter,
       ogDetailId: ogCurrentRecord && !document.getElementById('ogDetail').classList.contains('hidden') ? ogCurrentRecord.id : null,
       ogLastQuery,
       lsDetailId: lsCurrentRecord && !document.getElementById('lsDetail').classList.contains('hidden') ? lsCurrentRecord.id : null,
@@ -3590,7 +3644,8 @@ function loadProgress(){
 
   if(saved.lastSRQuery){
     lastSRQuery = saved.lastSRQuery;
-    document.getElementById('srQuery').textContent = `'${lastSRQuery}'`;
+    srFilter = saved.srFilter || '전체';
+    document.getElementById('srSearchInput').value = lastSRQuery;
     renderSearchResults(lastSRQuery);
   }
 
