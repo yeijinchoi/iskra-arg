@@ -1899,7 +1899,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <button id="msgLauncher" type="button" onclick="msgToggle()" aria-label="다나와 대화하기"><svg viewBox="0 0 24 24"><path d="M12 2.5C6.5 2.5 2.5 6.2 2.5 11c0 2.6 1.2 4.8 3.1 6.3-.1 1.4-.6 2.9-1.6 4 0 0 3.2-.2 5.2-1.7.9.2 1.8.3 2.8.3 5.5 0 9.5-3.7 9.5-8.9S17.500 2.5 12 2.5Z"/><circle class="d" cx="8" cy="11" r="1.3"/><circle class="d" cx="12" cy="11" r="1.3"/><circle class="d" cx="16" cy="11" r="1.3"/></svg><span id="msgBadge">1</span></button>
 <div id="msgPeek" onclick="msgToggle()"><div class="pav"></div><div><div class="pn">다나</div><div class="pt" id="msgPeekText"></div></div></div>
 <div id="msgPanel" role="dialog" aria-label="다나와의 대화">
-  <div class="mh"><div class="mav"></div><div><div class="mname">다나</div><div class="mstat">이스크라 베타테스트팀 · 온라인</div></div><button class="mclose" type="button" onclick="msgToggle()" aria-label="닫기">&times;</button></div>
+  <div class="mh"><div class="mav"></div><div><div class="mname">다나</div><div class="mstat">이스크라 개발자 · 온라인</div></div><button class="mclose" type="button" onclick="msgToggle()" aria-label="닫기">&times;</button></div>
   <div id="msgLog"></div>
   <div id="msgQuick"></div>
   <form id="msgForm" onsubmit="msgSubmit(event)" autocomplete="off"><input id="msgInput" type="text" placeholder="메시지 보내기" maxlength="200"><button id="msgSend" type="submit" aria-label="보내기" disabled><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
@@ -3126,8 +3126,8 @@ function omReload(){ omCloseDetail(); omRenderList(); }
 function enterBetaPortal(){
   replied = true;
   introSeen = true;
-  queueDelivery('tutorial1', 8000, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
-  queueDelivery('assign1', 35000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
+  queueDelivery('tutorial1', 26000, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
+  queueDelivery('assign1', 60000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
   goToMainScreen();
   saveProgress();
 }
@@ -4179,6 +4179,14 @@ const MSG_STAGES = {
 };
 const MSG_ASSIGN_IDS = ['assign1','assign2','assign3','assign4','assign5'];
 
+const MSG_INTRO = [
+  "안녕하세요! 이스크라 베타테스트에 오신 걸 환영해요 :)",
+  "저는 이스크라를 만들고 있는 개발자 다나예요. 베타 기간에는 테스터분들 관리도 제가 맡고 있어요.",
+  "이스크라는 여러 사이트의 정보를 한 곳에서 찾을 수 있게 해주는 검색 포털이에요. 정식 출시 전에 소수의 테스터분들이 직접 써보면서 이상한 점을 알려주셔야 해서, 이렇게 모시게 됐어요.",
+  "앞으로는 이렇게 진행돼요. 먼저 메일로 '의뢰'가 도착해요. 메일에는 어느 사이트인지랑 어떤 테스트인지만 간단히 적혀 있고, 자세한 설명은 이렇게 여기서 제가 따로 말씀드릴게요.",
+  "의뢰대로 사이트를 둘러보고 찾은 내용을 캡처해서 메일로 회신해 주시면 돼요. 확인되면 건마다 사례금을 바로 입금해 드려요.",
+  "중간에 막히면 언제든 여기서 물어보세요. 힌트도 드릴 수 있어요. 일단 편하게 둘러보세요. 곧 첫 번째 의뢰 보내드릴게요!"
+];
 let msgState = {log:[], unread:0, hintLevel:{}, seenMail:{}, greeted:false, followup:false};
 let msgOpen = false;
 let msgPeekTimer = null;
@@ -4226,6 +4234,7 @@ function msgRenderChips(){
   const q = document.getElementById('msgQuick'); if(!q) return;
   const chips = msgState.followup
     ? [['yes','도움 됐어요'],['no','아직 모르겠어요'],['cap','캡처는 어떻게 해요?']]
+    : (msgStage().n === 0) ? [['about','어떤 일을 하게 되나요?'],['who','개발자세요?'],['pay','사례금은요?'],['cap','캡처는 어떻게 해요?']]
     : [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
   q.innerHTML = chips.map(c => '<button type="button" onclick="msgChip(\''+c[0]+'\',\''+c[1]+'\')">'+c[1]+'</button>').join('');
 }
@@ -4278,7 +4287,8 @@ function msgIntent(t){
   if(/(아직|모르겠|여전히|그래도|아니요|아뇨|못찾|안보여|안돼)/.test(s)) return msgState.followup ? 'no' : 'hint';
   if(/(고마|감사|땡큐|ㄳ)/.test(s)) return 'thanks';
   if(/(안녕|하이|ㅎㅇ|반가|처음)/.test(s)) return 'greet';
-  if(/(누구|이름|사람|봇|ai|로봇|진짜)/i.test(s)) return 'who';
+  if(/(어떤일|무슨일|뭐하는|뭘하는|뭘하게|진행|방식|하게되)/.test(s)) return 'about';
+  if(/(누구|이름|사람|봇|ai|로봇|진짜|개발자|만든)/i.test(s)) return 'who';
   if(/(사례금|입금|보수|돈|얼마)/.test(s)) return 'pay';
   if(/(캡처|캡쳐|첨부|스크린)/.test(s)) return 'cap';
   if(/스크랩/.test(s)) return 'scrap';
@@ -4299,7 +4309,8 @@ function msgReply(intent){
   else if(intent === 'pay') msgBotSay("사례금은 테스트 내용이 확인되면 바로 입금돼요. 노을메일 오른쪽의 인터넷뱅킹 카드에서 확인하실 수 있어요.");
   else if(intent === 'thanks') msgBotSay(MSG_PICK(["별말씀을요 :)","에이, 제 일인걸요 ㅎㅎ 또 필요하면 말씀하세요."]));
   else if(intent === 'greet') msgBotSay(MSG_PICK(["안녕하세요! 오늘도 테스트 같이 힘내봐요 :)","어서 오세요 ㅎㅎ 뭐 막히는 거 있으세요?"]));
-  else if(intent === 'who') msgBotSay("저요? 이스크라 베타테스트팀에서 테스터분들 도와드리는 다나예요. 메일로 안내드린 팀이 저희예요 ㅎㅎ");
+  else if(intent === 'who') msgBotSay("네, 이스크라를 만들고 있는 개발자 다나예요. 베타 기간엔 테스트 운영도 같이 맡고 있어서, 메일로 안내드리는 것도 제가 보내는 거예요 ㅎㅎ");
+  else if(intent === 'about') msgBotSay("메일로 의뢰가 오면, 안내드린 사이트를 둘러보면서 찾아야 할 내용을 캡처해서 회신해 주시면 돼요. 자세한 설명은 여기서 제가 말씀드리고요. 확인되면 건마다 사례금이 입금돼요.");
   else msgBotSay(MSG_PICK(["음, 그건 제가 바로 답해드리기가 좀 어렵네요 ㅠㅠ 막히신 거면 '힌트'라고 보내주세요.","잘 모르겠어요… 지금 하시는 테스트 얘기면 '힌트'나 '뭘 하면 돼요?'라고 물어봐 주세요."]));
   msgRenderChips();
 }
@@ -4319,7 +4330,7 @@ function msgSubmit(e){
 function msgChip(id, label){
   msgPush('me', label);
   setTimeout(msgMarkRead, 500);
-  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no'};
+  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay'};
   setTimeout(() => msgReply(map[id] || 'other'), 800);
 }
 function msgToggle(){
@@ -4337,7 +4348,7 @@ function msgRefreshVisible(){
   if(!show){ msgOpen = false; document.getElementById('msgPanel').classList.remove('open'); document.getElementById('msgPeek').classList.remove('show'); l.style.display = ''; }
   else if(msgOpen) l.style.display = 'none';
 }
-const MSG_MAIL_SEQ = {"assign1": ["1차 테스트 의뢰 메일 보냈어요. 자세한 건 여기서 말씀드릴게요 :)", "저희가 준비 중인 '기업 시스템 연동' 기능 테스트예요. 실제 거래 데이터를 본떠 만든 샘플 데이터가 들어 있는데, 정식 적용 전에 데이터가 깨지거나 이상하게 보이는 부분이 없는지 봐주시면 돼요.", "메일에 있는 계정으로 ERP에 들어가서 '반출목록' 메뉴를 쭉 훑어봐 주세요. 수량이든 뭐든 눈에 띄게 이상한 데이터가 있으면 캡처해서 메일로 회신해 주시면 돼요.", "캡처는 주소창 오른쪽 카메라 아이콘을 누르면 돼요. 사례금은 테스트 참여하실 때마다 드려요 ㅎㅎ", "어떤 걸 봐야 할지 감이 안 잡히면, 거래처 이름으로 뉴스를 검색해 보시는 것도 도움이 될 거예요."], "retry1": ["아, 이번엔 저희가 보려던 부분이랑 조금 달랐나 봐요.", "반출목록에서 다른 품목들이랑 비교했을 때 수량이 유독 튀는 기록이 있는지 한번 더 봐주시겠어요? 확인되면 그 내역을 캡처해서 다시 보내주세요."], "assign2": ["2차 의뢰 메일 보냈어요! 1차 사례금도 입금해 드렸으니 확인해 보세요 :)", "이번엔 ERP 계정은 안 쓰셔도 돼요. 지난번 테스트 계정은 만료 처리됐거든요.", "지난 테스트 데이터에 찍혀 있던 수취인 이름 중에 '바르네시아교민상회'가 있었는데요, 저희가 '공공 등록정보 연동' 기능도 같이 테스트 중이라서 이 이름으로 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 봐주시면 돼요. 로그인 없이 단체명 검색만 하시면 돼요.", "그리고 연동된 데이터가 실제랑 맞는지 보는 것도 이번 테스트의 포인트라서, 그 주소에 진짜로 사무실이 있는지도 같이 확인해 주시면 좋겠어요.", "정리하면 첨부는 두 개예요. 등록 정보 캡처 하나, 그 주소의 사무실을 확인할 수 있는 자료 하나!"], "retry2": ["이번엔 저희가 필요한 거랑 조금 달랐어요 ㅠㅠ", "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르네시아교민상회'로 검색하면 등록현황(소재지 포함)이 나와요. 그걸 캡처해 주시고, 그 주소에 실제로 사무실이 있는지 확인할 수 있는 자료도 하나 더 있으면 좋겠어요. 두 개 다 캡처해서 보내주세요."], "assign3": ["3차 의뢰 메일 보냈어요. 이번엔 가볍게 해보셔도 돼요 ㅎㅎ", "등록 주소가 왜 비어 있는 걸로 나오는지는 저희 쪽에서도 계속 들여다보고 있어요. 그사이에 '검색 결과 정확도' 테스트 하나만 부탁드릴게요.", "'바르네시아교민상회'로 검색했을 때 나오는 결과가 실제 활동 내역이랑 맞는지 한번 봐주세요. 거창하게 조사하실 필요는 없고 가볍게 검색해 보시면 돼요. 막히면 이름 그대로 검색해 보시는 것도 방법이에요.", "결과 보시고 이 단체가 어떤 성격인지 한 단어 정도로만 정리해서 회신해 주시면 돼요."], "retry3": ["아직 관련 내용을 못 찾으셨나 봐요.", "'바르네시아교민상회'로 검색해 보시면 관련 기사가 나올 거예요. 그 내용 보시고 이 단체 성격을 한 단어로 정리해서 다시 보내주세요."], "assign4": ["4차 의뢰 메일 보냈어요. 지난 테스트들 전부 큰 도움이 됐어요, 감사해요!", "이번엔 등록 서류에 '마르코비치 ○○○'로만 나와 있던 이름을 좀 더 확인해 주셨으면 해요. 저희 데이터로는 도렌그라드 국립대학교 동문일 가능성이 있다고 나와서요. 마침 '동문 네트워크 연동' 기능도 테스트 중이거든요.", "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 여러 명이 나올 거예요.", "이 정도 규모 단체를 설립해서 지금까지 이끌어 올 정도면, 설립 시점(2019년 4월) 기준으로 최소 10년 이상은 졸업하고 사회생활을 하고 있었겠죠. 거기 해당하는 분들 중에서 근황을 보고 실제로 단체를 이끌고 있을 법한 분을 추려 주세요. 전체 이름이 확인되면 캡처해서 보내주시면 돼요."], "retry4": ["보내주신 분이 조건이랑은 조금 안 맞는 것 같아요.", "2019년 4월 기준으로 최소 10년 이상 졸업해서 사회생활을 하고 있었을 분으로 범위를 좁힌 다음, 그중에서도 근황상 실제로 단체를 이끌고 있을 법한 분으로 다시 한번 찾아봐 주시겠어요? 해당 안 되는 분들은 근황을 잘 살펴보시면 걸러낼 수 있을 거예요."], "assign5": ["5차 의뢰 메일 보냈어요. 이름 확인해 주셔서 감사해요, '마르코비치 이보'였군요.", "이번엔 이 분이 예전에 신문에 기고문을 쓰거나 인터뷰에 응한 적이 있는지 찾아봐 주셨으면 해요. 저희가 '뉴스 아카이브 연동' 기능도 테스트하고 있는데, <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 이름으로 검색하면 과거 기사도 나온다고 하네요.", "단순 동정란 같은 건 말고, 이 분의 생각이나 입장이 드러나는 글이면 좋겠어요. 찾으시면 캡처해서 보내주세요."], "retry5": ["음, 이건 그냥 지역 소식란이었나 봐요.", "저희가 찾는 건 이 분의 생각이나 입장이 드러나는 글이에요. 다시 한번 찾아봐 주시겠어요?"], "tutorial1": ["베타 접속 확인했어요! 환영해요 :)", "본격적인 테스트 전에 저희 핵심 기능인 검색부터 가볍게 써보세요. 지금 계신 곳 '도렌그라드'로 한번 검색해 보시면, 저희가 여러 사이트에서 모아온 관련 소식이 한 번에 뜰 거예요."], "success1": ["1차 완료! 사례금도 입금됐어요. 수고하셨어요 :)"], "success2": ["2차도 확인됐어요. 사례금 입금했어요!"], "success3": ["3차도 확인됐어요. 사례금 입금했어요!"], "success4": ["4차 확인됐어요. 사례금 입금했어요!"], "success5": ["5차 확인됐어요. 사례금 입금했어요. 정말 수고하셨어요!"]};
+const MSG_MAIL_SEQ = {"assign1": ["1차 테스트 의뢰 메일 보냈어요. 자세한 건 여기서 말씀드릴게요 :)", "저희가 준비 중인 '기업 시스템 연동' 기능 테스트예요. 실제 거래 데이터를 본떠 만든 샘플 데이터가 들어 있는데, 정식 적용 전에 데이터가 깨지거나 이상하게 보이는 부분이 없는지 봐주시면 돼요.", "메일에 있는 계정으로 ERP에 들어가서 '반출목록' 메뉴를 쭉 훑어봐 주세요. 수량이든 뭐든 눈에 띄게 이상한 데이터가 있으면 캡처해서 메일로 회신해 주시면 돼요.", "캡처는 주소창 오른쪽 카메라 아이콘을 누르면 돼요. 사례금은 테스트 참여하실 때마다 드려요 ㅎㅎ", "어떤 걸 봐야 할지 감이 안 잡히면, 거래처 이름으로 뉴스를 검색해 보시는 것도 도움이 될 거예요."], "retry1": ["아, 이번엔 저희가 보려던 부분이랑 조금 달랐나 봐요.", "반출목록에서 다른 품목들이랑 비교했을 때 수량이 유독 튀는 기록이 있는지 한번 더 봐주시겠어요? 확인되면 그 내역을 캡처해서 다시 보내주세요."], "assign2": ["2차 의뢰 메일 보냈어요! 1차 사례금도 입금해 드렸으니 확인해 보세요 :)", "이번엔 ERP 계정은 안 쓰셔도 돼요. 지난번 테스트 계정은 만료 처리됐거든요.", "지난 테스트 데이터에 찍혀 있던 수취인 이름 중에 '바르네시아교민상회'가 있었는데요, 저희가 '공공 등록정보 연동' 기능도 같이 테스트 중이라서 이 이름으로 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 봐주시면 돼요. 로그인 없이 단체명 검색만 하시면 돼요.", "그리고 연동된 데이터가 실제랑 맞는지 보는 것도 이번 테스트의 포인트라서, 그 주소에 진짜로 사무실이 있는지도 같이 확인해 주시면 좋겠어요.", "정리하면 첨부는 두 개예요. 등록 정보 캡처 하나, 그 주소의 사무실을 확인할 수 있는 자료 하나!"], "retry2": ["이번엔 저희가 필요한 거랑 조금 달랐어요 ㅠㅠ", "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르네시아교민상회'로 검색하면 등록현황(소재지 포함)이 나와요. 그걸 캡처해 주시고, 그 주소에 실제로 사무실이 있는지 확인할 수 있는 자료도 하나 더 있으면 좋겠어요. 두 개 다 캡처해서 보내주세요."], "assign3": ["3차 의뢰 메일 보냈어요. 이번엔 가볍게 해보셔도 돼요 ㅎㅎ", "등록 주소가 왜 비어 있는 걸로 나오는지는 저희 쪽에서도 계속 들여다보고 있어요. 그사이에 '검색 결과 정확도' 테스트 하나만 부탁드릴게요.", "'바르네시아교민상회'로 검색했을 때 나오는 결과가 실제 활동 내역이랑 맞는지 한번 봐주세요. 거창하게 조사하실 필요는 없고 가볍게 검색해 보시면 돼요. 막히면 이름 그대로 검색해 보시는 것도 방법이에요.", "결과 보시고 이 단체가 어떤 성격인지 한 단어 정도로만 정리해서 회신해 주시면 돼요."], "retry3": ["아직 관련 내용을 못 찾으셨나 봐요.", "'바르네시아교민상회'로 검색해 보시면 관련 기사가 나올 거예요. 그 내용 보시고 이 단체 성격을 한 단어로 정리해서 다시 보내주세요."], "assign4": ["4차 의뢰 메일 보냈어요. 지난 테스트들 전부 큰 도움이 됐어요, 감사해요!", "이번엔 등록 서류에 '마르코비치 ○○○'로만 나와 있던 이름을 좀 더 확인해 주셨으면 해요. 저희 데이터로는 도렌그라드 국립대학교 동문일 가능성이 있다고 나와서요. 마침 '동문 네트워크 연동' 기능도 테스트 중이거든요.", "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 여러 명이 나올 거예요.", "이 정도 규모 단체를 설립해서 지금까지 이끌어 올 정도면, 설립 시점(2019년 4월) 기준으로 최소 10년 이상은 졸업하고 사회생활을 하고 있었겠죠. 거기 해당하는 분들 중에서 근황을 보고 실제로 단체를 이끌고 있을 법한 분을 추려 주세요. 전체 이름이 확인되면 캡처해서 보내주시면 돼요."], "retry4": ["보내주신 분이 조건이랑은 조금 안 맞는 것 같아요.", "2019년 4월 기준으로 최소 10년 이상 졸업해서 사회생활을 하고 있었을 분으로 범위를 좁힌 다음, 그중에서도 근황상 실제로 단체를 이끌고 있을 법한 분으로 다시 한번 찾아봐 주시겠어요? 해당 안 되는 분들은 근황을 잘 살펴보시면 걸러낼 수 있을 거예요."], "assign5": ["5차 의뢰 메일 보냈어요. 이름 확인해 주셔서 감사해요, '마르코비치 이보'였군요.", "이번엔 이 분이 예전에 신문에 기고문을 쓰거나 인터뷰에 응한 적이 있는지 찾아봐 주셨으면 해요. 저희가 '뉴스 아카이브 연동' 기능도 테스트하고 있는데, <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 이름으로 검색하면 과거 기사도 나온다고 하네요.", "단순 동정란 같은 건 말고, 이 분의 생각이나 입장이 드러나는 글이면 좋겠어요. 찾으시면 캡처해서 보내주세요."], "retry5": ["음, 이건 그냥 지역 소식란이었나 봐요.", "저희가 찾는 건 이 분의 생각이나 입장이 드러나는 글이에요. 다시 한번 찾아봐 주시겠어요?"], "tutorial1": ["검색 연습용 메일도 하나 보내드렸어요.", "본격적인 의뢰 전에 저희 핵심 기능인 검색부터 가볍게 써보세요. 지금 계신 곳 '도렌그라드'로 한번 검색해 보시면, 저희가 여러 사이트에서 모아온 관련 소식이 한 번에 뜰 거예요."], "success1": ["1차 완료! 사례금도 입금됐어요. 수고하셨어요 :)"], "success2": ["2차도 확인됐어요. 사례금 입금했어요!"], "success3": ["3차도 확인됐어요. 사례금 입금했어요!"], "success4": ["4차 확인됐어요. 사례금 입금했어요!"], "success5": ["5차 확인됐어요. 사례금 입금했어요. 정말 수고하셨어요!"]};
 function msgOnMail(id){
   if(!introSeen || msgState.seenMail[id]) return;
   msgState.seenMail[id] = 1;
@@ -4361,8 +4372,8 @@ function msgInit(){
   msgRefreshVisible();
   if(introSeen && !msgState.greeted){
     msgState.greeted = true;
-    msgPush('bot', "안녕하세요! 이스크라 베타테스트팀 다나예요 :)");
-    setTimeout(() => msgBotSay("테스트하시다가 막히는 거 있으면 편하게 말 걸어 주세요. 아래 버튼 눌러도 되고, 그냥 직접 적으셔도 돼요!", 1400), 600);
+    msgSayMany(MSG_INTRO, 1400);
+    setTimeout(() => { if(!msgOpen) msgToggle(); }, 900);
   }
   msgRender();
 }
@@ -4379,5 +4390,6 @@ function msgInit(){
 loadProgress();
 applyIskraTheme();
 if(!introSeen){ switchTab(TABS[0].id); omStartGate(); }
+else { omOpenMail(); }
 msgInit();
 </script>
