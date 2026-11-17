@@ -1621,6 +1621,42 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 @media (max-width:640px){
   #panel-raden tr.raderow td:nth-child(2) .cp{background:none;color:inherit;padding:0;font-size:inherit;font-weight:inherit;}
 }
+
+/* 모바일: 이스크라 메일 */
+@media (max-width:640px){
+  #panel-mail .mailtop{gap:10px;}
+  #panel-mail .sidebar{padding:10px 0 12px;border-bottom:none;}
+  #panel-mail .composebtn{display:none;}
+  #panel-mail .foldernav{flex-direction:row;gap:8px;overflow-x:auto;scrollbar-width:none;padding:2px 0;}
+  #panel-mail .foldernav::-webkit-scrollbar{display:none;}
+  #panel-mail .folder{width:auto;flex-shrink:0;padding:8px 14px;border-radius:999px;background:var(--surface);box-shadow:0 0 0 1px var(--border) inset;font-size:13px;}
+  #panel-mail .folder .ic{display:none;}
+  #panel-mail .folder .lbl{flex:none;}
+  #panel-mail .folder.active{background:var(--accent);color:var(--accent-ink);box-shadow:none;}
+  #panel-mail .folder.active .cnt{background:#fff;color:var(--accent);}
+  #panel-mail .maincol{padding-top:4px;}
+  #panel-mail .foldertitle{display:none;}
+  #panel-mail .mrow{display:grid;grid-template-columns:8px 1fr auto;column-gap:10px;row-gap:3px;padding:13px 8px;align-items:center;}
+  #panel-mail .mrow .star{display:none;}
+  #panel-mail .mrow .sender{width:auto;grid-column:2;font-size:13px;}
+  #panel-mail .mrow .date{grid-column:3;width:auto;}
+  #panel-mail .mrow .subjwrap{grid-column:2 / 4;white-space:normal;display:block;font-size:13.5px;}
+  #panel-mail .mrow .subjwrap .prev{display:block;margin:2px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px;}
+  #panel-mail .detail .subj{font-size:18px;}
+  #panel-mail .detail .meta{flex-wrap:wrap;align-items:flex-start;}
+  #panel-mail .detail .who{flex:1;min-width:0;}
+  #panel-mail .detail .who b,#panel-mail .detail .who span{white-space:normal;overflow-wrap:anywhere;}
+  #panel-mail .detail .when{margin-left:0;width:100%;padding-left:44px;}
+}
+
+@media (max-width:640px){
+  #panel-mail .mailgrid{align-content:start;min-height:0;}
+  #panel-mail .sidebar{border-right:none;}
+  #panel-mail .mrow .dot{grid-column:1;grid-row:1;}
+  #panel-mail .mrow .sender{grid-row:1;}
+  #panel-mail .mrow .date{grid-row:1;}
+  #panel-mail .mrow .subjwrap{grid-row:2;}
+}
 </style>
 
 <div class="chrome">
