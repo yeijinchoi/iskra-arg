@@ -1344,6 +1344,44 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #cutsceneOverlay .cutscene-img{border-radius:14px;}
 #cutsceneOverlay .cutscene-sleep{color:#1F2430;}
 @media (max-width:560px){#cutsceneOverlay .cutscene-card{margin:0;border-radius:0;min-height:100%;padding:36px 22px 40px;}}
+
+/* ===== 검색 지식 패널(백과 카드) ===== */
+#panel-searchresult .kp{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px 22px 18px;margin:6px 0 22px;box-shadow:0 8px 28px rgba(20,30,60,.06);}
+#panel-searchresult .kp-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px;}
+#panel-searchresult .kp-title{font-size:22px;font-weight:800;letter-spacing:-.02em;}
+#panel-searchresult .kp-kind{font-size:12px;color:var(--muted);margin-top:2px;}
+#panel-searchresult .kp-src{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--hover-bg);border-radius:999px;padding:3px 9px;flex-shrink:0;}
+#panel-searchresult .kp-sum{font-size:13.5px;line-height:1.75;margin:0 0 14px;color:var(--ink);}
+#panel-searchresult .kp-facts{display:grid;grid-template-columns:1fr 1fr;gap:8px 18px;margin:0 0 12px;padding:14px 0;border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+#panel-searchresult .kp-facts div{display:flex;gap:10px;font-size:12.5px;min-width:0;}
+#panel-searchresult .kp-facts dt{color:var(--muted);flex-shrink:0;width:64px;}
+#panel-searchresult .kp-facts dd{margin:0;font-weight:600;min-width:0;}
+#panel-searchresult .kp-more{font-size:12.5px;line-height:1.7;color:var(--muted);margin:0 0 12px;}
+#panel-searchresult .kp-rel{display:flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:12px;color:var(--muted);}
+#panel-searchresult .kp-rel button{font-family:inherit;font-size:12.5px;font-weight:600;color:var(--accent);background:var(--hover-bg);border:none;border-radius:999px;padding:5px 12px;cursor:pointer;}
+#panel-searchresult .kp-rel button:hover{text-decoration:underline;}
+@media (max-width:560px){#panel-searchresult .kp-facts{grid-template-columns:1fr;}}
+#panel-searchresult .srlogo .dzwm{height:26px;}
+
+/* ===== 노을메일 오늘의 뉴스 카드 ===== */
+#panel-oldmail .newscard{background:var(--surface);border-radius:24px;padding:18px 18px 10px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.12);}
+#panel-oldmail .newscard .head{font-size:13px;font-weight:700;margin:0 4px 6px;}
+#panel-oldmail .newscard ul{list-style:none;margin:0;padding:0;}
+#panel-oldmail .newscard li button{display:block;width:100%;text-align:left;background:none;border:none;border-top:1px solid var(--border);padding:10px 4px;font-family:inherit;cursor:pointer;border-radius:8px;}
+#panel-oldmail .newscard li:first-child button{border-top:none;}
+#panel-oldmail .newscard li button:hover{background:var(--hover-bg);}
+#panel-oldmail .newscard .o{display:block;font-size:11px;color:var(--muted);margin-bottom:2px;}
+#panel-oldmail .newscard .t{display:block;font-size:12.5px;font-weight:600;line-height:1.45;color:var(--ink);}
+#panel-oldmail .omnote{font-size:11.5px;color:var(--muted);background:var(--hover-bg);border-radius:8px;padding:8px 12px;margin-bottom:16px;}
+
+/* ===== ERP 사내 공지 ===== */
+#panel-raden .rd-notice{margin-top:18px;background:var(--surface);border:none;border-radius:22px;padding:18px 20px 10px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(20,40,50,.07);}
+#panel-raden .rn-head{font-size:13px;font-weight:800;margin-bottom:8px;}
+#panel-raden .rd-notice ul{list-style:none;margin:0;padding:0;}
+#panel-raden .rd-notice li{display:flex;gap:10px;align-items:baseline;font-size:12.5px;line-height:1.55;padding:9px 0;border-top:1px solid var(--border);}
+#panel-raden .rd-notice li:first-child{border-top:none;}
+#panel-raden .rd-notice .d{color:var(--muted);font-variant-numeric:tabular-nums;flex-shrink:0;width:38px;}
+#panel-raden .rd-notice .tg{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--hover-bg);border-radius:5px;padding:1px 6px;flex-shrink:0;}
 </style>
 
 <div class="chrome">
@@ -1391,6 +1429,10 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
           <span class="mctext"><b>레나 소린</b><span>노을메일 · 내 계정</span></span>
         </div>
         <div class="bankcard" id="bankcard"></div>
+    <div class="newscard">
+      <div class="head">오늘의 뉴스</div>
+      <ul id="omNewsList"></ul>
+    </div>
         <div class="weathercard">
           <div class="top">
             <div>
@@ -1508,7 +1550,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <div id="panel-searchresult" class="panel hidden">
 <div class="wrap">
   <div class="srtopbar">
-    <div class="srlogo" onclick="goHome()">이스크라</div>
+    <div class="srlogo" onclick="goHome()"><img class="dzwm" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIxMDUgMTMzIDExNTYgNDg4IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMTU2IiBoZWlnaHQ9IjQ4OCI+CiAgPGcgaWQ9IndvcmRtYXJrIiBmaWxsPSIjMUU1RkMyIj4KICAgIDxwYXRoIGlkPSJzcGFyayIgZD0iTTIwMiAxNjZDMjA0IDE1NyAyMTQgMTU3IDIxNyAxNjZDMjIzIDE5NyAyNDAgMjE1IDI3MyAyMjFDMjgzIDIyMyAyODMgMjM0IDI3MyAyMzdDMjQxIDI0MyAyMjMgMjYxIDIxNyAyOTFDMjE1IDMwMCAyMDQgMzAwIDIwMiAyOTFDMTk2IDI2MSAxNzkgMjQzIDE0NiAyMzdDMTM2IDIzNSAxMzYgMjI0IDE0NiAyMjFDMTc4IDIxNSAxOTYgMTk3IDIwMiAxNjZaIiAvPgogICAgPHBhdGggaWQ9ImxldHRlci1pIiBkPSJNMTMxIDM1N0MxMzEgMzI3IDE1NSAzMDMgMTg0IDMwM0MyMTQgMzAzIDIzOCAzMjcgMjM4IDM1N1Y1MzlDMjM4IDU2OSAyMTQgNTkzIDE4NCA1OTNDMTU1IDU5MyAxMzEgNTY5IDEzMSA1MzlaIiAvPgogICAgPHBhdGggaWQ9ImxldHRlci1zIiBkPSJNMzc1IDI5OEM0MTIgMjk4IDQ0OCAzMDcgNDY5IDMyMUM0OTEgMzM2IDQ5NSAzNTkgNDgwIDM3OUM0NjggMzk1IDQ1MCAzOTggNDMyIDM5MEM0MTAgMzgwIDM5NCAzNzUgMzc2IDM3NUMzNjAgMzc1IDM1MSAzODAgMzUxIDM4OUMzNTEgMzk5IDM2OCA0MDIgMzkxIDQwOEM0NTQgNDIyIDQ5NSA0NDIgNDk1IDQ5NEM0OTUgNTU3IDQ0NiA1OTUgMzc1IDU5NUMzMjkgNTk1IDI5MiA1ODQgMjY1IDU2NUMyNDQgNTUxIDI0MyA1MjcgMjU1IDUwN0MyNjcgNDg4IDI4NyA0ODMgMzA3IDQ5M0MzMzEgNTA2IDM1MSA1MTIgMzc0IDUxMkMzOTAgNTEyIDM5OSA1MDYgMzk4IDQ5N0MzOTcgNDg3IDM4MiA0ODMgMzU0IDQ3N0MyOTIgNDYzIDI1NSA0NDQgMjU1IDM5NEMyNTUgMzM1IDMwMyAyOTggMzc1IDI5OFoiIC8+CiAgICA8ZyBpZD0ibGV0dGVyLWsiPgogICAgICA8cGF0aCBkPSJNNTAyIDI1MEM1MDIgMjIyIDUyNSAxOTkgNTUzIDE5OUM1ODEgMTk5IDYwMyAyMTggNjAzIDI0NUw2MDIgNDM1TDc0MSA1MTBDNzYxIDUzMSA3NjIgNTU5IDc0MiA1ODFDNzIyIDYwMSA2OTIgNjAwIDY3MiA1ODBMNjAyIDUwOFY1NDJDNjAyIDU3MCA1ODAgNTkzIDU1MiA1OTNDNTI0IDU5MyA1MDIgNTcxIDUwMiA1NDNaIiAvPgogICAgICA8cGF0aCBkPSJNNTM1IDQzOUw2NzUgMzA4QzY5NiAyODggNzI1IDI4OSA3NDQgMzA5Qzc2MyAzMjkgNzYxIDM1OSA3NDEgMzc4TDYyOSA0ODFDNjEwIDQ5OSA2MDIgNTE4IDYwMiA1NDJDNjAyIDU3MCA1ODAgNTkzIDU1MiA1OTNDNTI0IDU5MyA1MDIgNTcxIDUwMiA1NDNWNTIwQzUwMiA0ODYgNTEyIDQ2MSA1MzUgNDM5WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJsZXR0ZXItciIgZD0iTTc2MiAzNTNDNzYyIDMyNSA3ODQgMzAyIDgxMiAzMDJDODI5IDMwMiA4NDMgMzEwIDg1MyAzMjNDODcxIDMwNyA4OTAgMjk5IDkwOSAyOTlDOTM1IDI5OSA5NTQgMzE2IDk1NCAzNDFDOTU0IDM2OCA5MzQgMzg4IDkwOCAzOTBDODgwIDM5MSA4NTggNDA5IDg1OCA0MzVWNTQ2Qzg1OCA1NzMgODM3IDU5NSA4MTAgNTk1Qzc4MyA1OTUgNzYyIDU3MyA3NjIgNTQ2WiIgLz4KICAgIDxwYXRoIGlkPSJsZXR0ZXItYSIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTA3NCAyOTlDMTEwNCAyOTkgMTEyOSAzMDcgMTE1MiAzMjFDMTE2MSAzMTIgMTE3MyAzMDcgMTE4NyAzMDdDMTIxNCAzMDcgMTIzNSAzMjggMTIzNSAzNTVWNTQ3QzEyMzUgNTc0IDEyMTQgNTk1IDExODcgNTk1QzExNjUgNTk1IDExNDggNTgyIDExNDEgNTYzQzExMTkgNTgzIDEwOTEgNTk1IDEwNjEgNTk1Qzk4NSA1OTUgOTI4IDUzNiA5MjggNDYwQzkyOCAzNzIgOTk0IDI5OSAxMDc0IDI5OVpNMTA3NSAzODlDMTA0MyAzODkgMTAxNyA0MTUgMTAxNyA0NDdDMTAxNyA0NzkgMTA0MyA1MDUgMTA3NSA1MDVDMTEwNyA1MDUgMTEzMiA0NzkgMTEzMiA0NDdDMTEzMiA0MTUgMTEwNyAzODkgMTA3NSAzODlaIiAvPgogIDwvZz4KPC9zdmc+" alt="iskra"></div>
     <form class="srsearchform" onsubmit="srDoSearch(event)">
       <input id="srSearchInput" type="text" autocomplete="off">
       <button type="submit" class="icon" aria-label="검색"><svg class="ic" viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
@@ -1595,6 +1637,16 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
             <div class="kpi"><div class="n" id="kpiCount">-</div><div class="l">최근 1년 반출 건수</div></div>
             <div class="kpi"><div class="n">1</div><div class="l">승인 대기</div></div>
             <div class="kpi"><div class="n">9</div><div class="l">거래처 수</div></div>
+          </div>
+          <div class="rd-notice">
+            <div class="rn-head">사내 공지</div>
+            <ul>
+              <li><span class="d">11.12</span><span class="tg">시황</span>그라노프 지역 밀 대풍작 지속, 곡물 매입가 하락 전망 — 영업 1·2팀 단가 재협상 일정 공유</li>
+              <li><span class="d">11.08</span><span class="tg">통관</span>접경 구간 화물 검수 강화에 따른 통관 서류 요건 변경 안내 (서류 누락 시 반송)</li>
+              <li><span class="d">11.01</span><span class="tg">계정</span>외부 연동 테스트용 감사 계정은 11월 30일 자동 만료 예정</li>
+              <li><span class="d">10.25</span><span class="tg">안전</span>물류창고 정기 안전교육 실시 (전 직원 필수)</li>
+              <li><span class="d">10.20</span><span class="tg">시스템</span>ERP 정기 점검 — 매주 일요일 02:00~04:00</li>
+            </ul>
           </div>
         </div>
         <div id="listPage" class="hidden">
@@ -2393,6 +2445,25 @@ function matchItems(q){
 const SR_LABELS = {news:'뉴스', blog:'블로그', hot:'핫이슈'};
 let srFilter = '전체';
 
+const KNOW_PANELS = [{"keys": ["바르네시아", "varnescia"], "title": "바르네시아", "kind": "국가 · 반도", "sum": "케스테를룬드와 국경을 맞댄 반도 국가. 약 45년 전 케스테를룬드에 사실상 흡수되었고, 국제법상으로는 지금도 분쟁 지역으로 분류된다. 명목상 자치정부가 있으나 치안·외교·통신은 케스테를룬드가 파견한 고등판무관이 관장한다. 인터넷 접속과 언론 보도에 제한이 있고, 지역 간 이동과 출국에는 통행증이 필요하다.", "facts": [["수도", "보르니크"], ["체제", "명목상 자치정부 (고등판무관 파견)"], ["인구", "약 2,300만 명 (추정)"], ["언어", "바르네시아어"], ["주식", "쌀"], ["주요 사건", "23년 전 대규모 봉기와 진압"]], "more": "약 23년 전의 대규모 봉기가 진압된 뒤 많은 주민이 도렌그라드 접경 지역으로 이주했으며, 현재 도렌그라드에 사는 바르네시아 출신 이주민은 10만 명이 넘는 것으로 알려져 있다.", "rel": ["케스테를룬드", "도렌그라드", "그라노프"]}, {"keys": ["케스테를룬드", "kesterlund"], "title": "케스테를룬드", "kind": "국가 · 입헌 체제", "sum": "바르네시아와 인접한 지역 강대국. 입헌 체제를 갖추었고 경제력·군사력·정보력이 대륙 상위권이다. 바르네시아를 직접 통치하며 막대한 자원을 투입하고 있다. 도렌그라드와는 무역과 공급망으로 서로 깊이 얽혀 있어, 외교 마찰이 생겨도 정면 충돌보다 협상과 제재로 풀어 온 것으로 평가된다.", "facts": [["수도", "오스벤"], ["체제", "입헌 체제"], ["인구", "약 1억 1천만 명"], ["언어", "케스테르어"], ["주요 산업", "정밀기계, 금융, 물류"], ["대외 관계", "도렌그라드와 무역 상호의존"]], "more": "바르네시아 출신 활동가가 도렌그라드에 체류하는 문제를 두고 도렌그라드에 공식 항의를 이어 오고 있다.", "rel": ["바르네시아", "도렌그라드"]}, {"keys": ["도렌그라드", "dorengrad"], "title": "도렌그라드", "kind": "국가 · 대륙 중앙", "sum": "대륙 중앙에 위치한 대국. 중앙집권 체제이며 인구와 경제 규모에서 케스테를룬드와 어깨를 나란히 한다. 곡창 지대인 그라노프 지방과 항만·공업 도시를 두루 갖췄다. 바르네시아 출신 이주민이 모여 사는 접경 도시들이 있고, 이들의 단체와 상회가 여러 곳 활동 중이다.", "facts": [["수도", "도렌"], ["체제", "중앙집권 체제"], ["인구", "약 9억 명"], ["언어", "도렌어"], ["주요 지방", "그라노프(곡창), 북부 공업지대"], ["대외 관계", "케스테를룬드와 무역 상호의존"]], "more": "국가 이름과 같은 이름의 도렌그라드 국립대학교, 도렌통신, FC 도렌 등이 잘 알려져 있다.", "rel": ["바르네시아", "케스테를룬드", "그라노프"]}, {"keys": ["그라노프", "granov"], "title": "그라노프", "kind": "지방 · 도렌그라드 남서부", "sum": "도렌그라드 남서부의 대표적인 곡창 지대. 밀과 보리 재배가 주력이며 전국 곡물 생산의 상당 부분을 차지한다. 최근 몇 해 연속 대풍작으로 곡물 가격이 크게 떨어지면서 수확을 포기하고 밭을 갈아엎는 농가가 늘었고, 정부는 곡물 수출 할당량을 조정하는 방안을 검토 중이다.", "facts": [["위치", "도렌그라드 남서부"], ["주요 작물", "밀, 보리"], ["최근 동향", "대풍작, 곡물 가격 하락"], ["정책", "수출 할당량 재조정 검토"]], "more": "", "rel": ["도렌그라드", "바르네시아"]}];
+
+function kpFind(q){
+  const n = String(q||'').replace(/\s+/g,'').toLowerCase();
+  if(!n) return null;
+  return KNOW_PANELS.find(k => k.keys.some(key => n === key || n.indexOf(key) === 0)) || null;
+}
+function kpHtml(q){
+  const k = kpFind(q);
+  if(!k) return '';
+  return `
+  <div class="kp">
+    <div class="kp-head"><div><div class="kp-title">${k.title}</div><div class="kp-kind">${k.kind}</div></div><span class="kp-src">iskra 백과</span></div>
+    <p class="kp-sum">${k.sum}</p>
+    <dl class="kp-facts">${k.facts.map(f => `<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('')}</dl>
+    ${k.more ? `<p class="kp-more">${k.more}</p>` : ''}
+    <div class="kp-rel"><span>관련 검색</span>${k.rel.map(r => `<button type="button" onclick="runSearch('${r}')">${r}</button>`).join('')}</div>
+  </div>`;
+}
 function renderSearchResults(q){
   const matches = matchItems(q);
   const body = document.getElementById('srBody');
@@ -2402,10 +2473,11 @@ function renderSearchResults(q){
   const groups = {news:[], blog:[], hot:[]};
   matches.forEach(a => { const t = groups[a.type] ? a.type : 'news'; groups[t].push(a); });
 
+  const kpBlock = kpHtml(q);
   if(matches.length === 0){
     nav.innerHTML = '';
     meta.textContent = '';
-    body.innerHTML = `<div class="sr-empty"><p><strong>'${q}'</strong>에 대한 검색결과가 없습니다.</p><p>다른 검색어로 다시 시도해 보세요.</p></div>`;
+    body.innerHTML = kpBlock + (kpBlock ? '' : `<div class="sr-empty"><p><strong>'${q}'</strong>에 대한 검색결과가 없습니다.</p><p>다른 검색어로 다시 시도해 보세요.</p></div>`);
     fadeRefresh(body);
     return;
   }
@@ -2426,7 +2498,7 @@ function renderSearchResults(q){
     return;
   }
   meta.textContent = `결과 약 ${list.length}건`;
-  body.innerHTML = list.map(a => `
+  body.innerHTML = kpBlock + list.map(a => `
     <div class="sr-row">
       <button class="sr-link" onclick="showArticle(${a.id})">
         <p class="sr-crumb">${a.outlet} · ${a.time}</p>
@@ -3116,8 +3188,19 @@ function omStartGate(){
     setTimeout(() => icon.classList.remove('ding'), 500);
   }, 1400);
 }
-const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL];
+const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dg-mail.dg", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르네시아인 연합회 사무국", "addr": "union@varnescia-assoc.dg", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "마리야 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 두샨카 보스코"], "translated": false}, {"id": "mom", "sender": "마리야 소린 (엄마)", "addr": "mariya.sorin@dg-mail.dg", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 커서…", "time": "10월 24일", "unread": false, "body": ["레나야, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 커서 감기 조심해라.", "고향 외삼촌한테서 소식이 왔는데, 거기는 인터넷이 또 느려져서 전화도 잘 안 된다는구나. 통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금은 걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 필요하면 꼭 말해라.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나. 사람들이 너 많이 컸겠다고 보고 싶어 한단다.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dg", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
+const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
+const OM_NEWS_IDS = [113, 110, 115, 116];
+function omRenderNews(){
+  const el = document.getElementById('omNewsList'); if(!el) return;
+  el.innerHTML = OM_NEWS_IDS.map(id => {
+    const a = ARTICLES.find(x => x.id === id) || HINTS.find(x => x.id === id);
+    return a ? '<li><button type="button" onclick="showArticle('+id+')"><span class="o">'+a.outlet+'</span><span class="t">'+a.title+'</span></button></li>' : '';
+  }).join('');
+}
+
 function omOpenMail(){
+  omRenderNews();
   document.getElementById('omGate').classList.add('hidden');
   document.getElementById('omTop').classList.remove('hidden');
   document.getElementById('omListWrap').classList.remove('hidden');
@@ -3141,6 +3224,7 @@ function omRenderMail(m){
       <span class="omwho"><b>${m.sender}</b><span>${m.addr || ''}</span></span>
       <span class="omwhen">${m.time}</span>
     </div>
+    ${m.translated ? '<div class="omnote">원문: 바르네시아어 · 자동 번역됨</div>' : ''}
     ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
   `;
 }
