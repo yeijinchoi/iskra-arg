@@ -4263,13 +4263,14 @@ function msgRenderChips(){
   } else if(msgState.followup){
     chips = [['yes','도움 됐어요'],['no','아직 모르겠어요'],['cap','캡처는 어떻게 해요?']];
   } else if(msgStage().n === 0){
-    chips = [['about','어떤 일을 하게 되나요?'],['who','개발자세요?'],['pay','사례금은요?'],['cap','캡처는 어떻게 해요?']];
+    chips = [];
   } else {
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
   }
   const hold = msgPending > 0 || msgTyping;
   q.classList.toggle('busy', hold);
   q.classList.toggle('hold', hold);
+  q.style.display = chips.length ? '' : 'none';
   q.innerHTML = chips.map(c => '<button type="button" onclick="msgChip(\''+c[0]+'\',this.textContent)">'+c[1].replace(/</g,'&lt;')+'</button>').join('');
 }
 function msgPush(role, text, silent){
