@@ -1456,7 +1456,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 /* 모바일 사파리: 검색창 입력의 기본 폭(size=20) 때문에 문서가 가로로 커져 화면이 축소되던 문제 방지 */
 @media (max-width:640px){
-  html,body{overflow-x:hidden;max-width:100%;}
+  html,body{overflow-x:clip;max-width:100%;}
   .panel,.wrap{min-width:0;max-width:100%;}
   .searchform,.srsearchform,.og-searchbar,.al-searchbar,.ar-searchbar,.ls-searchbar,#panel-mail .searchbox,#panel-mail form{min-width:0;}
   .searchform input,.srsearchform input,.og-searchbar input,.al-searchbar input,.ar-searchbar input,.ls-searchbar input,#panel-mail form input{width:0!important;min-width:0!important;flex:1 1 0!important;}
@@ -2363,10 +2363,22 @@ function renderTabs(){
 }
 
 function openTab(kind, title, favicon){
+  const prev = activeId;
   let t = TABS.find(x => x.kind === kind);
-  if(!t){ t = {id:'t'+(tabSeq++), kind, title, favicon}; TABS.push(t); }
-  else { t.title = title; t.favicon = favicon; }
+  if(!t){ t = {id:'t'+(tabSeq++), kind, title, favicon, from:prev}; TABS.push(t); }
+  else { t.title = title; t.favicon = favicon; if(t.id !== prev) t.from = prev; }
   switchTab(t.id);
+}
+/* 뒤로가기: 탭 안의 화면 → 없으면 이 탭을 열어준 탭(링크 출처)으로 */
+function tabOrigin(t){ return (t && t.from && t.from !== t.id && TABS.find(x => x.id === t.from)) ? t.from : null; }
+function backAllowed(){ const t = TABS.find(x => x.id === activeId); return !!chromeBackEnabled[activeKind()] || !!tabOrigin(t); }
+function backToOrigin(t){
+  const o = tabOrigin(t); if(!o) return false;
+  if(t.kind !== 'oldmail' && t.kind !== 'search'){
+    const i = TABS.findIndex(x => x.id === t.id); if(i > -1) TABS.splice(i, 1);
+  }
+  switchTab(o);
+  return true;
 }
 
 function switchTab(id){
@@ -2381,11 +2393,11 @@ function switchTab(id){
   if(k === 'article' && t){
     renderArticleBody(t.articleId);
     document.getElementById('addrText').textContent = 'iskra.dg/article/' + t.articleId;
-    document.getElementById('backBtn').disabled = !(t.articleOrigin && TABS.find(x => x.id === t.articleOrigin));
   } else {
     document.getElementById('addrText').textContent = chromeAddr[k] || '';
-    document.getElementById('backBtn').disabled = !chromeBackEnabled[k];
   }
+  document.getElementById('backBtn').disabled = !backAllowed();
+  if(typeof pushBackSentinel === 'function' && backAllowed()) pushBackSentinel();
   if(typeof updateCaptureHint === 'function') updateCaptureHint();
   if(typeof saveProgress === 'function') saveProgress();
 }
@@ -2410,17 +2422,20 @@ function setAddr(kind, addr){
 }
 function setBack(kind, enabled){
   chromeBackEnabled[kind] = enabled;
-  if(activeKind() === kind) document.getElementById('backBtn').disabled = !enabled;
+  if(activeKind() === kind){ document.getElementById('backBtn').disabled = !backAllowed(); if(typeof pushBackSentinel === 'function' && backAllowed()) pushBackSentinel(); }
 }
 function chromeBack(){
-  const k = activeKind();
-  if(k === 'oldmail') omCloseDetail();
-  else if(k === 'mail') closeDetail();
-  else if(k === 'article') articleGoBack();
-  else if(k === 'orginfo') ogGoBack();
-  else if(k === 'listing') lsGoBack();
-  else if(k === 'alumni') alGoBack();
-  else if(k === 'archive') arGoBack();
+  const k = activeKind(), t = TABS.find(x => x.id === activeId);
+  if(chromeBackEnabled[k]){
+    if(k === 'oldmail') omCloseDetail();
+    else if(k === 'mail') closeDetail();
+    else if(k === 'orginfo') ogGoBack();
+    else if(k === 'listing') lsGoBack();
+    else if(k === 'alumni') alGoBack();
+    else if(k === 'archive') arGoBack();
+    return;
+  }
+  backToOrigin(t);
 }
 function chromeReload(){
   const btn = document.getElementById('reloadBtn');
@@ -2733,7 +2748,7 @@ function showArticle(id){
     t = {
       id:'t'+(tabSeq++), kind:'article',
       title: a.title.length > 20 ? a.title.slice(0,20) + '…' : a.title, favicon:'&#10022;',
-      articleId: id, articleOrigin: activeId
+      articleId: id, articleOrigin: activeId, from: activeId
     };
     TABS.push(t);
   }
@@ -2747,18 +2762,14 @@ function aReload(){
 
 function articleHome(){
   const t = TABS.find(x => x.id === activeId);
-  const origin = (t && t.kind === 'article') ? TABS.find(x => x.id === t.articleOrigin) : null;
-  if(origin && origin.kind === 'oldmail'){ switchTab(origin.id); return; }
+  const origin = (t && t.kind === 'article') ? TABS.find(x => x.id === t.from) : null;
+  if(origin && origin.kind === 'oldmail'){ backToOrigin(t); return; }
   goHome();
 }
 function articleGoBack(){
   const t = TABS.find(x => x.id === activeId);
-  const origin = (t && t.kind === 'article') ? t.articleOrigin : null;
-  if(origin && TABS.find(x => x.id === origin)){
-    switchTab(origin);
-  } else {
-    goHome();
-  }
+  if(t && t.kind === 'article' && backToOrigin(t)) return;
+  goHome();
 }
 
 function matchItems(q){
@@ -5026,6 +5037,15 @@ function msgInit(){
   const _switch = switchTab;
   switchTab = function(id){ _switch(id); msgRefreshVisible(); };
 })();
+
+/* 브라우저/안드로이드 뒤로가기도 게임 안 뒤로가기로 연결 */
+let backSentinel = false;
+function pushBackSentinel(){ if(backSentinel) return; try{ history.pushState({iskra:1}, ''); backSentinel = true; }catch(e){} }
+window.addEventListener('popstate', () => {
+  backSentinel = false;
+  if(backAllowed()){ chromeBack(); pushBackSentinel(); }
+});
+pushBackSentinel();
 
 loadProgress();
 applyIskraTheme();
