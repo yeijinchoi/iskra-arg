@@ -4876,8 +4876,20 @@ function msgSetOpts(item){
   else if(msgState.chain.length) msgState.ackO = [{r: MSG_ACK[(msgState.ackIdx = (msgState.ackIdx||0)+1) % MSG_ACK.length], re:''}];
   else msgState.ackO = [];
 }
-function msgStartChain(arr, delay){
+/* 메일로 새 의뢰/결과가 오면 아직 안 끝난 옛 대화는 정리하고(걸려 있던 입금·컷씬 같은 이벤트는 실행) 새 대화로 넘어감 */
+function msgFlushPending(){
+  const fires = [];
+  (msgState.ackO || []).forEach(o => { if(o.fire && fires.indexOf(o.fire) < 0) fires.push(o.fire); });
+  (msgState.chain || []).forEach(it => {
+    if(it.dep) depositReward(it.dep);
+    (it.o || []).forEach(o => { if(o.fire && fires.indexOf(o.fire) < 0) fires.push(o.fire); });
+  });
+  msgState.ackO = []; msgState.chain = [];
+  fires.forEach(f => setTimeout(() => msgFire(f), 1500));
+}
+function msgStartChain(arr, delay, preempt){
   if(!arr || !arr.length) return;
+  if(preempt) msgFlushPending();
   const items = msgNorm(arr);
   if(!msgState.ackO.length && !msgState.chain.length){
     const first = items.shift();
@@ -4898,7 +4910,7 @@ function msgResult(id){
   if(!seq){ return; }
   const arr = JSON.parse(JSON.stringify(seq));
   if(/^success/.test(id)) arr[0].dep = id;
-  msgStartChain(arr, 1200);
+  msgStartChain(arr, 1200, true);
 }
 function msgFire(name){
   if(name.indexOf('result:') === 0){
@@ -5025,7 +5037,7 @@ function msgOnMail(id){
   if(!introSeen || (msgState.seenMail[id] && !/^(success|retry)\d$/.test(id))) return;
   msgState.seenMail[id] = 1;
   const seq = MSG_MAIL_SEQ[id];
-  if(seq) msgStartChain(seq, 1500);
+  if(seq) msgStartChain(seq, 1500, true);
   msgSave();
 }
 function msgInit(){
