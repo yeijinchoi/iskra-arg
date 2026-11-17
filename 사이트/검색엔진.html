@@ -1484,7 +1484,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-raden .detailgrid{display:grid;grid-template-columns:1fr;gap:6px;background:var(--hover-bg);border-radius:12px;padding:10px 14px;}
 }
 
-#panel-raden #listBody,#panel-raden #listBody.fade-refresh{animation:none!important;}
+/* tbody에 opacity 애니메이션을 걸면 iOS 사파리에서 행이 빈 칸으로 그려지는 문제가 있어 터치 기기에서만 제거 */
+@media (hover:none),(max-width:640px){#panel-raden #listBody,#panel-raden #listBody.fade-refresh{animation:none!important;}}
 @media (max-width:640px){#panel-raden thead th{position:static;}}
 
 /* ===================== ERP 리디자인(물류 관제 대시보드 스타일) ===================== */
@@ -1570,11 +1571,56 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 #panel-raden .rd-pills .navitem{flex:0 0 auto;width:auto;}
 
-.mrow2 .st,.mrow2 .tm{white-space:nowrap;flex-shrink:0;}
-.mm{max-width:min(78%, calc(100% - 112px));min-width:0;}
+@media (max-width:640px){
+  .mrow2 .st,.mrow2 .tm{white-space:nowrap;flex-shrink:0;}
+  .mm{max-width:min(78%, calc(100% - 112px));min-width:0;}
+}
 
 @keyframes msgOut{to{opacity:0;transform:translateY(28px) scale(.97);}}
 #msgPanel.closing{animation:msgOut .2s ease forwards;pointer-events:none;}
+
+/* ===== ERP 2차 개편: 로그인 분할 화면 + 반출목록 카드 ===== */
+#panel-raden .gate{background:none;min-height:78vh;}
+#panel-raden .gatebox.gate-split{display:grid;grid-template-columns:1.05fr 1fr;max-width:860px;padding:0;overflow:hidden;border-radius:26px;background:#fff;box-shadow:0 2px 4px rgba(20,40,60,.05),0 30px 80px rgba(20,40,60,.16);}
+#panel-raden .gate-brand{position:relative;color:#fff;padding:36px 34px;display:flex;flex-direction:column;justify-content:space-between;min-height:430px;
+  background:radial-gradient(90% 70% at 100% 0%,rgba(127,209,255,.35),transparent 60%),linear-gradient(155deg,#1F4A63,#2C6F86 55%,#3F8FA8);}
+#panel-raden .gate-brand::before{content:"";position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.07) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.07) 1px,transparent 1px);background-size:34px 34px;mask-image:linear-gradient(160deg,#000,transparent 80%);-webkit-mask-image:linear-gradient(160deg,#000,transparent 80%);}
+#panel-raden .gate-brand>*{position:relative;}
+#panel-raden .gb-mark{width:52px;height:52px;border-radius:16px;background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,.18);}
+#panel-raden .gb-mark img{width:34px;height:34px;}
+#panel-raden .gb-title{font-size:24px;font-weight:800;line-height:1.35;letter-spacing:-.02em;margin:0 0 10px;}
+#panel-raden .gb-sub{font-size:12.5px;line-height:1.65;color:rgba(255,255,255,.8);margin:0;}
+#panel-raden .gb-chips{display:flex;flex-wrap:wrap;gap:8px;}
+#panel-raden .gb-chips span{font-size:11px;font-weight:600;background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.22);border-radius:999px;padding:5px 11px;}
+#panel-raden .gate-form{padding:40px 38px 32px;display:flex;flex-direction:column;justify-content:center;}
+#panel-raden .gate-form .glogo{display:none;}
+#panel-raden .gate-form .gf-h{font-size:20px;font-weight:800;letter-spacing:-.02em;margin:0 0 4px;}
+#panel-raden .gate-form .gsub{margin-bottom:10px;}
+#panel-raden .gate-form input{background:#F4F7FA;border-color:#E1E8EE;}
+#panel-raden .gate-form input:focus{background:#fff;border-color:#3F8FA8;box-shadow:0 0 0 3px rgba(63,143,168,.15);outline:none;}
+#panel-raden .gate-form .gbtn{background:linear-gradient(135deg,#2C6F86,#3F8FA8);}
+@media (max-width:760px){
+  #panel-raden .gatebox.gate-split{grid-template-columns:1fr;max-width:420px;}
+  #panel-raden .gate-brand{min-height:0;padding:24px 24px 22px;gap:18px;}
+  #panel-raden .gb-title{font-size:19px;}
+  #panel-raden .gate-form{padding:26px 24px 24px;}
+}
+/* 반출목록 */
+#panel-raden .listcontrols{background:rgba(255,255,255,.84);border:1px solid rgba(255,255,255,.9);border-radius:16px;padding:10px 12px;box-shadow:0 1px 2px rgba(20,40,60,.04),0 8px 22px rgba(20,40,60,.05);}
+#panel-raden .listcontrols input{border:none;background:#F3F6F9;border-radius:10px;padding:10px 14px;}
+#panel-raden .listcontrols input:focus{outline:none;box-shadow:0 0 0 2px rgba(63,127,176,.25);}
+#panel-raden .rdcats button{border:none;background:#F3F6F9;padding:8px 14px;}
+#panel-raden thead th{background:#F5F8FB;color:#6B7684;font-weight:600;border-bottom:1px solid #E6ECF2;padding:12px 16px;}
+#panel-raden tbody td{padding:13px 16px;}
+#panel-raden tbody tr.raderow:hover{background:#F5F9FC;}
+#panel-raden .cp{display:inline-block;font-size:11px;font-weight:700;border-radius:999px;padding:2px 9px;}
+#panel-raden .cp.c1{color:#1F8F58;background:#E5F5EC;}
+#panel-raden .cp.c2{color:#C9791F;background:#FCF0E1;}
+#panel-raden .cp.c3{color:#3A68C4;background:#E8EFFB;}
+#panel-raden td.qtycell{font-weight:700;font-variant-numeric:tabular-nums;}
+@media (max-width:640px){
+  #panel-raden tr.raderow td:nth-child(2) .cp{background:none;color:inherit;padding:0;font-size:inherit;font-weight:inherit;}
+}
 </style>
 
 <div class="chrome">
@@ -1803,9 +1849,19 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <div id="panel-raden" class="panel hidden">
 <div class="wrap">
   <div class="gate" id="gateView">
-    <div class="gatebox">
+    <div class="gatebox gate-split">
+      <div class="gate-brand">
+        <div class="gb-mark"><img src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJjYXJnby1jcmF0ZSI+CiAgICA8cGF0aCBpZD0iY3JhdGUtYm9keSIgZD0iTTEwNiAyNzkgNTEyIDQ4IDkxOSAyNzkgOTE5IDc0OSA1MTIgOTgzIDEwNiA3NDlaIiBmaWxsPSIjMkIzMjM1IiAvPgogICAgPGcgaWQ9InRvcC1zbGF0cyIgZmlsbD0iIzNCNkU3MSI+CiAgICAgIDxwYXRoIGQ9Ik0xNzUgMjg4IDUxMiA5NCA2MDUgMTQ2IDI2OSAzNDFaIiAvPgogICAgICA8cGF0aCBkPSJNMzExIDM2NSA2NDYgMTY5IDczMiAyMTkgNDAwIDQxNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NDAgNDM3IDc3MCAyNDMgODQ5IDI4OCA1MjIgNDgyWiIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJsZWZ0LXNsYXRzIiBmaWxsPSIjM0I2RTcxIj4KICAgICAgPHBhdGggZD0iTTE2MSAzNTkgMjI1IDM5NCAyMjUgNjg1IDE2MSA3MzJaIiAvPgogICAgICA8cGF0aCBkPSJNMjY2IDQxNiAzMjkgNDUwIDMyOSA4MzEgMjY2IDc5NVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zNzMgNDc0IDQzOSA1MTAgNDM5IDg5MiAzNzMgODU0WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJyaWdodC1mYWNlIiBkPSJNNTEyIDUxNyA5MTkgMjc5IDkxOSA3NDkgNTEyIDk4M1oiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8cGF0aCBpZD0iZm9yd2FyZC1hcnJvdy1jdXRvdXQiIGQ9Ik0xNjQgNzg0QzI5MSA2NDQgNDYyIDU3MyA2NzQgNTU3TDY3NCA0NjkgODc3IDYwNSA2NzQgNzU2IDY3NCA2NjRDNTE2IDY1NSAzMzcgNzIwIDE5NSA4MDNaIiBmaWxsPSIjRkZGRkZGIiAvPgogIDwvZz4KPC9zdmc+" alt=""></div>
+        <div>
+          <h3 class="gb-title">반출·재고·거래처를<br>한 화면에서 관리합니다</h3>
+          <p class="gb-sub">라덴통상 내부 업무 시스템입니다. 접속 기록은 모두 저장되며, 승인된 계정만 사용할 수 있습니다.</p>
+        </div>
+        <div class="gb-chips"><span>반출 관리</span><span>거래처</span><span>내부망 전용</span></div>
+      </div>
+      <div class="gate-form">
       <div class="glogo"><img class="dzlogo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJjYXJnby1jcmF0ZSI+CiAgICA8cGF0aCBpZD0iY3JhdGUtYm9keSIgZD0iTTEwNiAyNzkgNTEyIDQ4IDkxOSAyNzkgOTE5IDc0OSA1MTIgOTgzIDEwNiA3NDlaIiBmaWxsPSIjMkIzMjM1IiAvPgogICAgPGcgaWQ9InRvcC1zbGF0cyIgZmlsbD0iIzNCNkU3MSI+CiAgICAgIDxwYXRoIGQ9Ik0xNzUgMjg4IDUxMiA5NCA2MDUgMTQ2IDI2OSAzNDFaIiAvPgogICAgICA8cGF0aCBkPSJNMzExIDM2NSA2NDYgMTY5IDczMiAyMTkgNDAwIDQxNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NDAgNDM3IDc3MCAyNDMgODQ5IDI4OCA1MjIgNDgyWiIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJsZWZ0LXNsYXRzIiBmaWxsPSIjM0I2RTcxIj4KICAgICAgPHBhdGggZD0iTTE2MSAzNTkgMjI1IDM5NCAyMjUgNjg1IDE2MSA3MzJaIiAvPgogICAgICA8cGF0aCBkPSJNMjY2IDQxNiAzMjkgNDUwIDMyOSA4MzEgMjY2IDc5NVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zNzMgNDc0IDQzOSA1MTAgNDM5IDg5MiAzNzMgODU0WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJyaWdodC1mYWNlIiBkPSJNNTEyIDUxNyA5MTkgMjc5IDkxOSA3NDkgNTEyIDk4M1oiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8cGF0aCBpZD0iZm9yd2FyZC1hcnJvdy1jdXRvdXQiIGQ9Ik0xNjQgNzg0QzI5MSA2NDQgNDYyIDU3MyA2NzQgNTU3TDY3NCA0NjkgODc3IDYwNSA2NzQgNzU2IDY3NCA2NjRDNTE2IDY1NSAzMzcgNzIwIDE5NSA4MDNaIiBmaWxsPSIjRkZGRkZGIiAvPgogIDwvZz4KPC9zdmc+" alt="라덴통상"><img class="dzwm" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIyNyAyMDQgMTMwNiAzNTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEzMDYiIGhlaWdodD0iMzU4Ij4KICA8ZyBpZD0id29yZG1hcmsiIGZpbGw9IiMyQjMyMzUiPgogICAgPGcgaWQ9InJhIj4KICAgICAgPHBhdGggZD0iTTQ5IDIyNkgxOTZDMjIwIDIyNiAyMzMgMjM5IDIzMyAyNjJWMzY4QzIzMyAzODMgMjI0IDM5MiAyMDkgMzkySDEyM0MxMTkgMzkyIDExNSAzOTYgMTE1IDQwMVY0MzhDMTE1IDQ1MCAxMjMgNDU2IDEzNyA0NTZDMTc3IDQ1NyAyMTkgNDUxIDI1OCA0NDBWNDk3QzIwOCA1MTIgMTYxIDUxOSAxMTEgNTE5QzY4IDUxOSA0NiA0OTkgNDYgNDYxVjM2MEM0NiAzNDMgNTYgMzMzIDczIDMzM0gxNjRWMjkxQzE2NCAyODYgMTYxIDI4MyAxNTUgMjgzSDQ5QzQ3IDI4MyA0NiAyODIgNDYgMjgwVjIzMEM0NiAyMjcgNDcgMjI2IDQ5IDIyNloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yNTggMjIzSDMyNVYzMzNIMzU4QzM1OSAzMzMgMzYwIDMzNCAzNjAgMzM2VjM5MUMzNjAgMzkzIDM1OSAzOTQgMzU3IDM5NEgzMjVWNTI1QzMyNSA1MjcgMzI0IDUyNyAzMjIgNTI3SDI1OFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NiA0NDBIMTE1QzExNSA0NTEgMTIzIDQ1NiAxMzcgNDU2QzE3NyA0NTcgMjE5IDQ1MSAyNTggNDQwVjQ5N0MyMDggNTEyIDE2MSA1MTkgMTExIDUxOUM2OCA1MTkgNDYgNDk5IDQ2IDQ2MVoiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0iZGVuIj4KICAgICAgPHBhdGggZD0iTTM4MiAyMjVINTExQzUxMyAyMjUgNTE0IDIyNiA1MTQgMjI5VjI3MUM1MTQgMjczIDUxMyAyNzQgNTEwIDI3NEg0MzhWMzQwQzQzOCAzNDYgNDQwIDM0OSA0NDYgMzQ5SDUxNFYzODlDNTE0IDM5MyA1MTIgMzk1IDUwNyAzOTZDNDgwIDQwMSA0NDUgNDAxIDQwNCA0MDFDMzg1IDQwMSAzNzYgMzkzIDM3NiAzNzVWMjMxQzM3NiAyMjcgMzc4IDIyNSAzODIgMjI1WiIgLz4KICAgICAgPHBhdGggZD0iTTUzOSAyMjNINTkyVjQyOEM1OTIgNDMxIDU5MSA0MzIgNTg4IDQzMkg1MzlDNTM3IDQzMiA1MzYgNDMxIDUzNiA0MjlWMzM2SDQ5M0M0OTEgMzM2IDQ5MCAzMzUgNDkwIDMzM1YyODlDNDkwIDI4NyA0OTEgMjg2IDQ5MyAyODZINTM2VjIyNkM1MzYgMjI0IDUzNyAyMjMgNTM5IDIyM1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MTAgMjIzSDY2MUM2NjMgMjIzIDY2NCAyMjQgNjY0IDIyN1YzOTVMNjA4IDQyM1YyMjZDNjA4IDIyNCA2MDkgMjIzIDYxMCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMzg1IDQxOEg0NTJWNDY2QzQ1MiA0NzAgNDUzIDQ3MiA0NTggNDcySDY0OFY1MjRDNjQ4IDUyNiA2NDcgNTI3IDY0NSA1MjdINDAyQzM5MSA1MjcgMzg0IDUyMSAzODQgNTEwVjQyMUMzODQgNDE5IDM4NCA0MTggMzg1IDQxOFoiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0idG9uZyI+CiAgICAgIDxwYXRoIGQ9Ik03MDYgMjI0SDk3MkM5NzQgMjI0IDk3NiAyMjYgOTc2IDIyOVYyNTlDOTc2IDI2MSA5NzUgMjYyIDk3MiAyNjJINzY5VjI3Mkg5NzFDOTc0IDI3MiA5NzYgMjczIDk3NiAyNzZWMzA2Qzk3NiAzMDggOTc1IDMwOSA5NzIgMzA5SDc2OVYzMTRDNzY5IDMxNyA3NzAgMzE5IDc3NCAzMTlIOTcyQzk3NSAzMTkgOTc2IDMyMSA5NzYgMzI0VjM1MkM5NzYgMzU1IDk3NCAzNTcgOTcxIDM1NkM5NDAgMzUxIDkxNyAzNDkgODk0IDM0OUg4NzRWMzY1SDk4MlY0MDJINzA1VjM2NUg4MDVWMzU3SDcyNkM3MDkgMzU3IDcwMCAzNTAgNzAwIDMzM1YyMzBDNzAwIDIyNyA3MDIgMjI1IDcwNiAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNODQ0IDQxM0M5MjUgNDEzIDk3NyA0MzYgOTc3IDQ3OUM5NzcgNTIxIDkyNyA1NDMgODQ1IDU0M0M3NjAgNTQzIDcxMSA1MjIgNzExIDQ3OUM3MTEgNDM4IDc2MiA0MTMgODQ0IDQxM1pNODQ0IDQ1OEM4MDUgNDU4IDc4MSA0NjUgNzgxIDQ3OUM3ODEgNDkyIDgwNSA0OTggODQ0IDQ5OEM4ODMgNDk4IDkwNiA0OTEgOTA2IDQ3OUM5MDYgNDY1IDg4MyA0NTggODQ0IDQ1OFoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJzYW5nIj4KICAgICAgPHBhdGggZD0iTTEwODUgMjI0SDExNDZMMTEzNyAyNzBDMTE1NSAzMDIgMTE3OCAzMjkgMTIwNyAzNTBDMTE5OCAzNjcgMTE4MyAzNzkgMTE2MiAzODVDMTE0MyAzNjkgMTEyNSAzNTAgMTExMCAzMjlDMTA5NSAzNTMgMTA3NCAzNzUgMTA1MCAzOTRMMTAwMiAzOTNWMzcwQzEwMDIgMzY4IDEwMDEgMzY2IDk5OSAzNjVDMTA0NiAzMzEgMTA3MiAyOTEgMTA4MCAyMjlDMTA4MCAyMjYgMTA4MiAyMjQgMTA4NSAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNMTIxOCAyMjNIMTI4MFYyNzJIMTMxNFYzMjhIMTI4MFYzOTRIMTIxNlYyMjZDMTIxNiAyMjQgMTIxNyAyMjMgMTIxOCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMTE1MCAzOTZDMTIzMyAzOTYgMTI4NCA0MjIgMTI4NCA0NjlDMTI4NCA1MTYgMTIzNiA1NDMgMTE1MCA1NDNDMTA2NiA1NDMgMTAxNiA1MTcgMTAxNiA0NjlDMTAxNiA0MjMgMTA2NyAzOTYgMTE1MCAzOTZaTTExNTAgNDQ0QzExMTEgNDQ0IDEwODYgNDUzIDEwODYgNDY5QzEwODYgNDg1IDExMTEgNDkzIDExNTAgNDkzQzExOTAgNDkzIDEyMTQgNDg1IDEyMTQgNDY5QzEyMTQgNDUzIDExOTAgNDQ0IDExNTAgNDQ0WiIgZmlsbC1ydWxlPSJldmVub2RkIiAvPgogICAgPC9nPgogICAgPHBhdGggaWQ9ImludGVncmF0ZWQtdGVhbC1hY2NlbnQiIGQ9Ik01NTYgNDcyQzY1MCAzOTMgNzY0IDM1NSA4ODIgMzU0QzkxNyAzNTQgOTUwIDM1NyA5ODIgMzY0Qzg1NiAzNzUgNzQyIDQxMyA2NDggNDcyWiIgZmlsbD0iIzNCNkU3MSIgLz4KICA8L2c+Cjwvc3ZnPg==" alt="라덴통상"><span class="sub">ERP</span></div>
-      <div class="gsub">라덴통상 내부 관리시스템</div>
+      <h2 class="gf-h">로그인</h2>
+      <div class="gsub">라덴통상 내부 관리시스템 · 승인된 계정으로 접속하세요</div>
       <form onsubmit="doLogin(event)">
         <label>아이디</label>
         <input id="idInput" type="text" autocomplete="off">
@@ -1815,6 +1871,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
         <div class="gerr" id="gateErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
       </form>
       <div class="gwarn">내부 직원 및 승인된 계정만 접근할 수 있습니다. 비인가 접근 시 관련 규정에 따라 책임을 물을 수 있습니다.</div>
+      </div>
     </div>
   </div>
 
@@ -3805,7 +3862,7 @@ function renderRecords(){
     const i = startIdx + li;
     return `
     <tr class="raderow" onclick="rowClick(${i})">
-      <td>${r.date}</td><td>${r.cat}</td><td>${r.item}</td><td>${r.qty}</td><td>${r.from}</td><td>${r.to}</td>
+      <td>${r.date}</td><td><span class="cp ${r.cat==='농산물'?'c1':r.cat==='식품'?'c2':'c3'}">${r.cat}</span></td><td>${r.item}</td><td class="qtycell">${r.qty}</td><td>${r.from}</td><td>${r.to}</td>
     </tr>
     <tr class="detailrow hidden" id="detail${i}"><td colspan="6">
       <div class="detailgrid">
@@ -3819,7 +3876,7 @@ function renderRecords(){
   document.getElementById('rdCount').textContent = filtered.length + '건 (최근 1년)';
   renderDash();
   renderPagination(totalPages);
-  /* tbody에 opacity 애니메이션을 걸면 iOS 사파리에서 행이 빈 칸으로 그려지는 문제가 있어 애니메이션 제거 */
+  fadeRefresh(document.getElementById('listBody'));
 }
 function renderPagination(totalPages){
   const el = document.getElementById('rdPagination');
@@ -4836,9 +4893,14 @@ function msgToggle(){
   if(msgOpen){
     /* 닫기: 아래로 내려가는 연출 후 숨김 */
     msgOpen = false;
-    pn.classList.add('closing');
     document.getElementById('msgPeek').classList.remove('show');
-    setTimeout(() => { if(!msgOpen){ pn.classList.remove('open','closing'); document.getElementById('msgLauncher').style.display = ''; } }, 210);
+    if(window.matchMedia('(max-width:640px)').matches){
+      pn.classList.add('closing');
+      setTimeout(() => { if(!msgOpen){ pn.classList.remove('open','closing'); document.getElementById('msgLauncher').style.display = ''; } }, 210);
+    } else {
+      pn.classList.remove('open');
+      document.getElementById('msgLauncher').style.display = '';
+    }
     msgRender();
     return;
   }
