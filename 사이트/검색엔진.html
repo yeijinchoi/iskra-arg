@@ -112,6 +112,8 @@ body{
   font-size:14px;
   line-height:1.5;
   position:relative;
+  min-height:100vh;min-height:100dvh;
+  display:flex;flex-direction:column;
 }
 body::before{
   content:"";position:fixed;inset:0 0 auto;
@@ -211,7 +213,7 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .chromemenu button:hover{background:var(--chrome-strip);}
 
 .wrap{max-width:1040px;margin:0 auto;}
-.panel{background:var(--bg);min-height:50vh;}
+.panel{background:var(--bg);min-height:50vh;flex:1 0 auto;}
 
 /* ===================== 패널: 이스크라 검색 ===================== */
 /* ===== 유틸 바 ===== */
