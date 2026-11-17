@@ -3201,7 +3201,9 @@ function omRenderNews(){
   }).join('');
 }
 
+let omOpened = false;
 function omOpenMail(){
+  if(!omOpened){ omOpened = true; try{ saveProgress(); }catch(e){} }
   omRenderNews();
   document.getElementById('omGate').classList.add('hidden');
   document.getElementById('omTop').classList.remove('hidden');
@@ -3246,7 +3248,7 @@ function omCloseDetail(){
   document.getElementById('omListWrap').classList.remove('hidden');
   setBack('oldmail', false);
 }
-function omReload(){ omCloseDetail(); omRenderList(); }
+function omReload(){ omRenderList(); omRenderNews(); }
 function enterBetaPortal(){
   replied = true;
   introSeen = true;
@@ -4125,6 +4127,7 @@ function saveProgress(){
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5,
       bankBalance, bankTx, scrapped, introSeen,
+      omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].filter(m => !m.unread).map(m => m.id),
       pendingDeliveries, pendingCutscene,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -4167,6 +4170,8 @@ function loadProgress(){
   assignment5Resolved = !!saved.assignment5Resolved;
   capturedEvidence5 = saved.capturedEvidence5 || null;
   bankBalance = saved.bankBalance || 0;
+  omOpened = !!saved.omOpened;
+  (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
   bankTx = saved.bankTx || [];
   renderBankcard();
   scrapped = saved.scrapped || [];
@@ -4571,7 +4576,7 @@ function msgInit(){
 
 loadProgress();
 applyIskraTheme();
-if(!introSeen){ switchTab(TABS[0].id); omStartGate(); }
+if(!introSeen && !omOpened){ switchTab(TABS[0].id); omStartGate(); }
 else { omOpenMail(); }
 updateInboxBadge();
 msgInit();
