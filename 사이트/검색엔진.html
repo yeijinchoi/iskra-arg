@@ -3151,8 +3151,6 @@ function omReload(){ omCloseDetail(); omRenderList(); }
 function enterBetaPortal(){
   replied = true;
   introSeen = true;
-  queueDelivery('tutorial1', 26000, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
-  queueDelivery('assign1', 60000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
   goToMainScreen();
   saveProgress();
 }
@@ -4204,7 +4202,7 @@ const MSG_STAGES = {
 };
 const MSG_ASSIGN_IDS = ['assign1','assign2','assign3','assign4','assign5'];
 
-const MSG_INTRO = [{"x": "안녕하세요, 레나 씨! 이스크라 개발을 맡고 있는 다나예요. 체험단 신청해 주셔서 감사해요 :)", "o": [{"r": "안녕하세요! 메일 보고 들어와 봤어요", "re": "메일 잘 보고 오셨네요!"}, {"r": "안녕하세요. 근데 저를 어떻게 뽑으셨어요?", "re": "지원자 중에서 무작위로 뽑았어요 ㅎㅎ 학교 커뮤니티에 올렸던 모집 보고 신청해 주셨거든요."}]}, {"x": "이스크라는 여러 사이트의 정보를 한 곳에서 찾게 해주는 검색 포털인데요, 정식 오픈 전에 직접 써보면서 이상한 부분을 알려줄 분들이 필요했어요. 평소에 검색은 자주 하세요?", "o": [{"r": "과제 때문에 거의 매일 해요", "re": "학생이시니까 그렇겠네요! 딱 저희가 찾던 분이에요 ㅎㅎ"}, {"r": "알바하는 틈틈이 하는 정도예요", "re": "그 정도면 충분해요. 쉬는 시간에 가볍게 해도 돼요."}]}, {"x": "앞으로는 메일로 '의뢰'를 드릴 거예요. 메일엔 사이트 주소랑 어떤 테스트인지만 간단히 적고, 자세한 건 이렇게 제가 따로 설명드릴게요. 어렵진 않을 거예요.", "o": [{"r": "어떤 의뢰인데요? 어려운 건 아니죠?", "re": "전혀요! 사이트를 둘러보면서 이상한 데이터를 찾아 캡처해 주시는 정도예요."}, {"r": "시간은 얼마나 걸려요?", "re": "한 건에 짧으면 몇 분, 길어도 한두 시간이에요. 수업 없는 시간에 하셔도 돼요."}]}, {"x": "의뢰가 끝나면 건마다 사례금을 바로 입금해 드려요. 학생분들께 용돈 정도는 될 거예요 ㅎㅎ", "o": [{"r": "사실 이번 학기 등록금이 걱정이었는데 도움 되겠네요", "re": "아, 그러셨구나. 그럼 저도 더 잘 도와드려야겠네요!"}, {"r": "얼마나 주시는데요?", "re": "난이도마다 달라요. 1차는 십오만 원 정도 생각하고 있어요."}]}, {"x": "막히면 언제든 여기로 말 걸어 주세요. 힌트도 드릴 수 있어요. 곧 첫 번째 의뢰 보내드릴게요!", "o": [{"r": "네, 기다릴게요!", "re": "좋아요 :) 잠시만요!"}, {"r": "감사합니다, 잘 부탁드려요", "re": "저야말로요 :) 잠시만요!"}]}];
+const MSG_INTRO = [{"x": "안녕하세요, 레나 씨! 이스크라 개발을 맡고 있는 다나예요. 체험단 신청해 주셔서 감사해요 :)", "o": [{"r": "안녕하세요! 메일 보고 들어와 봤어요", "re": "메일 잘 보고 오셨네요!"}, {"r": "안녕하세요. 근데 저를 어떻게 뽑으셨어요?", "re": "지원자 중에서 무작위로 뽑았어요 ㅎㅎ 학교 커뮤니티에 올렸던 모집 보고 신청해 주셨거든요."}]}, {"x": "이스크라는 여러 사이트의 정보를 한 곳에서 찾게 해주는 검색 포털인데요, 정식 오픈 전에 직접 써보면서 이상한 부분을 알려줄 분들이 필요했어요. 평소에 검색은 자주 하세요?", "o": [{"r": "과제 때문에 거의 매일 해요", "re": "학생이시니까 그렇겠네요! 딱 저희가 찾던 분이에요 ㅎㅎ"}, {"r": "알바하는 틈틈이 하는 정도예요", "re": "그 정도면 충분해요. 쉬는 시간에 가볍게 해도 돼요."}]}, {"x": "앞으로는 메일로 '의뢰'를 드릴 거예요. 메일엔 사이트 주소랑 어떤 테스트인지만 간단히 적고, 자세한 건 이렇게 제가 따로 설명드릴게요. 어렵진 않을 거예요.", "o": [{"r": "어떤 의뢰인데요? 어려운 건 아니죠?", "re": "전혀요! 사이트를 둘러보면서 이상한 데이터를 찾아 캡처해 주시는 정도예요."}, {"r": "시간은 얼마나 걸려요?", "re": "한 건에 짧으면 몇 분, 길어도 한두 시간이에요. 수업 없는 시간에 하셔도 돼요."}]}, {"x": "의뢰가 끝나면 건마다 사례금을 바로 입금해 드려요. 학생분들께 용돈 정도는 될 거예요 ㅎㅎ", "o": [{"r": "사실 이번 학기 등록금이 걱정이었는데 도움 되겠네요", "re": "아, 그러셨구나. 그럼 저도 더 잘 도와드려야겠네요!"}, {"r": "얼마나 주시는데요?", "re": "난이도마다 달라요. 1차는 십오만 원 정도 생각하고 있어요."}]}, {"x": "막히면 언제든 여기로 말 걸어 주세요. 힌트도 드릴 수 있어요. 곧 첫 번째 의뢰 보내드릴게요!", "o": [{"r": "네, 기다릴게요!", "re": "좋아요 :) 잠시만요!", "fire": "introDone"}, {"r": "감사합니다, 잘 부탁드려요", "re": "저야말로요 :) 잠시만요!", "fire": "introDone"}]}];
 const MSG_ACK = ["네","알겠어요","그렇군요","네, 계속 말씀해 주세요","확인했어요"];
 let msgState = {log:[], unread:0, hintLevel:{}, seenMail:{}, greeted:false, followup:false, chain:[], ackO:[], ackIdx:0};
 let msgOpen = false;
@@ -4322,11 +4320,18 @@ function msgStartChain(arr, delay){
   }
   msgSave(); msgRenderChips();
 }
+function msgFire(name){
+  if(name === 'introDone'){
+    queueDelivery('tutorial1', 1500, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
+    queueDelivery('assign1', 32000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
+  }
+}
 function msgPick(i){
   const opt = msgState.ackO[i] || {};
   const next = msgState.chain.shift();
   msgState.ackO = [];
   if(next) msgSetOpts(next);
+  if(opt.fire){ const w0 = Math.min(2600, 650 + String(opt.re||'').length * 22); setTimeout(() => msgFire(opt.fire), w0 + 1800); }
   if(opt.re){
     msgBotSay(opt.re);
     if(next){ const w = Math.min(2600, 650 + String(opt.re).replace(/<[^>]+>/g,'').length * 22); msgBotSay(next.x, null, w + 700); }
