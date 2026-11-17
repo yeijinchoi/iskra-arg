@@ -3756,6 +3756,7 @@ function showAssignReply(){ document.getElementById('assignReplyBox').classList.
 function hideAssignReply(){ document.getElementById('assignReplyBox').classList.add('hidden'); }
 
 function sendAssignReply(){
+  msgClearOpts();
   const correct = !!capturedEvidence && capturedEvidence.item === '쌀' && capturedEvidence.to === '그라노프 물류허브';
   queueDelivery('result1', 15000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
     pendingFlag: 'assignmentPending',
@@ -3769,6 +3770,7 @@ function showAssign2Reply(){ document.getElementById('assign2ReplyBox').classLis
 function hideAssign2Reply(){ document.getElementById('assign2ReplyBox').classList.add('hidden'); }
 
 function sendAssign2Reply(){
+  msgClearOpts();
   const correct = !!capturedEvidence2 && capturedEvidence2.id === 'org1' && !!capturedEvidence3 && capturedEvidence3.id === 'listing1';
   queueDelivery('result2', 15000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
     pendingFlag: 'assignment2Pending',
@@ -3783,6 +3785,7 @@ function hideAssign3Reply(){ document.getElementById('assign3ReplyBox').classLis
 
 const ASSIGN3_KEYWORDS = ['구호','자선','봉사','나눔','교민','동포','이민자'];
 function sendAssign3Reply(){
+  msgClearOpts();
   const kw = (document.getElementById('assign3Keyword').value || '').trim();
   const correct = ASSIGN3_KEYWORDS.some(k => kw.includes(k));
   queueDelivery('result3', 15000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
@@ -3796,6 +3799,7 @@ function sendAssign3Reply(){
 function showAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.remove('hidden'); }
 function hideAssign4Reply(){ document.getElementById('assign4ReplyBox').classList.add('hidden'); }
 function sendAssign4Reply(){
+  msgClearOpts();
   const correct = !!capturedEvidence4 && capturedEvidence4.id === 'alum1';
   queueDelivery('result4', 15000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
     pendingFlag: 'assignment4Pending',
@@ -3808,6 +3812,7 @@ function sendAssign4Reply(){
 function showAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.remove('hidden'); }
 function hideAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.add('hidden'); }
 function sendAssign5Reply(){
+  msgClearOpts();
   const correct = !!capturedEvidence5 && (capturedEvidence5.id === 'arc2' || capturedEvidence5.id === 'arc3');
   queueDelivery('result5', 15000, correct ? SUCCESS5_MAIL.id : RETRY5_MAIL.id, {
     pendingFlag: 'assignment5Pending',
@@ -4916,6 +4921,8 @@ function msgFlushPending(){
   msgState.ackO = []; msgState.chain = [];
   fires.forEach(f => setTimeout(() => msgFire(f), 1500));
 }
+/* 메일 답장을 보내면 메신저에 남은 선택지·대기 대사는 정리 */
+function msgClearOpts(){ try{ msgFlushPending(); msgSave(); msgRenderChips(); }catch(e){} }
 function msgStartChain(arr, delay, preempt){
   if(!arr || !arr.length) return;
   if(preempt) msgFlushPending();
