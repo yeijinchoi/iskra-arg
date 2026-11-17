@@ -1,6 +1,6 @@
 <title>iskra</title>
 <meta name="color-scheme" content="light">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
 <script>document.documentElement.setAttribute("data-theme","light");</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1452,6 +1452,16 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   input:not([type=checkbox]):not([type=radio]),textarea{font-size:16px!important;}
   button,a,.tab,.omrow,.mrow,.sr-link{-webkit-tap-highlight-color:transparent;}
   .toolbar .navbtn[aria-label="캡처"]{width:40px;height:40px;}
+}
+
+/* 모바일 사파리: 검색창 입력의 기본 폭(size=20) 때문에 문서가 가로로 커져 화면이 축소되던 문제 방지 */
+@media (max-width:640px){
+  html,body{overflow-x:hidden;max-width:100%;}
+  .panel,.wrap{min-width:0;max-width:100%;}
+  .searchform,.srsearchform,.og-searchbar,.al-searchbar,.ar-searchbar,.ls-searchbar,#panel-mail .searchbox,#panel-mail form{min-width:0;}
+  .searchform input,.srsearchform input,.og-searchbar input,.al-searchbar input,.ar-searchbar input,.ls-searchbar input,#panel-mail form input{width:0!important;min-width:0!important;flex:1 1 0!important;}
+  #panel-searchresult .srtopbar{gap:14px;min-width:0;}
+  #panel-searchresult .srsearchform{min-width:0;max-width:none;}
 }
 </style>
 
