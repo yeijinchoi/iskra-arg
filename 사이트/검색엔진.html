@@ -2316,7 +2316,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     <svg class="ic bgmicon-pause hidden" viewBox="0 0 24 24"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
   </button>
   <span class="bgmtitle" id="bgmTitle"></span>
-  <audio id="bgmAudio" src="bgm.mp3" loop preload="none"></audio>
+  
 </div>
 
 <div id="cutsceneOverlay" class="fullpage-overlay">
@@ -3196,36 +3196,77 @@ function renderScrapWidget(){
   }).join('') : `<div class="scrapempty">스크랩한 기사가 없습니다</div>`;
 }
 
-/* ===== 배경음악 플레이어 — 전역에서 따라다니는 위젯 ===== */
-const BGM_TITLE = '이스크라 테마';
-function toggleBgm(){
-  const audio = document.getElementById('bgmAudio');
-  if(!audio) return;
-  if(audio.paused){
-    audio.volume = 0.45;
-    audio.play().catch(() => {
-      showCaptureToast('아직 배경음악 파일이 없습니다', 'warn');
-    });
-  } else {
-    audio.pause();
+/* ===== 배경음악 — 사이트(탭)마다 다른 곡, 자동재생 시도 + 첫 상호작용 시 시작 ===== */
+const BGM_TRACKS = {
+  iskra:   {file:'bgm/iskra.mp3',   title:'iskra 테마'},
+  oldmail: {file:'bgm/noeul.mp3',   title:'noeulmail 테마'},
+  raden:   {file:'bgm/raden.mp3',   title:'라덴통상 ERP'},
+  orginfo: {file:'bgm/orginfo.mp3', title:'단체정보마당'},
+  alumni:  {file:'bgm/alumni.mp3',  title:'총동문회'},
+  archive: {file:'bgm/archive.mp3', title:'도렌통신 아카이브'},
+  listing: {file:'bgm/listing.mp3', title:'이스크라 부동산'}
+};
+const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', archive:'archive', listing:'listing'};
+const BGM_VOL = 0.42;
+const bgm = {audios:{}, cur:null, wanted:true, fadeTimers:{}};
+try{ bgm.wanted = localStorage.getItem('iskra_bgm_off') !== '1'; }catch(e){}
+function bgmAudio(key){
+  if(!bgm.audios[key]){
+    const a = new Audio(BGM_TRACKS[key].file); a.loop = true; a.preload = 'auto'; a.volume = 0;
+    bgm.audios[key] = a;
   }
+  return bgm.audios[key];
 }
-(function initBgmWidget(){
-  const audio = document.getElementById('bgmAudio');
-  const btn = document.getElementById('bgmToggle');
-  const title = document.getElementById('bgmTitle');
-  if(!audio || !btn) return;
-  title.textContent = BGM_TITLE;
-  audio.addEventListener('play', () => {
-    btn.classList.add('playing');
-    btn.querySelector('.bgmicon-play').classList.add('hidden');
-    btn.querySelector('.bgmicon-pause').classList.remove('hidden');
-  });
-  audio.addEventListener('pause', () => {
-    btn.classList.remove('playing');
-    btn.querySelector('.bgmicon-play').classList.remove('hidden');
-    btn.querySelector('.bgmicon-pause').classList.add('hidden');
-  });
+function bgmFade(a, to, ms, done){
+  clearInterval(a._ft);
+  const from = a.volume, steps = Math.max(1, Math.round(ms/40)); let i = 0;
+  a._ft = setInterval(() => {
+    i++; a.volume = Math.max(0, Math.min(1, from + (to-from)*i/steps));
+    if(i >= steps){ clearInterval(a._ft); if(done) done(); }
+  }, 40);
+}
+function bgmTargetKey(){ return BGM_KIND[activeKind()] || 'iskra'; }
+function bgmUi(){
+  const btn = document.getElementById('bgmToggle'), title = document.getElementById('bgmTitle');
+  if(!btn) return;
+  const playing = bgm.cur && bgm.audios[bgm.cur] && !bgm.audios[bgm.cur].paused;
+  btn.classList.toggle('playing', !!playing);
+  btn.querySelector('.bgmicon-play').classList.toggle('hidden', !!playing);
+  btn.querySelector('.bgmicon-pause').classList.toggle('hidden', !playing);
+  if(title) title.textContent = BGM_TRACKS[bgmTargetKey()].title;
+}
+function bgmSync(){
+  const key = bgmTargetKey();
+  if(!bgm.wanted || document.hidden){
+    Object.keys(bgm.audios).forEach(k => { const a = bgm.audios[k]; if(!a.paused) bgmFade(a, 0, 400, () => { a.pause(); bgmUi(); }); });
+    bgmUi(); return;
+  }
+  if(bgm.cur && bgm.cur !== key){
+    const old = bgm.audios[bgm.cur]; if(old && !old.paused) bgmFade(old, 0, 700, () => old.pause());
+  }
+  bgm.cur = key;
+  const a = bgmAudio(key);
+  if(a.paused){
+    const p = a.play();
+    if(p && p.then) p.then(() => { if(bgm.cur === key && bgm.wanted) bgmFade(a, BGM_VOL, 900); else { a.pause(); a.volume = 0; } bgmUi(); }).catch(() => { bgmUi(); /* 자동재생 차단: 첫 상호작용 때 재시도 */ });
+  } else {
+    bgmFade(a, BGM_VOL, 500);
+  }
+  bgmUi();
+}
+function toggleBgm(){
+  bgm.wanted = !bgm.wanted;
+  try{ localStorage.setItem('iskra_bgm_off', bgm.wanted ? '0' : '1'); }catch(e){}
+  bgmSync();
+}
+(function initBgm(){
+  const unlock = () => { if(bgm.wanted) bgmSync(); };
+  ['pointerdown','keydown','touchstart'].forEach(ev => document.addEventListener(ev, unlock, {capture:true, passive:true}));
+  document.addEventListener('visibilitychange', bgmSync);
+  const _sw = switchTab;
+  switchTab = function(id){ _sw(id); bgmSync(); };
+  setTimeout(bgmSync, 300);
+  bgmUi();
 })();
 
 const FOLDERS = {
