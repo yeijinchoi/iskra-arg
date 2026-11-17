@@ -3580,11 +3580,11 @@ function applyEffect(name){
   else if(name === 'hint117') addDynamicArticle(117);
   else if(name === 'hint118') addDynamicArticle(118);
   else if(name === 'hint122') addDynamicArticle(122);
-  else if(name === 'chainAssign2'){ queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS_MAIL.id] = 118; }
-  else if(name === 'chainAssign3'){ queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
-  else if(name === 'chainAssign4'){ queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
-  else if(name === 'chainAssign5'){ queueDelivery('assign5', 45000, ASSIGNMENT5_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS4_MAIL.id] = 125; }
-  else if(name === 'chainContact1'){ queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true}); }
+  else if(name === 'chainAssign2'){ antonSchedule(1); queueDelivery('assign2', 45000, ASSIGNMENT2_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS_MAIL.id] = 118; }
+  else if(name === 'chainAssign3'){ antonSchedule(2); queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
+  else if(name === 'chainAssign4'){ antonSchedule(3); queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
+  else if(name === 'chainAssign5'){ antonSchedule(4); queueDelivery('assign5', 45000, ASSIGNMENT5_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS4_MAIL.id] = 125; }
+  else if(name === 'chainContact1'){ antonSchedule(5); queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true}); }
 }
 
 /* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
@@ -3613,6 +3613,32 @@ function omStartGate(){
 }
 const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dg-mail.dg", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dg", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "마리야 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 두샨카 보스코"], "translated": false}, {"id": "mom", "sender": "마리야 소린 (엄마)", "addr": "mariya.sorin@dg-mail.dg", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락 주기를 바라.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dg", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
+/* ===== 안톤(백스토리) — 의뢰를 마칠 때마다 노을메일 개인 메일함에 따로 도착 ===== */
+const ANTON_MAILS = [{"id": "anton1", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "[이스크라] 혹시 이 메일 보이시나요?", "preview": "1차 테스트 하셨죠. 신경 쓰이는 게 하나 있어서요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑작스럽게 개인 메일로 연락드려 죄송합니다. 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이라고 합니다. 체험단 신청서에 적으신 주소를 보고 보냅니다.", "1차 테스트 하셨죠. 샘플 데이터라고 안내받으셨을 텐데, 제가 보기엔 그 반출 기록이 샘플로 만든 것치고 형식이 너무 실제 같았습니다. 그냥 신경 쓰이는 점이라 적어 봅니다.", "이 메일은 팀 메신저에는 말하지 않으셨으면 합니다. 별일 아니면 읽고 지워 주세요.", "안톤"]}, {"id": "anton2", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "Re: 대조라는 말", "preview": "2차까지 하셨네요. 한 가지만 더 적을게요.", "time": "방금 전", "unread": true, "body": ["2차까지 마치셨네요. 수고 많으셨습니다. 한 가지만 더 적을게요.", "체험단은 레나 씨 한 명이 아니고, 같은 질문을 테스터마다 조금씩 다르게 던져서 답을 서로 대조한다고 들었습니다. 단계가 이렇게 촘촘하게 나뉘어 있는 것도 그래서예요.", "그리고 '바르니아교민상회'라는 이름이요. 팀 안에서는 테스트용 가상 이름처럼 부르지 않고, 그냥 실제 단체 이름으로 불러요. 저는 그게 이상하게 들렸습니다.", "안톤"]}, {"id": "anton3", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "저희 집 얘기를 조금", "preview": "3차 하신 걸 보고 생각이 많아졌어요.", "time": "방금 전", "unread": true, "body": ["3차 결과를 봤습니다. 그 상회 기사들, 읽어 보셨죠. 대부분은 정말 평범한 내용이에요.", "사실 저희 부모님도 바르니아에서 오셨어요. 어릴 때 11월 모임에 따라가 본 적이 있는데, 어른들이 뭘 기리는 자리인지는 끝까지 말해 주지 않았습니다. 기사에 '비공개'라고 적힌 이유를 저는 조금 알 것 같아요.", "참고로 체험단 선정 기준 중에 '가족 구성'이 있었어요. 레나 씨 신청서에 어머니 성함이 적혀 있었고요. 무작위로 뽑은 게 아닐 수 있다는 뜻입니다.", "안톤"]}, {"id": "anton4", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "사장님 말고", "preview": "이름만 대표라는 말이 회의에서 나왔어요.", "time": "방금 전", "unread": true, "body": ["4차를 마치셨네요. 이름이 나온 분 말인데, 팀 회의에서 '이분은 대표 이름만 빌려준 얼굴'이라는 얘기가 나왔습니다. 정작 찾는 건 그 뒤에 있는 사람 같아요.", "그리고 팀장 옆자리에 예전에 그쪽 사람들 틈에서 지냈다는 분이 한 분 계세요. 이름은 즐라탄 코바치. 그분이 하는 말이 이상하게 정확해서, 저는 그분 앞에서 말을 아끼게 됩니다.", "레나 씨에게 뭘 해 달라는 건 아니에요. 그냥 알고 계시라고요.", "안톤"]}, {"id": "anton5", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "초대가 오면", "preview": "곧 개인적인 초대가 갈 거예요.", "time": "방금 전", "unread": true, "body": ["5차까지 끝나면 곧 레나 씨 쪽으로 개인적인 초대가 갈 거예요. 팀에서도 그걸 알고 있고, 오히려 기다리고 있습니다.", "가라 마라 하지는 않을게요. 다만 거기서 보고 들은 것을 이스크라 메신저에 그대로 옮기기 전에 한 번만 생각해 보세요. 그게 어디로 가는지는 제가 아는 만큼 말씀드릴 수 있어요.", "다음 연락은 이 주소 말고 다른 방법으로 할게요. 이 메일은 꼭 지워 주세요.", "안톤"]}];
+let antonIds = [];
+function antonAdd(id, silent){
+  const m = ANTON_MAILS.find(x => x.id === id);
+  if(!m || antonIds.indexOf(id) >= 0) return false;
+  antonIds.push(id);
+  if(OLDMAIL_LIST.indexOf(m) < 0) OLDMAIL_LIST.unshift(m);
+  if(silent) m.unread = false;
+  else{
+    m.time = '방금 전';
+    try{ omRenderList(); }catch(e){}
+    document.getElementById('omBadge').classList.add('show');
+    document.getElementById('toastSub').textContent = '노을메일 · ' + m.sender + ' · ' + m.subject;
+    document.getElementById('toast').dataset.target = 'oldmail';
+    document.getElementById('toast').classList.add('show');
+    setTimeout(() => { const t = document.getElementById('toast'); if(t.dataset.target === 'oldmail') t.classList.remove('show'); }, 6000);
+  }
+  if(!silent) saveProgress();
+  return true;
+}
+/* n차를 마치면 잠시 뒤 안톤의 n번째 메일 도착 */
+function antonSchedule(n){ setTimeout(() => antonAdd('anton' + n), 25000); }
+function antonRestore(ids, readIds){
+  (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0) m.unread = true; });
+}
 const OM_NEWS_IDS = [113, 110, 115, 116];
 function omRenderNews(){
   const el = document.getElementById('omNewsList'); if(!el) return;
@@ -3832,6 +3858,7 @@ function deliverMail(mail){
     renderList();
   }
   document.getElementById('toastSub').textContent = mail.sender + ' · ' + mail.subject;
+  document.getElementById('toast').dataset.target = '';
   document.getElementById('toast').classList.add('show');
   setTimeout(() => { document.getElementById('toast').classList.remove('show'); }, 6000);
   saveProgress();
@@ -3846,6 +3873,8 @@ function closeDetail(){
 function mReload(){ renderList(); }
 
 function mOpenFromToast(){
+  const tt = document.getElementById('toast');
+  if(tt.dataset.target === 'oldmail'){ tt.classList.remove('show'); tt.dataset.target = ''; const t = TABS.find(x => x.kind === 'oldmail'); if(t) switchTab(t.id); return; }
   openTab('mail', '이스크라 메일', '&#9993;');
   document.getElementById('toast').classList.remove('show');
   document.querySelectorAll('.folder').forEach(f => f.classList.remove('active'));
@@ -4596,7 +4625,7 @@ function saveProgress(){
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5,
       bankBalance, bankTx, scrapped, introSeen,
-      omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].filter(m => !m.unread).map(m => m.id),
+      omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds,
       pendingDeliveries, pendingCutscene,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -4641,6 +4670,7 @@ function loadProgress(){
   bankBalance = saved.bankBalance || 0;
   omOpened = !!saved.omOpened;
   (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
+  antonRestore(saved.antonIds, saved.omReadIds);
   bankTx = saved.bankTx || [];
   renderBankcard();
   scrapped = saved.scrapped || [];
@@ -5162,6 +5192,7 @@ function applyJump(n){
   msgState.seenMail[cur.id] = 0;
   TABS = TABS.filter(t => t.kind === 'oldmail' || t.kind === 'search');
   if(!TABS.some(t => t.kind === 'search')) TABS.push({id:'t'+(tabSeq++), kind:'search', title:'이스크라', favicon:''});
+  for(let i = 1; i < n && i <= 5; i++) antonAdd('anton' + i, true);
   omOpenMail(); omRenderList();
   goToMainScreen();
   msgRefreshVisible(); msgRender();
