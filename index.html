@@ -508,7 +508,9 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-oldmail .omtop{display:flex;align-items:center;gap:18px;padding:18px 0;border-bottom:1px solid var(--border);}
 #panel-oldmail .ombrand{font-family:'Oswald',sans-serif;font-weight:700;font-size:19px;display:flex;align-items:center;gap:8px;}
 #panel-oldmail .ombrand .mark{width:26px;height:26px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:13px;}
-#panel-oldmail .omgate{display:flex;align-items:center;justify-content:center;min-height:55vh;}
+#panel-oldmail{display:flex;flex-direction:column;}
+#panel-oldmail > .wrap{flex:1;display:flex;flex-direction:column;width:100%;}
+#panel-oldmail .omgate{display:flex;align-items:center;justify-content:center;flex:1;min-height:55vh;}
 #panel-oldmail .omicon{position:relative;width:64px;height:64px;border-radius:50%;background:var(--surface);border:1px solid var(--border);box-shadow:0 10px 30px rgba(0,0,0,.1);display:flex;align-items:center;justify-content:center;color:var(--muted);cursor:pointer;}
 #panel-oldmail .omicon:hover{color:var(--ink);background:var(--hover-bg);}
 #panel-oldmail .omicon .ic{width:26px;height:26px;}
