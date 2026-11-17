@@ -1572,6 +1572,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 .mrow2 .st,.mrow2 .tm{white-space:nowrap;flex-shrink:0;}
 .mm{max-width:min(78%, calc(100% - 112px));min-width:0;}
+
+@keyframes msgOut{to{opacity:0;transform:translateY(28px) scale(.97);}}
+#msgPanel.closing{animation:msgOut .2s ease forwards;pointer-events:none;}
 </style>
 
 <div class="chrome">
@@ -4829,11 +4832,22 @@ function msgChip(id, label){
   }, 55);
 }
 function msgToggle(){
-  msgOpen = !msgOpen;
-  document.getElementById('msgPanel').classList.toggle('open', msgOpen);
-  document.getElementById('msgLauncher').style.display = msgOpen ? 'none' : '';
+  const pn = document.getElementById('msgPanel');
+  if(msgOpen){
+    /* 닫기: 아래로 내려가는 연출 후 숨김 */
+    msgOpen = false;
+    pn.classList.add('closing');
+    document.getElementById('msgPeek').classList.remove('show');
+    setTimeout(() => { if(!msgOpen){ pn.classList.remove('open','closing'); document.getElementById('msgLauncher').style.display = ''; } }, 210);
+    msgRender();
+    return;
+  }
+  msgOpen = true;
+  pn.classList.remove('closing');
+  pn.classList.add('open');
+  document.getElementById('msgLauncher').style.display = 'none';
   document.getElementById('msgPeek').classList.remove('show');
-  if(msgOpen){ msgState.unread = 0; msgSave(); }
+  msgState.unread = 0; msgSave();
   msgRender();
 }
 function msgRefreshVisible(){
@@ -4869,7 +4883,7 @@ function msgInit(){
   const _enter = enterBetaPortal;
   enterBetaPortal = function(){ _enter(); msgInit(); msgRefreshVisible(); };
   const _deliver = deliverMail;
-  deliverMail = function(mail){ _deliver(mail); msgOnMail(mail.id); };
+  deliverMail = function(mail){ _deliver(mail); if(msgOpen && window.matchMedia('(max-width:640px)').matches) msgToggle(); msgOnMail(mail.id); };
   const _switch = switchTab;
   switchTab = function(id){ _switch(id); msgRefreshVisible(); };
 })();
