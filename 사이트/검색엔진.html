@@ -1483,6 +1483,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-raden tr.detailrow td{display:block;padding:0;border:none;}
   #panel-raden .detailgrid{display:grid;grid-template-columns:1fr;gap:6px;background:var(--hover-bg);border-radius:12px;padding:10px 14px;}
 }
+
+#panel-raden #listBody,#panel-raden #listBody.fade-refresh{animation:none!important;}
+@media (max-width:640px){#panel-raden thead th{position:static;}}
 </style>
 
 <div class="chrome">
@@ -3652,7 +3655,7 @@ function renderRecords(){
   }).join('');
   document.getElementById('rdCount').textContent = filtered.length + '건 (최근 1년)';
   renderPagination(totalPages);
-  fadeRefresh(document.getElementById('listBody'));
+  /* tbody에 opacity 애니메이션을 걸면 iOS 사파리에서 행이 빈 칸으로 그려지는 문제가 있어 애니메이션 제거 */
 }
 function renderPagination(totalPages){
   const el = document.getElementById('rdPagination');
