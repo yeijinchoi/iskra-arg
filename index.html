@@ -1,5 +1,6 @@
 <title>iskra</title>
 <meta name="color-scheme" content="light">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <script>document.documentElement.setAttribute("data-theme","light");</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1391,6 +1392,67 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 #panel-search.beta-mode .searchform input{padding-left:26px;}
 #panel-searchresult .srsearchform input{padding-left:20px;}
+
+/* ===================== 모바일 UI (폭 640px 이하) ===================== */
+.tabcountbtn{display:none;}
+#tabSwitcher{display:none;}
+@media (max-width:640px){
+  body{padding-left:0;padding-right:0;}
+  .chrome{margin-left:0;margin-right:0;padding-left:0;padding-right:0;}
+  /* 폰 브라우저처럼: 탭 줄 대신 주소창 + 탭 수 버튼 */
+  .tabstrip{display:none;}
+  .toolbar{padding:8px 8px;gap:2px;}
+  .toolbar .navbtn[aria-label="앞으로"],.toolbar .navbtn[aria-label="홈"],.toolbar .navbtn[aria-label="북마크"]{display:none;}
+  .addressbar{flex:1;min-width:0;height:36px;font-size:13px;}
+  .navbtn{width:36px;height:36px;}
+  .navbtn .ic{width:18px;height:18px;}
+  .tabcountbtn{display:flex;align-items:center;justify-content:center;width:30px;height:30px;margin:0 4px;border:2px solid var(--chrome-sub);border-radius:8px;background:none;color:var(--chrome-text);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;flex-shrink:0;}
+  #tabSwitcher.show{display:flex;position:fixed;inset:0;z-index:300;background:#26282B;flex-direction:column;}
+  #tabSwitcher .ts-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;color:#fff;font-size:15px;font-weight:700;}
+  #tabSwitcher .ts-head button{background:none;border:none;color:#fff;font-size:14px;font-family:inherit;cursor:pointer;padding:6px 10px;}
+  #tabSwitcher .ts-list{flex:1;overflow-y:auto;padding:4px 14px 24px;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:start;}
+  #tabSwitcher .ts-card{background:#fff;border-radius:16px;overflow:hidden;color:#1F2430;cursor:pointer;border:2px solid transparent;display:flex;flex-direction:column;}
+  #tabSwitcher .ts-card.active{border-color:#7E95FF;}
+  #tabSwitcher .ts-top{display:flex;align-items:center;gap:8px;padding:10px 10px 8px;background:#F1F3F7;font-size:12px;font-weight:600;}
+  #tabSwitcher .ts-top img{width:16px;height:16px;flex-shrink:0;}
+  #tabSwitcher .ts-top span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #tabSwitcher .ts-top button{background:none;border:none;font-size:16px;line-height:1;color:#6B7280;cursor:pointer;padding:0 2px;}
+  #tabSwitcher .ts-body{padding:14px 12px 18px;font-size:11.5px;color:#6B7280;line-height:1.5;min-height:80px;}
+  /* 노을메일 목록 행 */
+  #panel-oldmail .omrow{display:grid;grid-template-columns:10px 1fr auto;column-gap:10px;row-gap:2px;padding:12px 10px;}
+  #panel-oldmail .omsubjwrap{grid-column:2 / 4;white-space:normal;display:block;}
+  #panel-oldmail .omsubjwrap .omprev{display:block;margin:2px 0 0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  #panel-oldmail .omsender{font-size:12.5px;}
+  #panel-oldmail .wrap{padding-left:16px;padding-right:16px;}
+  #panel-oldmail .omlistwrap .omsplit{gap:12px;}
+  /* ERP */
+  #panel-raden .whoami{font-size:11px;gap:8px;}
+  #panel-raden .whoami span:not(.mono){display:none;}
+  #panel-raden .topbar{flex-wrap:wrap;gap:6px;}
+  #panel-raden .wrap{padding-left:16px;padding-right:16px;}
+  #panel-raden .rd-main{overflow-x:auto;}
+  #panel-raden .kpis{grid-template-columns:1fr 1fr;}
+  /* 이스크라 메일/검색/기타 */
+  #panel-mail .wrap,#panel-search .wrap,#panel-searchresult .wrap,#panel-article .wrap{padding-left:16px;padding-right:16px;}
+  /* 포털 4종 */
+  .og-header-inner,.al-header-inner,.ar-header-inner,.ls-header-inner{padding:12px 16px!important;}
+  #panel-orginfo .og-page,#panel-alumni .al-page,#panel-archive .ar-page,#panel-listing .ls-page{padding:14px 16px 56px!important;}
+  /* 플로팅 위젯 */
+  .bgmwidget{right:12px;bottom:12px;max-width:44px;padding:4px;}
+  .bgmwidget .bgmtitle{display:none;}
+  #msgLauncher{right:14px;bottom:68px;}
+  #msgPeek{right:84px;bottom:76px;max-width:calc(100vw - 110px);}
+  #msgPanel{left:8px;right:8px;bottom:8px;width:auto;max-width:none;height:min(82vh,640px);border-radius:24px;}
+  #toast{left:12px;right:12px;bottom:64px;width:auto;max-width:none;}
+  .scrapwidget{left:12px;bottom:12px;}
+}
+
+@media (max-width:640px){
+  html{-webkit-text-size-adjust:100%;}
+  input:not([type=checkbox]):not([type=radio]),textarea{font-size:16px!important;}
+  button,a,.tab,.omrow,.mrow,.sr-link{-webkit-tap-highlight-color:transparent;}
+  .toolbar .navbtn[aria-label="캡처"]{width:40px;height:40px;}
+}
 </style>
 
 <div class="chrome">
@@ -1406,6 +1468,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     </div>
     <button class="navbtn" aria-label="북마크"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg></button>
     <button class="navbtn" id="captureBtn" onclick="doCapture()" aria-label="캡처"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h1.3l.7-1.3A2 2 0 0 1 8.7 3.6h6.6a2 2 0 0 1 1.7 1.1L17.7 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.4"/></svg><span class="captip">의심스러운 거래 내역을 찾으면 이 버튼을 눌러 화면을 캡처하세요</span></button>
+    <button class="tabcountbtn" id="tabCountBtn" onclick="openTabSwitcher()" aria-label="탭 목록">1</button>
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="chromemenu hidden" id="chromeMenu">
@@ -1415,6 +1478,10 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   </div>
 </div>
 
+<div id="tabSwitcher">
+  <div class="ts-head"><span>열린 탭</span><button type="button" onclick="closeTabSwitcher()">닫기</button></div>
+  <div class="ts-list" id="tsList"></div>
+</div>
 <div id="panel-oldmail" class="panel">
 <div class="wrap">
   <div class="omtop hidden" id="omTop">
@@ -4283,6 +4350,30 @@ function resetProgress(){
 }
 
 
+
+/* 모바일 탭 전환기 */
+function tsBody(t){
+  const map = {oldmail:'받은메일함', search:'검색', searchresult:'검색 결과', article:'기사', mail:'이스크라 메일', raden:'ERP', orginfo:'단체 등록정보', listing:'매물 검색', alumni:'동문수첩', archive:'아카이브'};
+  return map[t.kind] || '';
+}
+function renderTabSwitcher(){
+  const l = document.getElementById('tsList'); if(!l) return;
+  l.innerHTML = TABS.map(t => {
+    const m = TAB_META[t.kind];
+    const title = (m && !m.keep) ? m.title : t.title;
+    const icon = m ? '<img src="'+m.icon+'" alt="">' : '';
+    return '<div class="ts-card'+(t.id===activeId?' active':'')+'" onclick="tsPick(\''+t.id+'\')"><div class="ts-top">'+icon+'<span>'+title+'</span><button type="button" onclick="event.stopPropagation();tsClose(\''+t.id+'\')" aria-label="탭 닫기">&times;</button></div><div class="ts-body">'+tsBody(t)+'</div></div>';
+  }).join('');
+}
+function openTabSwitcher(){ renderTabSwitcher(); document.getElementById('tabSwitcher').classList.add('show'); }
+function closeTabSwitcher(){ document.getElementById('tabSwitcher').classList.remove('show'); }
+function tsPick(id){ switchTab(id); closeTabSwitcher(); }
+function tsClose(id){ closeTab(id); if(TABS.length) renderTabSwitcher(); else closeTabSwitcher(); }
+function updateTabCount(){ const b = document.getElementById('tabCountBtn'); if(b) b.textContent = TABS.length; }
+(function(){
+  const _rt = renderTabs;
+  renderTabs = function(){ _rt(); updateTabCount(); };
+})();
 /* ===== 이스크라 톡 — 단계(의뢰)에 맞춰 힌트를 주는 베타 지원 메신저 ===== */
 const MSG_KEY = 'iskra_msg_v1';
 /* 단계별 안내: now = 개요, hints = 점점 구체적인 힌트, wait = 완료 후 대기 */
