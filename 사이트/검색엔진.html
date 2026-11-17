@@ -1675,6 +1675,25 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 .chromemenu .cm-jump{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:2px 4px 4px;}
 .chromemenu .cm-jump button{text-align:center;padding:8px 0;background:var(--chrome-strip);}
 .chromemenu .cm-jump button:hover{background:var(--accent);color:var(--accent-ink);}
+
+/* 모바일: 노을메일 위젯 카드를 메일 목록 위로 올려 가로로 넘겨 보기 */
+@media (max-width:640px){
+  #panel-oldmail .omsplit{display:flex;flex-direction:column;align-items:stretch;gap:14px;}
+  #panel-oldmail .omsplit>*{min-width:0;max-width:100%;}
+  #panel-oldmail .omside{order:-1;display:flex;flex-direction:row;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin:4px -16px 6px;padding:4px 16px 14px;scrollbar-width:none;-webkit-overflow-scrolling:touch;}
+  #panel-oldmail .omside::-webkit-scrollbar{display:none;}
+  #panel-oldmail .omside>*{flex:0 0 78%;scroll-snap-align:start;margin:0;min-width:0;}
+  #panel-oldmail .omside .mailcard{display:none;}
+  #panel-oldmail .omleft{order:2;}
+  #panel-oldmail .side{margin-top:0;}
+}
+
+@media (max-width:640px){
+  #panel-oldmail .omside{scroll-padding:0 16px;align-items:stretch;max-width:none!important;width:calc(100% + 32px);}
+  #panel-oldmail .omside .newscard .t{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  #panel-oldmail .omside .newscard li button{padding:8px 4px;}
+  #panel-oldmail .omside>*{padding-bottom:14px;}
+}
 </style>
 
 <div class="chrome">
