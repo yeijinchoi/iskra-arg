@@ -1314,6 +1314,12 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 .tab .favicon .dzfav{width:16px;height:16px;object-fit:contain;display:block;}
 
 .mm.bot a{color:#5468EA;font-weight:700;text-decoration:underline;cursor:pointer;}
+
+#msgInput[readonly]{cursor:default;caret-color:transparent;}
+#msgInput:focus{border-color:var(--border);box-shadow:none;}
+#msgInput.typing{border-color:#6177F6;box-shadow:0 0 0 3px rgba(97,119,246,.18);}
+#msgQuick.busy{pointer-events:none;opacity:.55;}
+#msgSend.press{transform:scale(.86);}
 </style>
 
 <div class="chrome">
@@ -1902,7 +1908,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <div class="mh"><div class="mav"></div><div><div class="mname">다나</div><div class="mstat">이스크라 개발자 · 온라인</div></div><button class="mclose" type="button" onclick="msgToggle()" aria-label="닫기">&times;</button></div>
   <div id="msgLog"></div>
   <div id="msgQuick"></div>
-  <form id="msgForm" onsubmit="msgSubmit(event)" autocomplete="off"><input id="msgInput" type="text" placeholder="메시지 보내기" maxlength="200"><button id="msgSend" type="submit" aria-label="보내기" disabled><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+  <form id="msgForm" onsubmit="msgSubmit(event)" autocomplete="off"><input id="msgInput" type="text" placeholder="메시지 보내기" maxlength="200" readonly tabindex="-1"><button id="msgSend" type="submit" aria-label="보내기" disabled><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
 </div>
 <div id="bgmWidget" class="bgmwidget">
   <button class="bgmtoggle" id="bgmToggle" onclick="toggleBgm()" aria-label="배경음악 재생">
@@ -4327,18 +4333,39 @@ function msgSubmit(e){
   inp.value = ''; document.getElementById('msgSend').disabled = true;
   msgSend(v);
 }
+let msgTyping = false;
 function msgChip(id, label){
-  msgPush('me', label);
-  setTimeout(msgMarkRead, 500);
+  if(msgTyping) return;
+  msgTyping = true;
   const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay'};
-  setTimeout(() => msgReply(map[id] || 'other'), 800);
+  const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
+  q.classList.add('busy');
+  inp.value = ''; inp.classList.add('typing');
+  let i = 0;
+  const tm = setInterval(() => {
+    i++; inp.value = label.slice(0, i); btn.disabled = false;
+    if(i >= label.length){
+      clearInterval(tm);
+      setTimeout(() => {
+        btn.classList.add('press');
+        setTimeout(() => {
+          btn.classList.remove('press');
+          inp.value = ''; inp.classList.remove('typing'); btn.disabled = true;
+          msgPush('me', label);
+          setTimeout(msgMarkRead, 500 + Math.random()*400);
+          setTimeout(() => msgReply(map[id] || 'other'), 900);
+          q.classList.remove('busy'); msgTyping = false;
+        }, 180);
+      }, 320);
+    }
+  }, 55);
 }
 function msgToggle(){
   msgOpen = !msgOpen;
   document.getElementById('msgPanel').classList.toggle('open', msgOpen);
   document.getElementById('msgLauncher').style.display = msgOpen ? 'none' : '';
   document.getElementById('msgPeek').classList.remove('show');
-  if(msgOpen){ msgState.unread = 0; msgSave(); setTimeout(() => { const i = document.getElementById('msgInput'); if(i) i.focus(); }, 250); }
+  if(msgOpen){ msgState.unread = 0; msgSave(); }
   msgRender();
 }
 function msgRefreshVisible(){
