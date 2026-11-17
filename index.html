@@ -1384,6 +1384,10 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .rd-notice .tg{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--hover-bg);border-radius:5px;padding:1px 6px;flex-shrink:0;}
 
 #msgSend{pointer-events:none;}
+
+#msgForm{align-items:flex-end;}
+#msgInput{resize:none;overflow:hidden;line-height:1.45;border-radius:22px;padding:10px 16px;height:42px;display:block;}
+#msgSend{margin-bottom:1px;}
 </style>
 
 <div class="chrome">
@@ -1987,7 +1991,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <div class="mh"><div class="mav"></div><div><div class="mname">다나</div><div class="mstat">이스크라 개발자 · 온라인</div></div><button class="mclose" type="button" onclick="msgToggle()" aria-label="닫기">&times;</button></div>
   <div id="msgLog"></div>
   <div id="msgQuick"></div>
-  <form id="msgForm" onsubmit="msgSubmit(event)" autocomplete="off"><input id="msgInput" type="text" placeholder="메시지 보내기" maxlength="200" readonly tabindex="-1"><button id="msgSend" type="submit" aria-label="보내기" disabled><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
+  <form id="msgForm" onsubmit="msgSubmit(event)" autocomplete="off"><textarea id="msgInput" rows="1" placeholder="메시지 보내기" maxlength="200" readonly tabindex="-1"></textarea><button id="msgSend" type="submit" aria-label="보내기" disabled><svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></form>
 </div>
 <div id="bgmWidget" class="bgmwidget">
   <button class="bgmtoggle" id="bgmToggle" onclick="toggleBgm()" aria-label="배경음악 재생">
@@ -4509,6 +4513,7 @@ function msgSend(text){
 }
 function msgSubmit(e){ if(e) e.preventDefault(); }
 let msgTyping = false;
+function msgFit(el){ el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 132) + 'px'; const log = document.getElementById('msgLog'); if(log) log.scrollTop = log.scrollHeight; }
 function msgChip(id, label){
   if(msgTyping) return;
   msgTyping = true; msgRenderChips();
@@ -4518,14 +4523,14 @@ function msgChip(id, label){
   inp.value = ''; inp.classList.add('typing');
   let i = 0;
   const tm = setInterval(() => {
-    i++; inp.value = label.slice(0, i); btn.disabled = false;
+    i++; inp.value = label.slice(0, i); btn.disabled = false; msgFit(inp);
     if(i >= label.length){
       clearInterval(tm);
       setTimeout(() => {
         btn.classList.add('press');
         setTimeout(() => {
           btn.classList.remove('press');
-          inp.value = ''; inp.classList.remove('typing'); btn.disabled = true;
+          inp.value = ''; inp.classList.remove('typing'); btn.disabled = true; msgFit(inp);
           msgPush('me', label);
           setTimeout(msgMarkRead, 500 + Math.random()*400);
           setTimeout(() => { if(/^pick\d+$/.test(id)) msgPick(parseInt(id.slice(4),10)); else msgReply(map[id] || 'other'); msgTyping = false; msgRenderChips(); }, 900);
