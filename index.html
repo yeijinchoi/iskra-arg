@@ -1382,6 +1382,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .rd-notice li:first-child{border-top:none;}
 #panel-raden .rd-notice .d{color:var(--muted);font-variant-numeric:tabular-nums;flex-shrink:0;width:38px;}
 #panel-raden .rd-notice .tg{font-size:10.5px;font-weight:700;color:var(--accent);background:var(--hover-bg);border-radius:5px;padding:1px 6px;flex-shrink:0;}
+
+#msgSend{pointer-events:none;}
 </style>
 
 <div class="chrome">
@@ -4494,12 +4496,7 @@ function msgSend(text){
   setTimeout(msgMarkRead, 500 + Math.random()*500);
   setTimeout(() => msgReply(intent), 900);
 }
-function msgSubmit(e){
-  e.preventDefault();
-  const inp = document.getElementById('msgInput'); const v = inp.value;
-  inp.value = ''; document.getElementById('msgSend').disabled = true;
-  msgSend(v);
-}
+function msgSubmit(e){ if(e) e.preventDefault(); }
 let msgTyping = false;
 function msgChip(id, label){
   if(msgTyping) return;
