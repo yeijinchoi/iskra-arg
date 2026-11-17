@@ -604,10 +604,37 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .scrap-row .o{font-size:11px;color:var(--muted);margin-top:2px;}
 .scrap-row .rm{flex-shrink:0;width:14px;height:14px;color:var(--muted);}
 .scrap-row .rm:hover{color:#B5452E;}
-.scrapnotes-head{margin:10px 6px 4px;padding-top:10px;border-top:1px solid var(--border);font-size:11.5px;font-weight:700;color:var(--accent);}
-.scrapnote{margin:4px 6px 8px;padding:9px 10px;border:1px solid var(--border);border-radius:8px;background:var(--bg);}
-.scrapnote b{display:block;font-size:12px;margin-bottom:3px;}
-.scrapnote p{margin:0;font-size:11.8px;line-height:1.6;color:var(--muted);}
+
+#fragModal{position:fixed;inset:0;z-index:130;background:rgba(20,22,26,.55);display:none;align-items:center;justify-content:center;padding:16px;}
+#fragModal.show{display:flex;}
+#fragBody{width:460px;max-width:100%;max-height:86vh;overflow-y:auto;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 24px 60px rgba(0,0,0,.35);padding:18px 18px 16px;}
+.fraghead{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:14px;}
+.fragtag{font-size:10.5px;font-weight:700;color:#fff;background:#8a2f26;border-radius:4px;padding:2px 6px;flex-shrink:0;}
+.fragdoc{background:#fbf8ef;color:#2b2a26;border:1px solid #e4dcc6;border-radius:6px;padding:14px 14px;font-size:12.8px;line-height:1.7;}
+.fragdoc h4{margin:0 0 10px;font-size:13.5px;}
+.fragdoc table{width:100%;border-collapse:collapse;font-size:12px;}
+.fragdoc th,.fragdoc td{border-bottom:1px solid #e4dcc6;padding:5px 4px;text-align:left;vertical-align:top;}
+.fragdoc th{white-space:nowrap;}
+.fragdoc ol{margin:0 0 8px;padding-left:20px;}
+.fragdoc p{margin:8px 0 0;}
+.fragdoc .ft{font-size:11.5px;color:#7a7566;}
+.fragdoc .hand{font-family:'Nanum Pen Script','Gaegu',cursive,serif;font-size:17px;line-height:1.7;}
+.fragdoc .rd{background:#2b2a26;color:#2b2a26;border-radius:2px;user-select:none;}
+.fragact{display:flex;gap:8px;justify-content:flex-end;margin-top:12px;}
+.fragbtn{font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 14px;border-radius:999px;border:1px solid var(--accent);background:none;color:var(--accent);cursor:pointer;}
+.fragbtn.on{background:var(--accent);color:var(--accent-ink);}
+.fragbtn.ghost{border-color:var(--border);color:var(--muted);}
+.quizq{border:none;padding:0;margin:0 0 12px;}
+.quizq legend{font-size:13px;font-weight:700;margin-bottom:6px;padding:0;}
+.quizq label{display:block;font-size:12.8px;padding:5px 4px;cursor:pointer;}
+.quizmsg{min-height:16px;margin:4px 0 0;font-size:12px;color:#B5452E;}
+.mailattach{display:flex;align-items:center;gap:10px;width:100%;max-width:420px;margin:6px 0 18px;padding:12px 14px;border:1px solid var(--border);border-radius:10px;background:var(--surface);font-family:inherit;cursor:pointer;text-align:left;color:var(--ink);}
+.mailattach:hover{background:var(--hover-bg);}
+.mailattach b{display:block;font-size:13px;}
+.mailattach span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
+.scrapfrag-head{margin:10px 6px 4px;padding-top:10px;border-top:1px solid var(--border);font-size:11.5px;font-weight:700;color:var(--accent);display:flex;justify-content:space-between;}
+.scrapquiz{display:block;width:calc(100% - 12px);margin:8px 6px 4px;padding:9px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-family:inherit;font-size:12.3px;font-weight:700;cursor:pointer;}
+.scrapquiz[disabled]{background:none;color:var(--muted);border-color:var(--border);cursor:default;}
 .scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
 
 .bgmwidget{
@@ -2335,6 +2362,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 </div>
 
+<div id="fragModal" onclick="if(event.target===this)fragClose()"><div id="fragBody"></div></div>
 <div id="toast" onclick="mOpenFromToast()">
   <span class="ticon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
   <div class="tbody">
@@ -3246,7 +3274,6 @@ function toggleScrap(id){
   }
   renderScrapWidget();
   saveProgress();
-  try{ checkScrapLinks(); }catch(e){}
 }
 function scrapGo(id){
   document.getElementById('scrapPanel').classList.add('hidden');
@@ -3260,8 +3287,8 @@ function renderScrapWidget(){
   const countEl = document.getElementById('scrapCount');
   const listEl = document.getElementById('scrapList');
   if(!widget) return;
-  widget.classList.toggle('hidden', scrapped.length === 0 && !(scrapLinksDone && scrapLinksDone.length));
-  countEl.textContent = scrapped.length;
+  widget.classList.toggle('hidden', scrapped.length === 0 && !(fragScrapped && fragScrapped.length));
+  countEl.textContent = scrapped.length + (fragScrapped ? fragScrapped.length : 0);
   listEl.innerHTML = scrapped.length ? scrapped.map(id => {
     const a = ARTICLES.find(x => x.id === id) || HINTS.find(x => x.id === id);
     if(!a) return '';
@@ -3272,8 +3299,12 @@ function renderScrapWidget(){
       </div>
     `;
   }).join('') : `<div class="scrapempty">스크랩한 기사가 없습니다</div>`;
-  const notes = (scrapLinksDone || []).map(id => SCRAP_LINKS.find(L => L.id === id)).filter(Boolean);
-  if(notes.length) listEl.innerHTML += '<div class="scrapnotes-head">연결된 단서</div>' + notes.map(L => '<div class="scrapnote"><b>' + L.title + '</b><p>' + L.note + '</p></div>').join('');
+  if(fragScrapped && fragScrapped.length){
+    const total = Object.keys(ANTON_FRAGS).length;
+    listEl.innerHTML += '<div class="scrapfrag-head"><span>자료 조각</span><span>' + fragScrapped.length + '/' + total + '</span></div>' +
+      fragScrapped.map(id => { const fr = ANTON_FRAGS[id]; return fr ? '<div class="scrap-row" onclick="document.getElementById(\'scrapPanel\').classList.add(\'hidden\');fragOpen(\''+id+'\')"><div class="txt"><div class="t">'+fr.title+'</div><div class="o">'+fr.tag+'</div></div><svg class="ic rm" viewBox="0 0 24 24" onclick="event.stopPropagation();fragToggle(\''+id+'\')"><path d="M6 6l12 12M18 6 6 18"/></svg></div>' : ''; }).join('');
+    if(antonIds.indexOf('anton5') >= 0 && !quizDone) listEl.innerHTML += '<button type="button" class="scrapquiz" ' + (quizReady() ? 'onclick="quizOpen()"' : 'disabled') + '>' + (quizReady() ? '단서 정리' : '단서 정리 (조각 ' + fragScrapped.length + '/' + total + ')') + '</button>';
+  }
 }
 
 /* ===== 배경음악 — 사이트(탭)마다 다른 곡, 자동재생 시도 + 첫 상호작용 시 시작 ===== */
@@ -3640,26 +3671,13 @@ function omStartGate(){
 }
 const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dg-mail.dg", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dg", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "마리야 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 두샨카 보스코"], "translated": false}, {"id": "mom", "sender": "마리야 소린 (엄마)", "addr": "mariya.sorin@dg-mail.dg", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락 주기를 바라.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dg", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
-/* ===== 안톤(백스토리) — 의뢰를 마칠 때마다 노을메일 개인 메일함에 따로 도착 ===== */
-var ANTON_MAILS = [{"id": "anton1", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "[이스크라] 혹시 이 메일 보이시나요?", "preview": "1차 테스트 하셨죠. 신경 쓰이는 게 하나 있어서요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑작스럽게 개인 메일로 연락드려 죄송합니다. 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이라고 합니다. 체험단 신청서에 적으신 주소를 보고 보냅니다.", "1차 테스트 하셨죠. 샘플 데이터라고 안내받으셨을 텐데, 제가 보기엔 그 반출 기록이 샘플로 만든 것치고 형식이 너무 실제 같았습니다. 그냥 신경 쓰이는 점이라 적어 봅니다.", "이 메일은 팀 메신저에는 말하지 않으셨으면 합니다. 별일 아니면 읽고 지워 주세요.", "그리고 한 가지 부탁이 있어요. 이스크라에서 아래 기사 세 개를 찾아 기사 위쪽 '스크랩' 버튼으로 모아 두세요. 검색창에 '쌀', '통행', '구호물자'를 넣으면 나옵니다.<br>· 「바르니아 식문화의 중심은 쌀…3년째 흉작에 식탁 부담 가중」<br>· 「오르벤, 바르니아 통행 제한 조치 연장」<br>· 「바르니아교민상회, 북부 식량난 지역에 구호물자 전달」<br>따로 보면 평범한 기사인데, 나란히 놓으면 1차 때 보신 반출 기록이 왜 그렇게 나갔는지 보일 거예요. 스크랩한 기사는 왼쪽 아래 스크랩 창에서 다시 볼 수 있습니다.", "안톤"]}, {"id": "anton2", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "Re: 대조라는 말", "preview": "2차까지 하셨네요. 한 가지만 더 적을게요.", "time": "방금 전", "unread": true, "body": ["2차까지 마치셨네요. 수고 많으셨습니다. 한 가지만 더 적을게요.", "체험단은 레나 씨 한 명이 아니고, 같은 질문을 테스터마다 조금씩 다르게 던져서 답을 서로 대조한다고 들었습니다. 단계가 이렇게 촘촘하게 나뉘어 있는 것도 그래서예요.", "그리고 '바르니아교민상회'라는 이름이요. 팀 안에서는 테스트용 가상 이름처럼 부르지 않고, 그냥 실제 단체 이름으로 불러요. 저는 그게 이상하게 들렸습니다.", "이번에도 스크랩 부탁드려요. '이주민', '정착', '성금'으로 검색하면 나옵니다.<br>· 「도렌 내 바르니아 출신 이주민, 10만 명 넘어서」<br>· 「바르니아교민상회, 신규 이주민 정착지원 프로그램 확대」<br>· 「도렌 거주 바르니아 동포 사회, 올해도 성금 모금」<br>세 기사를 함께 보면, 그 상회가 어떤 곳인지 조금 다르게 읽힐 거예요.", "안톤"]}, {"id": "anton3", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "저희 집 얘기를 조금", "preview": "3차 하신 걸 보고 생각이 많아졌어요.", "time": "방금 전", "unread": true, "body": ["3차 결과를 봤습니다. 그 상회 기사들, 읽어 보셨죠. 대부분은 정말 평범한 내용이에요.", "사실 저희 부모님도 바르니아에서 오셨어요. 어릴 때 11월 모임에 따라가 본 적이 있는데, 어른들이 뭘 기리는 자리인지는 끝까지 말해 주지 않았습니다. 기사에 '비공개'라고 적힌 이유를 저는 조금 알 것 같아요.", "참고로 체험단 선정 기준 중에 '가족 구성'이 있었어요. 레나 씨 신청서에 어머니 성함이 적혀 있었고요. 무작위로 뽑은 게 아닐 수 있다는 뜻입니다.", "이번 스크랩은 조금 무거워요. '구술증언', '추모', '인터넷'으로 검색해 보세요.<br>· 「바르니아교민상회, 1세대 구술증언 기록 사업 추진…」<br>· 「바르니아교민상회, 매년 11월 조용한 추모모임…」<br>· 「바르니아 내 인터넷 접속 또 지연…주민 불편 호소」<br>셋이 같은 곳을 가리키는지 한번 보세요. 제 부모님 얘기와도 이어집니다.", "안톤"]}, {"id": "anton4", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "사장님 말고", "preview": "이름만 대표라는 말이 회의에서 나왔어요.", "time": "방금 전", "unread": true, "body": ["4차를 마치셨네요. 이름이 나온 분 말인데, 팀 회의에서 '이분은 대표 이름만 빌려준 얼굴'이라는 얘기가 나왔습니다. 정작 찾는 건 그 뒤에 있는 사람 같아요.", "그리고 팀장 옆자리에 예전에 그쪽 사람들 틈에서 지냈다는 분이 한 분 계세요. 이름은 즐라탄 코바치. 그분이 하는 말이 이상하게 정확해서, 저는 그분 앞에서 말을 아끼게 됩니다.", "레나 씨에게 뭘 해 달라는 건 아니에요. 그냥 알고 계시라고요.", "이번 스크랩은 이스크라 테스트 자체에 관한 거예요. '동문수첩', '아카이브', '무역'으로 검색해 보세요.<br>· 「도렌 국립대학교 총동문회, 온라인 동문수첩 서비스 전면 개편」<br>· 「도렌통신, 창간 60주년 맞아 디지털 아카이브 전면 공개」<br>· 「오르벤-도렌, 무역 실무협상 재개」<br>세 기사의 시기를 맞춰 보면, 의뢰 순서가 왜 이렇게 짜였는지 짐작이 갈 거예요.", "안톤"]}, {"id": "anton5", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "초대가 오면", "preview": "곧 개인적인 초대가 갈 거예요.", "time": "방금 전", "unread": true, "body": ["5차까지 끝나면 곧 레나 씨 쪽으로 개인적인 초대가 갈 거예요. 팀에서도 그걸 알고 있고, 오히려 기다리고 있습니다.", "가라 마라 하지는 않을게요. 다만 거기서 보고 들은 것을 이스크라 메신저에 그대로 옮기기 전에 한 번만 생각해 보세요. 그게 어디로 가는지는 제가 아는 만큼 말씀드릴 수 있어요.", "다음 연락은 이 주소 말고 다른 방법으로 할게요. 이 메일은 꼭 지워 주세요.", "그동안 모으신 스크랩 창에 '연결된 단서' 메모가 쌓였을 거예요. 한 번 훑어보세요. 빠진 게 있다면 앞선 메일에서 말한 기사를 마저 스크랩해 보시면 됩니다. 저는 이런 식으로 정리해 두고 혼자 판단하려고 해요.", "안톤"]}, {"id": "anton6", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "정리해 보면", "preview": "다 연결하셨네요. 이제 큰 그림이 보일 거예요.", "time": "방금 전", "unread": true, "body": ["스크랩 단서를 모두 연결하셨네요. 제가 말로 풀어 드릴 필요가 없겠어요.", "정리하면 이렇습니다. 바르니아에서는 오르벤이 길을 막고 있고, 도렌의 교민들은 그 사이로 식량을 보내고 있어요. 그 교민 사회는 23년 전 11월의 일을 지금도 기억하고 있고요. 이스크라 테스트는 그 사람들 중에서 누가 중심인지 좁혀 가는 중입니다.", "여기서부터는 레나 씨가 어디까지 알고 싶은지에 달렸어요. 제가 도울 수 있는 만큼은 계속 돕겠습니다.", "안톤"]}];
+/* ===== 안톤(백스토리) — 의뢰를 마칠 때마다 노을메일에 도착, 첨부된 자료 조각을 스크랩해 직접 맞춰 본다 ===== */
+var ANTON_MAILS = [{"id": "anton1", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "안쪽에서 보내는 메일", "preview": "이스크라 안쪽에서 일하는 사람입니다.", "time": "방금 전", "unread": true, "body": ["레나 씨, 이스크라 안쪽에서 일하는 사람입니다. 이름은 안톤이고, 이 주소는 체험단 신청서에서 봤어요.", "팀 메신저에는 이 메일 얘기를 하지 말아 주세요.", "첨부는 제가 가진 조각 중 하나예요. 설명은 하지 않을게요. 읽어 보시고, 필요하다 싶으면 스크랩해 두세요. 조각이 모이면 그림이 나옵니다.", "안톤"], "frag": "frag1"}, {"id": "anton2", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "두 번째 조각", "preview": "아직 드릴 말씀은 없어요.", "time": "방금 전", "unread": true, "body": ["두 번째예요. 아직 드릴 말씀은 없어요.", "앞의 조각과 겹치는 게 있는지만 봐 주세요.", "안톤"], "frag": "frag2"}, {"id": "anton3", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "세 번째 조각", "preview": "제 쪽에서 가져온 거예요.", "time": "방금 전", "unread": true, "body": ["이건 제 쪽에서 가져온 거예요.", "메모는 제 설명 없이 읽는 게 맞아요.", "안톤"], "frag": "frag3"}, {"id": "anton4", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "네 번째 조각", "preview": "가져 나오는 데 시간이 걸렸습니다.", "time": "방금 전", "unread": true, "body": ["팀 안에서 나온 거예요. 가져 나오는 데 시간이 걸렸습니다.", "이니셜은 풀어 드리지 않을게요. 겹치는 이름이 어디에 있는지만 보세요.", "안톤"], "frag": "frag4"}, {"id": "anton5", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "마지막 조각", "preview": "다 모이면 정리해 보세요.", "time": "방금 전", "unread": true, "body": ["다섯 번째이자 마지막 조각입니다. 다 모으시면 스크랩 창에 '단서 정리' 버튼이 생겨요.", "제가 맞게 보고 있는지 레나 씨 눈으로 확인해 주세요. 이 메일은 지워 주세요.", "안톤"], "frag": "frag5"}, {"id": "anton6", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "확인했어요", "preview": "맞게 보셨네요.", "time": "방금 전", "unread": true, "body": ["맞게 보셨네요. 제가 설명하지 않은 부분까지 읽어 내셨어요.", "저는 이스크라 안으로 들어온 사람입니다. 저를 보낸 쪽은 아직 말씀드리지 않을게요.", "다만 6단계는 곧 시작될 거예요. 그때 레나 씨가 어디에 서는지가 중요해질 겁니다.", "안톤"]}];
+var ANTON_FRAGS = {"frag1": {"title": "사례금 지급 내역(발췌)", "tag": "대외비", "html": "<h4>베타 체험단 사례금 지급 내역 — 발췌본</h4><table><tr><th>관리번호</th><th>선정 사유</th><th>비고</th></tr><tr><td>T-04</td><td>A1</td><td>지원서 점수 상위</td></tr><tr><td>T-09</td><td>A1</td><td>지원서 점수 상위</td></tr><tr><td>T-11</td><td>K2</td><td><span class=\"rd\">████</span>(도렌 국립대·카페 근무) / 어머니 <span class=\"rd\">████ ████</span> — 상회 회원(2019.04 등록)</td></tr><tr><td>T-15</td><td>A3</td><td>접경지역 거주</td></tr></table><p>※ K 계열은 접촉 우선 대상. 선정 사실을 알릴 때는 \"무작위 추첨\"으로 안내할 것.</p><p class=\"ft\">발주 O-9 · 정산 대외연락실</p>"}, "frag2": {"title": "단계별 테스트 설계표 v3", "tag": "내부 문서", "html": "<h4>단계별 테스트 설계표 (v3)</h4><ol><li>물류 경로 확인 — 반출 목적지 특정</li><li>단체 등록 확인 — 명의 확인</li><li>공개 활동 파악 — 위장 여부 평가</li><li>대표 특정 — 동명이인 제거</li><li>대표 공개 기록 — 발언·성향</li><li><span class=\"rd\">██████████</span> — T-11 모친 경로 이용</li><li>승인자 <span class=\"rd\">██</span> 소재 확인 — 8단계 이전 확정 금지</li><li>보고 및 처리</li></ol><p>※ 대표는 결정권자가 아님(Z.K. 의견 — 승인 문구 다수 확인). 5단계까지 T-11은 이것이 \"테스트\"라고 믿어야 함. 문구 유지.</p>"}, "frag3": {"title": "11.14 메모(사진)", "tag": "사진", "html": "<div class=\"hand\"><p>11.14</p><p>올해로 23년.<br>장소는 같은 곳.</p><p>명단은 적지 않는다.<br>이름을 부르는 순서대로 한 자루씩.</p><p>선생님은 이번에도 오지 않으신다고 한다.<br>그래도 자리는 하나 비워 둔다.</p><p>아이들에게는 \"먼저 떠난 분들\"이라고만.</p></div><p class=\"ft\">사진 출처: <span class=\"rd\">████</span>의 집 현관 벽</p>"}, "frag4": {"title": "팀 회선 통화 기록(발췌)", "tag": "내부 문서", "html": "<h4>팀 회선 통화 기록 — 요약 메모</h4><table><tr><th>일시</th><th>발신 → 수신</th><th>요약</th></tr><tr><td>03-14 21:40</td><td>Z.K. → 팀장</td><td>대표 건은 승인 구조부터. 얼굴은 얼굴일 뿐.</td></tr><tr><td>03-19 09:12</td><td>팀장 → Z.K.</td><td>T-11 경로 열릴 때까지 대기. 서두르지 말 것.</td></tr><tr><td>03-27 22:05</td><td>Z.K. → <span class=\"rd\">████</span></td><td>선생님 얘기는 문서에 남기지 말 것.</td></tr></table><p class=\"ft\">참고: Z.K. — 2018.11~2019.03 상회 설립 준비 모임 출석(내부 협조자로 기록).</p>"}, "frag5": {"title": "접촉 예상 시나리오", "tag": "내부 문서", "html": "<h4>T-11 접촉 예상 시나리오</h4><p>T-11 모친의 지인 D.B.(연합회 사무 담당) → 5단계 완료 직후 개인적 접촉 가능성 높음.</p><p>· 접촉 이후 T-11 보고 내용의 변화를 모니터링.<br>· 6단계 투입 시점은 초대 수락 직후.<br>· T-11이 의뢰의 성격을 의심할 경우 → 사례금 증액으로 대응.</p><p class=\"ft\">검토: Z.K. / 승인: <span class=\"rd\">████</span></p>"}};
+var ANTON_QUIZ = [{"q": "레나가 체험단에 뽑힌 진짜 이유는?", "o": ["지원서 점수가 높아서", "어머니가 상회 회원이라서", "접경지역에 살아서", "카페에서 일해서"], "a": 1}, {"q": "이스크라 테스트가 끝내 찾으려는 것은?", "o": ["상회 대표의 집", "상회의 자금 규모", "대표 뒤에서 승인하는 사람의 소재", "검색 서비스의 오류"], "a": 2}, {"q": "11월 모임은 몇 년 전의 일을 기리는 자리인가?", "o": ["3년", "10년", "23년", "45년"], "a": 2}, {"q": "팀 안에서 상회 쪽 사정을 아는 내부 인물(Z.K.)은?", "o": ["라자르 부코비치", "즐라탄 코바치", "마르코비치 이보", "두샨카 보스코"], "a": 1}];
 var antonIds = [];
-var SCRAP_LINKS = [{"id": "link1", "title": "식량이 막힌 길", "note": "바르니아 북부는 3년째 쌀 흉작인데, 오르벤은 통행 제한을 올해만 세 번 연장했다. 상회는 그 북부로 구호물자를 보냈다. 직접 보낼 수 없으니 그라노프 물류허브를 거쳤다고 보면 1차 반출 기록이 설명된다. 숨긴 이유는 불법이라서가 아니라 오르벤의 눈 때문일 수 있다.", "mail": "anton1", "need": [117, 113, 118]}, {"id": "link2", "title": "10만 명의 연락망", "note": "도렌의 바르니아 출신은 10만 명이 넘고 그중 40%가 2세다. 상회의 장학금·정착 지원·성금은 모두 회원 기부와 선배 멘토로 돌아간다. 단체라기보다 서로를 잇는 연락망에 가깝다. 이런 곳은 대표 이름만으로는 누가 실제로 움직이는지 알 수 없다.", "mail": "anton2", "need": [115, 120, 111]}, {"id": "link3", "title": "11월의 사람들", "note": "가족과 화상통화가 끊기는 나라, 잊히기 전에 남기려는 1세대의 증언, 매년 11월 중순 비공개로 모이는 사람들. 셋이 가리키는 시기는 같다. 안톤의 말대로라면 23년쯤 전 11월 바르니아에서 있었던 일과 그 뒤의 탈출이다.", "mail": "anton3", "need": [122, 123, 110]}, {"id": "link4", "title": "열린 문", "note": "오르벤-도렌 무역 실무협상이 재개된 시기에 동문수첩과 신문 아카이브가 함께 전면 공개됐다. 이스크라 테스트가 물류 → 단체 등록 → 기사 → 동문 → 아카이브 순으로 한 사람에게 좁혀 가는 구조라는 걸 생각하면, 이 타이밍이 우연 같지 않다.", "mail": "anton4", "need": [112, 124, 125]}];
-var scrapLinksDone = [];
-/* 안톤이 알려준 기사들을 모두 스크랩하면 '연결된 단서' 메모가 스크랩 창에 쌓임 */
-function checkScrapLinks(){
-  let added = false;
-  SCRAP_LINKS.forEach(L => {
-    if(scrapLinksDone.indexOf(L.id) >= 0 || antonIds.indexOf(L.mail) < 0) return;
-    if(!L.need.every(id => scrapped.indexOf(id) >= 0)) return;
-    scrapLinksDone.push(L.id); added = true;
-    showCaptureToast('단서가 연결되었습니다 — 스크랩 창에서 확인하세요', 'ok');
-  });
-  if(added){
-    renderScrapWidget(); saveProgress();
-    if(scrapLinksDone.length >= SCRAP_LINKS.length && antonIds.indexOf('anton5') >= 0) setTimeout(() => antonAdd('anton6'), 8000);
-  }
-}
-
+var fragScrapped = [];
+var quizDone = false;
 function antonAdd(id, silent){
   const m = ANTON_MAILS.find(x => x.id === id);
   if(!m || antonIds.indexOf(id) >= 0) return false;
@@ -3673,20 +3691,56 @@ function antonAdd(id, silent){
     try{ omRenderList(); if(here){ const r = document.querySelector('#omlist .omrow'); if(r) r.classList.add('fresh'); } }catch(e){}
     document.getElementById('omBadge').classList.add('show');
     try{ renderTabs(); }catch(e){}
-    if(here) { saveProgress(); antonAfter(); return true; }
+    if(here){ saveProgress(); try{ renderScrapWidget(); }catch(e){} return true; }
     document.getElementById('toastSub').textContent = '노을메일 · ' + m.sender + ' · ' + m.subject;
     document.getElementById('toast').dataset.target = 'oldmail';
     document.getElementById('toast').classList.add('show');
     setTimeout(() => { const t = document.getElementById('toast'); if(t.dataset.target === 'oldmail') t.classList.remove('show'); }, 6000);
   }
-  if(!silent){ saveProgress(); antonAfter(); }
+  if(!silent){ saveProgress(); try{ renderScrapWidget(); }catch(e){} }
   return true;
 }
 /* n차를 마치면 잠시 뒤 안톤의 n번째 메일 도착 */
-function antonAfter(){ try{ checkScrapLinks(); }catch(e){} }
 function antonSchedule(n){ setTimeout(() => antonAdd('anton' + n), 25000); }
 function antonRestore(ids, readIds){
   (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0){ m.unread = true; m._notice = true; } });
+}
+/* 자료 조각 열람/스크랩 */
+function fragOpen(id){
+  const f = ANTON_FRAGS[id]; if(!f) return;
+  const on = fragScrapped.indexOf(id) >= 0;
+  document.getElementById('fragBody').innerHTML =
+    '<div class="fraghead"><span class="fragtag">'+f.tag+'</span><b>'+f.title+'</b></div><div class="fragdoc">'+f.html+'</div>'+
+    '<div class="fragact"><button type="button" class="fragbtn'+(on?' on':'')+'" onclick="fragToggle(\''+id+'\')">'+(on?'스크랩됨 ✓':'스크랩')+'</button><button type="button" class="fragbtn ghost" onclick="fragClose()">닫기</button></div>';
+  document.getElementById('fragModal').classList.add('show');
+}
+function fragClose(){ document.getElementById('fragModal').classList.remove('show'); }
+function fragToggle(id){
+  const i = fragScrapped.indexOf(id);
+  if(i < 0){ fragScrapped.push(id); showCaptureToast('스크랩했습니다', 'ok'); } else fragScrapped.splice(i, 1);
+  renderScrapWidget(); saveProgress();
+  if(document.getElementById('fragModal').classList.contains('show')) fragOpen(id);
+}
+/* 단서 정리 퀴즈 — 조각을 모두 모으면 열림 */
+function quizReady(){ return !quizDone && antonIds.indexOf('anton5') >= 0 && Object.keys(ANTON_FRAGS).every(k => fragScrapped.indexOf(k) >= 0); }
+function quizOpen(){
+  document.getElementById('scrapPanel').classList.add('hidden');
+  document.getElementById('fragBody').innerHTML =
+    '<div class="fraghead"><span class="fragtag">정리</span><b>모은 조각으로 알 수 있는 것</b></div><form id="quizForm" onsubmit="quizSubmit(event)">'+
+    ANTON_QUIZ.map((q, qi) => '<fieldset class="quizq"><legend>'+(qi+1)+'. '+q.q+'</legend>'+q.o.map((o, oi) => '<label><input type="radio" name="q'+qi+'" value="'+oi+'"> '+o+'</label>').join('')+'</fieldset>').join('')+
+    '<p class="quizmsg" id="quizMsg"></p><div class="fragact"><button type="submit" class="fragbtn on">제출</button><button type="button" class="fragbtn ghost" onclick="fragClose()">닫기</button></div></form>';
+  document.getElementById('fragModal').classList.add('show');
+}
+function quizSubmit(e){
+  e.preventDefault();
+  const f = document.getElementById('quizForm'), msg = document.getElementById('quizMsg');
+  let ok = true, blank = false;
+  ANTON_QUIZ.forEach((q, qi) => { const c = f.querySelector('input[name="q'+qi+'"]:checked'); if(!c){ blank = true; ok = false; } else if(+c.value !== q.a) ok = false; });
+  if(blank){ msg.textContent = '모든 문항에 답해 주세요.'; return; }
+  if(!ok){ msg.textContent = '아직 맞지 않아요. 조각을 다시 읽어 보세요.'; return; }
+  quizDone = true; fragClose(); renderScrapWidget(); saveProgress();
+  showCaptureToast('정리를 마쳤습니다', 'ok');
+  setTimeout(() => antonAdd('anton6'), 6000);
 }
 const OM_NEWS_IDS = [113, 110, 115, 116];
 function omRenderNews(){
@@ -3726,6 +3780,7 @@ function omRenderMail(m){
     </div>
     ${m.translated ? '<div class="omnote">원문: 바르니아어 · 자동 번역됨</div>' : ''}
     ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
+    ${m.frag && ANTON_FRAGS[m.frag] ? `<button type="button" class="mailattach" onclick="fragOpen('${m.frag}')"><svg class="ic" viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7L14 5.5a3.5 3.5 0 0 1 5 5L10.5 19a2 2 0 0 1-3-3L15 8.5"/></svg><div><b>${ANTON_FRAGS[m.frag].title}</b><span>첨부 자료 · ${ANTON_FRAGS[m.frag].tag}</span></div></button>` : ''}
   `;
 }
 function omOpenDetail(id){
@@ -4674,7 +4729,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5,
-      bankBalance, bankTx, scrapped, scrapLinksDone, introSeen,
+      bankBalance, bankTx, scrapped, fragScrapped, quizDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -4724,7 +4779,8 @@ function loadProgress(){
   bankTx = saved.bankTx || [];
   renderBankcard();
   scrapped = saved.scrapped || [];
-  scrapLinksDone = saved.scrapLinksDone || [];
+  fragScrapped = saved.fragScrapped || [];
+  quizDone = !!saved.quizDone;
   renderScrapWidget();
   pendingCutscene = saved.pendingCutscene || {};
 
