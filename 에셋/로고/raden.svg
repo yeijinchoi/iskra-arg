@@ -1,0 +1,17 @@
+<svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" width="1024" height="1024">
+  <g id="cargo-crate">
+    <path id="crate-body" d="M106 279 512 48 919 279 919 749 512 983 106 749Z" fill="#2B3235" />
+    <g id="top-slats" fill="#3B6E71">
+      <path d="M175 288 512 94 605 146 269 341Z" />
+      <path d="M311 365 646 169 732 219 400 414Z" />
+      <path d="M440 437 770 243 849 288 522 482Z" />
+    </g>
+    <g id="left-slats" fill="#3B6E71">
+      <path d="M161 359 225 394 225 685 161 732Z" />
+      <path d="M266 416 329 450 329 831 266 795Z" />
+      <path d="M373 474 439 510 439 892 373 854Z" />
+    </g>
+    <path id="right-face" d="M512 517 919 279 919 749 512 983Z" fill="#3B6E71" />
+    <path id="forward-arrow-cutout" d="M164 784C291 644 462 573 674 557L674 469 877 605 674 756 674 664C516 655 337 720 195 803Z" fill="#FFFFFF" />
+  </g>
+</svg>
