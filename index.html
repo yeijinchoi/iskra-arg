@@ -4259,7 +4259,9 @@ function msgRenderChips(){
   } else {
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
   }
-  q.classList.toggle('busy', msgPending > 0 || msgTyping);
+  const hold = msgPending > 0 || msgTyping;
+  q.classList.toggle('busy', hold);
+  q.style.visibility = hold ? 'hidden' : '';
   q.innerHTML = chips.map(c => '<button type="button" onclick="msgChip(\''+c[0]+'\',this.textContent)">'+c[1].replace(/</g,'&lt;')+'</button>').join('');
 }
 function msgPush(role, text, silent){
@@ -4281,7 +4283,7 @@ function msgMarkRead(){
 /* 사람처럼: 글자 수에 비례해서 '입력 중…' 후 전송 */
 let msgPending = 0;
 function msgBotSay(text, delay, startDelay){
-  msgPending++; { const q0 = document.getElementById('msgQuick'); if(q0) q0.classList.add('busy'); }
+  msgPending++; msgRenderChips();
   const log = document.getElementById('msgLog');
   const plain = String(text).replace(/<[^>]+>/g,'');
   const wait = delay != null ? delay : Math.min(2600, 650 + plain.length * 22);
@@ -4384,7 +4386,7 @@ function msgSubmit(e){
 let msgTyping = false;
 function msgChip(id, label){
   if(msgTyping) return;
-  msgTyping = true;
+  msgTyping = true; msgRenderChips();
   const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next'};
   const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
   q.classList.add('busy');
