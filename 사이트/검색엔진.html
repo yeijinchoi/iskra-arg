@@ -1486,6 +1486,89 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 #panel-raden #listBody,#panel-raden #listBody.fade-refresh{animation:none!important;}
 @media (max-width:640px){#panel-raden thead th{position:static;}}
+
+/* ===================== ERP 리디자인(물류 관제 대시보드 스타일) ===================== */
+#panel-raden{background:radial-gradient(60% 40% at 90% 0%,rgba(63,127,176,.10),transparent 70%),radial-gradient(50% 40% at 0% 100%,rgba(46,166,107,.07),transparent 70%),linear-gradient(180deg,#EFF3F7,#F7F9FB);--rd-blue:#3F7FB0;--rd-green:#2EA66B;--rd-orange:#E8933A;}
+#panel-raden .wrap{max-width:1120px;}
+#panel-raden .rd-top{display:grid;grid-template-columns:auto auto 1fr auto;align-items:center;gap:20px;margin:18px 0 20px;padding:10px 18px;background:rgba(255,255,255,.78);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.9);border-radius:18px;box-shadow:0 1px 2px rgba(20,40,60,.04),0 12px 32px rgba(20,40,60,.07);}
+#panel-raden .rd-brand{display:flex;align-items:center;gap:9px;}
+#panel-raden .rd-brand .dzlogo{width:30px;height:30px;}
+#panel-raden .rd-brand .dzwm{height:19px;}
+#panel-raden .rd-brand .sub{font-size:10.5px;font-weight:700;letter-spacing:.08em;color:var(--muted);border:1px solid var(--border);border-radius:5px;padding:1px 6px;}
+#panel-raden .rd-site{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink);padding-left:20px;border-left:1px solid var(--border);white-space:nowrap;}
+#panel-raden .rd-site .dot{width:7px;height:7px;border-radius:50%;background:var(--rd-green);box-shadow:0 0 0 3px rgba(46,166,107,.18);}
+#panel-raden .rd-pills{display:flex;gap:6px;justify-content:center;}
+#panel-raden .rd-pills .navitem{padding:8px 20px;border-radius:12px;font-size:13px;color:#4A5563;background:none;border:none;font-weight:500;}
+#panel-raden .rd-pills .navitem:hover:not(.active){background:rgba(63,127,176,.08);}
+#panel-raden .rd-pills .navitem.active{background:#fff;color:var(--rd-blue);font-weight:700;box-shadow:0 1px 2px rgba(20,40,60,.06),0 4px 12px rgba(20,40,60,.08);}
+#panel-raden .rd-user{display:flex;align-items:center;gap:10px;font-size:12px;color:var(--muted);}
+#panel-raden .rd-av{width:28px;height:28px;border-radius:50%;background:#DDE8F1;color:var(--rd-blue);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:12px;}
+#panel-raden .rd-user a{cursor:pointer;}
+#panel-raden .rd-user a:hover{text-decoration:underline;}
+#panel-raden .applayout{display:block;min-height:0;}
+#panel-raden .rd-main{padding:0 0 60px;}
+#panel-raden .rd-kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:16px;}
+#panel-raden .rd-kpi{background:rgba(255,255,255,.82);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:16px 20px 14px;box-shadow:0 1px 2px rgba(20,40,60,.04),0 10px 28px rgba(20,40,60,.06);}
+#panel-raden .k-l{font-size:12px;color:var(--muted);margin-bottom:6px;}
+#panel-raden .k-row{display:flex;align-items:flex-end;justify-content:space-between;gap:10px;}
+#panel-raden .k-n b{font-size:30px;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums;}
+#panel-raden .k-n span{font-size:13px;margin-left:4px;color:var(--ink);}
+#panel-raden .k-bars{width:96px;height:36px;fill:var(--rd-green);}
+#panel-raden .k-bars.o{fill:var(--rd-orange);}
+#panel-raden .k-bars.b{fill:var(--rd-blue);}
+#panel-raden .k-d{font-size:11.5px;margin-top:6px;color:var(--muted);}
+#panel-raden .k-d.up{color:var(--rd-green);}
+#panel-raden .k-d.down{color:#D4553F;}
+#panel-raden .k-d.warn{color:var(--rd-orange);}
+#panel-raden .rd-grid{display:grid;grid-template-columns:repeat(12,1fr);gap:16px;}
+#panel-raden .rd-card{background:rgba(255,255,255,.84);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.9);border-radius:18px;padding:18px 20px;box-shadow:0 1px 2px rgba(20,40,60,.04),0 10px 28px rgba(20,40,60,.06);min-width:0;}
+#panel-raden .rd-notice{grid-column:span 5;grid-row:span 1;}
+#panel-raden .rd-chart{grid-column:span 7;}
+#panel-raden .rd-share{grid-column:span 5;}
+#panel-raden .rd-recent{grid-column:span 7;}
+#panel-raden .rc-head{display:flex;align-items:baseline;justify-content:space-between;margin-bottom:12px;}
+#panel-raden .rc-head h2{font-size:14px;font-weight:700;margin:0;}
+#panel-raden .rc-sub{font-size:11px;color:var(--muted);}
+#panel-raden .rd-notice ul{list-style:none;margin:0;padding:0;}
+#panel-raden .rd-notice li{display:grid;grid-template-columns:34px auto 1fr;gap:8px;align-items:start;padding:9px 0;border-top:1px solid #EAEFF4;font-size:12px;line-height:1.5;}
+#panel-raden .rd-notice li:first-child{border-top:none;}
+#panel-raden .rd-notice .d{color:var(--muted);font-variant-numeric:tabular-nums;}
+#panel-raden .rd-notice .tg{font-size:10px;font-weight:700;color:var(--rd-blue);background:#E7F0F8;border-radius:5px;padding:1px 6px;}
+#panel-raden .rd-notice p{margin:0;}
+#panel-raden .rc-stats{display:flex;gap:28px;margin-bottom:6px;}
+#panel-raden .rc-stats span{display:block;font-size:11px;color:var(--muted);}
+#panel-raden .rc-stats b{font-size:16px;font-weight:700;font-variant-numeric:tabular-nums;}
+#panel-raden #monthChart{width:100%;height:190px;display:block;}
+#panel-raden .sh-row{margin-bottom:14px;}
+#panel-raden .sh-top{display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;color:var(--muted);}
+#panel-raden .sh-top b{color:var(--ink);font-weight:700;}
+#panel-raden .sh-bar{height:9px;background:#E8EEF3;border-radius:999px;overflow:hidden;}
+#panel-raden .sh-bar i{display:block;height:100%;border-radius:999px;}
+#panel-raden .rc-row{display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;padding:9px 0;border-top:1px solid #EAEFF4;font-size:12.5px;}
+#panel-raden .rc-row:first-child{border-top:none;}
+#panel-raden .rc-d{color:var(--muted);font-variant-numeric:tabular-nums;font-size:11.5px;}
+#panel-raden .rc-i b{display:block;font-weight:700;}
+#panel-raden .rc-i em{display:block;font-style:normal;font-size:11px;color:var(--muted);}
+#panel-raden .rc-q{font-weight:700;font-variant-numeric:tabular-nums;}
+/* 반출목록 페이지 다듬기 */
+#panel-raden .pagetitle{font-size:16px;}
+#panel-raden .routemap,#panel-raden .tablewrap{border-radius:18px;border:1px solid rgba(255,255,255,.9);background:rgba(255,255,255,.84);box-shadow:0 1px 2px rgba(20,40,60,.04),0 10px 28px rgba(20,40,60,.06);}
+#panel-raden .listcontrols input{border-radius:12px;background:rgba(255,255,255,.9);}
+#panel-raden .rdcats button.active{background:var(--rd-blue);border-color:var(--rd-blue);}
+#panel-raden .rdpage button.active{background:var(--rd-blue);border-color:var(--rd-blue);}
+@media (max-width:860px){
+  #panel-raden .rd-top{grid-template-columns:1fr auto;gap:10px 14px;}
+  #panel-raden .rd-site{display:none;}
+  #panel-raden .rd-pills{grid-column:1 / 3;grid-row:2;justify-content:flex-start;}
+  #panel-raden .rd-kpis{grid-template-columns:1fr;}
+  #panel-raden .rd-notice,#panel-raden .rd-chart,#panel-raden .rd-share,#panel-raden .rd-recent{grid-column:span 12;}
+}
+@media (max-width:640px){
+  #panel-raden .rd-user span.mono{display:none;}
+  #panel-raden .rd-top{padding:10px 14px;margin:12px 0 14px;}
+}
+
+#panel-raden .rd-pills .navitem{flex:0 0 auto;width:auto;}
 </style>
 
 <div class="chrome">
@@ -1730,32 +1813,64 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   </div>
 
   <div class="hidden" id="appView">
-    <div class="topbar">
-      <div class="sysname"><img class="dzlogo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJjYXJnby1jcmF0ZSI+CiAgICA8cGF0aCBpZD0iY3JhdGUtYm9keSIgZD0iTTEwNiAyNzkgNTEyIDQ4IDkxOSAyNzkgOTE5IDc0OSA1MTIgOTgzIDEwNiA3NDlaIiBmaWxsPSIjMkIzMjM1IiAvPgogICAgPGcgaWQ9InRvcC1zbGF0cyIgZmlsbD0iIzNCNkU3MSI+CiAgICAgIDxwYXRoIGQ9Ik0xNzUgMjg4IDUxMiA5NCA2MDUgMTQ2IDI2OSAzNDFaIiAvPgogICAgICA8cGF0aCBkPSJNMzExIDM2NSA2NDYgMTY5IDczMiAyMTkgNDAwIDQxNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NDAgNDM3IDc3MCAyNDMgODQ5IDI4OCA1MjIgNDgyWiIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJsZWZ0LXNsYXRzIiBmaWxsPSIjM0I2RTcxIj4KICAgICAgPHBhdGggZD0iTTE2MSAzNTkgMjI1IDM5NCAyMjUgNjg1IDE2MSA3MzJaIiAvPgogICAgICA8cGF0aCBkPSJNMjY2IDQxNiAzMjkgNDUwIDMyOSA4MzEgMjY2IDc5NVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zNzMgNDc0IDQzOSA1MTAgNDM5IDg5MiAzNzMgODU0WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJyaWdodC1mYWNlIiBkPSJNNTEyIDUxNyA5MTkgMjc5IDkxOSA3NDkgNTEyIDk4M1oiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8cGF0aCBpZD0iZm9yd2FyZC1hcnJvdy1jdXRvdXQiIGQ9Ik0xNjQgNzg0QzI5MSA2NDQgNDYyIDU3MyA2NzQgNTU3TDY3NCA0NjkgODc3IDYwNSA2NzQgNzU2IDY3NCA2NjRDNTE2IDY1NSAzMzcgNzIwIDE5NSA4MDNaIiBmaWxsPSIjRkZGRkZGIiAvPgogIDwvZz4KPC9zdmc+" alt="라덴통상"><img class="dzwm" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIyNyAyMDQgMTMwNiAzNTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEzMDYiIGhlaWdodD0iMzU4Ij4KICA8ZyBpZD0id29yZG1hcmsiIGZpbGw9IiMyQjMyMzUiPgogICAgPGcgaWQ9InJhIj4KICAgICAgPHBhdGggZD0iTTQ5IDIyNkgxOTZDMjIwIDIyNiAyMzMgMjM5IDIzMyAyNjJWMzY4QzIzMyAzODMgMjI0IDM5MiAyMDkgMzkySDEyM0MxMTkgMzkyIDExNSAzOTYgMTE1IDQwMVY0MzhDMTE1IDQ1MCAxMjMgNDU2IDEzNyA0NTZDMTc3IDQ1NyAyMTkgNDUxIDI1OCA0NDBWNDk3QzIwOCA1MTIgMTYxIDUxOSAxMTEgNTE5QzY4IDUxOSA0NiA0OTkgNDYgNDYxVjM2MEM0NiAzNDMgNTYgMzMzIDczIDMzM0gxNjRWMjkxQzE2NCAyODYgMTYxIDI4MyAxNTUgMjgzSDQ5QzQ3IDI4MyA0NiAyODIgNDYgMjgwVjIzMEM0NiAyMjcgNDcgMjI2IDQ5IDIyNloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yNTggMjIzSDMyNVYzMzNIMzU4QzM1OSAzMzMgMzYwIDMzNCAzNjAgMzM2VjM5MUMzNjAgMzkzIDM1OSAzOTQgMzU3IDM5NEgzMjVWNTI1QzMyNSA1MjcgMzI0IDUyNyAzMjIgNTI3SDI1OFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NiA0NDBIMTE1QzExNSA0NTEgMTIzIDQ1NiAxMzcgNDU2QzE3NyA0NTcgMjE5IDQ1MSAyNTggNDQwVjQ5N0MyMDggNTEyIDE2MSA1MTkgMTExIDUxOUM2OCA1MTkgNDYgNDk5IDQ2IDQ2MVoiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0iZGVuIj4KICAgICAgPHBhdGggZD0iTTM4MiAyMjVINTExQzUxMyAyMjUgNTE0IDIyNiA1MTQgMjI5VjI3MUM1MTQgMjczIDUxMyAyNzQgNTEwIDI3NEg0MzhWMzQwQzQzOCAzNDYgNDQwIDM0OSA0NDYgMzQ5SDUxNFYzODlDNTE0IDM5MyA1MTIgMzk1IDUwNyAzOTZDNDgwIDQwMSA0NDUgNDAxIDQwNCA0MDFDMzg1IDQwMSAzNzYgMzkzIDM3NiAzNzVWMjMxQzM3NiAyMjcgMzc4IDIyNSAzODIgMjI1WiIgLz4KICAgICAgPHBhdGggZD0iTTUzOSAyMjNINTkyVjQyOEM1OTIgNDMxIDU5MSA0MzIgNTg4IDQzMkg1MzlDNTM3IDQzMiA1MzYgNDMxIDUzNiA0MjlWMzM2SDQ5M0M0OTEgMzM2IDQ5MCAzMzUgNDkwIDMzM1YyODlDNDkwIDI4NyA0OTEgMjg2IDQ5MyAyODZINTM2VjIyNkM1MzYgMjI0IDUzNyAyMjMgNTM5IDIyM1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MTAgMjIzSDY2MUM2NjMgMjIzIDY2NCAyMjQgNjY0IDIyN1YzOTVMNjA4IDQyM1YyMjZDNjA4IDIyNCA2MDkgMjIzIDYxMCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMzg1IDQxOEg0NTJWNDY2QzQ1MiA0NzAgNDUzIDQ3MiA0NTggNDcySDY0OFY1MjRDNjQ4IDUyNiA2NDcgNTI3IDY0NSA1MjdINDAyQzM5MSA1MjcgMzg0IDUyMSAzODQgNTEwVjQyMUMzODQgNDE5IDM4NCA0MTggMzg1IDQxOFoiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0idG9uZyI+CiAgICAgIDxwYXRoIGQ9Ik03MDYgMjI0SDk3MkM5NzQgMjI0IDk3NiAyMjYgOTc2IDIyOVYyNTlDOTc2IDI2MSA5NzUgMjYyIDk3MiAyNjJINzY5VjI3Mkg5NzFDOTc0IDI3MiA5NzYgMjczIDk3NiAyNzZWMzA2Qzk3NiAzMDggOTc1IDMwOSA5NzIgMzA5SDc2OVYzMTRDNzY5IDMxNyA3NzAgMzE5IDc3NCAzMTlIOTcyQzk3NSAzMTkgOTc2IDMyMSA5NzYgMzI0VjM1MkM5NzYgMzU1IDk3NCAzNTcgOTcxIDM1NkM5NDAgMzUxIDkxNyAzNDkgODk0IDM0OUg4NzRWMzY1SDk4MlY0MDJINzA1VjM2NUg4MDVWMzU3SDcyNkM3MDkgMzU3IDcwMCAzNTAgNzAwIDMzM1YyMzBDNzAwIDIyNyA3MDIgMjI1IDcwNiAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNODQ0IDQxM0M5MjUgNDEzIDk3NyA0MzYgOTc3IDQ3OUM5NzcgNTIxIDkyNyA1NDMgODQ1IDU0M0M3NjAgNTQzIDcxMSA1MjIgNzExIDQ3OUM3MTEgNDM4IDc2MiA0MTMgODQ0IDQxM1pNODQ0IDQ1OEM4MDUgNDU4IDc4MSA0NjUgNzgxIDQ3OUM3ODEgNDkyIDgwNSA0OTggODQ0IDQ5OEM4ODMgNDk4IDkwNiA0OTEgOTA2IDQ3OUM5MDYgNDY1IDg4MyA0NTggODQ0IDQ1OFoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJzYW5nIj4KICAgICAgPHBhdGggZD0iTTEwODUgMjI0SDExNDZMMTEzNyAyNzBDMTE1NSAzMDIgMTE3OCAzMjkgMTIwNyAzNTBDMTE5OCAzNjcgMTE4MyAzNzkgMTE2MiAzODVDMTE0MyAzNjkgMTEyNSAzNTAgMTExMCAzMjlDMTA5NSAzNTMgMTA3NCAzNzUgMTA1MCAzOTRMMTAwMiAzOTNWMzcwQzEwMDIgMzY4IDEwMDEgMzY2IDk5OSAzNjVDMTA0NiAzMzEgMTA3MiAyOTEgMTA4MCAyMjlDMTA4MCAyMjYgMTA4MiAyMjQgMTA4NSAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNMTIxOCAyMjNIMTI4MFYyNzJIMTMxNFYzMjhIMTI4MFYzOTRIMTIxNlYyMjZDMTIxNiAyMjQgMTIxNyAyMjMgMTIxOCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMTE1MCAzOTZDMTIzMyAzOTYgMTI4NCA0MjIgMTI4NCA0NjlDMTI4NCA1MTYgMTIzNiA1NDMgMTE1MCA1NDNDMTA2NiA1NDMgMTAxNiA1MTcgMTAxNiA0NjlDMTAxNiA0MjMgMTA2NyAzOTYgMTE1MCAzOTZaTTExNTAgNDQ0QzExMTEgNDQ0IDEwODYgNDUzIDEwODYgNDY5QzEwODYgNDg1IDExMTEgNDkzIDExNTAgNDkzQzExOTAgNDkzIDEyMTQgNDg1IDEyMTQgNDY5QzEyMTQgNDUzIDExOTAgNDQ0IDExNTAgNDQ0WiIgZmlsbC1ydWxlPSJldmVub2RkIiAvPgogICAgPC9nPgogICAgPHBhdGggaWQ9ImludGVncmF0ZWQtdGVhbC1hY2NlbnQiIGQ9Ik01NTYgNDcyQzY1MCAzOTMgNzY0IDM1NSA4ODIgMzU0QzkxNyAzNTQgOTUwIDM1NyA5ODIgMzY0Qzg1NiAzNzUgNzQyIDQxMyA2NDggNDcyWiIgZmlsbD0iIzNCNkU3MSIgLz4KICA8L2c+Cjwvc3ZnPg==" alt="라덴통상"><span class="sub">ERP</span></div>
-      <div class="whoami">접속: <span class="mono">audit_temp7</span> (테스트 계정)<a onclick="doLogout()">로그아웃</a></div>
-    </div>
+    <header class="rd-top">
+      <div class="rd-brand"><img class="dzlogo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJjYXJnby1jcmF0ZSI+CiAgICA8cGF0aCBpZD0iY3JhdGUtYm9keSIgZD0iTTEwNiAyNzkgNTEyIDQ4IDkxOSAyNzkgOTE5IDc0OSA1MTIgOTgzIDEwNiA3NDlaIiBmaWxsPSIjMkIzMjM1IiAvPgogICAgPGcgaWQ9InRvcC1zbGF0cyIgZmlsbD0iIzNCNkU3MSI+CiAgICAgIDxwYXRoIGQ9Ik0xNzUgMjg4IDUxMiA5NCA2MDUgMTQ2IDI2OSAzNDFaIiAvPgogICAgICA8cGF0aCBkPSJNMzExIDM2NSA2NDYgMTY5IDczMiAyMTkgNDAwIDQxNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NDAgNDM3IDc3MCAyNDMgODQ5IDI4OCA1MjIgNDgyWiIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJsZWZ0LXNsYXRzIiBmaWxsPSIjM0I2RTcxIj4KICAgICAgPHBhdGggZD0iTTE2MSAzNTkgMjI1IDM5NCAyMjUgNjg1IDE2MSA3MzJaIiAvPgogICAgICA8cGF0aCBkPSJNMjY2IDQxNiAzMjkgNDUwIDMyOSA4MzEgMjY2IDc5NVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zNzMgNDc0IDQzOSA1MTAgNDM5IDg5MiAzNzMgODU0WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJyaWdodC1mYWNlIiBkPSJNNTEyIDUxNyA5MTkgMjc5IDkxOSA3NDkgNTEyIDk4M1oiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8cGF0aCBpZD0iZm9yd2FyZC1hcnJvdy1jdXRvdXQiIGQ9Ik0xNjQgNzg0QzI5MSA2NDQgNDYyIDU3MyA2NzQgNTU3TDY3NCA0NjkgODc3IDYwNSA2NzQgNzU2IDY3NCA2NjRDNTE2IDY1NSAzMzcgNzIwIDE5NSA4MDNaIiBmaWxsPSIjRkZGRkZGIiAvPgogIDwvZz4KPC9zdmc+" alt="라덴통상"><img class="dzwm" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIyNyAyMDQgMTMwNiAzNTgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEzMDYiIGhlaWdodD0iMzU4Ij4KICA8ZyBpZD0id29yZG1hcmsiIGZpbGw9IiMyQjMyMzUiPgogICAgPGcgaWQ9InJhIj4KICAgICAgPHBhdGggZD0iTTQ5IDIyNkgxOTZDMjIwIDIyNiAyMzMgMjM5IDIzMyAyNjJWMzY4QzIzMyAzODMgMjI0IDM5MiAyMDkgMzkySDEyM0MxMTkgMzkyIDExNSAzOTYgMTE1IDQwMVY0MzhDMTE1IDQ1MCAxMjMgNDU2IDEzNyA0NTZDMTc3IDQ1NyAyMTkgNDUxIDI1OCA0NDBWNDk3QzIwOCA1MTIgMTYxIDUxOSAxMTEgNTE5QzY4IDUxOSA0NiA0OTkgNDYgNDYxVjM2MEM0NiAzNDMgNTYgMzMzIDczIDMzM0gxNjRWMjkxQzE2NCAyODYgMTYxIDI4MyAxNTUgMjgzSDQ5QzQ3IDI4MyA0NiAyODIgNDYgMjgwVjIzMEM0NiAyMjcgNDcgMjI2IDQ5IDIyNloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yNTggMjIzSDMyNVYzMzNIMzU4QzM1OSAzMzMgMzYwIDMzNCAzNjAgMzM2VjM5MUMzNjAgMzkzIDM1OSAzOTQgMzU3IDM5NEgzMjVWNTI1QzMyNSA1MjcgMzI0IDUyNyAzMjIgNTI3SDI1OFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NiA0NDBIMTE1QzExNSA0NTEgMTIzIDQ1NiAxMzcgNDU2QzE3NyA0NTcgMjE5IDQ1MSAyNTggNDQwVjQ5N0MyMDggNTEyIDE2MSA1MTkgMTExIDUxOUM2OCA1MTkgNDYgNDk5IDQ2IDQ2MVoiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0iZGVuIj4KICAgICAgPHBhdGggZD0iTTM4MiAyMjVINTExQzUxMyAyMjUgNTE0IDIyNiA1MTQgMjI5VjI3MUM1MTQgMjczIDUxMyAyNzQgNTEwIDI3NEg0MzhWMzQwQzQzOCAzNDYgNDQwIDM0OSA0NDYgMzQ5SDUxNFYzODlDNTE0IDM5MyA1MTIgMzk1IDUwNyAzOTZDNDgwIDQwMSA0NDUgNDAxIDQwNCA0MDFDMzg1IDQwMSAzNzYgMzkzIDM3NiAzNzVWMjMxQzM3NiAyMjcgMzc4IDIyNSAzODIgMjI1WiIgLz4KICAgICAgPHBhdGggZD0iTTUzOSAyMjNINTkyVjQyOEM1OTIgNDMxIDU5MSA0MzIgNTg4IDQzMkg1MzlDNTM3IDQzMiA1MzYgNDMxIDUzNiA0MjlWMzM2SDQ5M0M0OTEgMzM2IDQ5MCAzMzUgNDkwIDMzM1YyODlDNDkwIDI4NyA0OTEgMjg2IDQ5MyAyODZINTM2VjIyNkM1MzYgMjI0IDUzNyAyMjMgNTM5IDIyM1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MTAgMjIzSDY2MUM2NjMgMjIzIDY2NCAyMjQgNjY0IDIyN1YzOTVMNjA4IDQyM1YyMjZDNjA4IDIyNCA2MDkgMjIzIDYxMCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMzg1IDQxOEg0NTJWNDY2QzQ1MiA0NzAgNDUzIDQ3MiA0NTggNDcySDY0OFY1MjRDNjQ4IDUyNiA2NDcgNTI3IDY0NSA1MjdINDAyQzM5MSA1MjcgMzg0IDUyMSAzODQgNTEwVjQyMUMzODQgNDE5IDM4NCA0MTggMzg1IDQxOFoiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0idG9uZyI+CiAgICAgIDxwYXRoIGQ9Ik03MDYgMjI0SDk3MkM5NzQgMjI0IDk3NiAyMjYgOTc2IDIyOVYyNTlDOTc2IDI2MSA5NzUgMjYyIDk3MiAyNjJINzY5VjI3Mkg5NzFDOTc0IDI3MiA5NzYgMjczIDk3NiAyNzZWMzA2Qzk3NiAzMDggOTc1IDMwOSA5NzIgMzA5SDc2OVYzMTRDNzY5IDMxNyA3NzAgMzE5IDc3NCAzMTlIOTcyQzk3NSAzMTkgOTc2IDMyMSA5NzYgMzI0VjM1MkM5NzYgMzU1IDk3NCAzNTcgOTcxIDM1NkM5NDAgMzUxIDkxNyAzNDkgODk0IDM0OUg4NzRWMzY1SDk4MlY0MDJINzA1VjM2NUg4MDVWMzU3SDcyNkM3MDkgMzU3IDcwMCAzNTAgNzAwIDMzM1YyMzBDNzAwIDIyNyA3MDIgMjI1IDcwNiAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNODQ0IDQxM0M5MjUgNDEzIDk3NyA0MzYgOTc3IDQ3OUM5NzcgNTIxIDkyNyA1NDMgODQ1IDU0M0M3NjAgNTQzIDcxMSA1MjIgNzExIDQ3OUM3MTEgNDM4IDc2MiA0MTMgODQ0IDQxM1pNODQ0IDQ1OEM4MDUgNDU4IDc4MSA0NjUgNzgxIDQ3OUM3ODEgNDkyIDgwNSA0OTggODQ0IDQ5OEM4ODMgNDk4IDkwNiA0OTEgOTA2IDQ3OUM5MDYgNDY1IDg4MyA0NTggODQ0IDQ1OFoiIGZpbGwtcnVsZT0iZXZlbm9kZCIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJzYW5nIj4KICAgICAgPHBhdGggZD0iTTEwODUgMjI0SDExNDZMMTEzNyAyNzBDMTE1NSAzMDIgMTE3OCAzMjkgMTIwNyAzNTBDMTE5OCAzNjcgMTE4MyAzNzkgMTE2MiAzODVDMTE0MyAzNjkgMTEyNSAzNTAgMTExMCAzMjlDMTA5NSAzNTMgMTA3NCAzNzUgMTA1MCAzOTRMMTAwMiAzOTNWMzcwQzEwMDIgMzY4IDEwMDEgMzY2IDk5OSAzNjVDMTA0NiAzMzEgMTA3MiAyOTEgMTA4MCAyMjlDMTA4MCAyMjYgMTA4MiAyMjQgMTA4NSAyMjRaIiAvPgogICAgICA8cGF0aCBkPSJNMTIxOCAyMjNIMTI4MFYyNzJIMTMxNFYzMjhIMTI4MFYzOTRIMTIxNlYyMjZDMTIxNiAyMjQgMTIxNyAyMjMgMTIxOCAyMjNaIiAvPgogICAgICA8cGF0aCBkPSJNMTE1MCAzOTZDMTIzMyAzOTYgMTI4NCA0MjIgMTI4NCA0NjlDMTI4NCA1MTYgMTIzNiA1NDMgMTE1MCA1NDNDMTA2NiA1NDMgMTAxNiA1MTcgMTAxNiA0NjlDMTAxNiA0MjMgMTA2NyAzOTYgMTE1MCAzOTZaTTExNTAgNDQ0QzExMTEgNDQ0IDEwODYgNDUzIDEwODYgNDY5QzEwODYgNDg1IDExMTEgNDkzIDExNTAgNDkzQzExOTAgNDkzIDEyMTQgNDg1IDEyMTQgNDY5QzEyMTQgNDUzIDExOTAgNDQ0IDExNTAgNDQ0WiIgZmlsbC1ydWxlPSJldmVub2RkIiAvPgogICAgPC9nPgogICAgPHBhdGggaWQ9ImludGVncmF0ZWQtdGVhbC1hY2NlbnQiIGQ9Ik01NTYgNDcyQzY1MCAzOTMgNzY0IDM1NSA4ODIgMzU0QzkxNyAzNTQgOTUwIDM1NyA5ODIgMzY0Qzg1NiAzNzUgNzQyIDQxMyA2NDggNDcyWiIgZmlsbD0iIzNCNkU3MSIgLz4KICA8L2c+Cjwvc3ZnPg==" alt="라덴통상"><span class="sub">ERP</span></div>
+      <div class="rd-site"><span class="dot"></span>도렌 본사 물류센터</div>
+      <nav class="rd-pills" id="sidenav">
+        <button class="navitem active" data-page="dash">대시보드</button>
+        <button class="navitem" data-page="list">반출목록</button>
+      </nav>
+      <div class="rd-user"><span class="rd-av">A</span><span class="mono">audit_temp7</span><a onclick="doLogout()">로그아웃</a></div>
+    </header>
     <div class="applayout">
-      <div class="sidenav" id="sidenav">
-        <button class="navitem active" data-page="dash"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="1"/><rect x="13" y="3" width="8" height="8" rx="1"/><rect x="3" y="13" width="8" height="8" rx="1"/><rect x="13" y="13" width="8" height="8" rx="1"/></svg>대시보드</button>
-        <button class="navitem" data-page="list"><svg class="ic" viewBox="0 0 24 24"><path d="M7 17 17 7"/><path d="M9 7h8v8"/></svg>반출목록</button>
-      </div>
+      
       <div class="rd-main">
         <div id="dashPage">
-          <h1 class="pagetitle">대시보드</h1>
-          <div class="kpis">
-            <div class="kpi"><div class="n" id="kpiCount">-</div><div class="l">최근 1년 반출 건수</div></div>
-            <div class="kpi"><div class="n">1</div><div class="l">승인 대기</div></div>
-            <div class="kpi"><div class="n">9</div><div class="l">거래처 수</div></div>
+          <div class="rd-kpis">
+            <div class="rd-kpi">
+              <div class="k-l">최근 1년 반출 건수</div>
+              <div class="k-row"><div class="k-n"><b id="kpiCount">-</b><span>건</span></div><svg class="k-bars" id="kb1" viewBox="0 0 100 36"></svg></div>
+              <div class="k-d up" id="kd1"></div>
+            </div>
+            <div class="rd-kpi">
+              <div class="k-l">승인 대기</div>
+              <div class="k-row"><div class="k-n"><b>1</b><span>건</span></div><svg class="k-bars o" id="kb2" viewBox="0 0 100 36"></svg></div>
+              <div class="k-d warn">처리 기한 임박 0건</div>
+            </div>
+            <div class="rd-kpi">
+              <div class="k-l">거래처 수</div>
+              <div class="k-row"><div class="k-n"><b>9</b><span>곳</span></div><svg class="k-bars b" id="kb3" viewBox="0 0 100 36"></svg></div>
+              <div class="k-d">이번 달 신규 0곳</div>
+            </div>
           </div>
-          <div class="rd-notice">
-            <div class="rn-head">사내 공지</div>
-            <ul>
-              <li><span class="d">11.12</span><span class="tg">시황</span>그라노프 밀 대풍작 지속, 곡물 매입가 하락 전망 — 영업 1·2팀 단가 재협상 일정 공유</li>
-              <li><span class="d">11.08</span><span class="tg">통관</span>접경 구간 화물 검수 강화에 따른 통관 서류 요건 변경 안내 (서류 누락 시 반송)</li>
-              <li><span class="d">11.01</span><span class="tg">계정</span>외부 연동 테스트용 감사 계정은 11월 30일 자동 만료 예정</li>
-              <li><span class="d">10.25</span><span class="tg">안전</span>물류창고 정기 안전교육 실시 (전 직원 필수)</li>
-              <li><span class="d">10.20</span><span class="tg">시스템</span>ERP 정기 점검 — 매주 일요일 02:00~04:00</li>
-            </ul>
+          <div class="rd-grid">
+            <section class="rd-card rd-notice">
+              <div class="rc-head"><h2>사내 공지</h2></div>
+              <ul>
+                <li><span class="d">11.12</span><span class="tg">시황</span><p>그라노프 밀 대풍작 지속, 곡물 매입가 하락 전망 — 영업 1·2팀 단가 재협상 일정 공유</p></li>
+                <li><span class="d">11.08</span><span class="tg">통관</span><p>접경 구간 화물 검수 강화에 따른 통관 서류 요건 변경 안내 (서류 누락 시 반송)</p></li>
+                <li><span class="d">11.01</span><span class="tg">계정</span><p>외부 연동 테스트용 감사 계정은 11월 30일 자동 만료 예정</p></li>
+                <li><span class="d">10.25</span><span class="tg">안전</span><p>물류창고 정기 안전교육 실시 (전 직원 필수)</p></li>
+                <li><span class="d">10.20</span><span class="tg">시스템</span><p>ERP 정기 점검 — 매주 일요일 02:00~04:00</p></li>
+              </ul>
+            </section>
+            <section class="rd-card rd-chart">
+              <div class="rc-head"><h2>월별 반출 건수</h2><span class="rc-sub">최근 12개월</span></div>
+              <div class="rc-stats">
+                <div><span>월평균</span><b id="cAvg">-</b></div>
+                <div><span>최대</span><b id="cMax">-</b></div>
+                <div><span>최근 월</span><b id="cLast">-</b></div>
+              </div>
+              <svg id="monthChart" viewBox="0 0 560 190" preserveAspectRatio="none"></svg>
+            </section>
+            <section class="rd-card rd-share">
+              <div class="rc-head"><h2>분류별 반출 비중</h2><span class="rc-sub">최근 1년</span></div>
+              <div id="shareBars"></div>
+            </section>
+            <section class="rd-card rd-recent">
+              <div class="rc-head"><h2>최근 반출</h2><span class="rc-sub">최신 6건</span></div>
+              <div id="recentList"></div>
+            </section>
           </div>
         </div>
         <div id="listPage" class="hidden">
@@ -1779,7 +1894,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
                 <line x1="798" y1="48" x2="798" y2="94" class="rm-edgemark-tick"/>
                 <path d="M798,71 L791,66 L791,76 Z" class="rm-edgemark-arrow"/>
                 <text class="rm-label rm-label-sm rm-label-offscreen" x="787" y="68" text-anchor="end">오르벤 →</text>
-                <text class="rm-edgemark-cap" x="787" y="80" text-anchor="end">해외·식민지배국 (지도 밖)</text>
+                <text class="rm-edgemark-cap" x="787" y="80" text-anchor="end">해외 (지도 밖)</text>
               </g>
 
               <g>
@@ -3626,6 +3741,48 @@ let lastFilteredRecords = [];
 const RD_PAGE_SIZE = 15;
 let rdPage = 1;
 
+
+function renderDash(){
+  if(typeof RECORDS === 'undefined' || !document.getElementById('monthChart')) return;
+  const mc = {}, supp = {};
+  RECORDS.forEach(r => { const k = r.date.slice(0,7); mc[k] = (mc[k]||0)+1; (supp[k] = supp[k] || new Set()).add(r.from); });
+  const keys = Object.keys(mc).sort().slice(-12);
+  const vals = keys.map(k => mc[k]);
+  const bars = (id, arr) => {
+    const mx = Math.max(1, ...arr), w = 100/arr.length;
+    document.getElementById(id).innerHTML = arr.map((v,i) => { const h = 4 + (v/mx)*30; const x = i*w + w*0.28; return '<rect x="'+x.toFixed(1)+'" y="'+(36-h).toFixed(1)+'" width="'+(w*0.44).toFixed(1)+'" height="'+h.toFixed(1)+'" rx="1" opacity="'+(0.35+0.65*(i+1)/arr.length).toFixed(2)+'"/>'; }).join('');
+  };
+  bars('kb1', vals);
+  bars('kb2', [0,1,0,1,2,1,0,1,1,0,1,1]);
+  bars('kb3', keys.map(k => supp[k].size));
+  const a = vals[vals.length-2] || 1, b = vals[vals.length-1] || 0, d = Math.round((b-a)/a*100);
+  const kd = document.getElementById('kd1');
+  if(kd){ kd.textContent = '전월 대비 ' + (d>=0?'+':'') + d + '%'; kd.className = 'k-d ' + (d>=0?'up':'down'); }
+  const avg = vals.reduce((x,y)=>x+y,0)/vals.length;
+  document.getElementById('cAvg').textContent = avg.toFixed(1) + '건';
+  document.getElementById('cMax').textContent = Math.max(...vals) + '건';
+  document.getElementById('cLast').textContent = vals[vals.length-1] + '건';
+  const W = 560, H = 190, pl = 26, pr = 8, pt = 14, pb = 24, mx = Math.max(...vals) + 1;
+  const px = i => pl + (W-pl-pr) * i / (vals.length-1), py = v => pt + (H-pt-pb) * (1 - v/mx);
+  const pts = vals.map((v,i) => px(i).toFixed(1)+','+py(v).toFixed(1));
+  let g = '';
+  for(let t=0;t<=4;t++){ const v = mx*t/4, y = py(v); g += '<line x1="'+pl+'" x2="'+(W-pr)+'" y1="'+y.toFixed(1)+'" y2="'+y.toFixed(1)+'" stroke="#E3E9EF" stroke-width="1"/><text x="2" y="'+(y+3).toFixed(1)+'" font-size="9" fill="#8A94A3">'+Math.round(v)+'</text>'; }
+  g += keys.map((k,i) => '<text x="'+px(i).toFixed(1)+'" y="'+(H-6)+'" font-size="9" text-anchor="middle" fill="#8A94A3">'+k.slice(5)+'월</text>').join('');
+  const mi = vals.indexOf(Math.max(...vals));
+  document.getElementById('monthChart').innerHTML =
+    '<defs><linearGradient id="rdg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3F7FB0" stop-opacity=".35"/><stop offset="1" stop-color="#3F7FB0" stop-opacity="0"/></linearGradient></defs>' + g +
+    '<path d="M'+pts.join(' L')+' L'+px(vals.length-1).toFixed(1)+','+(H-pb)+' L'+px(0).toFixed(1)+','+(H-pb)+' Z" fill="url(#rdg)"/>' +
+    '<polyline points="'+pts.join(' ')+'" fill="none" stroke="#3F7FB0" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"/>' +
+    '<circle cx="'+px(mi).toFixed(1)+'" cy="'+py(vals[mi]).toFixed(1)+'" r="4" fill="#fff" stroke="#3F7FB0" stroke-width="2"/>';
+  const cats = {}; RECORDS.forEach(r => cats[r.cat] = (cats[r.cat]||0)+1);
+  const tot = RECORDS.length, cc = {'농산물':'#2EA66B','식품':'#E8933A','공산품':'#4C7DE0'};
+  document.getElementById('shareBars').innerHTML = Object.keys(cats).sort((x,y)=>cats[y]-cats[x]).map(c => {
+    const p = Math.round(cats[c]/tot*100);
+    return '<div class="sh-row"><div class="sh-top"><span>'+c+'</span><span><b>'+cats[c]+'건</b> · '+p+'%</span></div><div class="sh-bar"><i style="width:'+p+'%;background:'+(cc[c]||'#3F7FB0')+'"></i></div></div>';
+  }).join('');
+  document.getElementById('recentList').innerHTML = RECORDS.slice(-6).reverse().map(r =>
+    '<div class="rc-row"><span class="rc-d">'+r.date.slice(5).replace('-','.')+'</span><span class="rc-i"><b>'+r.item+'</b><em>'+r.from+'</em></span><span class="rc-q">'+r.qty+'</span></div>').join('');
+}
 function renderRecords(){
   const q = rdFilterText.trim().toLowerCase();
   const filtered = RECORDS.filter(r => {
@@ -3654,6 +3811,7 @@ function renderRecords(){
   `;
   }).join('');
   document.getElementById('rdCount').textContent = filtered.length + '건 (최근 1년)';
+  renderDash();
   renderPagination(totalPages);
   /* tbody에 opacity 애니메이션을 걸면 iOS 사파리에서 행이 빈 칸으로 그려지는 문제가 있어 애니메이션 제거 */
 }
