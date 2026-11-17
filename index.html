@@ -562,6 +562,12 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
   transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease;
 }
 #toast.show{transform:translateY(0);opacity:1;pointer-events:auto;}
+#toast{z-index:120;}
+.tab.notice .favicon{position:relative;}
+.tab.notice .favicon::after{content:'';position:absolute;top:-4px;right:-5px;width:8px;height:8px;border-radius:50%;background:#E5352B;border:1.5px solid var(--chrome-strip);box-sizing:content-box;}
+.tab.notice.active .favicon::after{display:none;}
+#panel-oldmail .omrow.fresh{animation:omFresh 1.6s ease;}
+@keyframes omFresh{0%{transform:translateY(-14px);opacity:0;background:var(--hover-bg);}30%{transform:none;opacity:1;}100%{background:transparent;}}
 #toast:hover{background:var(--hover-bg);}
 #toast .ticon{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 #toast .ticon .ic{width:16px;height:16px;}
@@ -1406,6 +1412,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   .addressbar{flex:1;min-width:0;height:36px;font-size:13px;}
   .navbtn{width:36px;height:36px;}
   .navbtn .ic{width:18px;height:18px;}
+  .tabcountbtn.has-dot{position:relative;}
+  .tabcountbtn.has-dot::after{content:'';position:absolute;top:-5px;right:-5px;width:10px;height:10px;border-radius:50%;background:#E5352B;border:2px solid var(--chrome-bar);box-sizing:content-box;}
+  #tabSwitcher .ts-card .nd{width:9px;height:9px;border-radius:50%;background:#E5352B;flex-shrink:0;margin-left:2px;}
   .tabcountbtn{display:flex;align-items:center;justify-content:center;width:30px;height:30px;margin:0 4px;border:2px solid var(--chrome-sub);border-radius:8px;background:none;color:var(--chrome-text);font-size:13px;font-weight:700;font-family:inherit;cursor:pointer;flex-shrink:0;}
   #tabSwitcher.show{display:flex;position:fixed;inset:0;z-index:300;background:#26282B;flex-direction:column;}
   #tabSwitcher .ts-head{display:flex;align-items:center;justify-content:space-between;padding:16px 18px;color:#fff;font-size:15px;font-weight:700;}
@@ -1443,7 +1452,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #msgLauncher{right:14px;bottom:68px;}
   #msgPeek{right:84px;bottom:76px;max-width:calc(100vw - 110px);}
   #msgPanel{left:8px;right:8px;bottom:8px;width:auto;max-width:none;height:min(82vh,640px);border-radius:24px;}
-  #toast{left:12px;right:12px;bottom:64px;width:auto;max-width:none;}
+  #toast{left:12px;right:12px;top:calc(var(--chrome-h,100px) + 8px);bottom:auto;width:auto;max-width:none;transform:translateY(-16px);}
   .scrapwidget{left:12px;bottom:12px;}
 }
 
@@ -2391,17 +2400,27 @@ const TAB_META = {
   alumni:{title:"총동문회 동문수첩",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJsYXVyZWwiIGZpbGw9IiNGRkM5QTgiPgogICAgPHBhdGggZD0iTTQ1MCA5NjZDNDk0IDkyOCA1NTQgOTE2IDYxNCA4OTdDNzI2IDg2MiA4MjAgNzg1IDg3NyA2ODNDOTI2IDU5NiA5NDcgNDk4IDkzMyA0MDdDOTI5IDM3NSA5MjAgMzQ0IDkwOSAzMTVMOTAwIDMwOUM5MjEgMzc1IDkzMSA0MzUgOTI0IDQ5NUM5MTcgNTkwIDg3OCA2ODIgODIxIDc1MUM3NTkgODI3IDY5MiA4NjQgNjA5IDg4OEM1MjkgOTExIDQ1NSA5MjggNDA2IDk2NEM0MjAgOTY2IDQzNSA5NjggNDUwIDk2NloiIC8+CiAgICA8cGF0aCBkPSJNNTc0IDk2NkM1MzAgOTI4IDQ3MCA5MTYgNDEwIDg5N0MyOTggODYyIDIwNCA3ODUgMTQ3IDY4M0M5OCA1OTYgNzcgNDk4IDkxIDQwN0M5NSAzNzUgMTA0IDM0NCAxMTUgMzE1TDEyNCAzMDlDMTAzIDM3NSA5MyA0MzUgMTAwIDQ5NUMxMDcgNTkwIDE0NiA2ODIgMjAzIDc1MUMyNjUgODI3IDMzMiA4NjQgNDE1IDg4OEM0OTUgOTExIDU2OSA5MjggNjE4IDk2NEM2MDQgOTY2IDU4OSA5NjggNTc0IDk2NloiIC8+CiAgICA8ZyBpZD0ibGVmdC1sZWF2ZXMiPgogICAgICA8cGF0aCBkPSJNMTExIDMzMEMxMTQgMzAyIDk2IDI3NyAxMTkgMjM5QzEzMSAyMjAgMTQ5IDIwNSAxNjUgMTk2QzE2OSAyMjYgMTY4IDI1MyAxNTUgMjc1QzE0NCAyOTQgMTIyIDMwNiAxMTEgMzMwWiIgLz4KICAgICAgPHBhdGggZD0iTTk4IDQyNEM5NCA0MDAgNzMgMzkxIDYwIDM2NkM0NiAzMzkgNTcgMzA0IDcwIDI3NkM5MCAzMDIgMTAyIDMyNSA5OCAzNThDMTA2IDM0MSAxMDUgMzM4IDEwOSAzMzBDMTAzIDM2MSAxMDAgMzkyIDk4IDQyNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xMDAgNDIxQzEwNCAzNzkgMTE5IDMzOCAxNzkgMzEzQzE3NSAzNDUgMTY1IDM3MyAxNDQgMzg4QzEyNiA0MDIgMTA5IDQwMyAxMDAgNDIxWiIgLz4KICAgICAgPHBhdGggZD0iTTk2IDUzN0M4OCA1MTcgNjYgNTEwIDQ5IDQ5M0MyOSA0NzMgMjQgNDM0IDMzIDM5MkM1OSA0MTMgODEgNDQ0IDg2IDQ3OUM4NiA1MDAgOTEgNTE5IDk2IDUzN1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xMDYgNTQwQzk2IDUxNiAxMDIgNDc4IDExNyA0NTNDMTI4IDQzNSAxNDUgNDIwIDE2MSA0MTFDMTY2IDQ0NiAxNjMgNDcyIDE0NyA0OTJDMTMyIDUxMSAxMTEgNTE2IDEwNiA1NDBaIiAvPgogICAgICA8cGF0aCBkPSJNMTQxIDY1NkMxMjggNjM3IDEwOCA2MzkgODYgNjMwQzUzIDYxNyAzMyA1ODIgMjcgNTMxQzYyIDU0NSA5MSA1NjYgMTA1IDU5NkMxMTcgNjIwIDEyNiA2NDIgMTQxIDY1NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xNDggNjU0QzE0OSA2MzEgMTcwIDYyMiAxNzcgNTkxQzE4NCA1NjcgMTc3IDUzNiAxNjkgNTEzQzE0NSA1MzYgMTI3IDU2MCAxMjkgNTkzQzEzMCA2MTYgMTQ0IDYzOSAxNDggNjU0WiIgLz4KICAgICAgPHBhdGggZD0iTTIxMCA3NjJDMTg2IDc0NiAxNzcgNzUyIDE1MiA3NTFDMTExIDc1MSA4NCA3MjMgNjMgNjY5QzEwNiA2NzEgMTMzIDY4MyAxNTQgNzA1QzE3NSA3MjcgMTkwIDc0NiAyMTAgNzYyWiIgLz4KICAgICAgPHBhdGggZD0iTTIxNSA3NThDMjAzIDczNSAyMjQgNzIyIDIyOCA2OTNDMjM1IDY2NyAyMjAgNjMyIDIwNCA2MDlDMTg0IDY0MSAxNzMgNjcwIDE4MSA2OThDMTg4IDcyNCAyMDMgNzQ0IDIxNSA3NThaIiAvPgogICAgICA8cGF0aCBkPSJNMjk2IDg0MEMyNzMgODMwIDI1OCA4NDUgMjMwIDg0OUMxOTEgODU0IDE2NCA4MzAgMTMyIDc5MkMxNjkgNzgzIDIwMyA3ODQgMjMxIDgwMUMyNTMgODE1IDI3NSA4MzUgMjk2IDg0MFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zMDQgODMzQzI4OCA4MTMgMzA4IDc5NSAzMDIgNzY1QzI5OCA3MzcgMjc3IDcxMSAyNjAgNjkyQzI0OSA3MjAgMjQyIDc1MCAyNTMgNzc3QzI2NCA4MDQgMjg5IDgyMiAzMDQgODMzWiIgLz4KICAgICAgPHBhdGggZD0iTTQwNSA4OTZDMzc5IDg5MCAzNjUgOTE0IDMzNCA5MjFDMzAyIDkyOCAyNzAgOTE1IDIzOCA4OTBDMjczIDg3MSAzMDAgODY0IDMyOCA4NzJDMzU1IDg3OCAzODAgODkyIDQwNSA4OTZaIiAvPgogICAgICA8cGF0aCBkPSJNNDE0IDg4N0MzOTUgODc1IDQwNSA4NTEgMzk2IDgyNUMzODcgNzk3IDM1NyA3NzYgMzMwIDc2NUMzMjcgODAwIDMzNSA4MjkgMzUxIDg0OUMzNzEgODcyIDM5NSA4ODAgNDE0IDg4N1oiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0icmlnaHQtbGVhdmVzIj4KICAgICAgPHBhdGggZD0iTTkxMyAzMzBDOTEwIDMwMiA5MjggMjc3IDkwNSAyMzlDODkzIDIyMCA4NzUgMjA1IDg1OSAxOTZDODU1IDIyNiA4NTYgMjUzIDg2OSAyNzVDODgwIDI5NCA5MDIgMzA2IDkxMyAzMzBaIiAvPgogICAgICA8cGF0aCBkPSJNOTI2IDQyNEM5MzAgNDAwIDk1MSAzOTEgOTY0IDM2NkM5NzggMzM5IDk2NyAzMDQgOTU0IDI3NkM5MzQgMzAyIDkyMiAzMjUgOTI2IDM1OEM5MTggMzQxIDkxOSAzMzggOTE1IDMzMEM5MjEgMzYxIDkyNCAzOTIgOTI2IDQyNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik05MjQgNDIxQzkyMCAzNzkgOTA1IDMzOCA4NDUgMzEzQzg0OSAzNDUgODU5IDM3MyA4ODAgMzg4Qzg5OCA0MDIgOTE1IDQwMyA5MjQgNDIxWiIgLz4KICAgICAgPHBhdGggZD0iTTkyOCA1MzdDOTM2IDUxNyA5NTggNTEwIDk3NSA0OTNDOTk1IDQ3MyAxMDAwIDQzNCA5OTEgMzkyQzk2NSA0MTMgOTQzIDQ0NCA5MzggNDc5QzkzOCA1MDAgOTMzIDUxOSA5MjggNTM3WiIgLz4KICAgICAgPHBhdGggZD0iTTkxOCA1NDBDOTI4IDUxNiA5MjIgNDc4IDkwNyA0NTNDODk2IDQzNSA4NzkgNDIwIDg2MyA0MTFDODU4IDQ0NiA4NjEgNDcyIDg3NyA0OTJDODkyIDUxMSA5MTMgNTE2IDkxOCA1NDBaIiAvPgogICAgICA8cGF0aCBkPSJNODgzIDY1NkM4OTYgNjM3IDkxNiA2MzkgOTM4IDYzMEM5NzEgNjE3IDk5MSA1ODIgOTk3IDUzMUM5NjIgNTQ1IDkzMyA1NjYgOTE5IDU5NkM5MDcgNjIwIDg5OCA2NDIgODgzIDY1NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik04NzYgNjU0Qzg3NSA2MzEgODU0IDYyMiA4NDcgNTkxQzg0MCA1NjcgODQ3IDUzNiA4NTUgNTEzQzg3OSA1MzYgODk3IDU2MCA4OTUgNTkzQzg5NCA2MTYgODgwIDYzOSA4NzYgNjU0WiIgLz4KICAgICAgPHBhdGggZD0iTTgxNCA3NjJDODM4IDc0NiA4NDcgNzUyIDg3MiA3NTFDOTEzIDc1MSA5NDAgNzIzIDk2MSA2NjlDOTE4IDY3MSA4OTEgNjgzIDg3MCA3MDVDODQ5IDcyNyA4MzQgNzQ2IDgxNCA3NjJaIiAvPgogICAgICA8cGF0aCBkPSJNODA5IDc1OEM4MjEgNzM1IDgwMCA3MjIgNzk2IDY5M0M3ODkgNjY3IDgwNCA2MzIgODIwIDYwOUM4NDAgNjQxIDg1MSA2NzAgODQzIDY5OEM4MzYgNzI0IDgyMSA3NDQgODA5IDc1OFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik03MjggODQwQzc1MSA4MzAgNzY2IDg0NSA3OTQgODQ5QzgzMyA4NTQgODYwIDgzMCA4OTIgNzkyQzg1NSA3ODMgODIxIDc4NCA3OTMgODAxQzc3MSA4MTUgNzQ5IDgzNSA3MjggODQwWiIgLz4KICAgICAgPHBhdGggZD0iTTcyMCA4MzNDNzM2IDgxMyA3MTYgNzk1IDcyMiA3NjVDNzI2IDczNyA3NDcgNzExIDc2NCA2OTJDNzc1IDcyMCA3ODIgNzUwIDc3MSA3NzdDNzYwIDgwNCA3MzUgODIyIDcyMCA4MzNaIiAvPgogICAgICA8cGF0aCBkPSJNNjE5IDg5NkM2NDUgODkwIDY1OSA5MTQgNjkwIDkyMUM3MjIgOTI4IDc1NCA5MTUgNzg2IDg5MEM3NTEgODcxIDcyNCA4NjQgNjk2IDg3MkM2NjkgODc4IDY0NCA4OTIgNjE5IDg5NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MTAgODg3QzYyOSA4NzUgNjE5IDg1MSA2MjggODI1QzYzNyA3OTcgNjY3IDc3NiA2OTQgNzY1QzY5NyA4MDAgNjg5IDgyOSA2NzMgODQ5QzY1MyA4NzIgNjI5IDg4MCA2MTAgODg3WiIgLz4KICAgIDwvZz4KICA8L2c+CiAgPGcgaWQ9InNoaWVsZCI+CiAgICA8cGF0aCBmaWxsPSIjNkUxRjJCIiBkPSJNNTEyIDU2QzQzNCAxMzMgMzE3IDE3MyAxOTkgMTU2TDE5OCA0MzZDMTk4IDYxNiAzMDkgNzMwIDUxMiA4NTZDNzE1IDczMCA4MjYgNjE2IDgyNiA0MzZMODI1IDE1NkM3MDcgMTczIDU5MCAxMzMgNTEyIDU2WiIgLz4KICAgIDxwYXRoIGZpbGw9IiNGRkM5QTgiIGQ9Ik01MTIgOTRDNDMwIDE2MCAzMjkgMTkzIDIyMyAxODhWNDM1QzIyMyA2MDAgMzI0IDcxMCA1MTIgODI3QzcwMCA3MTAgODAxIDYwMCA4MDEgNDM1VjE4OEM2OTUgMTkzIDU5NCAxNjAgNTEyIDk0WiIgLz4KICAgIDxwYXRoIGZpbGw9IiM2RTFGMkIiIGQ9Ik01MTIgMTMwQzQzMyAxODcgMzQ1IDIxNiAyNTAgMjE3VjQzNEMyNTAgNTg0IDM0MCA2ODUgNTEyIDc5NUM2ODQgNjg1IDc3NCA1ODQgNzc0IDQzNFYyMTdDNjc5IDIxNiA1OTEgMTg3IDUxMiAxMzBaIiAvPgogIDwvZz4KICA8ZyBpZD0ib3Blbi1ib29rIiBmaWxsPSIjRkZDOUE4Ij4KICAgIDxwYXRoIGQ9Ik0zMDcgMzQ1TDMzMSAzMzVWNTQwQzQwMSA1MTUgNDU1IDUzMiA1MTIgNTc3QzU2OSA1MzIgNjIzIDUxNSA2OTMgNTQwVjMzNUw3MTcgMzQ1VjU3NkM2MzQgNTQ3IDU3OCA1NTIgNTE3IDU5MlE1MTIgNTk3IDUwNyA1OTJDNDQ2IDU1MiAzOTAgNTQ3IDMwNyA1NzZaIiAvPgogICAgPHBhdGggZD0iTTM0NiAzMDdDNDA2IDI4NSA0NzEgMzA4IDUwNiAzNTdWNTU4QzQ1OCA1MTcgNDAyIDUwMiAzNDYgNTE5WiIgLz4KICAgIDxwYXRoIGQ9Ik02NzggMzA3QzYxOCAyODUgNTUzIDMwOCA1MTggMzU3VjU1OEM1NjYgNTE3IDYyMiA1MDIgNjc4IDUxOVoiIC8+CiAgPC9nPgo8L3N2Zz4='},
   archive:{title:"도렌통신 아카이브",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDx0aXRsZT5OZXdzcGFwZXIgYXJjaGl2ZSBlbWJsZW08L3RpdGxlPgogIDxnIGlkPSJlbWJsZW0iPgogICAgPGNpcmNsZSBjeD0iNTEwIiBjeT0iNTEwIiByPSI0ODgiIGZpbGw9IiMxRTNBMkIiIHN0cm9rZT0iI0U4Qzc3QSIgc3Ryb2tlLXdpZHRoPSIzMiIgLz4KICAgIDxnIGlkPSJmb2xkZWQtbmV3c3BhcGVyIj4KICAgICAgPHBhdGggZD0iTTE4NyAzNzAgMTc1IDMyOUMxNjYgMjk3IDE4OCAyNjQgMjE5IDI1OEw3NDAgMTgzQzc2OCAxNzggNzkxIDE5NCA3OTkgMjIzTDg5OCA2MDlDOTA5IDY1MiA4OTEgNjkyIDg1MCA2OThMMjg1IDc5MUMyMzcgNzk5IDE5NCA3NzYgMTc5IDczM0w5OSA0NDdDODggNDE0IDEwNyAzODEgMTM5IDM3NloiIGZpbGw9IiNGRkZGRkYiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yMTAgMjg5QzE5NCAyOTIgMTg3IDMwNyAxOTIgMzI1TDI5MSA2OTRDMjk3IDcxNiAyOTQgNzI3IDI4MCA3MzIgMjY1IDczNyAyNTIgNzI4IDI0NyA3MDlMMTcyIDQzMkMxNjcgNDEzIDE1MyA0MDMgMTQwIDQwOSAxMjYgNDE0IDEyMiA0MjcgMTI3IDQ0M0wyMDcgNzIxQzIxNyA3NTIgMjQzIDc2OCAyNzMgNzY0IDMxMCA3NTkgMzI2IDczMSAzMTYgNjkyWiIgZmlsbD0iIzFFM0EyQiIgLz4KICAgICAgPHBhdGggZD0iTTI2OSAzMDcgNDk3IDI3NiA1NDAgNDMzIDMwOSA0NjFaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZyBpZD0ibmV3c3BhcGVyLWNvbHVtbnMiIGZpbGw9IiMxRTNBMkIiPgogICAgICAgIDxwYXRoIGQ9Ik01MzAgMjc4IDc2MSAyNDUgNzcxIDI3OCA1NDAgMzEyWiIgLz4KICAgICAgICA8cGF0aCBkPSJNNTQ4IDM0MiA3NzkgMzEwIDc4OCAzNDIgNTU3IDM3NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTU2NSA0MDIgNzk2IDM3MyA4MDQgNDAxIDU3MyA0MzBaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik01ODggNDY4IDgxNyA0NDAgODI1IDQ2OCA1OTYgNDk3WiIgLz4KICAgICAgICA8cGF0aCBkPSJNNjA0IDUyNCA4MzMgNDk2IDg0MSA1MjYgNjEyIDU1NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTYyMSA1ODMgODUwIDU1NSA4NTggNTg2IDYyOSA2MTRaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zMTggNTAxIDU1MSA0NzIgNTU5IDUwMCAzMjUgNTMwWiIgLz4KICAgICAgICA8cGF0aCBkPSJNMzMyIDU1NyA1NjYgNTI4IDU3NCA1NTcgMzQwIDU4N1oiIC8+CiAgICAgICAgPHBhdGggZD0iTTM0NiA2MTUgNTgwIDU4NSA1ODggNjE3IDM1NCA2NDdaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zNTkgNjc4IDU5MyA2NDcgNjAxIDY3OSAzNjIgNzExWiIgLz4KICAgICAgPC9nPgogICAgPC9nPgogICAgPGcgaWQ9ImFyY2hpdmUtbWFnbmlmaWVyIj4KICAgICAgPHBhdGggZD0iTTc1OSA3NzIgNzg4IDc1NSA4ODYgODM4QzkwNSA4NTcgOTA0IDg4NCA4ODYgOTAyIDg2OCA5MjAgODQwIDkxOCA4MjIgOTAwTDc0MCA4MTdaIiBmaWxsPSIjMUUzQTJCIiAvPgogICAgICA8cGF0aCBkPSJNNzcyIDc0NiA4NzQgODQ5Qzg4NSA4NjAgODg2IDg3NyA4NzUgODg5IDg2NCA5MDAgODQ2IDg5OSA4MzUgODg4TDczNSA3ODhaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTQ2IiByeT0iMTQ5IiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTEwIiByeT0iMTEyIiBmaWxsPSIjRkZGRkZGIiAvPgogICAgICA8ZyBpZD0ibWFnbmlmaWVkLWNvbHVtbiIgZmlsbD0iIzFFM0EyQiI+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2MTkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2NzQiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI3MjkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg=='}
 };
+/* 탭 알림 점 — 안 읽은 새 메일이 있는 탭(지금 보는 탭 제외)에 표시 */
+function tabNoticeCount(t){
+  if(!t) return 0;
+  try{
+    if(t.kind === 'oldmail') return (ANTON_MAILS || []).filter(m => m._notice).length;
+    if(t.kind === 'mail') return FOLDERS.inbox.filter(m => m.unread && DYNAMIC_MAIL_IDS.includes(m.id)).length;
+  }catch(e){}
+  return 0;
+}
 function renderTabs(){
   document.getElementById('tabstrip').innerHTML = TABS.map(t => {
     const m = TAB_META[t.kind];
     const fav = m ? '<img class="dzfav" src="'+m.icon+'" alt="">' : t.favicon;
     return `
-    <div class="tab ${t.id===activeId?'active':''}" onclick="switchTab('${t.id}')">
+    <div class="tab ${t.id===activeId?'active':''}${tabNoticeCount(t) && t.id!==activeId ? ' notice' : ''}" onclick="switchTab('${t.id}')">
       <span class="favicon${m?' img':''}">${fav}</span>
-      <span class="tabtitle">${(m && !m.keep) ? m.title : t.title}</span>
+      <span class="tabtitle">${(tabNoticeCount(t) && t.id!==activeId ? '('+tabNoticeCount(t)+') ' : '')}${(m && !m.keep) ? m.title : t.title}</span>
       <svg class="ic tabclose" onclick="event.stopPropagation();closeTab('${t.id}')" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </div>`;
   }).join('');
+  updateTabCount();
 }
 
 function openTab(kind, title, favicon){
@@ -2425,6 +2444,7 @@ function backToOrigin(t){
 
 function switchTab(id){
   activeId = id;
+  { const tt = TABS.find(x => x.id === id); if(tt && tt.kind === 'oldmail' && ANTON_MAILS) ANTON_MAILS.forEach(m => { m._notice = false; }); }
   renderTabs();
   document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
   const t = TABS.find(x => x.id === id);
@@ -3614,7 +3634,7 @@ function omStartGate(){
 const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dg-mail.dg", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dg", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "마리야 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 두샨카 보스코"], "translated": false}, {"id": "mom", "sender": "마리야 소린 (엄마)", "addr": "mariya.sorin@dg-mail.dg", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락 주기를 바라.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dg", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
 /* ===== 안톤(백스토리) — 의뢰를 마칠 때마다 노을메일 개인 메일함에 따로 도착 ===== */
-const ANTON_MAILS = [{"id": "anton1", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "[이스크라] 혹시 이 메일 보이시나요?", "preview": "1차 테스트 하셨죠. 신경 쓰이는 게 하나 있어서요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑작스럽게 개인 메일로 연락드려 죄송합니다. 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이라고 합니다. 체험단 신청서에 적으신 주소를 보고 보냅니다.", "1차 테스트 하셨죠. 샘플 데이터라고 안내받으셨을 텐데, 제가 보기엔 그 반출 기록이 샘플로 만든 것치고 형식이 너무 실제 같았습니다. 그냥 신경 쓰이는 점이라 적어 봅니다.", "이 메일은 팀 메신저에는 말하지 않으셨으면 합니다. 별일 아니면 읽고 지워 주세요.", "안톤"]}, {"id": "anton2", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "Re: 대조라는 말", "preview": "2차까지 하셨네요. 한 가지만 더 적을게요.", "time": "방금 전", "unread": true, "body": ["2차까지 마치셨네요. 수고 많으셨습니다. 한 가지만 더 적을게요.", "체험단은 레나 씨 한 명이 아니고, 같은 질문을 테스터마다 조금씩 다르게 던져서 답을 서로 대조한다고 들었습니다. 단계가 이렇게 촘촘하게 나뉘어 있는 것도 그래서예요.", "그리고 '바르니아교민상회'라는 이름이요. 팀 안에서는 테스트용 가상 이름처럼 부르지 않고, 그냥 실제 단체 이름으로 불러요. 저는 그게 이상하게 들렸습니다.", "안톤"]}, {"id": "anton3", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "저희 집 얘기를 조금", "preview": "3차 하신 걸 보고 생각이 많아졌어요.", "time": "방금 전", "unread": true, "body": ["3차 결과를 봤습니다. 그 상회 기사들, 읽어 보셨죠. 대부분은 정말 평범한 내용이에요.", "사실 저희 부모님도 바르니아에서 오셨어요. 어릴 때 11월 모임에 따라가 본 적이 있는데, 어른들이 뭘 기리는 자리인지는 끝까지 말해 주지 않았습니다. 기사에 '비공개'라고 적힌 이유를 저는 조금 알 것 같아요.", "참고로 체험단 선정 기준 중에 '가족 구성'이 있었어요. 레나 씨 신청서에 어머니 성함이 적혀 있었고요. 무작위로 뽑은 게 아닐 수 있다는 뜻입니다.", "안톤"]}, {"id": "anton4", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "사장님 말고", "preview": "이름만 대표라는 말이 회의에서 나왔어요.", "time": "방금 전", "unread": true, "body": ["4차를 마치셨네요. 이름이 나온 분 말인데, 팀 회의에서 '이분은 대표 이름만 빌려준 얼굴'이라는 얘기가 나왔습니다. 정작 찾는 건 그 뒤에 있는 사람 같아요.", "그리고 팀장 옆자리에 예전에 그쪽 사람들 틈에서 지냈다는 분이 한 분 계세요. 이름은 즐라탄 코바치. 그분이 하는 말이 이상하게 정확해서, 저는 그분 앞에서 말을 아끼게 됩니다.", "레나 씨에게 뭘 해 달라는 건 아니에요. 그냥 알고 계시라고요.", "안톤"]}, {"id": "anton5", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "초대가 오면", "preview": "곧 개인적인 초대가 갈 거예요.", "time": "방금 전", "unread": true, "body": ["5차까지 끝나면 곧 레나 씨 쪽으로 개인적인 초대가 갈 거예요. 팀에서도 그걸 알고 있고, 오히려 기다리고 있습니다.", "가라 마라 하지는 않을게요. 다만 거기서 보고 들은 것을 이스크라 메신저에 그대로 옮기기 전에 한 번만 생각해 보세요. 그게 어디로 가는지는 제가 아는 만큼 말씀드릴 수 있어요.", "다음 연락은 이 주소 말고 다른 방법으로 할게요. 이 메일은 꼭 지워 주세요.", "안톤"]}];
+var ANTON_MAILS = [{"id": "anton1", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "[이스크라] 혹시 이 메일 보이시나요?", "preview": "1차 테스트 하셨죠. 신경 쓰이는 게 하나 있어서요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑작스럽게 개인 메일로 연락드려 죄송합니다. 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이라고 합니다. 체험단 신청서에 적으신 주소를 보고 보냅니다.", "1차 테스트 하셨죠. 샘플 데이터라고 안내받으셨을 텐데, 제가 보기엔 그 반출 기록이 샘플로 만든 것치고 형식이 너무 실제 같았습니다. 그냥 신경 쓰이는 점이라 적어 봅니다.", "이 메일은 팀 메신저에는 말하지 않으셨으면 합니다. 별일 아니면 읽고 지워 주세요.", "안톤"]}, {"id": "anton2", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "Re: 대조라는 말", "preview": "2차까지 하셨네요. 한 가지만 더 적을게요.", "time": "방금 전", "unread": true, "body": ["2차까지 마치셨네요. 수고 많으셨습니다. 한 가지만 더 적을게요.", "체험단은 레나 씨 한 명이 아니고, 같은 질문을 테스터마다 조금씩 다르게 던져서 답을 서로 대조한다고 들었습니다. 단계가 이렇게 촘촘하게 나뉘어 있는 것도 그래서예요.", "그리고 '바르니아교민상회'라는 이름이요. 팀 안에서는 테스트용 가상 이름처럼 부르지 않고, 그냥 실제 단체 이름으로 불러요. 저는 그게 이상하게 들렸습니다.", "안톤"]}, {"id": "anton3", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "저희 집 얘기를 조금", "preview": "3차 하신 걸 보고 생각이 많아졌어요.", "time": "방금 전", "unread": true, "body": ["3차 결과를 봤습니다. 그 상회 기사들, 읽어 보셨죠. 대부분은 정말 평범한 내용이에요.", "사실 저희 부모님도 바르니아에서 오셨어요. 어릴 때 11월 모임에 따라가 본 적이 있는데, 어른들이 뭘 기리는 자리인지는 끝까지 말해 주지 않았습니다. 기사에 '비공개'라고 적힌 이유를 저는 조금 알 것 같아요.", "참고로 체험단 선정 기준 중에 '가족 구성'이 있었어요. 레나 씨 신청서에 어머니 성함이 적혀 있었고요. 무작위로 뽑은 게 아닐 수 있다는 뜻입니다.", "안톤"]}, {"id": "anton4", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "사장님 말고", "preview": "이름만 대표라는 말이 회의에서 나왔어요.", "time": "방금 전", "unread": true, "body": ["4차를 마치셨네요. 이름이 나온 분 말인데, 팀 회의에서 '이분은 대표 이름만 빌려준 얼굴'이라는 얘기가 나왔습니다. 정작 찾는 건 그 뒤에 있는 사람 같아요.", "그리고 팀장 옆자리에 예전에 그쪽 사람들 틈에서 지냈다는 분이 한 분 계세요. 이름은 즐라탄 코바치. 그분이 하는 말이 이상하게 정확해서, 저는 그분 앞에서 말을 아끼게 됩니다.", "레나 씨에게 뭘 해 달라는 건 아니에요. 그냥 알고 계시라고요.", "안톤"]}, {"id": "anton5", "sender": "Anton S.", "addr": "a.stoyanovic@dg-mail.dg", "subject": "초대가 오면", "preview": "곧 개인적인 초대가 갈 거예요.", "time": "방금 전", "unread": true, "body": ["5차까지 끝나면 곧 레나 씨 쪽으로 개인적인 초대가 갈 거예요. 팀에서도 그걸 알고 있고, 오히려 기다리고 있습니다.", "가라 마라 하지는 않을게요. 다만 거기서 보고 들은 것을 이스크라 메신저에 그대로 옮기기 전에 한 번만 생각해 보세요. 그게 어디로 가는지는 제가 아는 만큼 말씀드릴 수 있어요.", "다음 연락은 이 주소 말고 다른 방법으로 할게요. 이 메일은 꼭 지워 주세요.", "안톤"]}];
 let antonIds = [];
 function antonAdd(id, silent){
   const m = ANTON_MAILS.find(x => x.id === id);
@@ -3624,8 +3644,12 @@ function antonAdd(id, silent){
   if(silent) m.unread = false;
   else{
     m.time = '방금 전';
-    try{ omRenderList(); }catch(e){}
+    const here = activeKind() === 'oldmail';
+    m._notice = !here;
+    try{ omRenderList(); if(here){ const r = document.querySelector('#omlist .omrow'); if(r) r.classList.add('fresh'); } }catch(e){}
     document.getElementById('omBadge').classList.add('show');
+    try{ renderTabs(); }catch(e){}
+    if(here) { saveProgress(); return true; }
     document.getElementById('toastSub').textContent = '노을메일 · ' + m.sender + ' · ' + m.subject;
     document.getElementById('toast').dataset.target = 'oldmail';
     document.getElementById('toast').classList.add('show');
@@ -3637,7 +3661,7 @@ function antonAdd(id, silent){
 /* n차를 마치면 잠시 뒤 안톤의 n번째 메일 도착 */
 function antonSchedule(n){ setTimeout(() => antonAdd('anton' + n), 25000); }
 function antonRestore(ids, readIds){
-  (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0) m.unread = true; });
+  (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0){ m.unread = true; m._notice = true; } });
 }
 const OM_NEWS_IDS = [113, 110, 115, 116];
 function omRenderNews(){
@@ -3854,6 +3878,7 @@ function deliverMail(mail){
   FOLDERS.inbox.unshift(mail);
   lastDelivered = mail;
   updateInboxBadge();
+  try{ renderTabs(); }catch(e){}
   if(currentFolder === 'inbox' && !document.getElementById('listView').classList.contains('hidden')){
     renderList();
   }
@@ -4781,14 +4806,14 @@ function renderTabSwitcher(){
     const m = TAB_META[t.kind];
     const title = (m && !m.keep) ? m.title : t.title;
     const icon = m ? '<img src="'+m.icon+'" alt="">' : '';
-    return '<div class="ts-card'+(t.id===activeId?' active':'')+'" onclick="tsPick(\''+t.id+'\')"><div class="ts-top">'+icon+'<span>'+title+'</span><button type="button" onclick="event.stopPropagation();tsClose(\''+t.id+'\')" aria-label="탭 닫기">&times;</button></div><div class="ts-body">'+tsBody(t)+'</div></div>';
+    return '<div class="ts-card'+(t.id===activeId?' active':'')+'" onclick="tsPick(\''+t.id+'\')"><div class="ts-top">'+icon+'<span>'+title+'</span>'+(t.id!==activeId && tabNoticeCount(t) ? '<i class="nd"></i>' : '')+'<button type="button" onclick="event.stopPropagation();tsClose(\''+t.id+'\')" aria-label="탭 닫기">&times;</button></div><div class="ts-body">'+tsBody(t)+'</div></div>';
   }).join('');
 }
 function openTabSwitcher(){ renderTabSwitcher(); document.getElementById('tabSwitcher').classList.add('show'); }
 function closeTabSwitcher(){ document.getElementById('tabSwitcher').classList.remove('show'); }
 function tsPick(id){ switchTab(id); closeTabSwitcher(); }
 function tsClose(id){ closeTab(id); if(TABS.length) renderTabSwitcher(); else closeTabSwitcher(); }
-function updateTabCount(){ const b = document.getElementById('tabCountBtn'); if(b) b.textContent = TABS.length; }
+function updateTabCount(){ const b = document.getElementById('tabCountBtn'); if(b){ b.textContent = TABS.length; b.classList.toggle('has-dot', TABS.some(t => t.id !== activeId && tabNoticeCount(t) > 0)); } }
 (function(){
   const _rt = renderTabs;
   renderTabs = function(){ _rt(); updateTabCount(); };
