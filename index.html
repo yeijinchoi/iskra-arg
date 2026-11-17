@@ -1204,6 +1204,50 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #msgQuick button{background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:8px 14px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .12s,border-color .12s;}
 #msgQuick button:hover{background:var(--hover-bg);border-color:var(--accent);color:var(--accent);}
 @media (max-width:520px){#msgPanel{right:8px;left:8px;width:auto;max-width:none;bottom:60px;}}
+
+/* ===== 노을메일 우측 위젯 컬럼(구 이스크라 사이드 카드) ===== */
+#panel-oldmail .mailcard{display:flex;align-items:center;gap:12px;width:100%;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;cursor:pointer;text-align:left;font:inherit;}
+#panel-oldmail .mailcard:hover{background:var(--hover-bg);}
+#panel-oldmail .mailcard .avatar3{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+#panel-oldmail .mailcard .mctext{flex:1;min-width:0;display:flex;flex-direction:column;}
+#panel-oldmail .mailcard .mctext b{font-size:13.5px;}
+#panel-oldmail .mailcard .mctext span{font-size:12px;color:var(--muted);margin-top:1px;}
+#panel-oldmail .mailcard .chev{width:14px;height:14px;color:var(--muted);flex-shrink:0;}
+#panel-oldmail .side{display:flex;flex-direction:column;gap:14px;min-width:0;}
+#panel-oldmail .weathercard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;}
+#panel-oldmail .weathercard .top{display:flex;align-items:center;justify-content:space-between;}
+#panel-oldmail .weathercard .loc{font-size:13px;font-weight:700;}
+#panel-oldmail .weathercard .cond{font-size:12px;color:var(--muted);margin-top:2px;display:flex;align-items:center;gap:4px;}
+#panel-oldmail .weathercard .cond .ic{width:13px;height:13px;}
+#panel-oldmail .weathercard .temp{font-size:26px;font-weight:700;font-family:'Oswald',sans-serif;font-variant-numeric:tabular-nums;}
+#panel-oldmail .weathercard .range{font-size:12px;color:var(--muted);margin-top:2px;font-variant-numeric:tabular-nums;}
+#panel-oldmail .weathercard .dust{display:flex;gap:6px;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);}
+#panel-oldmail .dustchip{font-size:11px;color:var(--muted);background:var(--bg);border:1px solid var(--border);border-radius:999px;padding:3px 8px;}
+#panel-oldmail .dustchip b{color:var(--ink);}
+#panel-oldmail .financecard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px 16px;}
+#panel-oldmail .financecard .head{display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:700;}
+#panel-oldmail .financecard .sub{font-size:12px;color:var(--muted);margin-top:4px;}
+#panel-oldmail .bankcard{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:16px;}
+#panel-oldmail .bankcard .head{display:flex;align-items:baseline;justify-content:space-between;font-size:13px;font-weight:700;}
+#panel-oldmail .bankcard .bankname{font-size:11.5px;font-weight:600;color:var(--muted);}
+#panel-oldmail .bankcard .bankbalance{font-size:24px;font-weight:700;font-family:'Oswald',sans-serif;font-variant-numeric:tabular-nums;margin-top:10px;}
+#panel-oldmail .bankcard .bankbalance .won{font-size:13px;font-weight:600;color:var(--muted);margin-left:3px;font-family:inherit;}
+#panel-oldmail .bankcard .bankowner{font-size:11.5px;color:var(--muted);margin-top:2px;}
+#panel-oldmail .bankcard .banktx{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);display:flex;flex-direction:column;gap:7px;}
+#panel-oldmail .bankcard .banktx-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px;}
+#panel-oldmail .bankcard .banktx-row .tlabel{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+#panel-oldmail .bankcard .banktx-row .tamount{flex-shrink:0;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;}
+#panel-oldmail .bankcard .banktx-row.fresh .tamount{color:#1E9E5A;}
+#panel-oldmail .bankcard .bankempty{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted);}
+#panel-oldmail .omsplit{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start;}
+#panel-oldmail .omleft .omlist{max-width:none;}
+#panel-oldmail .mailcard{cursor:default;}
+#panel-oldmail .mailcard:hover{background:var(--surface);}
+#panel-oldmail .side{margin-top:20px;}
+#panel-oldmail .mailcard,#panel-oldmail .bankcard,#panel-oldmail .weathercard,#panel-oldmail .financecard{border:none;border-radius:24px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.12);}
+@media (max-width:860px){#panel-oldmail .omsplit{grid-template-columns:1fr;}}
+/* 이스크라: 항상 구글풍 최소 홈. 업데이트되면 '부동산' 아이콘만 추가 */
+#panel-search.beta-mode.iskra-updated .serviceicons .svcitem:nth-child(2){display:flex;}
 </style>
 
 <div class="chrome">
@@ -1240,8 +1284,34 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     </button>
   </div>
   <div class="omlistwrap hidden" id="omListWrap">
+   <div class="omsplit">
+    <div class="omleft">
     <h1 class="omfoldertitle">받은메일함</h1>
     <div class="omlist" id="omlist"></div>
+    </div>
+      <aside class="side omside">
+        <div class="mailcard">
+          <span class="avatar3">레</span>
+          <span class="mctext"><b>레나 소린</b><span>노을메일 · 내 계정</span></span>
+        </div>
+        <div class="bankcard" id="bankcard"></div>
+        <div class="weathercard">
+          <div class="top">
+            <div>
+              <div class="loc">도렌그라드</div>
+              <div class="cond"><svg class="ic" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6-1.7A4 4 0 0 0 7 18Z"/></svg>흐림</div>
+            </div>
+            <div class="temp">15&deg;</div>
+          </div>
+          <div class="range">최고 18&deg; · 최저 11&deg;</div>
+          <div class="dust"><span class="dustchip">미세 <b>보통</b></span><span class="dustchip">초미세 <b>나쁨</b></span></div>
+        </div>
+        <div class="financecard">
+          <div class="head">금융</div>
+          <div class="sub">환율 · 금리 · 증시 동향</div>
+        </div>
+      </aside>
+   </div>
   </div>
   <div class="omreader hidden" id="omReader">
     <button class="ombacklink" onclick="omCloseDetail()"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>목록으로</button>
@@ -1318,29 +1388,6 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
         <div class="widgetbody">
           <div class="photogrid" id="photogrid"></div>
           <div class="textlist" id="textlist"></div>
-        </div>
-      </div>
-      <div class="side">
-        <button class="mailcard" onclick="openTab('mail','이스크라 메일','&#9993;')">
-          <span class="avatar3">레</span>
-          <span class="mctext"><b>레나 소린</b><span>이스크라 메일 열기</span></span>
-          <svg class="ic chev" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg>
-        </button>
-        <div class="bankcard" id="bankcard"></div>
-        <div class="weathercard">
-          <div class="top">
-            <div>
-              <div class="loc">도렌그라드</div>
-              <div class="cond"><svg class="ic" viewBox="0 0 24 24"><path d="M7 18h10a4 4 0 0 0 .4-8 5.5 5.5 0 0 0-10.6-1.7A4 4 0 0 0 7 18Z"/></svg>흐림</div>
-            </div>
-            <div class="temp">15&deg;</div>
-          </div>
-          <div class="range">최고 18&deg; · 최저 11&deg;</div>
-          <div class="dust"><span class="dustchip">미세 <b>보통</b></span><span class="dustchip">초미세 <b>나쁨</b></span></div>
-        </div>
-        <div class="financecard">
-          <div class="head">금융</div>
-          <div class="sub">환율 · 금리 · 증시 동향</div>
         </div>
       </div>
     </div>
@@ -2938,13 +2985,14 @@ let iskraUpdated = false;
 function applyIskraTheme(){
   const panel = document.getElementById('panel-search');
   if(!panel) return;
-  panel.classList.toggle('beta-mode', !iskraUpdated);
+  panel.classList.add('beta-mode');
+  panel.classList.toggle('iskra-updated', !!iskraUpdated);
 }
 function updateIskra(){
   if(iskraUpdated) return;
   iskraUpdated = true;
   applyIskraTheme();
-  showCaptureToast('이스크라가 새 버전으로 업데이트되었습니다', 'ok');
+  showCaptureToast('이스크라에 \'부동산\' 서비스가 추가되었습니다', 'ok');
   saveProgress();
 }
 function omStartGate(){
