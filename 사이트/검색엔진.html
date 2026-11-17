@@ -1670,6 +1670,11 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   .dz-ico,.dz-card.wide .dz-ico{width:50px!important;height:50px!important;border-radius:16px!important;right:16px!important;bottom:16px!important;}
   .dz-ico svg{width:26px!important;height:26px!important;}
 }
+
+.chromemenu .cm-sep{font-size:10.5px;font-weight:700;color:var(--chrome-sub);padding:10px 10px 4px;border-top:1px solid var(--chrome-border);margin-top:4px;letter-spacing:.02em;}
+.chromemenu .cm-jump{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:2px 4px 4px;}
+.chromemenu .cm-jump button{text-align:center;padding:8px 0;background:var(--chrome-strip);}
+.chromemenu .cm-jump button:hover{background:var(--accent);color:var(--accent-ink);}
 </style>
 
 <div class="chrome">
@@ -1690,6 +1695,11 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="chromemenu hidden" id="chromeMenu">
         <button onclick="resetProgress()">진행 상황 초기화 (베타테스트용)</button>
+        <div class="cm-sep">차수 바로가기 (베타테스트용)</div>
+        <div class="cm-jump">
+          <button onclick="jumpToStage(1)">1차</button><button onclick="jumpToStage(2)">2차</button><button onclick="jumpToStage(3)">3차</button>
+          <button onclick="jumpToStage(4)">4차</button><button onclick="jumpToStage(5)">5차</button><button onclick="jumpToStage(6)">6차</button>
+        </div>
       </div>
     </div>
   </div>
@@ -5078,10 +5088,68 @@ window.addEventListener('popstate', () => {
 });
 pushBackSentinel();
 
+
+/* ===== 베타테스트용: 차수 바로가기 =====
+   jumpToStage(n): 저장 데이터를 비우고 새로고침한 뒤(sessionStorage 플래그), n차 의뢰 메일이 막 도착한 상태로 재구성한다.
+   (n=6은 1~5차를 모두 마친 뒤 연합회 두샨카의 메일이 온 상태) */
+function jumpToStage(n){
+  if(!confirm(n + '차 시점으로 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
+  try{
+    localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY);
+    sessionStorage.setItem('iskra_jump', String(n));
+  }catch(e){}
+  location.reload();
+}
+function applyJump(n){
+  const REW = [150000, 180000, 220000, 260000, 300000];
+  const ASSIGN = [ASSIGNMENT_MAIL, ASSIGNMENT2_MAIL, ASSIGNMENT3_MAIL, ASSIGNMENT4_MAIL, ASSIGNMENT5_MAIL, CONTACT1_MAIL];
+  const SUCC = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL];
+  introSeen = true; omOpened = true; replied = true;
+  gameDay = n - 1;
+  iskraUpdated = n >= 2;
+  applyIskraTheme();
+  const flags = ['assignmentResolved','assignment2Resolved','assignment3Resolved','assignment4Resolved','assignment5Resolved'];
+  for(let i = 0; i < 5; i++){ setFlag(flags[i], i < n - 1); }
+  ['assignmentPending','assignment2Pending','assignment3Pending','assignment4Pending','assignment5Pending'].forEach(f => setFlag(f, false));
+  pendingDeliveries = {}; pendingCutscene = {};
+  bankBalance = 0; bankTx = [];
+  for(let i = 0; i < n - 1 && i < 5; i++){
+    const r = REWARD_BY_MAIL[SUCC[i].id];
+    bankBalance += r.amount; bankTx.unshift({amount:r.amount, label:r.label, fresh:false});
+  }
+  renderBankcard();
+  /* 받은메일함: 튜토리얼 + 지난 차수 의뢰 메일(읽음) + 이번 차수 의뢰 메일(안읽음) */
+  FOLDERS.inbox.length = 0;
+  const past = [TUTORIAL_MAIL].concat(ASSIGN.slice(0, n - 1));
+  const cur = ASSIGN[n - 1];
+  past.forEach(m => { m.unread = false; m.deliveredDay = Math.max(0, gameDay - 1); });
+  cur.unread = true; cur.deliveredDay = gameDay;
+  [cur].concat(past.slice().reverse()).forEach(m => FOLDERS.inbox.push(m));
+  NEW_MAIL.unread = false; INTRO_TUITION_MAIL.unread = false;
+  updateInboxBadge();
+  /* 뉴스 힌트 기사 */
+  [[117,1],[118,2],[122,3],[124,4],[125,5]].forEach(pair => { if(n >= pair[1]) addDynamicArticle(pair[0]); });
+  /* 메신저: 인트로는 끝난 상태에서 이번 차수 안내만 시작 */
+  msgState = {log:[], unread:0, hintLevel:{}, seenMail:{}, greeted:true, followup:false, chain:[], ackO:[], ackIdx:0};
+  ['tutorial1','assign1','assign2','assign3','assign4','assign5','contact1'].forEach(id => { msgState.seenMail[id] = 1; });
+  msgPush('bot', "베타 테스트 구간 이동으로 " + n + "차 시점부터 시작했어요 :)", true);
+  msgState.seenMail[cur.id] = 0;
+  TABS = TABS.filter(t => t.kind === 'oldmail' || t.kind === 'search');
+  if(!TABS.some(t => t.kind === 'search')) TABS.push({id:'t'+(tabSeq++), kind:'search', title:'이스크라', favicon:''});
+  omOpenMail(); omRenderList();
+  goToMainScreen();
+  msgRefreshVisible(); msgRender();
+  if(n <= 5) msgOnMail(cur.id);
+  document.getElementById('toast').classList.remove('show');
+  saveProgress();
+  showCaptureToast(n + '차 시점으로 이동했습니다', 'ok');
+}
+
 loadProgress();
 applyIskraTheme();
 if(!introSeen && !omOpened){ switchTab(TABS[0].id); omStartGate(); }
 else { omOpenMail(); }
 updateInboxBadge();
 msgInit();
+try{ const _j = sessionStorage.getItem('iskra_jump'); if(_j){ sessionStorage.removeItem('iskra_jump'); applyJump(parseInt(_j,10)); } }catch(e){}
 </script>
