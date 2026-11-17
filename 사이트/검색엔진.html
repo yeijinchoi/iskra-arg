@@ -1456,7 +1456,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 /* 모바일 사파리: 검색창 입력의 기본 폭(size=20) 때문에 문서가 가로로 커져 화면이 축소되던 문제 방지 */
 @media (max-width:640px){
-  html,body{overflow-x:clip;max-width:100%;}
+  html{overflow-x:clip;}
+  body{max-width:100%;}
   .panel,.wrap{min-width:0;max-width:100%;}
   .searchform,.srsearchform,.og-searchbar,.al-searchbar,.ar-searchbar,.ls-searchbar,#panel-mail .searchbox,#panel-mail form{min-width:0;}
   .searchform input,.srsearchform input,.og-searchbar input,.al-searchbar input,.ar-searchbar input,.ls-searchbar input,#panel-mail form input{width:0!important;min-width:0!important;flex:1 1 0!important;}
@@ -1656,6 +1657,18 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-mail .mrow .sender{grid-row:1;}
   #panel-mail .mrow .date{grid-row:1;}
   #panel-mail .mrow .subjwrap{grid-row:2;}
+}
+
+/* 모바일 상단 바 고정: sticky가 일부 iOS 웹뷰에서 풀려서 fixed로 확정 + 아래 콘텐츠는 바 높이만큼 내림 */
+@media (max-width:640px){
+  .chrome{position:fixed;top:0;left:0;right:0;width:100%;z-index:60;padding-top:env(safe-area-inset-top,0px);}
+  body{padding-top:var(--chrome-h,60px);}
+  .og-header,.al-header,.ar-header,.ls-header{position:static!important;}
+  /* 서비스 카드: 아이콘이 글자를 가리지 않게 */
+  #panel-orginfo .dz-card,#panel-alumni .dz-card,#panel-archive .dz-card,#panel-listing .dz-card{min-height:128px;padding:20px 20px 22px;}
+  .dz-card p{max-width:none!important;padding-right:68px;}
+  .dz-ico,.dz-card.wide .dz-ico{width:50px!important;height:50px!important;border-radius:16px!important;right:16px!important;bottom:16px!important;}
+  .dz-ico svg{width:26px!important;height:26px!important;}
 }
 </style>
 
@@ -5038,6 +5051,12 @@ function msgInit(){
   switchTab = function(id){ _switch(id); msgRefreshVisible(); };
 })();
 
+
+/* 모바일: 고정된 상단 바 높이를 CSS 변수로 공유 */
+function syncChromeH(){ const c = document.querySelector('.chrome'); if(c) document.documentElement.style.setProperty('--chrome-h', c.offsetHeight + 'px'); }
+window.addEventListener('resize', syncChromeH);
+window.addEventListener('load', syncChromeH);
+setTimeout(syncChromeH, 50);
 /* 브라우저/안드로이드 뒤로가기도 게임 안 뒤로가기로 연결 */
 let backSentinel = false;
 function pushBackSentinel(){ if(backSentinel) return; try{ history.pushState({iskra:1}, ''); backSentinel = true; }catch(e){} }
