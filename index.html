@@ -4456,6 +4456,7 @@ function msgRender(){
   msgRenderChips();
   const bd = document.getElementById('msgBadge');
   if(bd){ bd.textContent = msgState.unread; bd.classList.toggle('show', msgState.unread > 0 && !msgOpen); }
+  try{ document.title = (msgState.unread > 0 && !msgOpen ? '(' + msgState.unread + ') ' : '') + 'iskra'; }catch(e){}
 }
 function msgRenderChips(){
   const q = document.getElementById('msgQuick'); if(!q) return;
@@ -4477,7 +4478,7 @@ function msgRenderChips(){
 }
 function msgPush(role, text, silent){
   msgState.log.push({t:role, x:text, ts:Date.now(), read:false});
-  if(role === 'bot' && !msgOpen && !silent){ msgState.unread++; msgPeekShow(text); }
+  if(role === 'bot' && !msgOpen && !silent){ msgState.unread++; msgPeekShow(text); try{ if(navigator.vibrate) navigator.vibrate(40); }catch(e){} }
   msgSave(); msgRender();
 }
 function msgPeekShow(text){
@@ -4643,7 +4644,7 @@ function msgToggle(){
 }
 function msgRefreshVisible(){
   const l = document.getElementById('msgLauncher'); if(!l) return;
-  const show = introSeen && activeKind() !== 'oldmail';
+  const show = introSeen;
   l.classList.toggle('on', show);
   if(!show){ msgOpen = false; document.getElementById('msgPanel').classList.remove('open'); document.getElementById('msgPeek').classList.remove('show'); l.style.display = ''; }
   else if(msgOpen) l.style.display = 'none';
