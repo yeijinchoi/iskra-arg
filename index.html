@@ -1542,7 +1542,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   <div class="article" id="articleView">
     <div class="backlinks">
       <button class="backlink" onclick="articleGoBack()"><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>뒤로</button>
-      <button class="backlink" onclick="goHome()"><svg class="ic" viewBox="0 0 24 24"><path d="m4 11 8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>홈으로</button>
+      <button class="backlink" onclick="articleHome()"><svg class="ic" viewBox="0 0 24 24"><path d="m4 11 8-7 8 7"/><path d="M6 10v9h12v-9"/></svg>홈으로</button>
     </div>
     <div id="articleBody"></div>
   </div>
@@ -2424,6 +2424,12 @@ function aReload(){
   if(t && t.kind === 'article') renderArticleBody(t.articleId);
 }
 
+function articleHome(){
+  const t = TABS.find(x => x.id === activeId);
+  const origin = (t && t.kind === 'article') ? TABS.find(x => x.id === t.articleOrigin) : null;
+  if(origin && origin.kind === 'oldmail'){ switchTab(origin.id); return; }
+  goHome();
+}
 function articleGoBack(){
   const t = TABS.find(x => x.id === activeId);
   const origin = (t && t.kind === 'article') ? t.articleOrigin : null;
