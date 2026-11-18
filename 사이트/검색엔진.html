@@ -473,6 +473,9 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #5B8DB
 .ending-text{font-size:17px;line-height:1.9;color:#ECECE4;min-height:64px;padding:0 6px;}
 .ending-next{margin-top:30px;background:none;border:none;border-bottom:1px dotted #5E6A5B;color:#8FA08A;font-family:inherit;font-size:16px;padding:6px 64px;cursor:pointer;}
 .ending-next:hover{color:#C5D6BF;}
+.ending-choices{display:flex;flex-direction:column;align-items:center;gap:6px;margin-top:8px;}
+.ending-choices .ending-next{margin-top:18px;padding:6px 20px;max-width:100%;line-height:1.6;}
+.ending-choices .ending-next small{display:block;color:#6F7C6B;font-size:12.5px;margin-top:2px;}
 .ending-title{margin:60px 0 40px;}
 .ending-title small{display:block;font-size:12px;letter-spacing:.3em;color:#8FA08A;margin-bottom:14px;}
 .ending-title b{font-size:30px;color:#ECECE4;}
@@ -5507,10 +5510,11 @@ function performCaptureDlt(){
 var endingChosen = '';
 function finalChoiceOpen(){
   const ov = document.getElementById('finalOverlay'), c = document.getElementById('finalCard');
-  c.innerHTML = '<div class="ft">마지막 확인</div><h2>보고서를 제출하시겠어요?</h2>' +
-    '<p>이스크라 베타테스트팀이 지금까지 수집한 내용을 정리해 정식 보고서로 제출하려고 합니다. 마지막 단계는 직접 확인해 주셔야 해요.</p>' +
-    '<p>보고서에는 \'서쪽 회관 지하\'라는 장소와 \'루카 발렌\'이라는 이름이 들어갑니다. 제출하면 약속한 사례금 300만 원이 입금됩니다.</p>' +
-    '<div class="fb"><button type="button" onclick="finalEnding(\'A\')">그대로 제출한다<small>사례금 3,000,000원</small></button><button type="button" onclick="finalEnding(\'B\')">장소를 바꿔 적거나, 아무것도 제출하지 않는다<small>사례금은 받을 수 없어요</small></button></div>';
+  c.className = 'final-card ending-stage';
+  c.innerHTML = '<img class="ending-pic" src="ending/mail.png" alt="">' +
+    '<div class="ending-text">보고서에는 \'서쪽 회관 지하\'와 \'루카 발렌\'이 적혀 있습니다.<br>제출하면 사례금 300만 원이 입금됩니다.</div>' +
+    '<div class="ending-choices"><button type="button" class="ending-next" onclick="finalEnding(\'A\')">그대로 제출한다 <small>사례금 3,000,000원</small></button>' +
+    '<button type="button" class="ending-next" onclick="finalEnding(\'B\')">장소를 바꿔 적거나, 아무것도 제출하지 않는다 <small>사례금은 받을 수 없어요</small></button></div>';
   ov.classList.remove('hidden');
 }
 function finalEnding(k){
