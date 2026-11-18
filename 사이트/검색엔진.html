@@ -380,91 +380,219 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .article .cat{color:var(--accent);font-weight:700;font-size:12px;}
 /* 외부 매체 기사 레이아웃 */
 
-/* 연합회 게시판 */
-#panel-board{background:#F6F1E9;min-height:100vh;color:#2B2622;}
-#panel-board .bd-top{background:#4A2E22;color:#F6F1E9;}
-#panel-board .bd-top-in{max-width:920px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;}
-#panel-board .bd-brand{display:flex;align-items:center;gap:10px;flex:1;}
-#panel-board .bd-mark{width:30px;height:30px;border-radius:8px;background:#C98A5B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;}
-#panel-board .bd-brand em{font-style:normal;font-size:12px;opacity:.7;}
-#panel-board .bd-user{font-size:12px;opacity:.8;}
-#panel-board .bd-out{background:none;border:1px solid rgba(246,241,233,.4);color:inherit;border-radius:999px;font-family:inherit;font-size:12px;padding:4px 12px;cursor:pointer;}
-#panel-board .bd-page{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
-#panel-board .bd-login{max-width:380px;margin:40px auto;background:#fff;border-radius:18px;padding:30px 28px;box-shadow:0 6px 24px rgba(74,46,34,.12);}
-#panel-board .bd-login h1{margin:0 0 6px;font-size:20px;}
-#panel-board .bd-login p{margin:0 0 18px;font-size:13px;color:#7A6A5E;}
-#panel-board .bd-login label{display:block;font-size:12px;color:#7A6A5E;margin-bottom:12px;}
-#panel-board .bd-login input{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid #DDD2C4;border-radius:10px;font-family:inherit;font-size:14px;background:#FBF8F3;}
-#panel-board .bd-err{font-size:12.5px;color:#B5452E;margin-bottom:10px;}
-#panel-board .bd-btn{width:100%;padding:11px;border:none;border-radius:10px;background:#4A2E22;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
-#panel-board .bd-login small{display:block;margin-top:14px;font-size:11.5px;color:#9A8A7C;line-height:1.5;}
-#panel-board .bd-h{font-size:19px;margin:0 0 14px;}
-#panel-board .bd-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:13px;}
-#panel-board .bd-table th{background:#EFE6DA;font-weight:700;font-size:12px;padding:10px 12px;text-align:left;}
-#panel-board .bd-table td{padding:11px 12px;border-top:1px solid #F0E8DC;}
+/* 연합회 게시판 — 국내 게시판 문법(큰 헤드라인·탭·테두리 검색창·총 N건·굵은 상단선 표·이전글/다음글) */
+#panel-board{background:#fff;min-height:100vh;color:#222;}
+#panel-board .bd-top{background:#fff;border-bottom:1px solid #ECE6DE;position:relative;}
+#panel-board .bd-top-in{max-width:1080px;margin:0 auto;padding:0 24px;height:72px;display:flex;align-items:center;gap:28px;}
+#panel-board .bd-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#panel-board .bd-mark{width:38px;height:38px;border-radius:50%;background:#7A3E26;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;overflow:hidden;}
+#panel-board .bd-mark img{width:100%;height:100%;object-fit:contain;}
+#panel-board .bd-bt{display:flex;flex-direction:column;line-height:1.2;}
+#panel-board .bd-bt b{font-size:17px;font-weight:800;color:#3B2418;letter-spacing:-.02em;}
+#panel-board .bd-bt em{font-style:normal;font-size:10.5px;letter-spacing:.08em;color:#A08B7A;}
+#panel-board .bd-logo-img{height:40px;width:auto;display:block;}
+#panel-board .bd-gnb{display:flex;gap:30px;flex:1;justify-content:center;font-size:15px;font-weight:600;color:#3B3B3B;}
+#panel-board .bd-gnb span{padding:25px 0 23px;border-bottom:3px solid transparent;}
+#panel-board .bd-gnb span.on{color:#7A3E26;border-bottom-color:#7A3E26;}
+#panel-board .bd-util{display:flex;align-items:center;gap:10px;flex-shrink:0;font-size:12.5px;color:#666;}
+#panel-board .bd-out{background:none;border:1px solid #D9D2C9;color:#555;border-radius:4px;font-family:inherit;font-size:12px;padding:5px 10px;cursor:pointer;}
+#panel-board .bd-page{max-width:1080px;margin:0 auto;padding:44px 24px 80px;}
+#panel-board .bd-crumb{font-size:12.5px;color:#999;margin:0 0 18px;}
+#panel-board .bd-crumb i{font-style:normal;margin:0 6px;color:#C7C0B8;}
+#panel-board .bd-hero{font-size:38px;line-height:1.3;font-weight:300;letter-spacing:-.03em;color:#222;margin:0 0 34px;}
+#panel-board .bd-hero b{font-weight:800;color:#3B2418;}
+#panel-board .bd-tabs{display:flex;gap:26px;margin-bottom:26px;border-bottom:1px solid #EEE;}
+#panel-board .bd-tabs button{background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;padding:0 0 12px;font-family:inherit;font-size:16px;font-weight:600;color:#999;cursor:pointer;}
+#panel-board .bd-tabs button.on{color:#7A3E26;border-bottom-color:#7A3E26;}
+#panel-board .bd-search{display:flex;align-items:center;gap:10px;border:2px solid #222;padding:16px 20px;margin-bottom:42px;}
+#panel-board .bd-search label{display:flex;align-items:center;gap:10px;font-size:13px;color:#777;white-space:nowrap;}
+#panel-board .bd-search select{border:none;background:#F4F4F4;font-family:inherit;font-size:13.5px;padding:8px 26px 8px 10px;border-radius:2px;}
+#panel-board .bd-search input{flex:1;min-width:0;border:none;background:#F4F4F4;font-family:inherit;font-size:13.5px;padding:9px 12px;border-radius:2px;}
+#panel-board .bd-search button{border:none;background:#222;color:#fff;font-family:inherit;font-size:13px;font-weight:700;padding:9px 20px;cursor:pointer;}
+#panel-board .bd-count{font-size:15px;font-weight:600;margin:0 0 14px;}
+#panel-board .bd-count b{color:#7A3E26;}
+#panel-board .bd-table{width:100%;border-collapse:collapse;font-size:14.5px;border-top:2px solid #222;}
+#panel-board .bd-table th{font-size:13px;font-weight:600;color:#666;padding:14px 10px;border-bottom:1px solid #DDD;text-align:center;}
+#panel-board .bd-table th.tt{text-align:left;}
+#panel-board .bd-table td{padding:19px 10px;border-bottom:1px solid #EEE;text-align:center;color:#555;}
+#panel-board .bd-table td.t{text-align:left;color:#222;}
+#panel-board .bd-table td.t b{color:#7A3E26;font-size:13px;font-weight:700;}
 #panel-board .bd-table tbody tr{cursor:pointer;}
-#panel-board .bd-table tbody tr:hover{background:#FBF6EE;}
-#panel-board .bd-table td.n,#panel-board .bd-table td.d{color:#9A8A7C;white-space:nowrap;}
-#panel-board .bd-table td.t b{color:#C98A5B;font-size:12px;}
-#panel-board .bd-tag{font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px;background:#EFE6DA;color:#6B5547;}
-#panel-board .bd-tag.t-notice{background:#4A2E22;color:#fff;}
-#panel-board .bd-tag.t-info{background:#C98A5B;color:#fff;}
-#panel-board .bd-tag.t-lock{background:#2B2622;color:#fff;}
-#panel-board .bd-back{background:none;border:none;color:#6B5547;font-family:inherit;font-size:13px;cursor:pointer;padding:0 0 12px;}
-#panel-board .bd-card{background:#fff;border-radius:16px;padding:26px 28px 24px;box-shadow:0 2px 12px rgba(74,46,34,.08);}
-#panel-board .bd-ph h2{margin:10px 0 8px;font-size:20px;line-height:1.4;}
-#panel-board .bd-pm{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#9A8A7C;padding-bottom:14px;border-bottom:1px solid #F0E8DC;}
-#panel-board .bd-pb{padding:18px 0 6px;}
-#panel-board .bd-pb p{margin:0 0 12px;font-size:14.5px;line-height:1.85;}
-#panel-board .bd-pb.enc p:not(.bd-note){font-family:monospace;letter-spacing:.04em;background:#F6F1E9;padding:8px 10px;border-radius:8px;}
-#panel-board .bd-note{font-size:12px;color:#9A8A7C;}
-#panel-board .bd-cm{margin-top:18px;border-top:1px solid #F0E8DC;padding-top:14px;}
-#panel-board .bd-ch{font-size:13px;font-weight:700;margin-bottom:6px;}
-#panel-board .bd-ch b{color:#C98A5B;}
-#panel-board .bd-cr{padding:9px 0;border-bottom:1px solid #F6F0E6;font-size:13px;line-height:1.6;}
-#panel-board .bd-cr .u{font-weight:700;margin-right:8px;}
-body.capture-mode #panel-board .bd-card{cursor:crosshair;outline:2px dashed #C98A5B;outline-offset:3px;}
-@media (max-width:640px){ #panel-board .bd-table th:nth-child(1),#panel-board .bd-table td.n,#panel-board .bd-table th:nth-child(4),#panel-board .bd-table td.a{display:none;} #panel-board .bd-card{padding:20px 18px;} }
-
-/* 공공기록 열람센터 + 최종 선택/엔딩 */
-#panel-dlt{background:#EEF1F4;min-height:100vh;color:#1F2933;}
-#panel-dlt .dl-top{background:#23364A;color:#fff;}
-#panel-dlt .dl-top-in{max-width:920px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;}
-#panel-dlt .dl-brand{display:flex;align-items:center;gap:10px;flex:1;}
-#panel-dlt .dl-mark{width:30px;height:30px;border-radius:8px;background:#5B8DB8;display:flex;align-items:center;justify-content:center;font-weight:800;}
-#panel-dlt .dl-brand em{font-style:normal;font-size:12px;opacity:.7;}
-#panel-dlt .dl-user{font-size:12px;opacity:.8;}
-#panel-dlt .dl-page{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
-#panel-dlt .dl-login{max-width:380px;margin:40px auto;background:#fff;border-radius:16px;padding:30px 28px;box-shadow:0 6px 24px rgba(35,54,74,.12);}
-#panel-dlt .dl-login h1{margin:0 0 6px;font-size:20px;}
-#panel-dlt .dl-login p{margin:0 0 18px;font-size:13px;color:#6B7785;}
-#panel-dlt .dl-login label{display:block;font-size:12px;color:#6B7785;margin-bottom:12px;}
-#panel-dlt .dl-login input,#panel-dlt .dl-search input{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid #CBD4DD;border-radius:10px;font-family:inherit;font-size:14px;background:#F8FAFC;}
-#panel-dlt .dl-err{font-size:12.5px;color:#B5452E;margin-bottom:10px;}
-#panel-dlt .dl-btn{width:100%;padding:11px;border:none;border-radius:10px;background:#23364A;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
-#panel-dlt .dl-h{font-size:19px;margin:0 0 14px;}
-#panel-dlt .dl-search{display:flex;gap:8px;margin-bottom:18px;}
-#panel-dlt .dl-search input{margin-top:0;}
-#panel-dlt .dl-search button{padding:0 20px;border:none;border-radius:10px;background:#23364A;color:#fff;font-family:inherit;font-weight:700;cursor:pointer;flex-shrink:0;}
-#panel-dlt .dl-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:13px;}
-#panel-dlt .dl-table th{background:#E3E9EF;font-size:12px;padding:10px 12px;text-align:left;}
-#panel-dlt .dl-table td{padding:11px 12px;border-top:1px solid #EEF1F4;}
+#panel-board .bd-table tbody tr:hover td.t{text-decoration:underline;}
+#panel-board .bd-table tr.notice{background:#FBF8F4;}
+#panel-board .bd-table tr.notice td.t{font-weight:600;}
+#panel-board .bd-table td.n,#panel-board .bd-table td.d{white-space:nowrap;font-size:13.5px;color:#888;}
+#panel-board .bd-table td.d{text-align:right;}
+#panel-board .bd-table tr.empty td{padding:60px 10px;color:#999;}
+#panel-board .bd-lock{display:inline-block;width:13px;height:13px;margin-right:6px;vertical-align:-1px;color:#7A3E26;}
+#panel-board .bd-tag{font-size:11.5px;font-weight:700;border-radius:3px;padding:3px 8px;background:#7A3E26;color:#fff;}
+#panel-board .bd-cat{display:inline-block;font-size:12px;font-weight:600;border-radius:999px;padding:3px 10px;background:#F3EEE8;color:#7A5A47;white-space:nowrap;}
+#panel-board .bd-cat.c-notice{background:#7A3E26;color:#fff;}
+#panel-board .bd-cat.c-info{background:#FCEBDD;color:#B4582A;}
+#panel-board .bd-cat.c-lock{background:#2E2A27;color:#fff;}
+#panel-board .bd-pager{display:flex;justify-content:center;gap:4px;margin-top:40px;}
+#panel-board .bd-pager button{width:32px;height:32px;border:1px solid #DDD;background:#fff;font-family:inherit;font-size:13px;color:#555;cursor:pointer;}
+#panel-board .bd-pager button.on{border-color:#222;font-weight:700;color:#222;}
+#panel-board .bd-pager button:disabled{color:#CCC;cursor:default;}
+#panel-board .bd-login{max-width:420px;margin:30px auto 0;text-align:center;}
+#panel-board .bd-login h1{margin:0 0 10px;font-size:30px;font-weight:800;letter-spacing:-.02em;}
+#panel-board .bd-login p{margin:0 0 32px;font-size:14px;color:#777;}
+#panel-board .bd-login label{display:block;text-align:left;font-size:13px;font-weight:600;color:#444;margin-bottom:14px;}
+#panel-board .bd-login input{display:block;width:100%;margin-top:7px;padding:14px;border:1px solid #DDD;border-radius:4px;font-family:inherit;font-size:14.5px;background:#fff;}
+#panel-board .bd-login input:focus{outline:none;border-color:#7A3E26;}
+#panel-board .bd-err{font-size:13px;color:#C2410C;margin:0 0 12px;text-align:left;}
+#panel-board .bd-btn{width:100%;padding:15px;border:none;border-radius:4px;background:#7A3E26;color:#fff;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;margin-top:6px;}
+#panel-board .bd-links{display:flex;justify-content:center;gap:0;margin:18px 0 0;font-size:13px;color:#888;}
+#panel-board .bd-links span{padding:0 12px;border-left:1px solid #DDD;}
+#panel-board .bd-links span:first-child{border-left:none;}
+#panel-board .bd-login small{display:block;margin-top:26px;font-size:12.5px;color:#999;line-height:1.6;background:#FBF8F4;padding:12px;border-radius:4px;}
+#panel-board .bd-card{border-top:2px solid #222;}
+#panel-board .bd-ph{padding:26px 6px 20px;border-bottom:1px solid #DDD;}
+#panel-board .bd-ph h2{margin:12px 0 14px;font-size:24px;line-height:1.45;font-weight:700;letter-spacing:-.02em;}
+#panel-board .bd-pm{display:flex;flex-wrap:wrap;gap:6px 22px;font-size:13px;color:#555;}
+#panel-board .bd-pm em{font-style:normal;color:#999;margin-right:6px;}
+#panel-board .bd-pb{padding:34px 6px 30px;min-height:120px;}
+#panel-board .bd-pb p{margin:0 0 14px;font-size:15.5px;line-height:1.9;color:#333;}
+#panel-board .bd-pb.enc p:not(.bd-note){font-family:ui-monospace,Menlo,Consolas,monospace;letter-spacing:.04em;background:#F6F3EF;padding:10px 12px;border-radius:4px;}
+#panel-board .bd-note{font-size:13px;color:#999;}
+#panel-board .bd-cm{border-top:1px solid #DDD;padding:22px 6px 6px;}
+#panel-board .bd-ch{font-size:15px;font-weight:700;margin-bottom:8px;}
+#panel-board .bd-ch b{color:#7A3E26;}
+#panel-board .bd-cr{display:flex;gap:12px;padding:16px 0;border-bottom:1px solid #F0F0F0;}
+#panel-board .bd-cr .av{flex-shrink:0;width:34px;height:34px;border-radius:50%;background:#F3EEE8;color:#7A5A47;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;}
+#panel-board .bd-cr .u{display:block;font-size:13.5px;font-weight:700;margin-bottom:3px;}
+#panel-board .bd-cr .t{margin:0;font-size:14px;line-height:1.6;color:#444;}
+#panel-board .bd-nav{border-top:2px solid #222;margin-top:34px;}
+#panel-board .bd-nr{display:flex;gap:24px;padding:15px 10px;border-bottom:1px solid #EEE;font-size:14px;}
+#panel-board .bd-nr span{width:52px;flex-shrink:0;color:#999;font-size:13px;}
+#panel-board .bd-nr a{color:#333;cursor:pointer;}
+#panel-board .bd-nr a:hover{text-decoration:underline;}
+#panel-board .bd-nr em{font-style:normal;color:#BBB;}
+#panel-board .bd-foot-act{display:flex;justify-content:center;margin-top:34px;}
+#panel-board .bd-listbtn{min-width:140px;padding:13px 20px;border:1px solid #222;background:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
+#panel-board .bd-footer{border-top:1px solid #EEE;background:#FAFAFA;}
+#panel-board .bd-footer-in{max-width:1080px;margin:0 auto;padding:26px 24px 34px;font-size:12.5px;color:#888;line-height:1.8;}
+#panel-board .bd-footer-in b{display:block;color:#555;font-size:13.5px;margin-bottom:4px;}
+#panel-board .bd-code{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
+#panel-board .bd-code input{width:130px;padding:10px 12px;border:1px solid #DDD;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:15px;letter-spacing:.2em;background:#fff;}
+#panel-board .bd-code button{padding:10px 18px;border:none;border-radius:4px;background:#222;color:#fff;font-family:inherit;font-weight:700;cursor:pointer;}
+#panel-board .bd-code .bd-codemsg{font-size:12.5px;color:#C2410C;flex-basis:100%;}
+body.capture-mode #panel-board .bd-card{cursor:crosshair;outline:2px dashed #B4582A;outline-offset:6px;}
+@media (max-width:760px){
+  #panel-board .bd-top-in{height:60px;gap:12px;padding:0 16px;}
+  #panel-board .bd-gnb{display:none;}
+  #panel-board .bd-util{margin-left:auto;}
+  #panel-board .bd-page{padding:28px 16px 60px;}
+  #panel-board .bd-hero{font-size:27px;margin-bottom:24px;}
+  #panel-board .bd-tabs{gap:18px;overflow-x:auto;}
+  #panel-board .bd-tabs button{font-size:14.5px;white-space:nowrap;}
+  #panel-board .bd-search{flex-wrap:wrap;padding:12px;margin-bottom:28px;}
+  #panel-board .bd-search label{display:none;}
+  #panel-board .bd-table th.c,#panel-board .bd-table td.c,#panel-board .bd-table th.a,#panel-board .bd-table td.a{display:none;}
+  #panel-board .bd-table td{padding:15px 6px;}
+  #panel-board .bd-ph h2{font-size:20px;}
+}
+/* 공공기록 열람센터 — 공공 누리집 문법(전자정부 띠·두 줄 제목·필터 검색 패널·배지 표·기록 상세 표) */
+#panel-dlt{background:#fff;min-height:100vh;color:#1E2124;}
+#panel-dlt .dl-gov{background:#F4F5F6;border-bottom:1px solid #E6E8EA;font-size:12px;color:#464C53;}
+#panel-dlt .dl-gov-in{max-width:1080px;margin:0 auto;padding:7px 24px;display:flex;align-items:center;gap:8px;}
+#panel-dlt .dl-flag{width:16px;height:11px;border-radius:2px;background:linear-gradient(180deg,#1C4E80 0 50%,#E7EEF6 50% 100%);border:1px solid #CBD2DA;}
+#panel-dlt .dl-top{background:#fff;border-bottom:1px solid #E6E8EA;}
+#panel-dlt .dl-top-in{max-width:1080px;margin:0 auto;padding:0 24px;height:76px;display:flex;align-items:center;gap:30px;}
+#panel-dlt .dl-brand{display:flex;align-items:center;gap:10px;flex-shrink:0;}
+#panel-dlt .dl-mark{width:38px;height:38px;border-radius:10px;background:#1C4E80;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;overflow:hidden;}
+#panel-dlt .dl-mark img{width:100%;height:100%;object-fit:contain;}
+#panel-dlt .dl-bt{display:flex;flex-direction:column;line-height:1.2;}
+#panel-dlt .dl-bt b{font-size:17px;font-weight:800;color:#13263F;letter-spacing:-.02em;}
+#panel-dlt .dl-bt em{font-style:normal;font-size:10.5px;letter-spacing:.06em;color:#6D7882;}
+#panel-dlt .dl-logo-img{height:42px;width:auto;display:block;}
+#panel-dlt .dl-gnb{display:flex;gap:34px;flex:1;justify-content:center;font-size:16px;font-weight:700;color:#1E2124;}
+#panel-dlt .dl-gnb span{padding:26px 0 24px;border-bottom:3px solid transparent;}
+#panel-dlt .dl-gnb span.on{color:#1C4E80;border-bottom-color:#1C4E80;}
+#panel-dlt .dl-util{flex-shrink:0;font-size:12.5px;color:#58616A;}
+#panel-dlt .dl-page{max-width:1080px;margin:0 auto;padding:40px 24px 80px;}
+#panel-dlt .dl-crumb{font-size:12.5px;color:#6D7882;margin:0 0 14px;}
+#panel-dlt .dl-crumb i{font-style:normal;margin:0 6px;color:#B1B8BE;}
+#panel-dlt .dl-h{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:0 0 10px;color:#13263F;}
+#panel-dlt .dl-desc{font-size:15px;color:#58616A;margin:0 0 28px;line-height:1.6;}
+#panel-dlt .dl-search{background:#F4F5F6;border-radius:12px;padding:22px 26px;margin-bottom:34px;display:flex;flex-direction:column;gap:14px;}
+#panel-dlt .dl-sr{display:flex;align-items:center;gap:18px;}
+#panel-dlt .dl-sl{width:52px;flex-shrink:0;font-size:14px;font-weight:700;color:#33363D;}
+#panel-dlt .dl-chips{display:flex;gap:8px;flex-wrap:wrap;}
+#panel-dlt .dl-chips button{border:1px solid #CDD1D5;background:#fff;border-radius:999px;font-family:inherit;font-size:13.5px;font-weight:600;color:#464C53;padding:7px 16px;cursor:pointer;}
+#panel-dlt .dl-chips button.on{background:#1C4E80;border-color:#1C4E80;color:#fff;}
+#panel-dlt .dl-sq{flex:1;display:flex;gap:8px;min-width:0;}
+#panel-dlt .dl-sq input{flex:1;min-width:0;border:1px solid #CDD1D5;border-radius:8px;background:#fff;font-family:inherit;font-size:15px;padding:12px 14px;}
+#panel-dlt .dl-sq input:focus{outline:2px solid #1C4E80;outline-offset:-1px;}
+#panel-dlt .dl-sq button{flex-shrink:0;border:none;border-radius:8px;background:#1C4E80;color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:0 28px;cursor:pointer;}
+#panel-dlt .dl-rh{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:12px;}
+#panel-dlt .dl-total{font-size:15px;margin:0;}
+#panel-dlt .dl-total b{color:#1C4E80;}
+#panel-dlt .dl-sort{font-size:13px;color:#6D7882;}
+#panel-dlt .dl-table{width:100%;border-collapse:collapse;font-size:14.5px;border-top:2px solid #1E2124;}
+#panel-dlt .dl-table th{background:#F4F5F6;font-size:13.5px;font-weight:700;color:#33363D;padding:13px 10px;border-bottom:1px solid #CDD1D5;text-align:center;}
+#panel-dlt .dl-table td{padding:16px 10px;border-bottom:1px solid #E6E8EA;text-align:center;color:#33363D;}
+#panel-dlt .dl-table td.ad{text-align:left;font-weight:600;color:#13263F;}
+#panel-dlt .dl-table td.nt{text-align:left;color:#58616A;}
+#panel-dlt .dl-table td.no,#panel-dlt .dl-table td.dt{color:#6D7882;white-space:nowrap;font-size:13.5px;}
 #panel-dlt .dl-table tbody tr{cursor:pointer;}
-#panel-dlt .dl-table tbody tr:hover{background:#F5F8FA;}
-#panel-dlt .dl-kind{font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px;background:#E3E9EF;}
-#panel-dlt .dl-kind.k-mat{background:#5B8DB8;color:#fff;}
-#panel-dlt .dl-empty{padding:24px;text-align:center;color:#6B7785;font-size:13px;background:#fff;border-radius:14px;}
-#panel-dlt .dl-back{background:none;border:none;color:#4A6076;font-family:inherit;font-size:13px;cursor:pointer;padding:0 0 12px;}
-#panel-dlt .dl-card{background:#fff;border-radius:16px;padding:26px 28px;box-shadow:0 2px 12px rgba(35,54,74,.08);}
-#panel-dlt .dl-card h2{margin:0 0 14px;font-size:19px;}
-#panel-dlt .dl-card table{width:100%;border-collapse:collapse;font-size:14px;}
-#panel-dlt .dl-card th{width:120px;text-align:left;color:#6B7785;font-weight:600;padding:9px 0;border-top:1px solid #EEF1F4;}
-#panel-dlt .dl-card td{padding:9px 0;border-top:1px solid #EEF1F4;}
-body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #5B8DB8;outline-offset:3px;}
-#panel-board .bd-code{margin-top:14px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-#panel-board .bd-code input{width:130px;padding:9px 12px;border:1px solid #DDD2C4;border-radius:10px;font-family:monospace;font-size:15px;letter-spacing:.2em;background:#FBF8F3;}
-#panel-board .bd-code button{padding:9px 16px;border:none;border-radius:10px;background:#4A2E22;color:#fff;font-family:inherit;font-weight:700;cursor:pointer;}
-#panel-board .bd-code .bd-codemsg{font-size:12px;color:#B5452E;flex-basis:100%;}
+#panel-dlt .dl-table tbody tr:hover{background:#F5F8FC;}
+#panel-dlt .dl-kind{display:inline-block;font-size:12.5px;font-weight:700;border-radius:4px;padding:3px 9px;}
+#panel-dlt .dl-kind.k-mat{background:#E5EFFA;color:#1C4E80;}
+#panel-dlt .dl-kind.k-tel{background:#EFEAF9;color:#5B3FA3;}
+#panel-dlt .dl-empty{padding:56px 20px;text-align:center;color:#6D7882;font-size:14.5px;border-top:2px solid #1E2124;border-bottom:1px solid #E6E8EA;}
+#panel-dlt .dl-pager{display:flex;justify-content:center;gap:6px;margin-top:30px;}
+#panel-dlt .dl-pager button{width:34px;height:34px;border-radius:6px;border:1px solid #E6E8EA;background:#fff;font-family:inherit;color:#58616A;cursor:pointer;}
+#panel-dlt .dl-pager button.on{background:#1C4E80;border-color:#1C4E80;color:#fff;font-weight:700;}
+#panel-dlt .dl-pager button:disabled{color:#C6CBD0;cursor:default;}
+#panel-dlt .dl-login{max-width:440px;margin:24px auto 0;border:1px solid #E6E8EA;border-radius:16px;padding:36px 34px 30px;}
+#panel-dlt .dl-login h1{margin:0 0 8px;font-size:26px;font-weight:800;text-align:center;color:#13263F;}
+#panel-dlt .dl-login p{margin:0 0 24px;font-size:14px;color:#58616A;text-align:center;}
+#panel-dlt .dl-ltabs{display:flex;margin-bottom:22px;border-bottom:1px solid #E6E8EA;}
+#panel-dlt .dl-ltabs span{flex:1;text-align:center;font-size:14px;font-weight:700;color:#8A949E;padding:0 0 12px;border-bottom:2px solid transparent;margin-bottom:-1px;}
+#panel-dlt .dl-ltabs span.on{color:#1C4E80;border-bottom-color:#1C4E80;}
+#panel-dlt .dl-login label{display:block;font-size:13.5px;font-weight:700;color:#33363D;margin-bottom:14px;}
+#panel-dlt .dl-login input{display:block;width:100%;margin-top:7px;padding:13px 14px;border:1px solid #CDD1D5;border-radius:8px;font-family:inherit;font-size:15px;background:#fff;}
+#panel-dlt .dl-login input:focus{outline:2px solid #1C4E80;outline-offset:-1px;}
+#panel-dlt .dl-err{font-size:13px;color:#D02C2C;margin:0 0 12px;}
+#panel-dlt .dl-btn{width:100%;padding:15px;border:none;border-radius:8px;background:#1C4E80;color:#fff;font-family:inherit;font-size:16px;font-weight:700;cursor:pointer;margin-top:4px;}
+#panel-dlt .dl-links{display:flex;justify-content:center;margin-top:18px;font-size:13px;color:#6D7882;}
+#panel-dlt .dl-links span{padding:0 12px;border-left:1px solid #DDE1E4;}
+#panel-dlt .dl-links span:first-child{border-left:none;}
+#panel-dlt .dl-card{border-top:2px solid #1E2124;}
+#panel-dlt .dl-ch{padding:24px 4px 18px;border-bottom:1px solid #CDD1D5;}
+#panel-dlt .dl-ch h2{margin:10px 0 6px;font-size:24px;font-weight:800;color:#13263F;letter-spacing:-.02em;}
+#panel-dlt .dl-ch p{margin:0;font-size:13px;color:#6D7882;}
+#panel-dlt .dl-grid{width:100%;border-collapse:collapse;font-size:15px;}
+#panel-dlt .dl-grid th{width:130px;background:#F4F5F6;text-align:left;font-weight:700;color:#33363D;padding:15px 16px;border-bottom:1px solid #E6E8EA;font-size:14px;}
+#panel-dlt .dl-grid td{padding:15px 16px;border-bottom:1px solid #E6E8EA;color:#1E2124;}
+#panel-dlt .dl-grid td b{color:#13263F;}
+#panel-dlt .dl-notice{margin-top:22px;background:#EEF4FB;border-radius:10px;padding:16px 18px;font-size:13.5px;line-height:1.7;color:#33363D;}
+#panel-dlt .dl-notice b{display:block;color:#1C4E80;margin-bottom:2px;}
+#panel-dlt .dl-act{display:flex;justify-content:center;margin-top:30px;}
+#panel-dlt .dl-listbtn{min-width:140px;padding:13px 20px;border:1px solid #1C4E80;background:#fff;color:#1C4E80;border-radius:8px;font-family:inherit;font-size:15px;font-weight:700;cursor:pointer;}
+#panel-dlt .dl-footer{background:#F4F5F6;border-top:1px solid #E6E8EA;}
+#panel-dlt .dl-footer-in{max-width:1080px;margin:0 auto;padding:26px 24px 36px;font-size:12.5px;color:#6D7882;line-height:1.8;}
+#panel-dlt .dl-footer-in b{display:block;color:#33363D;font-size:13.5px;margin-bottom:4px;}
+body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E80;outline-offset:6px;}
+@media (max-width:760px){
+  #panel-dlt .dl-top-in{height:62px;gap:12px;padding:0 16px;}
+  #panel-dlt .dl-gnb{display:none;}
+  #panel-dlt .dl-util{margin-left:auto;}
+  #panel-dlt .dl-gov-in{padding:6px 16px;font-size:11px;}
+  #panel-dlt .dl-page{padding:26px 16px 60px;}
+  #panel-dlt .dl-h{font-size:25px;}
+  #panel-dlt .dl-search{padding:16px;}
+  #panel-dlt .dl-sr{flex-direction:column;align-items:flex-start;gap:8px;}
+  #panel-dlt .dl-sq{width:100%;}
+  #panel-dlt .dl-sq button{padding:0 18px;}
+  #panel-dlt .dl-table th.no,#panel-dlt .dl-table td.no,#panel-dlt .dl-table th.pt,#panel-dlt .dl-table td.pt,#panel-dlt .dl-table th.nt,#panel-dlt .dl-table td.nt{display:none;}
+  #panel-dlt .dl-table td{padding:14px 6px;}
+  #panel-dlt .dl-grid th{width:92px;padding:13px 10px;}
+  #panel-dlt .dl-grid td{padding:13px 10px;}
+  #panel-dlt .dl-login{padding:28px 20px 24px;}
+}
+/* 최종 선택/엔딩 */
 .final-overlay{position:fixed;inset:0;z-index:500;background:#16181C;display:flex;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
 .final-overlay.hidden{display:none;}
 .final-overlay{background:#000;}
@@ -479,6 +607,7 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #5B8DB
 .ending-title{margin:60px 0 40px;}
 .ending-title small{display:block;font-size:12px;letter-spacing:.3em;color:#8FA08A;margin-bottom:14px;}
 .ending-title b{font-size:30px;color:#ECECE4;}
+.ending-title.bad small{color:#C8665C;}
 .final-card.ending-stage .fe{justify-content:center;}
 .final-card{max-width:560px;width:100%;color:#EDEEF0;}
 .final-card .ft{font-size:11.5px;font-weight:700;color:#C98A5B;letter-spacing:.12em;margin-bottom:12px;}
@@ -2102,9 +2231,84 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-report .rp-crow{grid-template-columns:1fr;gap:2px;}
   #panel-report .rp-ev{display:block;width:fit-content;margin:4px 0 0;}
 }
+
+/* ===== 베타 테스트 결과 확인서(겉면) — 국내 핀테크 앱식: 큰 인사 헤드라인·요약 카드·하단 큰 확인 버튼 ===== */
+#panel-report.v-cover{background:#F2F4F6;}
+#panel-report.v-cover .rp-top{border-bottom-color:#E5E8EB;}
+#panel-report .rp-user{font-size:12.5px;font-weight:600;color:#4E5968;background:#F2F4F6;border-radius:999px;padding:5px 12px;white-space:nowrap;}
+#panel-report .rc{max-width:620px;margin:0 auto;}
+#panel-report .rc.wait .rc-cta,#panel-report .rc.wait .rc-later,#panel-report .rc.wait .rc-fix{pointer-events:none;}
+#panel-report .rc-eyebrow{display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:#1E5FC2;margin:6px 0 12px;}
+#panel-report .rc-st{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px;}
+#panel-report .rc-st.s-wait{background:#FFF1D6;color:#8A5A00;}
+#panel-report .rc-st.s-done{background:#E3EEFF;color:#1E5FC2;}
+#panel-report .rc-st.s-none{background:#E5E8EB;color:#4E5968;}
+#panel-report .rc-st.s-back{background:#FDE7E5;color:#B3261E;}
+#panel-report .rc-h{font-size:27px;line-height:1.4;font-weight:500;letter-spacing:-.025em;margin:0 0 12px;color:#191F28;}
+#panel-report .rc-h b{font-weight:800;}
+#panel-report .rc-lead{font-size:15px;line-height:1.7;color:#4E5968;margin:0 0 26px;}
+#panel-report .rc-kpis{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:30px;}
+#panel-report .rc-kpi{background:#fff;border-radius:18px;padding:17px 18px 16px;}
+#panel-report .rc-kpi span{display:block;font-size:12.5px;color:#6B7684;margin-bottom:6px;}
+#panel-report .rc-kpi b{font-size:22px;font-weight:800;color:#191F28;letter-spacing:-.02em;}
+#panel-report .rc-kpi b small{font-size:14px;font-weight:600;color:#6B7684;margin-left:2px;}
+#panel-report .rc-kpi.hl{background:#1E5FC2;}
+#panel-report .rc-kpi.hl span{color:rgba(255,255,255,.78);}
+#panel-report .rc-kpi.hl b,#panel-report .rc-kpi.hl b small{color:#fff;}
+#panel-report .rc-bar{display:block;height:6px;border-radius:3px;background:#E5E8EB;margin-top:10px;overflow:hidden;}
+#panel-report .rc-bar em{display:block;height:100%;width:100%;background:#1E5FC2;border-radius:3px;}
+#panel-report .rc-sec{display:flex;align-items:baseline;gap:8px;margin:0 4px 10px;}
+#panel-report .rc-sec h2{font-size:18px;font-weight:800;color:#191F28;margin:0;letter-spacing:-.01em;}
+#panel-report .rc-sec span{font-size:14px;font-weight:700;color:#1E5FC2;}
+#panel-report .rc-list{list-style:none;margin:0 0 14px;padding:4px 20px;background:#fff;border-radius:20px;}
+#panel-report .rc-item{display:flex;align-items:flex-start;gap:14px;padding:16px 0;border-top:1px solid #F2F4F6;}
+#panel-report .rc-item:first-child{border-top:none;}
+#panel-report .rc-no{flex-shrink:0;width:28px;height:28px;border-radius:50%;background:#E8F0FD;color:#1E5FC2;font-size:13px;font-weight:800;display:flex;align-items:center;justify-content:center;}
+#panel-report .rc-body{flex:1;min-width:0;}
+#panel-report .rc-body b{display:block;font-size:15px;font-weight:700;color:#191F28;margin-bottom:3px;}
+#panel-report .rc-body p{margin:0;font-size:13.5px;line-height:1.65;color:#4E5968;}
+#panel-report .rc-body p .rc-v{display:inline;font-size:13.5px;color:#191F28;margin:0;}
+#panel-report .rc-pass{flex-shrink:0;font-size:12px;font-weight:700;color:#0E9F6E;background:#E6F7F0;border-radius:999px;padding:3px 10px;margin-top:3px;}
+#panel-report .rc-pass.mod{color:#B45309;background:#FEF3C7;}
+#panel-report .rc-fix{margin-top:9px;border:1px solid #D1D6DB;background:#fff;border-radius:8px;font-family:inherit;font-size:12.5px;font-weight:600;color:#4E5968;padding:6px 11px;cursor:pointer;}
+#panel-report .rc-fix.on{border-color:#1E5FC2;color:#1E5FC2;}
+#panel-report .rc-loc{display:inline-block;}
+#panel-report .rc-loc input{border:none;border-bottom:1.5px solid #1E5FC2;background:#F2F7FF;font:inherit;font-weight:700;color:#191F28;padding:2px 6px;width:200px;max-width:100%;outline:none;border-radius:4px 4px 0 0;}
+#panel-report .rc-sign{background:#fff;border-radius:20px;padding:20px 20px 16px;}
+#panel-report .rc-check{display:flex;gap:10px;align-items:flex-start;font-size:14.5px;line-height:1.6;color:#191F28;cursor:pointer;margin-bottom:16px;}
+#panel-report .rc-check input{width:20px;height:20px;margin:2px 0 0;accent-color:#1E5FC2;flex-shrink:0;}
+#panel-report .rc-cta{display:block;width:100%;border:none;border-radius:14px;background:#1E5FC2;color:#fff;font-family:inherit;font-size:16px;font-weight:700;padding:16px;cursor:pointer;}
+#panel-report .rc-cta:disabled{background:#BFD2EE;cursor:default;}
+#panel-report .rc-later{display:block;width:100%;border:none;background:none;font-family:inherit;font-size:14px;color:#6B7684;padding:14px 0 2px;cursor:pointer;}
+#panel-report .rc-tiny{font-size:12px;color:#8B95A1;text-align:center;margin:8px 0 0;}
+#panel-report .rc-done{margin:0;font-size:14.5px;font-weight:700;color:#333D4B;text-align:center;}
+#panel-report .rp-page.rp-anim .rc-load{animation:rpOut .35s ease .75s forwards;}
+#panel-report .rc-load{max-width:620px;margin-left:auto;margin-right:auto;}
+/* 안톤이 끼워 넣은 띠 */
+#panel-report .rp-anton{max-width:620px;margin:0 auto 16px;display:flex;align-items:center;gap:12px;background:#15181D;color:#E8EAED;border-radius:14px;padding:13px 14px;box-shadow:0 8px 24px rgba(0,0,0,.18);animation:rpAntonIn .7s cubic-bezier(.2,.9,.3,1) both;}
+#panel-report .rp-anton-ic{flex-shrink:0;width:30px;height:30px;border-radius:8px;background:#C9A227;color:#15181D;font-weight:800;display:flex;align-items:center;justify-content:center;font-family:ui-monospace,Menlo,Consolas,monospace;}
+#panel-report .rp-anton-tx{flex:1;min-width:0;font-size:13px;line-height:1.55;}
+#panel-report .rp-anton-tx b{display:block;color:#fff;font-size:13.5px;}
+#panel-report .rp-anton-tx span{color:#AEB4BD;}
+#panel-report .rp-anton button{flex-shrink:0;border:1px solid #C9A227;background:transparent;color:#F1D57A;border-radius:10px;font-family:inherit;font-size:13px;font-weight:700;padding:8px 12px;cursor:pointer;}
+#panel-report .rp-anton button:hover{background:#C9A227;color:#15181D;}
+@keyframes rpAntonIn{0%{opacity:0;transform:translateY(-10px);}25%{opacity:1;}32%{opacity:.25;}38%{opacity:1;}46%{opacity:.5;}52%{opacity:1;transform:none;}100%{opacity:1;transform:none;}}
+/* 원본으로 바뀌는 순간 */
+#panel-report .rp-page.rp-glitch{animation:rpGlitch .52s steps(7) both;}
+@keyframes rpGlitch{0%{filter:none;transform:none;opacity:1;}18%{filter:contrast(1.7) hue-rotate(50deg);transform:translateX(-5px) skewX(-3deg);}36%{filter:invert(.9);transform:translateX(4px);}54%{filter:contrast(2.2) saturate(0);transform:translateX(-2px) skewX(3deg);opacity:.8;}72%{opacity:.35;}100%{opacity:0;}}
+#panel-report .rp-back{display:block;width:100%;max-width:780px;margin:0 auto 12px;border:none;background:none;font-family:inherit;font-size:13px;font-weight:600;color:#5B6B82;cursor:pointer;padding:0;text-align:left;}
+#panel-report .rp-back:hover{color:#1E5FC2;}
+@media (max-width:600px){
+  #panel-report .rc-h{font-size:23px;}
+  #panel-report .rc-kpi{padding:14px;}
+  #panel-report .rc-kpi b{font-size:19px;}
+  #panel-report .rc-list{padding:2px 14px;}
+  #panel-report .rp-anton{flex-wrap:wrap;}
+  #panel-report .rp-anton button{width:100%;}
+}
 /* 엔딩 A 뒤: 연합회 게시판 접속 불가 */
 #panel-board .net-down{display:none;}
-#panel-board.down .bd-top,#panel-board.down .bd-page{display:none!important;}
+#panel-board.down .bd-top,#panel-board.down .bd-page,#panel-board.down .bd-footer{display:none!important;}
 #panel-board.down .net-down{display:block;}
 .net-down{background:#fff;min-height:100vh;color:#202124;}
 .net-down .nd-in{max-width:560px;margin:0 auto;padding:90px 24px 40px;}
@@ -2151,7 +2355,11 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
         </div>
         <div class="cm-sep">엔딩 바로가기 (베타테스트용)</div>
         <div class="cm-jump">
-          <button onclick="jumpToEnding('C')">보고서 화면</button><button onclick="jumpToEnding('A')">엔딩 A</button><button onclick="jumpToEnding('B')">엔딩 B</button>
+          <button onclick="jumpToEnding('C')">결과 확인서</button><button onclick="jumpToEnding('A')">엔딩 A</button><button onclick="jumpToEnding('B')">엔딩 B</button>
+        </div>
+        <div class="cm-sep">배드엔딩 바로가기 (베타테스트용)</div>
+        <div class="cm-jump">
+          <button onclick="jumpToBad('betray')">밀고</button><button onclick="jumpToBad('quit')">포기</button><button onclick="jumpToBad('confront')">따짐</button><button onclick="jumpToBad('replace')">교체</button>
         </div>
       </div>
     </div>
@@ -2762,26 +2970,43 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 
 <div id="panel-board" class="panel hidden">
-<div class="bd-top"><div class="bd-top-in"><div class="bd-brand"><span class="bd-mark">V</span><b>바르니아인 연합회</b><em>회원 게시판</em></div><span class="bd-user" id="bdUser"></span><button type="button" class="bd-out" onclick="bdLogout()">로그아웃</button></div></div>
+<header class="bd-top"><div class="bd-top-in">
+  <div class="bd-brand" id="bdBrand"><span class="bd-mark">V</span><span class="bd-bt"><b>바르니아인 연합회</b><em>VARNIAN ASSOCIATION</em></span></div>
+  <nav class="bd-gnb"><span>연합회 소개</span><span>모임·행사</span><span>구호·장학</span><span class="on">회원 게시판</span></nav>
+  <div class="bd-util"><span class="bd-user" id="bdUser"></span><button type="button" class="bd-out" onclick="bdLogout()">로그아웃</button></div>
+</div></header>
 <div id="bdLogin" class="bd-page">
   <form class="bd-login" onsubmit="bdLoginSubmit(event)">
     <h1>회원 로그인</h1>
-    <p>연합회 회원과 준회원만 이용할 수 있습니다.</p>
-    <label>아이디<input id="bdId" type="text" autocomplete="off"></label>
-    <label>비밀번호<input id="bdPw" type="password" autocomplete="off"></label>
+    <p>바르니아인 연합회 회원과 준회원만 이용할 수 있습니다.</p>
+    <label>아이디<input id="bdId" type="text" autocomplete="off" placeholder="아이디를 입력해 주세요"></label>
+    <label>비밀번호<input id="bdPw" type="password" autocomplete="off" placeholder="비밀번호를 입력해 주세요"></label>
     <div class="bd-err hidden" id="bdErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <button type="submit" class="bd-btn">로그인</button>
+    <div class="bd-links"><span>아이디 찾기</span><span>비밀번호 찾기</span><span>준회원 안내</span></div>
     <small>준회원 계정은 회원의 소개로 사무국에서 발급해 드립니다.</small>
   </form>
 </div>
 <div id="bdList" class="bd-page hidden">
-  <h1 class="bd-h">회원 게시판</h1>
-  <table class="bd-table"><thead><tr><th>번호</th><th>분류</th><th>제목</th><th>작성자</th><th>날짜</th></tr></thead><tbody id="bdRows"></tbody></table>
+  <p class="bd-crumb">홈<i>›</i>회원 게시판</p>
+  <h1 class="bd-hero">서로의 안부를 나누는<br><b>회원 게시판</b></h1>
+  <div class="bd-tabs" id="bdTabs"></div>
+  <form class="bd-search" onsubmit="bdSearch(event)">
+    <label>검색 구분<select id="bdField"><option value="t">제목</option><option value="a">작성자</option></select></label>
+    <input id="bdKw" type="text" placeholder="검색어를 입력해 주세요" autocomplete="off">
+    <button type="submit">검색</button>
+  </form>
+  <p class="bd-count" id="bdCount"></p>
+  <table class="bd-table"><thead><tr><th class="n">번호</th><th class="c">분류</th><th class="tt">제목</th><th class="a">작성자</th><th class="d">작성일</th></tr></thead><tbody id="bdRows"></tbody></table>
+  <div class="bd-pager"><button type="button" disabled>&lsaquo;</button><button type="button" class="on">1</button><button type="button" disabled>&rsaquo;</button></div>
 </div>
 <div id="bdDetail" class="bd-page hidden">
-  <button type="button" class="bd-back" onclick="bdGoBack()">← 목록으로</button>
+  <p class="bd-crumb">홈<i>›</i>회원 게시판</p>
   <div class="bd-card" id="bdCard" onclick="bdDetailClick()"></div>
+  <div class="bd-nav" id="bdNav"></div>
+  <div class="bd-foot-act"><button type="button" class="bd-listbtn" onclick="bdGoBack()">목록</button></div>
 </div>
+<footer class="bd-footer"><div class="bd-footer-in"><b>바르니아인 연합회</b>사무국 도렌 연합회 본관 2층 · union@varnia-assoc.dr<br>© Varnian Association. 회원 게시판의 글은 회원 외 공유를 삼가 주세요.</div></footer>
 <div id="bdDown" class="net-down"><div class="nd-in">
   <svg class="nd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 16c1.2-1 2.8-1 4 0"/><circle cx="10.4" cy="12.4" r=".5" fill="currentColor"/><circle cx="13.6" cy="12.4" r=".5" fill="currentColor"/></svg>
   <h1>사이트에 연결할 수 없음</h1>
@@ -2793,30 +3018,45 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 
 <div id="panel-dlt" class="panel hidden">
-<div class="dl-top"><div class="dl-top-in"><div class="dl-brand"><span class="dl-mark">D</span><b>도렌 공공기록 열람센터</b><em>물류·통신 기록 조회</em></div><span class="dl-user" id="dlUser"></span></div></div>
+<div class="dl-gov"><div class="dl-gov-in"><span class="dl-flag"></span>이 누리집은 도렌 공화국 공식 전자정부 누리집입니다.</div></div>
+<header class="dl-top"><div class="dl-top-in">
+  <div class="dl-brand" id="dlBrand"><span class="dl-mark">D</span><span class="dl-bt"><b>도렌 공공기록 열람센터</b><em>DOREN PUBLIC RECORDS</em></span></div>
+  <nav class="dl-gnb"><span class="on">기록 열람</span><span>열람 신청</span><span>이용 안내</span><span>알림마당</span></nav>
+  <div class="dl-util"><span class="dl-user" id="dlUser"></span></div>
+</div></header>
 <div id="dlLogin" class="dl-page">
   <form class="dl-login" onsubmit="dlLoginSubmit(event)">
     <h1>열람 계정 로그인</h1>
     <p>공공 기록 열람 신청이 승인된 계정만 이용할 수 있습니다.</p>
-    <label>아이디<input id="dlId" type="text" autocomplete="off"></label>
-    <label>비밀번호<input id="dlPw" type="password" autocomplete="off"></label>
+    <div class="dl-ltabs"><span class="on">아이디 로그인</span><span>공동인증서</span><span>간편인증</span></div>
+    <label>아이디<input id="dlId" type="text" autocomplete="off" placeholder="열람 계정 아이디"></label>
+    <label>비밀번호<input id="dlPw" type="password" autocomplete="off" placeholder="비밀번호"></label>
     <div class="dl-err hidden" id="dlErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <button type="submit" class="dl-btn">로그인</button>
+    <div class="dl-links"><span>아이디 찾기</span><span>비밀번호 재설정</span><span>열람 신청</span></div>
   </form>
 </div>
 <div id="dlMain" class="dl-page hidden">
+  <p class="dl-crumb">홈<i>›</i>기록 열람<i>›</i>물류·통신 기록 조회</p>
   <h1 class="dl-h">물류·통신 기록 조회</h1>
-  <form class="dl-search" onsubmit="dlSearch(event)"><input id="dlQ" type="text" placeholder="주소 또는 회선명으로 검색 (예: 연합회 본관)" autocomplete="off"><button type="submit">조회</button></form>
+  <p class="dl-desc">공공시설에 들어온 물류와 통신 기록을 주소나 회선명으로 조회할 수 있습니다.</p>
+  <form class="dl-search" onsubmit="dlSearch(event)">
+    <div class="dl-sr"><span class="dl-sl">구분</span><div class="dl-chips" id="dlKinds"></div></div>
+    <div class="dl-sr"><span class="dl-sl">검색어</span><div class="dl-sq"><input id="dlQ" type="text" placeholder="주소 또는 회선명 (예: 연합회 본관)" autocomplete="off"><button type="submit">조회</button></div></div>
+  </form>
   <div id="dlResult"></div>
 </div>
 <div id="dlDetail" class="dl-page hidden">
-  <button type="button" class="dl-back" onclick="dlGoBack()">← 목록으로</button>
+  <p class="dl-crumb">홈<i>›</i>기록 열람<i>›</i>기록 상세</p>
   <div class="dl-card" id="dlCard" onclick="dlDetailClick()"></div>
+  <div class="dl-notice"><b>알려 드립니다</b>열람한 기록은 열람 계정 이름으로 1년간 보관되며, 관계 기관이 요청하면 제공될 수 있습니다.</div>
+  <div class="dl-act"><button type="button" class="dl-listbtn" onclick="dlGoBack()">목록</button></div>
 </div>
+<footer class="dl-footer"><div class="dl-footer-in"><b>도렌 공공기록 열람센터</b>도렌 행정구역 공공청사 3동 · 열람 문의 1588-0300 (평일 09:00~18:00)<br>© Doren Public Records Center. All rights reserved.</div></footer>
 </div>
 
 <div id="panel-report" class="panel hidden">
-<div class="rp-top"><div class="rp-top-in"><span class="rp-brand"><b>iskra</b><em>베타테스트팀</em></span><span class="rp-secret">내부 문서 · 대외비</span></div></div>
+<div class="rp-top"><div class="rp-top-in"><span class="rp-brand"><b>iskra</b><em id="rpTopSub">베타 테스트</em></span><span class="rp-user" id="rpTopBadge">베타테스터 레나 세인 님</span></div></div>
 <div id="rpPage" class="rp-page"></div>
 </div>
 
@@ -2896,7 +3136,7 @@ const TAB_META = {
   archive:{title:"도렌통신 아카이브",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDx0aXRsZT5OZXdzcGFwZXIgYXJjaGl2ZSBlbWJsZW08L3RpdGxlPgogIDxnIGlkPSJlbWJsZW0iPgogICAgPGNpcmNsZSBjeD0iNTEwIiBjeT0iNTEwIiByPSI0ODgiIGZpbGw9IiMxRTNBMkIiIHN0cm9rZT0iI0U4Qzc3QSIgc3Ryb2tlLXdpZHRoPSIzMiIgLz4KICAgIDxnIGlkPSJmb2xkZWQtbmV3c3BhcGVyIj4KICAgICAgPHBhdGggZD0iTTE4NyAzNzAgMTc1IDMyOUMxNjYgMjk3IDE4OCAyNjQgMjE5IDI1OEw3NDAgMTgzQzc2OCAxNzggNzkxIDE5NCA3OTkgMjIzTDg5OCA2MDlDOTA5IDY1MiA4OTEgNjkyIDg1MCA2OThMMjg1IDc5MUMyMzcgNzk5IDE5NCA3NzYgMTc5IDczM0w5OSA0NDdDODggNDE0IDEwNyAzODEgMTM5IDM3NloiIGZpbGw9IiNGRkZGRkYiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yMTAgMjg5QzE5NCAyOTIgMTg3IDMwNyAxOTIgMzI1TDI5MSA2OTRDMjk3IDcxNiAyOTQgNzI3IDI4MCA3MzIgMjY1IDczNyAyNTIgNzI4IDI0NyA3MDlMMTcyIDQzMkMxNjcgNDEzIDE1MyA0MDMgMTQwIDQwOSAxMjYgNDE0IDEyMiA0MjcgMTI3IDQ0M0wyMDcgNzIxQzIxNyA3NTIgMjQzIDc2OCAyNzMgNzY0IDMxMCA3NTkgMzI2IDczMSAzMTYgNjkyWiIgZmlsbD0iIzFFM0EyQiIgLz4KICAgICAgPHBhdGggZD0iTTI2OSAzMDcgNDk3IDI3NiA1NDAgNDMzIDMwOSA0NjFaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZyBpZD0ibmV3c3BhcGVyLWNvbHVtbnMiIGZpbGw9IiMxRTNBMkIiPgogICAgICAgIDxwYXRoIGQ9Ik01MzAgMjc4IDc2MSAyNDUgNzcxIDI3OCA1NDAgMzEyWiIgLz4KICAgICAgICA8cGF0aCBkPSJNNTQ4IDM0MiA3NzkgMzEwIDc4OCAzNDIgNTU3IDM3NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTU2NSA0MDIgNzk2IDM3MyA4MDQgNDAxIDU3MyA0MzBaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik01ODggNDY4IDgxNyA0NDAgODI1IDQ2OCA1OTYgNDk3WiIgLz4KICAgICAgICA8cGF0aCBkPSJNNjA0IDUyNCA4MzMgNDk2IDg0MSA1MjYgNjEyIDU1NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTYyMSA1ODMgODUwIDU1NSA4NTggNTg2IDYyOSA2MTRaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zMTggNTAxIDU1MSA0NzIgNTU5IDUwMCAzMjUgNTMwWiIgLz4KICAgICAgICA8cGF0aCBkPSJNMzMyIDU1NyA1NjYgNTI4IDU3NCA1NTcgMzQwIDU4N1oiIC8+CiAgICAgICAgPHBhdGggZD0iTTM0NiA2MTUgNTgwIDU4NSA1ODggNjE3IDM1NCA2NDdaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zNTkgNjc4IDU5MyA2NDcgNjAxIDY3OSAzNjIgNzExWiIgLz4KICAgICAgPC9nPgogICAgPC9nPgogICAgPGcgaWQ9ImFyY2hpdmUtbWFnbmlmaWVyIj4KICAgICAgPHBhdGggZD0iTTc1OSA3NzIgNzg4IDc1NSA4ODYgODM4QzkwNSA4NTcgOTA0IDg4NCA4ODYgOTAyIDg2OCA5MjAgODQwIDkxOCA4MjIgOTAwTDc0MCA4MTdaIiBmaWxsPSIjMUUzQTJCIiAvPgogICAgICA8cGF0aCBkPSJNNzcyIDc0NiA4NzQgODQ5Qzg4NSA4NjAgODg2IDg3NyA4NzUgODg5IDg2NCA5MDAgODQ2IDg5OSA4MzUgODg4TDczNSA3ODhaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTQ2IiByeT0iMTQ5IiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTEwIiByeT0iMTEyIiBmaWxsPSIjRkZGRkZGIiAvPgogICAgICA8ZyBpZD0ibWFnbmlmaWVkLWNvbHVtbiIgZmlsbD0iIzFFM0EyQiI+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2MTkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2NzQiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI3MjkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg=='}
 };
 /* 탭 알림 점 — 안 읽은 새 메일이 있는 탭(지금 보는 탭 제외)에 표시 */
-TAB_META.report = {title:'최종 확인 보고서', icon:TAB_META.search.icon};
+TAB_META.report = {title:'테스트 결과 확인서', icon:TAB_META.search.icon};
 function tabNoticeCount(t){
   if(!t) return 0;
   try{
@@ -3799,7 +4039,7 @@ const ASSIGNMENT8_MAIL = {
 const SUCCESS8_MAIL = {
   id:'success8', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[8차 테스트] 확인 감사합니다',
   preview:'마지막 테스트가 끝났습니다.', time:'방금 전', unread:true,
-  body:["전달해 주신 기록 확인했습니다. 모든 테스트가 끝났습니다.","이번 건 사례금도 바로 입금해 드렸습니다.","마지막으로 직접 확인해 주셔야 할 것이 하나 남았어요. 화면 안내를 따라 주세요."]
+  body:["전달해 주신 기록 확인했습니다. 모든 테스트가 끝났습니다.","이번 건 사례금도 바로 입금해 드렸습니다.","최종 정산을 위해 테스트 결과 확인서를 확인해 주셔야 해요. 화면 안내를 따라 주세요."]
 };
 const RETRY8_MAIL = {
   id:'retry8', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[8차 테스트] 다시 한번 확인 부탁드립니다',
@@ -3948,9 +4188,14 @@ const BGM_TRACKS = {
   orginfo: {file:'bgm/orginfo.mp3', title:'단체정보마당'},
   alumni:  {file:'bgm/alumni.mp3',  title:'총동문회'},
   archive: {file:'bgm/archive.mp3', title:'도렌통신 아카이브'},
-  listing: {file:'bgm/listing.mp3', title:'이스크라 부동산'}
+  listing: {file:'bgm/listing.mp3', title:'이스크라 부동산'},
+  board:   {file:'bgm/board.mp3',   title:'바르니아인 연합회'},
+  dlt:     {file:'bgm/dlt.mp3',     title:'공공기록 열람센터'},
+  results: {file:'bgm/results.mp3', title:'이스크라 베타 테스트'},
+  reveal:  {file:'bgm/reveal.mp3',  title:'최종 확인 보고서'},
+  ending:  {file:'bgm/ending.mp3',  title:'엔딩'}
 };
-const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', board:'alumni', dlt:'raden', archive:'archive', listing:'listing'};
+const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', board:'board', dlt:'dlt', archive:'archive', listing:'listing', report:'results'};
 const BGM_VOL = 0.42;
 const bgm = {audios:{}, cur:null, wanted:true, fadeTimers:{}};
 try{ bgm.wanted = localStorage.getItem('iskra_bgm_off') !== '1'; }catch(e){}
@@ -3969,7 +4214,14 @@ function bgmFade(a, to, ms, done){
     if(i >= steps){ clearInterval(a._ft); if(done) done(); }
   }, 40);
 }
-function bgmTargetKey(){ return BGM_KIND[activeKind()] || 'iskra'; }
+function bgmTargetKey(){
+  try{
+    const ov = document.getElementById('finalOverlay');
+    if(ov && !ov.classList.contains('hidden') && endingKey) return 'ending';   /* 엔딩·배드엔딩 화면 */
+    if(activeKind() === 'report') return rpView === 'orig' ? 'reveal' : 'results';   /* 결과 확인서 겉면 / 원본 */
+  }catch(e){}
+  return BGM_KIND[activeKind()] || 'iskra';
+}
 function bgmUi(){
   const btn = document.getElementById('bgmToggle'), title = document.getElementById('bgmTitle');
   if(!btn) return;
@@ -4366,6 +4618,7 @@ function applyEffect(name){
   else if(name === 'chainAssign8'){ queueDelivery('assign8', 45000, ASSIGNMENT8_MAIL.id, {skipIfPresent:true}); }
   else if(name === 'finalChoice'){ setTimeout(() => { if(!endingChosen && reportStage !== 'open') reportOpen(); }, 30000); }
   else if(name === 'danaWatch') danaWatch();
+  else if(name === 'badReplace'){ msgStartChain([{x: '이번에도 조건과 맞지 않았어요. 이번 건은 다른 테스터에게 넘길게요. 그동안 수고하셨어요.'}], 600, true); setTimeout(() => { msgPush('sys', '다나 님이 대화방을 나갔습니다.', true); badStart('replace'); }, 7000); }
   else if(name === 'antonWarn'){ if(!endingChosen) antonAdd('antonW'); }
 }
 
@@ -4610,6 +4863,7 @@ function armTimer(uid, ms){
   setTimeout(() => fireDelivery(uid), Math.max(0, ms));
 }
 function fireDelivery(uid){
+  if(badEnding) return;
   const d = pendingDeliveries[uid];
   if(!d) return;
   delete pendingDeliveries[uid];
@@ -4631,6 +4885,11 @@ function fireDelivery(uid){
 }
 function queueDelivery(uid, delayMs, mailId, opts){
   opts = opts || {};
+  const rm = /^retry(\d)$/.exec(mailId || '');
+  if(rm){
+    if((failCount[rm[1]] || 0) >= 2){ checkpointSave(); failCount[rm[1]] = 3; mailId = null; opts = Object.assign({}, opts, {effect: 'badReplace'}); }
+    else failCount[rm[1]] = (failCount[rm[1]] || 0) + 1;
+  }
   pendingDeliveries[uid] = {due: Date.now() + delayMs, mailId, pendingFlag: opts.pendingFlag || null, resolvedFlag: opts.resolvedFlag || null, effect: opts.effect || null, skipIfPresent: !!opts.skipIfPresent};
   if(opts.pendingFlag) setFlag(opts.pendingFlag, true);
   saveProgress();
@@ -5549,7 +5808,15 @@ function bdDecode(e){
   else { m.textContent = '열람 코드가 올바르지 않습니다.'; }
 }
 
-function bdShow(v){ ['bdLogin','bdList','bdDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v)); document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 · guest_lena' : ''; }
+var bdCat = '전체', bdKwVal = '';
+var BD_CATS = ['전체', '공지', '안내', '자유', '회원전용'];
+var BD_LOCK = '<svg class="bd-lock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="11" width="14" height="10" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>';
+function bdTagCls(t){ return t === '회원전용' ? 'lock' : t === '공지' ? 'notice' : t === '안내' ? 'info' : 'free'; }
+function bdShow(v){
+  ['bdLogin','bdList','bdDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
+  document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 guest_lena 님' : '';
+  const out = document.querySelector('#panel-board .bd-out'); if(out) out.style.display = boardLoggedIn ? '' : 'none';
+}
 function bdLoginSubmit(e){
   if(e) e.preventDefault();
   const id = document.getElementById('bdId').value.trim(), pw = document.getElementById('bdPw').value;
@@ -5558,19 +5825,43 @@ function bdLoginSubmit(e){
   else err.classList.remove('hidden');
 }
 function bdLogout(){ boardLoggedIn = false; bdCurrent = null; bdShow('bdLogin'); setAddr('board', 'varnia-assoc.dr/login'); setBack('board', false); saveProgress(); }
+function bdSetCat(c){ bdCat = c; bdShowList(); }
+function bdSearch(e){ if(e) e.preventDefault(); bdKwVal = document.getElementById('bdKw').value.trim(); bdShowList(); }
+function bdFiltered(){
+  const byAuthor = (document.getElementById('bdField') || {}).value === 'a';
+  return BOARD_POSTS.filter(p => (bdCat === '전체' || p.tag === bdCat) && (!bdKwVal || (byAuthor ? p.author : p.title).indexOf(bdKwVal) >= 0));
+}
 function bdShowList(){
   if(!boardLoggedIn){ bdShow('bdLogin'); setAddr('board', 'varnia-assoc.dr/login'); setBack('board', false); return; }
   bdCurrent = null;
-  document.getElementById('bdRows').innerHTML = BOARD_POSTS.map((p, i) => '<tr onclick="bdOpen(\'' + p.id + '\')"><td class="n">' + (BOARD_POSTS.length - i) + '</td><td><span class="bd-tag t-' + (p.tag === '회원전용' ? 'lock' : p.tag === '공지' ? 'notice' : p.tag === '안내' ? 'info' : 'free') + '">' + p.tag + '</span></td><td class="t">' + p.title + (p.comments.length ? ' <b>[' + p.comments.length + ']</b>' : '') + '</td><td class="a">' + p.author + '</td><td class="d">' + p.date.slice(5).replace('-', '.') + '</td></tr>').join('');
-  bdShow('bdList'); setAddr('board', 'varnia-assoc.dr/board'); setBack('board', false);
+  document.getElementById('bdTabs').innerHTML = BD_CATS.map(c => '<button type="button" class="' + (c === bdCat ? 'on' : '') + '" onclick="bdSetCat(\'' + c + '\')">' + c + '</button>').join('');
+  const list = bdFiltered(), total = BOARD_POSTS.length;
+  document.getElementById('bdCount').innerHTML = '총 <b>' + list.length + '</b>건의 글이 있습니다.';
+  document.getElementById('bdRows').innerHTML = list.length ? list.map(p => {
+    const no = total - BOARD_POSTS.indexOf(p), notice = p.tag === '공지';
+    return '<tr class="' + (notice ? 'notice' : '') + '" onclick="bdOpen(\'' + p.id + '\')">' +
+      '<td class="n">' + (notice ? '<span class="bd-tag">공지</span>' : no) + '</td>' +
+      '<td class="c">' + (notice ? '' : '<span class="bd-cat c-' + bdTagCls(p.tag) + '">' + p.tag + '</span>') + '</td>' +
+      '<td class="t">' + (p.tag === '회원전용' ? BD_LOCK : '') + p.title + (p.comments.length ? ' <b>[' + p.comments.length + ']</b>' : '') + '</td>' +
+      '<td class="a">' + p.author + '</td><td class="d">' + p.date.replace(/-/g, '.') + '.</td></tr>';
+  }).join('') : '<tr class="empty"><td colspan="5">검색 결과가 없습니다.</td></tr>';
+  bdShow('bdList'); setAddr('board', 'varnia-assoc.dr/board' + (bdCat !== '전체' ? '?cat=' + encodeURIComponent(bdCat) : '')); setBack('board', false);
 }
 function bdOpen(id){
   const p = BOARD_POSTS.find(x => x.id === id); if(!p) return;
   bdCurrent = p;
+  const enc = p.tag === '회원전용';
+  const views = 14 + (p.id.charCodeAt(p.id.length - 1) * 37) % 120;
   document.getElementById('bdCard').innerHTML =
-    '<div class="bd-ph"><span class="bd-tag t-' + (p.tag === '회원전용' ? 'lock' : p.tag === '공지' ? 'notice' : p.tag === '안내' ? 'info' : 'free') + '">' + p.tag + '</span><h2>' + p.title + '</h2><div class="bd-pm"><span>작성자 ' + p.author + '</span><span>게시 처리 사무국</span><span>' + p.date + '</span></div></div>' +
-    '<div class="bd-pb' + (p.tag === '회원전용' && !bdDecoded ? ' enc' : '') + '">' + (p.tag === '회원전용' && bdDecoded ? BOARD_PLAIN : p.body).map(t => '<p>' + t + '</p>').join('') + (p.tag === '회원전용' ? (bdDecoded ? '<p class="bd-note">※ 열람 코드 확인됨</p>' : '<p class="bd-note">※ 암호화된 회원 전용 문서입니다. 열람 코드(4자리 숫자)가 있어야 읽을 수 있습니다.</p><form class="bd-code" onsubmit="bdDecode(event)" onclick="event.stopPropagation()"><input id="bdCode" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="0000"><button type="submit">열람</button><div class="bd-codemsg" id="bdCodeMsg"></div></form>') : '') + '</div>' +
-    (p.comments.length ? '<div class="bd-cm"><div class="bd-ch">댓글 <b>' + p.comments.length + '</b></div>' + p.comments.map(c => '<div class="bd-cr"><span class="u">' + c[0] + '</span><span class="t">' + c[1] + '</span></div>').join('') + '</div>' : '');
+    '<div class="bd-ph"><span class="bd-cat c-' + bdTagCls(p.tag) + '">' + p.tag + '</span><h2>' + p.title + '</h2>' +
+    '<div class="bd-pm"><span><em>작성자</em>' + p.author + '</span><span><em>게시 처리</em>사무국</span><span><em>작성일</em>' + p.date.replace(/-/g, '.') + '.</span><span><em>조회</em>' + views + '</span></div></div>' +
+    '<div class="bd-pb' + (enc && !bdDecoded ? ' enc' : '') + '">' + (enc && bdDecoded ? BOARD_PLAIN : p.body).map(t => '<p>' + t + '</p>').join('') +
+      (enc ? (bdDecoded ? '<p class="bd-note">※ 열람 코드 확인됨</p>' : '<p class="bd-note">※ 암호화된 회원 전용 문서입니다. 열람 코드(4자리 숫자)가 있어야 읽을 수 있습니다.</p><form class="bd-code" onsubmit="bdDecode(event)" onclick="event.stopPropagation()"><input id="bdCode" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="0000"><button type="submit">열람</button><div class="bd-codemsg" id="bdCodeMsg"></div></form>') : '') + '</div>' +
+    (p.comments.length ? '<div class="bd-cm"><div class="bd-ch">댓글 <b>' + p.comments.length + '</b></div>' + p.comments.map(c => '<div class="bd-cr"><span class="av">' + c[0].replace(/^회원\s*/, '').slice(0, 1) + '</span><div><span class="u">' + c[0] + '</span><p class="t">' + c[1] + '</p></div></div>').join('') + '</div>' : '');
+  const i = BOARD_POSTS.indexOf(p), older = BOARD_POSTS[i + 1], newer = BOARD_POSTS[i - 1];
+  document.getElementById('bdNav').innerHTML =
+    '<div class="bd-nr"><span>이전글</span>' + (older ? '<a onclick="bdOpen(\'' + older.id + '\')">' + older.title + '</a>' : '<em>이전글이 없습니다.</em>') + '</div>' +
+    '<div class="bd-nr"><span>다음글</span>' + (newer ? '<a onclick="bdOpen(\'' + newer.id + '\')">' + newer.title + '</a>' : '<em>다음글이 없습니다.</em>') + '</div>';
   bdShow('bdDetail'); setAddr('board', 'varnia-assoc.dr/board/' + p.id); setBack('board', true);
   window.scrollTo(0, 0);
 }
@@ -5591,7 +5882,11 @@ setBack('archive', false);
 var DLT_ACCOUNT = {id:'req_lena', pw:'Rq8!open'};
 var DLT_ROWS = [{"id": "d1", "date": "2026-10-28", "kind": "물류", "addr": "서쪽 회관 지하 보일러실", "party": "도렌난방설비", "note": "난방 점검 부품 납품", "sign": "수령 확인: 루카 발렌 (관리인)"}, {"id": "d2", "date": "2026-10-21", "kind": "통신", "addr": "서쪽 회관 지하 내선 12", "party": "연합회 사무국", "note": "정기 통화 (3분)", "sign": "응답자: 미기재"}, {"id": "d3", "date": "2026-10-14", "kind": "물류", "addr": "서쪽 회관 1층 로비", "party": "한결사무용품", "note": "복사용지 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d4", "date": "2026-10-09", "kind": "통신", "addr": "서쪽 회관 대표 회선", "party": "상회 사무실", "note": "정기 통화 (1분)", "sign": "응답자: 사무국"}, {"id": "d5", "date": "2026-09-30", "kind": "물류", "addr": "서쪽 회관 2층 회의실", "party": "도렌케이터링", "note": "다과 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d6", "date": "2026-10-25", "kind": "물류", "addr": "북쪽 창고 3동", "party": "도렌평야 영농조합", "note": "쌀 포대 입고", "sign": "수령 확인: 창고 근무자"}, {"id": "d7", "date": "2026-10-19", "kind": "통신", "addr": "북쪽 창고 사무실", "party": "상회 사무실", "note": "재고 확인 통화", "sign": "응답자: 창고 근무자"}, {"id": "d8", "date": "2026-10-17", "kind": "물류", "addr": "연합회 본관 1층", "party": "도렌난방설비", "note": "난방유 납품", "sign": "수령 확인: 경비"}, {"id": "d9", "date": "2026-10-12", "kind": "통신", "addr": "연합회 본관 대표 회선", "party": "이스크라 부동산", "note": "매물 문의 (2분)", "sign": "응답자: 사무국"}, {"id": "d10", "date": "2026-10-06", "kind": "물류", "addr": "마렌 거리 44, 2층", "party": "한결사무용품", "note": "우편물 수령", "sign": "수령 확인: 사무실 직원"}];
 var dltLoggedIn = false, dlCurrent = null, dlLastQ = '';
-function dlShow(v){ ['dlLogin','dlMain','dlDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v)); document.getElementById('dlUser').textContent = dltLoggedIn ? '열람 계정 · req_lena' : ''; }
+var dlKind = '전체';
+function dlShow(v){
+  ['dlLogin','dlMain','dlDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
+  document.getElementById('dlUser').textContent = dltLoggedIn ? '열람 계정 req_lena 님' : '';
+}
 function dlLoginSubmit(e){
   if(e) e.preventDefault();
   const id = document.getElementById('dlId').value.trim(), pw = document.getElementById('dlPw').value;
@@ -5599,24 +5894,36 @@ function dlLoginSubmit(e){
   if(id === DLT_ACCOUNT.id && pw === DLT_ACCOUNT.pw){ dltLoggedIn = true; err.classList.add('hidden'); dlShowMain(); saveProgress(); }
   else err.classList.remove('hidden');
 }
+function dlKindsRender(){
+  const el = document.getElementById('dlKinds'); if(!el) return;
+  el.innerHTML = ['전체', '물류', '통신'].map(k => '<button type="button" class="' + (k === dlKind ? 'on' : '') + '" onclick="dlSetKind(\'' + k + '\')">' + k + '</button>').join('');
+}
+function dlSetKind(k){ dlKind = k; dlKindsRender(); if(dlLastQ) dlRender(dlLastQ); }
 function dlShowMain(){
   if(!dltLoggedIn){ dlShow('dlLogin'); setAddr('dlt', 'records.dorenpub.dr/login'); setBack('dlt', false); return; }
-  dlCurrent = null; dlShow('dlMain'); setAddr('dlt', 'records.dorenpub.dr/search'); setBack('dlt', false);
+  dlCurrent = null; dlKindsRender(); dlShow('dlMain'); setAddr('dlt', 'records.dorenpub.dr/search'); setBack('dlt', false);
   if(dlLastQ) dlRender(dlLastQ);
 }
 function dlSearch(e){ if(e) e.preventDefault(); const q = document.getElementById('dlQ').value.trim(); if(!q) return; dlLastQ = q; dlRender(q); }
 function dlRender(q){
   const ql = q.toLowerCase();
-  const rows = DLT_ROWS.filter(r => r.addr.toLowerCase().includes(ql) || r.party.toLowerCase().includes(ql));
+  const rows = DLT_ROWS.filter(r => (r.addr.toLowerCase().includes(ql) || r.party.toLowerCase().includes(ql)) && (dlKind === '전체' || r.kind === dlKind))
+    .slice().sort((a, b) => b.date.localeCompare(a.date));
   const el = document.getElementById('dlResult');
-  if(!rows.length){ el.innerHTML = '<div class="dl-empty">검색 결과가 없습니다. 주소나 회선명을 다시 확인해 주세요.</div>'; return; }
-  el.innerHTML = '<table class="dl-table"><thead><tr><th>일자</th><th>구분</th><th>주소·회선</th><th>상대</th><th>내용</th></tr></thead><tbody>' + rows.map(r => '<tr onclick="dlOpen(\'' + r.id + '\')"><td>' + r.date.slice(5).replace('-', '.') + '</td><td><span class="dl-kind' + (r.kind === '물류' ? ' k-mat' : '') + '">' + r.kind + '</span></td><td>' + r.addr + '</td><td>' + r.party + '</td><td>' + r.note + '</td></tr>').join('') + '</tbody></table>';
+  if(!rows.length){ el.innerHTML = '<div class="dl-rh"><p class="dl-total">총 <b>0</b>건</p></div><div class="dl-empty">검색 결과가 없습니다. 주소나 회선명을 다시 확인해 주세요.</div>'; return; }
+  el.innerHTML = '<div class="dl-rh"><p class="dl-total">총 <b>' + rows.length + '</b>건</p><span class="dl-sort">최신순</span></div>' +
+    '<table class="dl-table"><thead><tr><th class="no">번호</th><th>일자</th><th>구분</th><th>주소·회선</th><th class="pt">상대</th><th class="nt">내용</th></tr></thead><tbody>' +
+    rows.map((r, i) => '<tr onclick="dlOpen(\'' + r.id + '\')"><td class="no">' + (rows.length - i) + '</td><td class="dt">' + r.date.replace(/-/g, '.') + '.</td><td><span class="dl-kind k-' + (r.kind === '물류' ? 'mat' : 'tel') + '">' + r.kind + '</span></td><td class="ad">' + r.addr + '</td><td class="pt">' + r.party + '</td><td class="nt">' + r.note + '</td></tr>').join('') +
+    '</tbody></table><div class="dl-pager"><button type="button" disabled>&lsaquo;</button><button type="button" class="on">1</button><button type="button" disabled>&rsaquo;</button></div>';
   setAddr('dlt', 'records.dorenpub.dr/search?q=' + encodeURIComponent(q)); setBack('dlt', false);
 }
 function dlOpen(id){
   const r = DLT_ROWS.find(x => x.id === id); if(!r) return;
   dlCurrent = r;
-  document.getElementById('dlCard').innerHTML = '<h2>' + r.kind + ' 기록 상세</h2><table><tr><th>일자</th><td>' + r.date + '</td></tr><tr><th>구분</th><td>' + r.kind + '</td></tr><tr><th>주소·회선</th><td>' + r.addr + '</td></tr><tr><th>상대</th><td>' + r.party + '</td></tr><tr><th>내용</th><td>' + r.note + '</td></tr><tr><th>확인</th><td>' + r.sign + '</td></tr></table>';
+  const no = 'DR-2026-' + String(r.id.replace(/\D/g, '')).padStart(4, '0');
+  document.getElementById('dlCard').innerHTML =
+    '<div class="dl-ch"><span class="dl-kind k-' + (r.kind === '물류' ? 'mat' : 'tel') + '">' + r.kind + ' 기록</span><h2>' + r.addr + '</h2><p>기록 번호 ' + no + '</p></div>' +
+    '<table class="dl-grid"><tr><th>일자</th><td>' + r.date.replace(/-/g, '.') + '.</td></tr><tr><th>구분</th><td>' + r.kind + '</td></tr><tr><th>주소·회선</th><td>' + r.addr + '</td></tr><tr><th>상대</th><td>' + r.party + '</td></tr><tr><th>내용</th><td>' + r.note + '</td></tr><tr><th>확인</th><td><b>' + r.sign + '</b></td></tr></table>';
   dlShow('dlDetail'); setAddr('dlt', 'records.dorenpub.dr/view/' + r.id); setBack('dlt', true); window.scrollTo(0, 0);
 }
 function dlGoBack(){ if(!document.getElementById('dlDetail').classList.contains('hidden')) dlShowMain(); }
@@ -5650,19 +5957,95 @@ function rpRows(){
     ['위치', '서쪽 회관 지하 보일러실 물류 기록. 10월 28일 수령 확인: 루카 발렌(관리인).', '8차 캡처']
   ];
 }
+var rpView = 'cover', rpAntonShown = false, rpEditing = false;
+var badEnding = '';   /* 중간 배드엔딩 키 */
+function josaRo(w){ const c = String(w).trim().slice(-1).charCodeAt(0); if(!(c >= 0xAC00 && c <= 0xD7A3)) return '로'; const j = (c - 0xAC00) % 28; return (j === 0 || j === 8) ? '로' : '으로'; }
+/* 상단 바·주소·탭 이름: 겉면(결과 확인서) ↔ 원본(대외비 보고서) */
+function rpTop(){
+  const cover = rpView !== 'orig';
+  const pn = document.getElementById('panel-report'); if(pn){ pn.classList.toggle('v-cover', cover); pn.classList.toggle('v-orig', !cover); }
+  const sub = document.getElementById('rpTopSub'), bd = document.getElementById('rpTopBadge');
+  if(sub) sub.textContent = cover ? '베타 테스트' : '베타테스트팀';
+  if(bd){ bd.className = cover ? 'rp-user' : 'rp-secret'; bd.textContent = cover ? '베타테스터 레나 세인 님' : '내부 문서 · 대외비'; }
+  TAB_META.report.title = cover ? '테스트 결과 확인서' : '최종 확인 보고서';
+  setAddr('report', cover ? 'iskra.dr/beta/results/IS-1114' : 'iskra.dr/team/report/IS-1114');
+  try{ renderTabs(); }catch(e){}
+}
 function rpRender(animate){
   const el = document.getElementById('rpPage'); if(!el) return;
-  const prevInp = document.getElementById('rpLoc');
+  if(rpView === 'orig') rpRenderOrig(el, animate); else rpRenderCover(el, animate);
+  rpTop();
+  try{ bgmSync(); }catch(e){}
+}
+function rpAntonHtml(){
+  return '<div class="rp-anton" id="rpAnton"><span class="rp-anton-ic">A</span><div class="rp-anton-tx"><b>이 확인서에는 원본이 따로 있어요.</b><span>확인을 누르면 원본이 레나 씨 이름으로 제출돼요. 누르기 전에 꼭 보세요. — 안톤</span></div><button type="button" onclick="rpMorph()">원본 보기</button></div>';
+}
+function rpShowAnton(){
+  if(endingChosen || badEnding) return;
+  rpAntonShown = true; saveProgress();
+  const el = document.getElementById('rpPage');
+  if(rpView === 'cover' && el && !document.getElementById('rpAnton')){ const ref = el.querySelector('.rc'); if(ref) ref.insertAdjacentHTML('beforebegin', rpAntonHtml()); }
+}
+function rpRenderCover(el, animate){
   const done = !!endingChosen;
-  const loc = done ? rpLocVal : (prevInp ? prevInp.value : RP_LOC);
+  const D = animate ? (t => ' style="animation-delay:' + t.toFixed(2) + 's"') : (() => '');
+  const escA = v => msgEsc(v).replace(/"/g, '&quot;');
+  const st = !done ? ['확인 대기', 'wait'] : endingChosen === 'A' ? ['정산 완료', 'done'] : endingVariant === 'edit' ? ['반려', 'back'] : ['미확인', 'none'];
+  const w3 = assign3Word ? "'" + msgEsc(String(assign3Word).slice(0, 20)) + "'" : "'구호·나눔 단체'";
+  const t5 = capturedEvidence5 && capturedEvidence5.title ? msgEsc(String(capturedEvidence5.title).replace(/<[^>]+>/g, '')) : '인터뷰 기사';
+  const edited = String(rpLocVal || '').replace(/\s+/g, '').indexOf('서쪽회관') < 0;
+  const locV = (rpEditing && !done)
+    ? '<label class="rc-loc"><input id="rpLoc" type="text" value="' + escA(rpLocVal) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="8차 조회 결과"></label>'
+    : '<b class="rc-v">' + (rpLocVal ? msgEsc(rpLocVal) : '(비어 있음)') + '</b>';
+  const items = [
+    ['기업 시스템 연동 테스트', '이상 데이터 검출 · 쌀 대량 반출 → 그라노프 물류허브'],
+    ['공공 등록정보 연동 테스트', '등록 소재지 대조 · 마렌 거리 44 (공실 매물)'],
+    ['검색 결과 정확도 테스트', '테스터 의견 · ' + w3],
+    ['동문 네트워크 연동 테스트', '동명이인 구분 · 에르딘 이안 (역사학과 2009년 졸업)'],
+    ['아카이브 검색 연동 테스트', '긴 기사 열람 확인 · ' + t5],
+    ['커뮤니티 게시판 연동 테스트', "게시 처리 표시 · '11월 추모모임 장소 변경 안내'"],
+    ['이름 이력 연동 테스트', '개명 공고 연결 · ○○○ → 루카 발렌 (2004년)'],
+    ['물류·통신 기록 조회 테스트', '조회 결과 · ' + locV + ' · 수령 확인 루카 발렌']
+  ];
+  const base = animate ? 0.95 : 0, step = 0.11;
+  const rows = items.map((r, n) => '<li class="rc-item rp-a"' + D(base + 0.75 + n * step) + '><span class="rc-no">' + (n + 1) + '</span><div class="rc-body"><b>' + r[0] + '</b><p>' + r[1] + '</p>' +
+      ((n === 7 && !done) ? (rpEditing ? '<button type="button" class="rc-fix on" onclick="rpEdit(false)">수정 완료</button>' : '<button type="button" class="rc-fix" onclick="rpEdit(true)">결과 수정</button>') : '') +
+      '</div><span class="rc-pass' + (n === 7 && edited ? ' mod' : '') + '">' + (n === 7 && edited ? '수정됨' : '통과') + '</span></li>').join('');
+  const tSign = base + 0.75 + 8 * step + 0.25;
+  const sign = done
+    ? '<div class="rc-sign rp-a"' + D(tSign) + '><p class="rc-done">' + (endingChosen === 'A' ? '확인이 끝나 최종 사례금이 지급되었습니다.' : endingVariant === 'edit' ? '8차 결과가 열람 기록과 맞지 않아 확인서가 반려되었습니다.' : '확인서가 확인되지 않은 채 닫혔습니다.') + '</p></div>'
+    : '<div class="rc-sign rp-a"' + D(tSign) + '><label class="rc-check"><input type="checkbox" id="rpAgree" onchange="document.getElementById(\'rpCta\').disabled = !this.checked"><span>위 테스트 결과와 제출 자료가 사실과 같음을 확인합니다.</span></label>' +
+      '<button type="button" class="rc-cta" id="rpCta" onclick="rpSubmit()" disabled>확인 및 정산 요청</button><button type="button" class="rc-later" onclick="rpClose()">확인하지 않고 닫기</button>' +
+      '<p class="rc-tiny">결과가 실제와 다르면 해당 항목의 [결과 수정]으로 고쳐 주세요.</p></div>';
+  el.className = 'rp-page' + (animate ? ' rp-anim' : '');
+  el.innerHTML = (animate ? '<div class="rp-load rc-load"><i></i><span>테스트 결과를 불러오는 중…</span></div>' : '') +
+    ((!done && rpAntonShown) ? rpAntonHtml() : '') +
+    '<div class="rc' + (animate ? ' wait' : '') + '">' +
+      '<p class="rc-eyebrow rp-a"' + D(base) + '>베타 테스트 결과 확인서 · IS-1114 <span class="rc-st s-' + st[1] + '">' + st[0] + '</span></p>' +
+      '<h1 class="rc-h rp-a"' + D(base + 0.05) + '>레나 세인 님,<br><b>베타 테스트 결과를 확인해 주세요</b></h1>' +
+      '<p class="rc-lead rp-a"' + D(base + 0.15) + '>참여하신 테스트 8건의 결과를 정리했어요. 내용이 맞으면 확인을 눌러 주세요. 확인이 끝나면 최종 사례금이 바로 지급돼요.</p>' +
+      '<div class="rc-kpis">' +
+        '<div class="rc-kpi rp-a"' + D(base + 0.3) + '><span>완료한 테스트</span><b>8<small>/8</small></b><i class="rc-bar"><em></em></i></div>' +
+        '<div class="rc-kpi rp-a"' + D(base + 0.38) + '><span>제출한 자료</span><b>9<small>건</small></b></div>' +
+        '<div class="rc-kpi rp-a"' + D(base + 0.46) + '><span>지금까지 받은 사례금</span><b>2,360,000<small>원</small></b></div>' +
+        '<div class="rc-kpi hl rp-a"' + D(base + 0.54) + '><span>' + (done && endingChosen === 'A' ? '최종 사례금 지급 완료' : '확인 후 지급') + '</span><b>3,000,000<small>원</small></b></div>' +
+      '</div>' +
+      '<div class="rc-sec rp-a"' + D(base + 0.65) + '><h2>테스트 결과</h2><span>8건</span></div>' +
+      '<ol class="rc-list">' + rows + '</ol>' + sign +
+    '</div>';
+  if(animate) setTimeout(() => { const d = el.querySelector('.rc'); if(d) d.classList.remove('wait'); }, (tSign + 0.7) * 1000);
+}
+function rpRenderOrig(el, animate){
+  const done = !!endingChosen;
+  const loc = rpLocVal;
   const st = !done ? ['제출 대기', 'wait'] : endingChosen === 'A' ? ['제출 완료', 'done'] : endingVariant === 'edit' ? ['반려', 'back'] : ['미제출', 'none'];
   const D = animate ? (t => ' style="animation-delay:' + t.toFixed(2) + 's"') : (() => '');
   const escA = v => msgEsc(v).replace(/"/g, '&quot;');
-  const base = 1.25, step = 0.32;
-  const rows = rpRows().map((r, n) => '<div class="rp-row rp-a"' + D(base + 0.55 + n * step) + '><span class="rp-n">0' + (n + 1) + '</span><span class="rp-k">' + r[0] + '</span><span class="rp-v">' + r[1] + ' <em class="rp-ev">근거 · ' + r[2] + '</em></span></div>').join('');
-  const tc = base + 0.55 + 8 * step + 0.2, ts = tc + 0.9, tf = ts + 0.6;
+  const base = animate === 'morph' ? 0.15 : 1.25, step = animate === 'morph' ? 0.26 : 0.32;
+  const rows = rpRows().map((r, n) => '<div class="rp-row rp-a"' + D(base + 0.45 + n * step) + '><span class="rp-n">0' + (n + 1) + '</span><span class="rp-k">' + r[0] + '</span><span class="rp-v">' + r[1] + ' <em class="rp-ev">근거 · ' + r[2] + '</em></span></div>').join('');
+  const tc = base + 0.45 + 8 * step + 0.2, ts = tc + 0.9, tf = ts + 0.6;
   const locHtml = done ? '<b class="rp-locv">' + (loc ? msgEsc(loc) : '(비어 있음)') + '</b>'
-    : '<label class="rp-loc"><input id="rpLoc" type="text" value="' + escA(loc) + '" maxlength="40" autocomplete="off" spellcheck="false" aria-label="확인 위치"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></label>';
+    : '<label class="rp-loc"><input id="rpLoc" type="text" value="' + escA(loc) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="확인 위치"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></label>';
   const concl = [
     ['대상', '루카 발렌 (개명 전 이름 비공개). 23년 전 11월 14일, 광장 연단에 섰던 시민 대표로 추정.'],
     ['확인 위치', locHtml],
@@ -5671,33 +6054,47 @@ function rpRender(animate){
   ].map(r => '<div class="rp-crow"><span class="rp-k">' + r[0] + '</span><span class="rp-v">' + r[1] + '</span></div>').join('');
   const foot = done
     ? '<p class="rp-final">' + (endingChosen === 'A' ? '이 보고서는 수집 협력자 명의로 제출되었습니다.' : endingVariant === 'edit' ? '확인 위치가 열람 기록과 맞지 않아 보고서가 반려되었습니다.' : '이 보고서는 제출되지 않았습니다.') + '</p>'
-    : '<p class="rp-notice">제출하면 이 보고서는 수집 협력자 명의로 전달되고, 사례금 3,000,000원이 바로 입금됩니다.</p>' +
-      '<div class="rp-act"><button type="button" class="rp-submit" onclick="rpSubmit()">보고서 제출</button><button type="button" class="rp-close" onclick="rpClose()">제출하지 않고 닫기</button></div>' +
+    : '<p class="rp-notice">확인서에서 [확인 및 정산 요청]을 누르면 이 원본이 수집 협력자 명의로 제출되고, 사례금 3,000,000원이 지급됩니다.</p>' +
+      '<div class="rp-act"><button type="button" class="rp-submit" onclick="rpSubmit()">확인 및 정산 요청</button><button type="button" class="rp-close" onclick="rpClose()">확인하지 않고 닫기</button></div>' +
       '<p class="rp-tiny">※ 결론 항목은 수집 협력자가 최종 확인한 내용 그대로 제출됩니다.</p>';
   el.className = 'rp-page' + (animate ? ' rp-anim' : '');
-  el.innerHTML = (animate ? '<div class="rp-load"><i></i><span>테스트 자료 8건을 정리하는 중…</span></div>' : '') +
+  el.innerHTML = (animate === true ? '<div class="rp-load"><i></i><span>테스트 자료 8건을 정리하는 중…</span></div>' : '') +
+    (!done ? '<button type="button" class="rp-back" onclick="rpSetView(\'cover\')">← 확인서 화면으로</button>' : '') +
     '<article class="rp-doc' + (animate ? ' wait' : '') + '">' +
       '<div class="rp-meta rp-a"' + D(base) + '><span>문서 번호 IS-1114</span><span>작성 베타테스트팀</span><span class="rp-st s-' + st[1] + '">' + st[0] + '</span></div>' +
       '<h1 class="rp-a"' + D(base) + '>최종 확인 보고서</h1>' +
-      '<p class="rp-lead rp-a"' + D(base + 0.15) + '>베타테스터가 1~8차 테스트에서 수집한 자료로 대상의 신원과 위치를 확인했습니다. 이 보고서는 수집 협력자 명의로 제출됩니다.</p>' +
-      '<h2 class="rp-a"' + D(base + 0.4) + '>수집 자료</h2>' + rows +
+      '<p class="rp-lead rp-a"' + D(base + 0.12) + '>베타테스터가 1~8차 테스트에서 수집한 자료로 대상의 신원과 위치를 확인했습니다. 이 문서는 베타 테스트 결과 확인서의 원본이며, 수집 협력자가 확인하면 그 명의로 제출됩니다.</p>' +
+      '<h2 class="rp-a"' + D(base + 0.3) + '>수집 자료</h2>' + rows +
       '<h2 class="rp-a"' + D(tc) + '>결론</h2><div class="rp-concl rp-a"' + D(tc + 0.1) + '>' + concl + '</div>' +
       '<div class="rp-sign"><span class="rp-sk rp-a"' + D(ts - 0.2) + '>수집 협력자</span><span class="rp-stamp"' + D(ts) + '>레나 세인<small>베타테스터</small></span></div>' +
       '<div class="rp-foot rp-a"' + D(tf) + '>' + foot + '</div>' +
     '</article>';
   if(animate) setTimeout(() => { const d = el.querySelector('.rp-doc'); if(d) d.classList.remove('wait'); }, (tf + 0.6) * 1000);
 }
+function rpMorph(){
+  const el = document.getElementById('rpPage'); if(!el || rpView === 'orig') return;
+  el.classList.add('rp-glitch');
+  setTimeout(() => { el.classList.remove('rp-glitch'); rpView = 'orig'; rpRender('morph'); window.scrollTo(0, 0); saveProgress(); }, 520);
+}
+function rpSetView(v){ rpView = v; rpRender(false); window.scrollTo(0, 0); saveProgress(); }
+function rpEdit(on){
+  const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
+  rpEditing = !!on; rpRender(false);
+  if(on){ const i = document.getElementById('rpLoc'); if(i){ i.focus(); i.select(); } } else saveProgress();
+}
 function reportOpen(){
   const first = !endingChosen && reportStage !== 'open';
-  if(!endingChosen) reportStage = 'open';
+  if(first){ reportStage = 'open'; rpView = 'cover'; rpLocVal = RP_LOC; }
   rpRender(first);
-  openTab('report', '최종 확인 보고서', '');
-  setAddr('report', 'iskra.dr/team/report/IS-1114'); setBack('report', false);
+  openTab('report', '테스트 결과 확인서', '');
+  setBack('report', false);
   window.scrollTo(0, 0);
+  if(!endingChosen && !rpAntonShown) setTimeout(rpShowAnton, first ? 5600 : 2500);
   iskraNoticeRender(); saveProgress();
 }
 function rpSubmit(){
-  const v = ((document.getElementById('rpLoc') || {}).value || '').trim();
+  const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
+  const v = String(rpLocVal || '').trim();
   if(v.replace(/\s+/g, '').indexOf('서쪽회관') >= 0) finalConfirm('A', v);
   else finalConfirm('edit', v);
 }
@@ -5708,14 +6105,14 @@ function finalConfirm(kind, v){
   let text, yes, sub = '', go;
   if(kind === 'A'){
     const where = v || RP_LOC;
-    text = "보고서에는 '" + msgEsc(where) + "'" + josa(where, '과', '와') + " '루카 발렌'이 적혀 있습니다.<br>제출하면 사례금 300만 원이 입금됩니다.";
-    yes = '제출한다'; sub = '사례금 3,000,000원'; go = "finalEnding('A')";
+    text = "확인서의 원본에는 '" + msgEsc(where) + "'" + josa(where, '과', '와') + " '루카 발렌'이 적혀 있습니다.<br>확인을 누르면 원본이 레나 세인의 이름으로 제출되고, 사례금 300만 원이 입금됩니다.";
+    yes = '확인한다'; sub = '사례금 3,000,000원'; go = "finalEnding('A')";
   } else if(kind === 'edit'){
-    text = v ? "보고서의 확인 위치 칸에는 '" + msgEsc(v) + "'라고 적혀 있습니다.<br>열람 기록과 맞지 않으면 보고서는 반려되고, 사례금은 입금되지 않습니다."
-             : '보고서의 확인 위치 칸이 비어 있습니다.<br>위치 없이 제출하면 보고서는 반려되고, 사례금은 입금되지 않습니다.';
-    yes = '이대로 제출한다'; go = "finalEnding('B','edit')";
+    text = v ? "8차 결과가 '" + msgEsc(v) + "'" + josaRo(v) + " 고쳐져 있습니다.<br>열람 기록과 맞지 않으면 확인서는 반려되고, 사례금은 입금되지 않습니다."
+             : '8차 결과 칸이 비어 있습니다.<br>결과 없이 보내면 확인서는 반려되고, 사례금은 입금되지 않습니다.';
+    yes = '이대로 보낸다'; go = "finalEnding('B','edit')";
   } else {
-    text = '보고서를 제출하지 않고 창을 닫습니다.<br>사례금은 입금되지 않습니다.';
+    text = '확인서를 확인하지 않고 창을 닫습니다.<br>최종 사례금은 지급되지 않습니다.';
     yes = '창을 닫는다'; go = "finalEnding('B','close')";
   }
   endingKey = '';
@@ -5725,30 +6122,81 @@ function finalConfirm(kind, v){
     '<div class="ending-choices"><button type="button" class="ending-next" onclick="' + go + '">' + yes + (sub ? ' <small>' + sub + '</small>' : '') + '</button>' +
     '<button type="button" class="ending-next" onclick="finalClose()">다시 생각한다</button></div>';
   ov.classList.remove('hidden');
+  try{ bgmSync(); }catch(e){}
+}
+/* ===== 중간 배드엔딩: 선택 직전 상태를 저장해 두고 '직전 선택으로 돌아가기'를 제공 ===== */
+var BAD_ENDINGS = {
+  betray:   {title:'밀고', slides:[['bank','그날 밤, 통장에 50만 원이 더 들어왔습니다.'],['mail_return','다음 날 안톤에게 보낸 메일은 반송됐습니다. 받는 사람의 계정이 없다고 했습니다.'],['messenger','다나는 그 뒤로도 친절했습니다. 테스트는 예정대로 이어졌습니다.'],['monitor_off','그해 11월, 안톤이라는 이름은 어디에서도 다시 볼 수 없었습니다.']]},
+  quit:     {title:'다른 테스터', slides:[['monitor_off','레나는 그날 밤 이스크라를 지웠습니다.'],['cafe','카페 소베크의 근무를 늘렸고, 등록금은 나눠 내기로 했습니다.'],['street','11월 14일 아침, 휴대폰에 짧은 기사가 떴습니다. 서쪽 회관 일대 새벽 단속.'],['messenger','남은 테스트는 다른 베타테스터가 마쳤다고 했습니다.']]},
+  confront: {title:'협력자', slides:[['locked','이스크라에는 다시 로그인할 수 없었습니다.'],['mailbox','사흘 뒤, 우편함에 보낸 사람이 적히지 않은 봉투가 들어 있었습니다.'],['captures','안에는 레나가 캡처해 보낸 화면이 한 장도 빠짐없이 들어 있었습니다.'],['monitor_off','레나는 그게 무슨 뜻인지 알았습니다. 아무에게도 말할 수 없었습니다.']]},
+  replace:  {title:'교체', slides:[['locked','세 번째 회신을 보낸 다음 날, 베타 계정이 정리됐습니다.'],['bank0','마지막 정산 뒤로 통장에는 아무것도 들어오지 않았습니다.'],['cafe','레나는 다시 카페 소베크의 근무표를 받아 들었습니다.'],['street','11월 14일 아침, 서쪽 회관 일대 새벽 단속 소식이 짧게 지나갔습니다. 남은 테스트는 다른 테스터가 마쳤습니다.']]}
+};
+var CKPT_KEY = 'iskra_ckpt_v1';
+var failCount = {};   /* 차수별 오답 회신 수 */
+function checkpointSave(){
+  try{ saveProgress(); msgSave(); localStorage.setItem(CKPT_KEY, JSON.stringify({s: localStorage.getItem(SAVE_KEY), m: localStorage.getItem(MSG_KEY), t: Date.now()})); }catch(e){}
+}
+function checkpointRestore(){
+  let c = null;
+  try{ c = JSON.parse(localStorage.getItem(CKPT_KEY) || 'null'); }catch(e){}
+  if(!c || !c.s){ resetProgress(); return; }
+  resetting = true;
+  try{ localStorage.setItem(SAVE_KEY, c.s); if(c.m) localStorage.setItem(MSG_KEY, c.m); else localStorage.removeItem(MSG_KEY); sessionStorage.removeItem('iskra_jump'); }catch(e){}
+  location.reload();
+}
+function badStart(key){
+  if(endingChosen || badEnding || !BAD_ENDINGS[key]) return;
+  badEnding = key; msgState.ackO = []; msgState.chain = []; msgSave(); saveProgress();
+  endingKey = 'BAD_' + key; endingIdx = 0;
+  document.getElementById('finalOverlay').classList.remove('hidden');
+  endingShow();
+  try{ msgRenderChips(); bgmSync(); }catch(e){}
+}
+function badFire(key){
+  if(key === 'betray'){
+    bankBalance += 500000; bankTx.unshift({amount:500000, label:'이스크라 베타테스트팀 · 제보 사례금', fresh:true}); renderBankcard();
+    osNotify('도렌은행', '입금 500,000원', '이스크라 베타테스트팀 · 제보 사례금 · 잔액 ' + bankBalance.toLocaleString() + '원', 'bank');
+    saveProgress();
+    setTimeout(() => badStart('betray'), 5000);
+  } else {
+    setTimeout(() => { msgPush('sys', '다나 님이 대화방을 나갔습니다.', true); badStart(key); }, 3500);
+  }
+}
+function jumpToBad(k){
+  const t = BAD_ENDINGS[k].title;
+  if(!confirm("배드엔딩 '" + t + "'" + josaRo(t) + ' 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
+  try{
+    localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY);
+    sessionStorage.setItem('iskra_jump', k === 'betray' ? '3' : k === 'confront' ? '7' : '4'); sessionStorage.setItem('iskra_bad', k);
+  }catch(e){}
+  location.reload();
 }
 function finalChoiceOpen(){ finalConfirm('A', RP_LOC); }
 function finalEnding(k, variant){
   endingChosen = k;
   endingVariant = k === 'B' ? (variant || 'close') : '';
-  const inp = document.getElementById('rpLoc');
-  rpLocVal = (k === 'B' && endingVariant === 'close') ? RP_LOC : (inp ? inp.value.trim() : RP_LOC);
+  const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
+  rpLocVal = String(rpLocVal || '').trim(); if(k === 'A' && !rpLocVal) rpLocVal = RP_LOC;
+  rpEditing = false;
   saveProgress();
   endingKey = k; endingIdx = 0;
   if(k === 'A'){ bankBalance += 3000000; bankTx.unshift({amount:3000000, label:'이스크라 베타테스트팀 · 최종 보고 사례금', fresh:true}); renderBankcard(); }
   endingTraces();
   endingShow();
+  endingBgm();
 }
 function endingList(){
+  if(String(endingKey).indexOf('BAD_') === 0){ const b = BAD_ENDINGS[endingKey.slice(4)]; return b ? b.slides : []; }
   const L = ENDING_SLIDES[endingKey] || [];
   if(endingKey === 'B' && endingVariant === 'edit')
-    return [['monitor_off', '레나는 위치 칸을 고쳐 쓴 보고서를 제출하고 모니터를 껐습니다.'], ['bank0', '보고서는 열람 기록과 맞지 않는다는 이유로 반려됐고, 사례금은 입금되지 않았습니다.']].concat(L.slice(2));
+    return [['monitor_off', '레나는 8차 결과를 고쳐 쓴 확인서를 보내고 모니터를 껐습니다.'], ['bank0', '보고서는 열람 기록과 맞지 않는다는 이유로 반려됐고, 사례금은 입금되지 않았습니다.']].concat(L.slice(2));
   return L;
 }
 /* ===== 엔딩 뒤: 브라우저에 남는 흔적 ===== */
 function danaLeave(){
   if(!msgState.left){
     msgState.left = true; msgState.ackO = []; msgState.chain = []; msgState.followup = false;
-    if(endingChosen === 'A') msgPush('bot', '보고서 받았어요. 그동안 수고하셨어요.', true);
+    if(endingChosen === 'A') msgPush('bot', '확인해 주셔서 감사해요. 그동안 수고하셨어요.', true);
     msgPush('sys', '다나 님이 대화방을 나갔습니다.', true);
   }
   const st = document.querySelector('#msgPanel .mstat'); if(st) st.textContent = '대화방을 나간 사용자';
@@ -5763,7 +6211,7 @@ function iskraNoticeRender(){
     el.innerHTML = '<b>서비스 종료 안내</b><span>이스크라 베타 서비스는 11월 30일부로 종료됩니다. 베타 계정과 메신저 대화 기록은 종료일에 함께 삭제됩니다. 그동안 참여해 주셔서 감사합니다.</span>';
   } else if(reportStage === 'open' && !endingChosen){
     el.className = 'iskra-notice n-report';
-    el.innerHTML = '<span>제출 대기 중인 보고서가 있습니다.</span><button type="button" onclick="reportOpen()">보고서 열기</button>';
+    el.innerHTML = '<span>확인을 기다리는 테스트 결과 확인서가 있습니다.</span><button type="button" onclick="reportOpen()">확인서 열기</button>';
   } else { el.className = 'iskra-notice hidden'; el.innerHTML = ''; }
 }
 function endingTraces(){
@@ -5814,12 +6262,16 @@ function danaWatch(){
     {r: '그냥 궁금해서 찾아본 거예요', re: '궁금한 건 이해해요. 그런 글은 출처가 불분명한 게 많아요. 베타 기간에는 테스트에 집중해 주세요.'},
     {r: '제가 뭘 보는지 다 보고 계신 거예요?', re: '처음에 말씀드렸잖아요. 어떤 기사를 보시는지도 저희한테는 참고가 된다고요. 신청서에서 이용 기록 수집에도 동의하셨고요.'},
     {r: '테스트랑 상관없으면 신경 쓰지 마세요', re: '상관없으면 다행이고요. 다만 레나 씨가 보는 화면은 저희도 같이 봐요. 그건 알고 계셨으면 해요.'}
+  ]}, {x: '그리고 하나만 여쭤볼게요. 혹시 이스크라 사람이라면서 따로 연락해 온 사람이 있었나요? 알려 주시면 사례금을 따로 드릴게요.', o: [
+    {r: '아니요, 그런 사람 없었어요', re: '그럼 됐어요. 혹시 연락이 오면 바로 알려 주세요.'},
+    {r: '있었어요… 안톤이라는 사람이요', re: '알려 주셔서 고마워요. 사례금은 오늘 안에 따로 넣어 드릴게요.', bad: 'betray', fire: 'bad:betray'}
   ]}], 800);
   queueDelivery('antonWarn', 50000, null, {effect:'antonWarn'});
   saveProgress();
 }
 /* 불러온 뒤: 엔딩 흔적·보고서·다나의 감시 이어 붙이기 */
 function endingResume(){
+  if(badEnding){ endingKey = 'BAD_' + badEnding; endingIdx = endingList().length; document.getElementById('finalOverlay').classList.remove('hidden'); endingShow(); try{ msgRenderChips(); }catch(e){} return; }
   iskraNoticeRender();
   if(endingChosen){
     endingTraces();
@@ -5832,6 +6284,7 @@ function endingResume(){
     return;
   }
   if(assignment8Resolved && reportStage !== 'open') setTimeout(() => { if(!endingChosen && reportStage !== 'open') reportOpen(); }, 6000);
+  if(reportStage === 'open' && !rpAntonShown) setTimeout(rpShowAnton, 4000);
   if(notesDone.length >= 2) danaWatchSchedule(20000);
 }
 /* ===== 엔딩 연출: 검은 화면 + 픽셀 일러스트 + 한 줄 문장 + '다음' ===== */
@@ -5854,11 +6307,11 @@ var ENDING_SCENES = {
   cafe: () => pxs([[0,0,64,36,'K2'],[0,22,64,5,'BR'],[0,27,64,9,'BR2'],[8,14,10,8,'W'],[18,16,3,4,'W'],[10,12,6,2,'G4'],[40,6,16,16,'G4'],[41,7,14,14,'W'],[47,9,2,6,'K'],[47,14,5,1,'K'],[0,0,64,3,'G1']])
 };
 var ENDING_SLIDES = {
-  A: [['hall','보고서는 그날 밤에 제출됐습니다.'],['bank','레나의 통장에는 300만 원이 들어와 있었습니다.'],['school','등록금 걱정은 그날로 끝났습니다.'],['street','이틀 뒤 새벽, 서쪽 회관 앞에 낯선 차들이 서 있었다는 이야기가 돌았습니다.'],['messenger','이스크라의 메신저는 그 뒤로 한 번도 열리지 않았습니다.'],['candles','11월 14일 저녁, 사람들은 평소처럼 촛불을 켰습니다. 빈자리는 하나가 아니었습니다.'],['mail','안톤에게서 마지막 메일이 왔습니다. "레나 씨가 무엇을 골랐는지는, 오래 기억했으면 해요."']],
-  B: [['monitor_off','레나는 보고서 창을 닫았습니다.'],['bank0','사례금은 입금되지 않았고, 베타 계정은 11월 30일에 만료됐습니다.'],['messenger','이스크라의 메신저는 더 이상 말을 걸지 않았습니다.'],['cafe','레나는 카페 소베크의 근무 시간을 늘렸고, 밤마다 과제를 했습니다.'],['school','쉽지는 않았지만, 그 선택을 후회하지는 않았습니다.'],['candles_old','11월 14일 저녁, 서쪽 회관 지하에서 사람들은 평소처럼 촛불을 켰습니다. 늦게 도착한 노인이 빈자리에 앉았습니다.'],['mail','안톤에게서 짧은 메일이 왔습니다. "고마워요."']]
+  A: [['hall','레나가 확인을 누른 그날 밤, 보고서가 제출됐습니다.'],['bank','레나의 통장에는 300만 원이 들어와 있었습니다.'],['school','등록금 걱정은 그날로 끝났습니다.'],['street','이틀 뒤 새벽, 서쪽 회관 앞에 낯선 차들이 서 있었다는 이야기가 돌았습니다.'],['messenger','이스크라의 메신저는 그 뒤로 한 번도 열리지 않았습니다.'],['candles','11월 14일 저녁, 사람들은 평소처럼 촛불을 켰습니다. 빈자리는 하나가 아니었습니다.'],['mail','안톤에게서 마지막 메일이 왔습니다. "레나 씨가 무엇을 골랐는지는, 오래 기억했으면 해요."']],
+  B: [['monitor_off','레나는 확인서 창을 닫았습니다.'],['bank0','사례금은 입금되지 않았고, 베타 계정은 11월 30일에 만료됐습니다.'],['messenger','이스크라의 메신저는 더 이상 말을 걸지 않았습니다.'],['cafe','레나는 카페 소베크의 근무 시간을 늘렸고, 밤마다 과제를 했습니다.'],['school','쉽지는 않았지만, 그 선택을 후회하지는 않았습니다.'],['candles_old','11월 14일 저녁, 서쪽 회관 지하에서 사람들은 평소처럼 촛불을 켰습니다. 늦게 도착한 노인이 빈자리에 앉았습니다.'],['mail','안톤에게서 짧은 메일이 왔습니다. "고마워요."']]
 };
 /* 일러스트는 힉스필드로 생성한 픽셀 이미지(ending/*.png)를 사용 */
-['hall','street','bank','school','messenger','candles','candles_old','mail','monitor_off','bank0','cafe'].forEach(n => { ENDING_SCENES[n] = () => '<img class="ending-pic" src="ending/' + n + '.png" alt="">'; });
+['hall','street','bank','school','messenger','candles','candles_old','mail','monitor_off','bank0','cafe','locked','mailbox','captures','mail_return'].forEach(n => { ENDING_SCENES[n] = () => '<img class="ending-pic" src="ending/' + n + '.png" alt="">'; });
 var endingIdx = 0, endingKey = '';
 function endingShow(){
   const c = document.getElementById('finalCard'), list = endingList(), last = endingIdx >= list.length;
@@ -5868,16 +6321,19 @@ function endingShow(){
     c.innerHTML = ENDING_SCENES[sl[0]]() + '<div class="ending-text">' + sl[1] + '</div><button type="button" class="ending-next" onclick="endingNext()">다음</button>';
   } else {
     c.className = 'final-card ending-stage';
-    c.innerHTML = '<div class="ending-title"><small>ENDING ' + endingKey + '</small><b>' + (endingKey === 'A' ? '사례금' : '침묵') + '</b></div><div class="fe"><button type="button" onclick="endingContinue()">계속 둘러보기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>';
+    c.innerHTML = (String(endingKey).indexOf('BAD_') === 0)
+      ? '<div class="ending-title bad"><small>BAD ENDING</small><b>' + BAD_ENDINGS[endingKey.slice(4)].title + '</b></div><div class="fe"><button type="button" onclick="checkpointRestore()">직전 선택으로 돌아가기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>'
+      : '<div class="ending-title"><small>ENDING ' + endingKey + '</small><b>' + (endingKey === 'A' ? '사례금' : '침묵') + '</b></div><div class="fe"><button type="button" onclick="endingContinue()">계속 둘러보기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>';
   }
 }
 function endingNext(){ endingIdx++; endingShow(); }
+function endingBgm(){ try{ bgmSync(); }catch(e){} }
 document.addEventListener('keydown', e => { const ov = document.getElementById('finalOverlay'); if(ov && !ov.classList.contains('hidden') && endingKey && (e.key === 'Enter' || e.key === ' ') && endingIdx < endingList().length){ e.preventDefault(); endingNext(); } });
-function finalClose(){ document.getElementById('finalOverlay').classList.add('hidden'); }
+function finalClose(){ document.getElementById('finalOverlay').classList.add('hidden'); try{ bgmSync(); }catch(e){} }
 setAddr('board', 'varnia-assoc.dr/login');
 setBack('board', false);
 setAddr('dlt', 'records.dorenpub.dr/login');
-setAddr('report', 'iskra.dr/team/report/IS-1114');
+setAddr('report', 'iskra.dr/beta/results/IS-1114');
 setBack('report', false);
 setBack('dlt', false);
 if(boardLoggedIn) { /* 로그인 상태 복원은 탭 진입 시 */ }
@@ -5898,7 +6354,7 @@ function saveProgress(){
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
-      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, endNotified, danaWatched, searchLog, assign3Word,
+      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, endNotified, danaWatched, searchLog, assign3Word,
       bankBalance, bankTx, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue,
       pendingDeliveries, pendingCutscene,
@@ -5955,6 +6411,10 @@ function loadProgress(){
   endingVariant = saved.endingVariant || '';
   reportStage = saved.reportStage || '';
   rpLocVal = saved.rpLocVal || '';
+  rpView = saved.rpView || 'cover';
+  rpAntonShown = !!saved.rpAntonShown;
+  badEnding = saved.badEnding || '';
+  failCount = saved.failCount || {};
   endNotified = !!saved.endNotified;
   danaWatched = !!saved.danaWatched;
   searchLog = saved.searchLog || [];
@@ -6069,7 +6529,7 @@ function resetProgress(){
 
 /* 모바일 탭 전환기 */
 function tsBody(t){
-  const map = {oldmail:'받은메일함', search:'검색', searchresult:'검색 결과', article:'기사', mail:'이스크라 메일', raden:'ERP', orginfo:'단체 등록정보', listing:'매물 검색', alumni:'동문수첩', archive:'아카이브', board:'연합회 게시판', dlt:'열람센터', report:'최종 확인 보고서'};
+  const map = {oldmail:'받은메일함', search:'검색', searchresult:'검색 결과', article:'기사', mail:'이스크라 메일', raden:'ERP', orginfo:'단체 등록정보', listing:'매물 검색', alumni:'동문수첩', archive:'아카이브', board:'연합회 게시판', dlt:'열람센터', report:'테스트 결과 확인서'};
   return map[t.kind] || '';
 }
 function renderTabSwitcher(){
@@ -6191,7 +6651,7 @@ function msgRender(){
 }
 function msgRenderChips(){
   const q = document.getElementById('msgQuick'); if(!q) return;
-  if(msgState.left){ q.innerHTML = ''; q.style.display = 'none'; return; }
+  if(msgState.left || badEnding){ q.innerHTML = ''; q.style.display = 'none'; return; }
   let chips;
   if(msgState.ackO.length){
     chips = msgState.ackO.map((o,i) => ['pick'+i, o.r]);
@@ -6201,6 +6661,8 @@ function msgRenderChips(){
     chips = [];
   } else {
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
+    if(!endingChosen && reportStage !== 'open' && antonIds.indexOf('anton6') >= 0 && !msgState.confronted) chips.push(['confront','이거 테스트 아니죠?']);
+    if(!endingChosen && reportStage !== 'open' && msgStage().n >= 2) chips.push(['quit','테스트 그만둘래요']);
   }
   const hold = msgPending > 0 || msgTyping || msgFireHold > 0;
   q.classList.toggle('busy', hold);
@@ -6293,6 +6755,7 @@ function msgResult(id){
   msgStartChain(arr, 1200, true);
 }
 function msgFire(name){
+  if(name.indexOf('bad:') === 0){ badFire(name.slice(4)); return; }
   if(name === 'reportOpen'){ if(!endingChosen && reportStage !== 'open') reportOpen(); return; }
   if(name.indexOf('result:') === 0){
     const id = name.slice(7);
@@ -6333,10 +6796,12 @@ function msgHint(){
 function msgReply(intent){
   const st = msgStage(), S = MSG_STAGES[st.n];
   if(intent !== 'yes' && intent !== 'no' && intent !== 'hint'){ msgState.followup = false; }
-  if(intent === 'now' && reportStage === 'open' && !endingChosen) msgBotSay('열어 드린 보고서를 끝까지 읽어 보시고, 내용이 맞으면 제출 버튼을 눌러 주세요.');
+  if(intent === 'now' && reportStage === 'open' && !endingChosen) msgBotSay('띄워 드린 결과 확인서를 보시고, 내용이 맞으면 체크한 뒤 [확인 및 정산 요청]을 눌러 주세요.');
   else if(intent === 'now') msgBotSay((st.done && S.wait) ? S.wait : S.now);
   else if(intent === 'hint' || intent === 'no') msgHint();
   else if(intent === 'yes'){ msgState.followup = false; msgBotSay(MSG_PICK(["알겠어요. 또 막히면 말씀하세요.","좋아요. 천천히 해 보세요. 필요하면 다시 불러 주세요."])); }
+  else if(intent === 'quit') msgStartChain([{x: '그만두시겠다는 거죠? 지금까지 진행하신 테스트는 정산이 끝났어요. 정말 그만두시겠어요?', o: [{r: '네, 그만둘게요', re: '알겠어요. 그동안 수고하셨어요.', bad: 'quit', fire: 'bad:quit'}, {r: '아니요, 계속할게요', re: '네, 하던 테스트 이어서 진행해 주세요.'}]}], 300);
+  else if(intent === 'confront'){ msgState.confronted = true; msgStartChain([{x: '무슨 말씀이세요?', o: [{r: '누군가를 찾고 있는 거잖아요', re: '레나 씨, 베타 테스트 약관 7조를 다시 읽어 보세요. 베타 계정은 지금부터 정지됩니다.', bad: 'confront', fire: 'bad:confront'}, {r: '아니에요, 그냥 물어봤어요', re: '네. 테스트에만 집중해 주세요.'}]}], 300); }
   else if(intent === 'cap') msgBotSay("주소창 오른쪽에 카메라 아이콘 보이시죠? 그걸 누르면 캡처 모드가 켜져요. 캡처하고 싶은 기록이나 화면을 클릭하면 저장되고, 의뢰 메일 회신창에 자동으로 붙어요. 취소는 Esc예요.");
   else if(intent === 'mail') msgBotSay("이스크라 첫 화면의 '메일' 아이콘으로 들어가시거나, 새 메일 올 때 뜨는 알림을 눌러도 돼요. 의뢰 메일을 열면 아래쪽에 회신하는 칸이 있어요.");
   else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두면 왼쪽 아래 스크랩 창에서 다시 볼 수 있어요. 단서를 비교할 때 편해요.");
@@ -6359,9 +6824,10 @@ function msgSubmit(e){ if(e) e.preventDefault(); }
 let msgTyping = false;
 function msgFit(el){ el.style.height = 'auto'; el.style.height = Math.min(el.scrollHeight, 132) + 'px'; const log = document.getElementById('msgLog'); if(log) log.scrollTop = log.scrollHeight; }
 function msgChip(id, label){
+  if(/^pick\d+$/.test(id)){ const o = msgState.ackO[parseInt(id.slice(4), 10)]; if(o && o.bad) checkpointSave(); }
   if(msgTyping) return;
   msgTyping = true; msgRenderChips();
-  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next'};
+  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront'};
   const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
   q.classList.add('busy');
   inp.value = ''; inp.classList.add('typing');
@@ -6414,7 +6880,7 @@ function msgRefreshVisible(){
   if(!show){ msgOpen = false; document.getElementById('msgPanel').classList.remove('open'); document.getElementById('msgPeek').classList.remove('show'); l.style.display = ''; }
   else if(msgOpen) l.style.display = 'none';
 }
-const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일엔 접속 정보만 있어서 금방 보실 거예요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'아카이브 검색 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이 사람도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}], "assign6": [{"x": "6차 의뢰 메일 보냈어요. 이번 건은 지금까지와 조금 달라요.", "o": [{"r": "뭐가 다른데요?", "re": "이번에는 회원 전용 화면이라 로그인이 필요해요."}, {"r": "로그인은 어떻게 해요?", "re": "연합회 게시판 준회원 계정이 있으시죠. 오늘 받은 안내 메일에 있는 계정을 테스트용으로 쓰면 돼요."}, {"r": "그 메일을 어떻게 아세요?", "re": "신청서에서 메일 연동에 동의해 주셨어요. 계정 안내 메일 제목만 확인했어요. 내용은 보지 않았고요."}]}, {"x": "'커뮤니티 게시판 연동' 테스트예요. 게시글마다 작성자와 게시 처리자가 따로 기록되는데, 이 구분이 화면에 제대로 표시되는지 확인하는 거예요. 글 중에는 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글이 있어요. 그 글이 어떤 건지 찾아 주세요.", "o": [{"r": "다른 사람의 확인을 거친 글이요?", "re": "작성자가 올린 내용에 대해 다른 사람이 확인하거나 허락을 구했다는 말이 남은 경우예요."}, {"r": "어디서 보면 돼요?", "re": "게시글 상세 화면의 본문과 댓글을 보세요."}, {"r": "회원 전용 글을 봐도 괜찮은 거예요?", "re": "테스트용 준회원 계정으로 볼 수 있는 범위만 확인하는 거예요. 걱정하지 않으셔도 돼요."}]}, {"x": "해당하는 글을 찾으면 상세 화면을 캡처해서 보내 주세요. 한 건이면 돼요."}], "retry6": [{"x": "이 글은 일반 안내였어요. 작성자 외에 다른 사람의 확인을 거쳤다는 말이 보이는 글로 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success6": [{"x": "6차 확인됐어요. 입금했어요. 이번 건이 특히 도움이 됐어요.", "o": [{"r": "입금 확인했어요. 이번엔 좀 찜찜하네요", "re": "테스트가 늘 개운하지는 않아요. 다음 안내를 기다려 주세요.", "fire": "result:success6"}]}], "assign7": [{"x": "7차 의뢰 메일 보냈어요. 6차 게시판은 어떠셨어요? 글에 '선생님'이라는 말이 여러 번 나왔는데, 그게 누구를 가리키는 것 같으세요?", "o": [{"r": "그냥 존칭 아닌가요? 누군지는 모르겠어요", "re": "그럴 수 있어요. 테스트와는 상관없는 내용이니 신경 쓰지 않으셔도 돼요."}, {"r": "대표 위에 누가 있는 것 같긴 해요", "re": "그렇게 읽히셨군요. 참고할게요."}, {"r": "그게 테스트랑 무슨 상관이에요?", "re": "상관없어요. 그냥 궁금했어요."}]}, {"x": "'이름 이력 연동' 테스트예요. 이스크라가 개명 공고처럼 이름이 바뀐 기록을 한 사람의 기록으로 이어 붙이는 기능을 시험 중이에요. 먼저 이스크라에서 '개명'을 검색해서, 이런 공고가 어디에 실리는지 확인해 주세요.", "o": [{"r": "개명 공고요?", "re": "네. 법원이 개명을 허가하면 도렌통신 지면에 공고가 실려요."}, {"r": "검색하고 나서는요?", "re": "도렌통신 아카이브에서 '개명'으로 검색하면 공고 기록이 나와요."}]}, {"x": "공고 중에서 세 가지 조건에 맞는 한 건을 찾아 주세요. 첫째, 신청 사유가 가족 사별일 것. 둘째, 출신이 바르니아일 것. 셋째, 허가된 시점이 약 22~23년 전일 것이에요.", "o": [{"r": "조건이 꽤 구체적이네요", "re": "테스트 데이터를 그렇게 만들었어요."}, {"r": "이 사람은 실제 인물이에요?", "re": "아니요, 테스트용 페르소나예요. 실제 인물과는 관계없어요."}]}, {"x": "해당하는 공고의 상세 화면을 캡처해서 보내 주세요."}], "retry7": [{"x": "이 공고는 세 조건 중 하나가 맞지 않았어요. 신청 사유, 출신, 허가 시기를 한 번 더 대조해 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 맞는 공고를 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success7": [{"x": "7차 확인됐어요. 입금했어요. 이름 이력이 연결되는 것까지 확인됐어요.", "o": [{"r": "입금 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요. 마지막 단계가 될 거예요.", "fire": "result:success7"}]}], "assign8": [{"x": "8차 의뢰 메일 보냈어요. 이번이 마지막 테스트예요.", "o": [{"r": "마지막이요?", "re": "네. 이번 건만 끝나면 베타 기간이 마무리돼요."}, {"r": "어떤 건데요?", "re": ""}]}, {"x": "'물류·통신 기록 조회' 테스트예요. 공공 기록 열람 시스템인데, 주소로 검색하면 그 주소에서 오간 물류와 통신 기록이 나와요. 그런데 6차 때 연합회 게시판에서 암호화된 글을 보셨죠. 그 글을 먼저 읽어 주세요. 거기에 나오는 장소가 이번 테스트의 검색어예요.", "o": [{"r": "암호는 어떻게 풀어요?", "re": "열람 코드는 네 자리 숫자예요. 모임 날짜처럼 월과 일을 붙인 숫자일 수 있어요."}, {"r": "회원 전용 글을 읽어도 되는 건가요?", "re": "준회원 계정으로 열람되는 범위예요. 걱정하지 않으셔도 돼요."}, {"r": "그 글을 왜 읽어야 해요?", "re": "테스트 시나리오에 필요한 장소 정보가 거기 있어서요."}]}, {"x": "그 장소를 조회 시스템에서 검색하면 기록이 여러 건 나와요. 그중 물류 기록이면서, 개인 이름으로 수령 확인이 남은 기록 한 건을 찾아 캡처해 주세요.", "o": [{"r": "물류 기록이고 개인 이름이 있는 거요?", "re": "네, 맞아요."}, {"r": "이게 마지막이라면서, 뭘 찾는 건지 이제 말해 줄 수 있어요?", "re": "말씀드렸잖아요, 시스템 테스트예요. 끝나면 정리해서 알려 드릴게요."}]}, {"x": "기록을 찾으면 상세 화면을 캡처해서 보내 주세요."}], "retry8": [{"x": "이 기록은 조건에 맞지 않았어요. 암호화된 글에 나온 장소의 기록 중에서, 물류이면서 개인 이름으로 수령 확인이 남은 기록을 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success8": [{"x": "8차 확인됐어요. 입금했어요. 모든 테스트가 끝났어요. 마지막으로 하나만 더 부탁드릴게요.", "o": [{"r": "뭔데요?", "re": "지금 띄워 드릴게요. 끝까지 읽어 보시고 직접 확인해 주세요.", "fire": "reportOpen"}]}]};
+const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일엔 접속 정보만 있어서 금방 보실 거예요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'아카이브 검색 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이 사람도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}], "assign6": [{"x": "6차 의뢰 메일 보냈어요. 이번 건은 지금까지와 조금 달라요.", "o": [{"r": "뭐가 다른데요?", "re": "이번에는 회원 전용 화면이라 로그인이 필요해요."}, {"r": "로그인은 어떻게 해요?", "re": "연합회 게시판 준회원 계정이 있으시죠. 오늘 받은 안내 메일에 있는 계정을 테스트용으로 쓰면 돼요."}, {"r": "그 메일을 어떻게 아세요?", "re": "신청서에서 메일 연동에 동의해 주셨어요. 계정 안내 메일 제목만 확인했어요. 내용은 보지 않았고요."}]}, {"x": "'커뮤니티 게시판 연동' 테스트예요. 게시글마다 작성자와 게시 처리자가 따로 기록되는데, 이 구분이 화면에 제대로 표시되는지 확인하는 거예요. 글 중에는 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글이 있어요. 그 글이 어떤 건지 찾아 주세요.", "o": [{"r": "다른 사람의 확인을 거친 글이요?", "re": "작성자가 올린 내용에 대해 다른 사람이 확인하거나 허락을 구했다는 말이 남은 경우예요."}, {"r": "어디서 보면 돼요?", "re": "게시글 상세 화면의 본문과 댓글을 보세요."}, {"r": "회원 전용 글을 봐도 괜찮은 거예요?", "re": "테스트용 준회원 계정으로 볼 수 있는 범위만 확인하는 거예요. 걱정하지 않으셔도 돼요."}]}, {"x": "해당하는 글을 찾으면 상세 화면을 캡처해서 보내 주세요. 한 건이면 돼요."}], "retry6": [{"x": "이 글은 일반 안내였어요. 작성자 외에 다른 사람의 확인을 거쳤다는 말이 보이는 글로 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success6": [{"x": "6차 확인됐어요. 입금했어요. 이번 건이 특히 도움이 됐어요.", "o": [{"r": "입금 확인했어요. 이번엔 좀 찜찜하네요", "re": "테스트가 늘 개운하지는 않아요. 다음 안내를 기다려 주세요.", "fire": "result:success6"}]}], "assign7": [{"x": "7차 의뢰 메일 보냈어요. 6차 게시판은 어떠셨어요? 글에 '선생님'이라는 말이 여러 번 나왔는데, 그게 누구를 가리키는 것 같으세요?", "o": [{"r": "그냥 존칭 아닌가요? 누군지는 모르겠어요", "re": "그럴 수 있어요. 테스트와는 상관없는 내용이니 신경 쓰지 않으셔도 돼요."}, {"r": "대표 위에 누가 있는 것 같긴 해요", "re": "그렇게 읽히셨군요. 참고할게요."}, {"r": "그게 테스트랑 무슨 상관이에요?", "re": "상관없어요. 그냥 궁금했어요."}]}, {"x": "'이름 이력 연동' 테스트예요. 이스크라가 개명 공고처럼 이름이 바뀐 기록을 한 사람의 기록으로 이어 붙이는 기능을 시험 중이에요. 먼저 이스크라에서 '개명'을 검색해서, 이런 공고가 어디에 실리는지 확인해 주세요.", "o": [{"r": "개명 공고요?", "re": "네. 법원이 개명을 허가하면 도렌통신 지면에 공고가 실려요."}, {"r": "검색하고 나서는요?", "re": "도렌통신 아카이브에서 '개명'으로 검색하면 공고 기록이 나와요."}]}, {"x": "공고 중에서 세 가지 조건에 맞는 한 건을 찾아 주세요. 첫째, 신청 사유가 가족 사별일 것. 둘째, 출신이 바르니아일 것. 셋째, 허가된 시점이 약 22~23년 전일 것이에요.", "o": [{"r": "조건이 꽤 구체적이네요", "re": "테스트 데이터를 그렇게 만들었어요."}, {"r": "이 사람은 실제 인물이에요?", "re": "아니요, 테스트용 페르소나예요. 실제 인물과는 관계없어요."}]}, {"x": "해당하는 공고의 상세 화면을 캡처해서 보내 주세요."}], "retry7": [{"x": "이 공고는 세 조건 중 하나가 맞지 않았어요. 신청 사유, 출신, 허가 시기를 한 번 더 대조해 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 맞는 공고를 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success7": [{"x": "7차 확인됐어요. 입금했어요. 이름 이력이 연결되는 것까지 확인됐어요.", "o": [{"r": "입금 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요. 마지막 단계가 될 거예요.", "fire": "result:success7"}]}], "assign8": [{"x": "8차 의뢰 메일 보냈어요. 이번이 마지막 테스트예요.", "o": [{"r": "마지막이요?", "re": "네. 이번 건만 끝나면 베타 기간이 마무리돼요."}, {"r": "어떤 건데요?", "re": ""}]}, {"x": "'물류·통신 기록 조회' 테스트예요. 공공 기록 열람 시스템인데, 주소로 검색하면 그 주소에서 오간 물류와 통신 기록이 나와요. 그런데 6차 때 연합회 게시판에서 암호화된 글을 보셨죠. 그 글을 먼저 읽어 주세요. 거기에 나오는 장소가 이번 테스트의 검색어예요.", "o": [{"r": "암호는 어떻게 풀어요?", "re": "열람 코드는 네 자리 숫자예요. 모임 날짜처럼 월과 일을 붙인 숫자일 수 있어요."}, {"r": "회원 전용 글을 읽어도 되는 건가요?", "re": "준회원 계정으로 열람되는 범위예요. 걱정하지 않으셔도 돼요."}, {"r": "그 글을 왜 읽어야 해요?", "re": "테스트 시나리오에 필요한 장소 정보가 거기 있어서요."}]}, {"x": "그 장소를 조회 시스템에서 검색하면 기록이 여러 건 나와요. 그중 물류 기록이면서, 개인 이름으로 수령 확인이 남은 기록 한 건을 찾아 캡처해 주세요.", "o": [{"r": "물류 기록이고 개인 이름이 있는 거요?", "re": "네, 맞아요."}, {"r": "이게 마지막이라면서, 뭘 찾는 건지 이제 말해 줄 수 있어요?", "re": "말씀드렸잖아요, 시스템 테스트예요. 끝나면 정리해서 알려 드릴게요."}]}, {"x": "기록을 찾으면 상세 화면을 캡처해서 보내 주세요."}], "retry8": [{"x": "이 기록은 조건에 맞지 않았어요. 암호화된 글에 나온 장소의 기록 중에서, 물류이면서 개인 이름으로 수령 확인이 남은 기록을 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success8": [{"x": "8차 확인됐어요. 입금했어요. 모든 테스트가 끝났어요. 마지막으로 하나만 더 부탁드릴게요.", "o": [{"r": "뭔데요?", "re": "최종 정산 전에 테스트 결과 확인서를 확인해 주셔야 해요. 지금 띄워 드릴게요.", "fire": "reportOpen"}]}]};
 function msgOnMail(id){
   if(!introSeen || (msgState.seenMail[id] && !/^(success|retry)\d$/.test(id))) return;
   msgState.seenMail[id] = 1;
@@ -6473,7 +6939,7 @@ function jumpToStage(n){
   location.reload();
 }
 function jumpToEnding(k){
-  if(!confirm((k === 'C' ? '최종 보고서 화면으로' : '엔딩 ' + k + '로') + ' 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
+  if(!confirm((k === 'C' ? '결과 확인서 화면으로' : '엔딩 ' + k + '로') + ' 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
   try{
     localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY);
     sessionStorage.setItem('iskra_jump', '8'); sessionStorage.setItem('iskra_end', k);
@@ -6535,5 +7001,6 @@ updateInboxBadge();
 msgInit();
 try{ const _j = sessionStorage.getItem('iskra_jump'); if(_j){ sessionStorage.removeItem('iskra_jump'); applyJump(parseInt(_j,10)); } }catch(e){}
 try{ endingResume(); }catch(e){}
+try{ const _b = sessionStorage.getItem('iskra_bad'); if(_b){ sessionStorage.removeItem('iskra_bad'); setTimeout(() => { checkpointSave(); badStart(_b); }, 1200); } }catch(e){}
 try{ const _e = sessionStorage.getItem('iskra_end'); if(_e){ sessionStorage.removeItem('iskra_end'); setTimeout(() => { if(_e === 'C') reportOpen(); else { finalChoiceOpen(); finalEnding(_e); } }, 1200); } }catch(e){}
 </script>
