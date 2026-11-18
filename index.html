@@ -559,6 +559,23 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
   #panel-oldmail .omlist .omrow{border-radius:0;margin:0;padding:11px 16px;border-bottom:1px solid var(--border);}
   #panel-oldmail .omlist .omrow:last-child{border-bottom:none;}
   #panel-oldmail .omlist .omrow.sel{background:var(--hover-bg);box-shadow:inset 3px 0 0 var(--accent);}
+
+  /* 사이드바: 카드 대신 평평한 항목(그림자 없음) */
+  #panel-oldmail .omside{display:flex;flex-direction:column;gap:0;padding-left:2px;}
+  #panel-oldmail .omside .mailcard,#panel-oldmail .omside .bankcard,#panel-oldmail .omside .weathercard{background:none;border:none;border-radius:0;box-shadow:none;}
+  #panel-oldmail .omside .mailcard{padding:14px 6px 12px;border-top:1px solid var(--border);margin-top:6px;}
+  #panel-oldmail .omside .bankcard{padding:14px 6px;border-top:1px solid var(--border);}
+  #panel-oldmail .omside .bankcard .bankbalance{font-size:20px;margin-top:6px;}
+  #panel-oldmail .omside .bankcard .banktx{margin-top:8px;padding-top:8px;}
+  #panel-oldmail .omside .weathercard{padding:14px 6px;border-top:1px solid var(--border);}
+  #panel-oldmail .omside .weathercard .temp{font-size:20px;}
+  #panel-oldmail .omside .financecard{display:none;}
+  #panel-oldmail .omside .newscard{display:none;}
+  /* 뉴스는 목록 아래 두 칸으로 */
+  #panel-oldmail .omnewshost .newscard{display:block;background:none;box-shadow:none;border-radius:0;padding:18px 2px 0;border-top:1px solid var(--border);margin-top:22px;}
+  #panel-oldmail .omnewshost .newscard ul{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
+  #panel-oldmail .omnewshost .newscard li button{padding:10px 6px;border-radius:0;}
+  #panel-oldmail .omnewshost .newscard li:nth-child(2) button{border-top:none;}
   /* 읽기창은 목록 위에 붙는다 */
   #panel-oldmail .omleft > .omreader{max-width:none;margin:0 0 16px;padding:18px 24px 6px;background:var(--surface);border:1px solid var(--border);border-radius:18px;}
   #panel-oldmail .omleft > .omreader .omnextlist{display:none;}
@@ -1878,6 +1895,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     <h1 class="omfoldertitle">받은메일함</h1>
     <div class="omhead"><h1 id="omHeadTitle">받은메일함</h1><span class="omcount" id="omCount"></span></div>
     <div class="omlist" id="omlist"></div>
+    <div class="omnewshost" id="omNewsHost"></div>
     </div>
       <aside class="side omside">
         <nav class="omfolders" id="omFolders"></nav>
@@ -3890,7 +3908,14 @@ function omOpenMail(){
 var omFilter = 'all', omCurId = null;
 function omDesk(){ return window.matchMedia && window.matchMedia('(min-width:861px)').matches; }
 /* PC에서는 읽기창을 목록 위로 옮겨 붙이고, 모바일에서는 원래 자리로 */
+function omPlaceNews(){
+  const nc = document.querySelector('#panel-oldmail .newscard'), host = document.getElementById('omNewsHost'), side = document.querySelector('#panel-oldmail .omside'), wx = document.querySelector('#panel-oldmail .weathercard');
+  if(!nc || !host || !side) return;
+  if(omDesk()){ if(nc.parentNode !== host) host.appendChild(nc); }
+  else if(nc.parentNode !== side) side.insertBefore(nc, wx);
+}
 function omPlaceReader(){
+  omPlaceNews();
   const r = document.getElementById('omReader'); if(!r) return;
   const left = document.querySelector('#omListWrap .omleft'), wrap = document.querySelector('#panel-oldmail > .wrap');
   if(omDesk()){ if(r.parentNode !== left) left.insertBefore(r, document.getElementById('omlist')); }
