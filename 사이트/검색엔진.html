@@ -543,6 +543,28 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-oldmail .omrow .omsubjwrap .omprev{color:var(--muted);margin-left:8px;}
 #panel-oldmail .omrow .omdate{width:64px;flex-shrink:0;text-align:right;color:var(--muted);font-size:11.5px;font-variant-numeric:tabular-nums;}
 #panel-oldmail .omreader{max-width:680px;padding-top:16px;}
+#panel-oldmail .omreader{padding-bottom:48px;}
+#panel-oldmail .omfoot{margin-top:34px;padding-top:18px;border-top:1px solid var(--border);}
+#panel-oldmail .omnav{display:flex;gap:8px;}
+#panel-oldmail .omnav button{display:flex;align-items:center;gap:6px;font-family:inherit;font-size:12.5px;font-weight:700;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:8px 14px;cursor:pointer;}
+#panel-oldmail .omnav button:hover{background:var(--hover-bg);}
+#panel-oldmail .omnav button[disabled]{color:var(--muted);opacity:.5;cursor:default;}
+#panel-oldmail .omnav button .ic{width:13px;height:13px;}
+#panel-oldmail .omnav .nx{margin-left:auto;}
+#panel-oldmail .omnextlist{margin-top:16px;}
+#panel-oldmail .omnextlist .omnh{font-size:11.5px;font-weight:700;color:var(--muted);margin-bottom:4px;}
+#panel-oldmail .ombanner{display:none;align-items:center;gap:12px;margin-top:20px;padding:14px 16px;border-radius:18px;background:linear-gradient(135deg,var(--accent),#E88A6B);color:var(--accent-ink);}
+#panel-oldmail .ombanner .bi{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#panel-oldmail .ombanner .bi .ic{width:18px;height:18px;}
+#panel-oldmail .ombanner b{display:block;font-size:13px;}
+#panel-oldmail .ombanner span{display:block;font-size:11.5px;opacity:.9;margin-top:2px;}
+#panel-oldmail .omlegal{margin-top:18px;font-size:11px;line-height:1.7;color:var(--muted);}
+@media (max-width:640px){
+  #panel-oldmail .omnextlist{display:none;}
+  #panel-oldmail .ombanner{display:flex;}
+  #panel-oldmail .omreader{padding-bottom:28px;}
+}
+
 #panel-oldmail .ombacklink{display:flex;align-items:center;gap:6px;background:none;border:none;color:var(--muted);font-family:inherit;font-size:12.5px;cursor:pointer;padding:0;margin-bottom:16px;}
 #panel-oldmail .ombacklink:hover{color:var(--ink);}
 #panel-oldmail .ombacklink .ic{width:14px;height:14px;}
@@ -3770,6 +3792,17 @@ function omRenderList(){
     </div>
   `).join('');
 }
+function omFootHtml(m){
+  const i = OLDMAIL_LIST.indexOf(m);
+  const prev = i > 0 ? OLDMAIL_LIST[i-1] : null, next = i >= 0 && i < OLDMAIL_LIST.length - 1 ? OLDMAIL_LIST[i+1] : null;
+  const near = [next, OLDMAIL_LIST[i+2]].filter(Boolean);
+  return '<div class="omfoot"><div class="omnav">' +
+    '<button type="button" ' + (prev ? 'onclick="omOpenDetail(\''+prev.id+'\');window.scrollTo(0,0)"' : 'disabled') + '><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>이전 메일</button>' +
+    '<button type="button" class="nx" ' + (next ? 'onclick="omOpenDetail(\''+next.id+'\');window.scrollTo(0,0)"' : 'disabled') + '>다음 메일<svg class="ic" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></div>' +
+    (near.length ? '<div class="omnextlist"><div class="omnh">다음 메일</div><div class="omlist">' + near.map(n => '<div class="omrow ' + (n.unread ? 'unread' : '') + '" onclick="omOpenDetail(\''+n.id+'\');window.scrollTo(0,0)"><span class="omdot"></span><span class="omsender">'+n.sender+'</span><span class="omsubjwrap"><b>'+n.subject+'</b></span><span class="omdate">'+n.time+'</span></div>').join('') + '</div></div>' : '') +
+    '<div class="ombanner"><div class="bi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg></div><div><b>새 메일은 노을메일에서 가장 먼저</b><span>중요한 메일을 놓치지 않도록 알림을 켜 두세요</span></div></div>' +
+    '<div class="omlegal">노을메일 고객센터 · 이용약관 · 개인정보처리방침<br>© Noeul Corp. All rights reserved.</div></div>';
+}
 function omRenderMail(m){
   document.getElementById('omReaderBody').innerHTML = `
     <p class="omsubj">${m.subject}</p>
@@ -3781,6 +3814,7 @@ function omRenderMail(m){
     ${m.translated ? '<div class="omnote">원문: 바르니아어 · 자동 번역됨</div>' : ''}
     ${m.body.map(p => `<p>${p.replace(/\n/g,'<br>')}</p>`).join('')}
     ${m.frag && ANTON_FRAGS[m.frag] ? `<button type="button" class="mailattach" onclick="fragOpen('${m.frag}')"><svg class="ic" viewBox="0 0 24 24" style="width:20px;height:20px;flex-shrink:0"><path d="M21 12.5 12.5 21a5 5 0 0 1-7-7L14 5.5a3.5 3.5 0 0 1 5 5L10.5 19a2 2 0 0 1-3-3L15 8.5"/></svg><div><b>${ANTON_FRAGS[m.frag].title}</b><span>첨부 자료 · ${ANTON_FRAGS[m.frag].tag}</span></div></button>` : ''}
+    ${omFootHtml(m)}
   `;
 }
 function omOpenDetail(id){
