@@ -379,6 +379,52 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .article img.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:18px;display:block;}
 .article .cat{color:var(--accent);font-weight:700;font-size:12px;}
 /* 외부 매체 기사 레이아웃 */
+
+/* 연합회 게시판 */
+#panel-board{background:#F6F1E9;min-height:100vh;color:#2B2622;}
+#panel-board .bd-top{background:#4A2E22;color:#F6F1E9;}
+#panel-board .bd-top-in{max-width:920px;margin:0 auto;padding:14px 20px;display:flex;align-items:center;gap:14px;}
+#panel-board .bd-brand{display:flex;align-items:center;gap:10px;flex:1;}
+#panel-board .bd-mark{width:30px;height:30px;border-radius:8px;background:#C98A5B;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;}
+#panel-board .bd-brand em{font-style:normal;font-size:12px;opacity:.7;}
+#panel-board .bd-user{font-size:12px;opacity:.8;}
+#panel-board .bd-out{background:none;border:1px solid rgba(246,241,233,.4);color:inherit;border-radius:999px;font-family:inherit;font-size:12px;padding:4px 12px;cursor:pointer;}
+#panel-board .bd-page{max-width:920px;margin:0 auto;padding:28px 20px 60px;}
+#panel-board .bd-login{max-width:380px;margin:40px auto;background:#fff;border-radius:18px;padding:30px 28px;box-shadow:0 6px 24px rgba(74,46,34,.12);}
+#panel-board .bd-login h1{margin:0 0 6px;font-size:20px;}
+#panel-board .bd-login p{margin:0 0 18px;font-size:13px;color:#7A6A5E;}
+#panel-board .bd-login label{display:block;font-size:12px;color:#7A6A5E;margin-bottom:12px;}
+#panel-board .bd-login input{display:block;width:100%;margin-top:5px;padding:10px 12px;border:1px solid #DDD2C4;border-radius:10px;font-family:inherit;font-size:14px;background:#FBF8F3;}
+#panel-board .bd-err{font-size:12.5px;color:#B5452E;margin-bottom:10px;}
+#panel-board .bd-btn{width:100%;padding:11px;border:none;border-radius:10px;background:#4A2E22;color:#fff;font-family:inherit;font-size:14px;font-weight:700;cursor:pointer;}
+#panel-board .bd-login small{display:block;margin-top:14px;font-size:11.5px;color:#9A8A7C;line-height:1.5;}
+#panel-board .bd-h{font-size:19px;margin:0 0 14px;}
+#panel-board .bd-table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden;font-size:13px;}
+#panel-board .bd-table th{background:#EFE6DA;font-weight:700;font-size:12px;padding:10px 12px;text-align:left;}
+#panel-board .bd-table td{padding:11px 12px;border-top:1px solid #F0E8DC;}
+#panel-board .bd-table tbody tr{cursor:pointer;}
+#panel-board .bd-table tbody tr:hover{background:#FBF6EE;}
+#panel-board .bd-table td.n,#panel-board .bd-table td.d{color:#9A8A7C;white-space:nowrap;}
+#panel-board .bd-table td.t b{color:#C98A5B;font-size:12px;}
+#panel-board .bd-tag{font-size:11px;font-weight:700;border-radius:5px;padding:2px 7px;background:#EFE6DA;color:#6B5547;}
+#panel-board .bd-tag.t-notice{background:#4A2E22;color:#fff;}
+#panel-board .bd-tag.t-info{background:#C98A5B;color:#fff;}
+#panel-board .bd-tag.t-lock{background:#2B2622;color:#fff;}
+#panel-board .bd-back{background:none;border:none;color:#6B5547;font-family:inherit;font-size:13px;cursor:pointer;padding:0 0 12px;}
+#panel-board .bd-card{background:#fff;border-radius:16px;padding:26px 28px 24px;box-shadow:0 2px 12px rgba(74,46,34,.08);}
+#panel-board .bd-ph h2{margin:10px 0 8px;font-size:20px;line-height:1.4;}
+#panel-board .bd-pm{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:#9A8A7C;padding-bottom:14px;border-bottom:1px solid #F0E8DC;}
+#panel-board .bd-pb{padding:18px 0 6px;}
+#panel-board .bd-pb p{margin:0 0 12px;font-size:14.5px;line-height:1.85;}
+#panel-board .bd-pb.enc p:not(.bd-note){font-family:monospace;letter-spacing:.04em;background:#F6F1E9;padding:8px 10px;border-radius:8px;}
+#panel-board .bd-note{font-size:12px;color:#9A8A7C;}
+#panel-board .bd-cm{margin-top:18px;border-top:1px solid #F0E8DC;padding-top:14px;}
+#panel-board .bd-ch{font-size:13px;font-weight:700;margin-bottom:6px;}
+#panel-board .bd-ch b{color:#C98A5B;}
+#panel-board .bd-cr{padding:9px 0;border-bottom:1px solid #F6F0E6;font-size:13px;line-height:1.6;}
+#panel-board .bd-cr .u{font-weight:700;margin-right:8px;}
+body.capture-mode #panel-board .bd-card{cursor:crosshair;outline:2px dashed #C98A5B;outline-offset:3px;}
+@media (max-width:640px){ #panel-board .bd-table th:nth-child(1),#panel-board .bd-table td.n,#panel-board .bd-table th:nth-child(4),#panel-board .bd-table td.a{display:none;} #panel-board .bd-card{padding:20px 18px;} }
 #panel-article .backlinks{display:none;}
 #panel-article .article{--oc:var(--accent);}
 #panel-article .article .cat{color:var(--oc);}
@@ -2525,6 +2571,29 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 </div>
 
+<div id="panel-board" class="panel hidden">
+<div class="bd-top"><div class="bd-top-in"><div class="bd-brand"><span class="bd-mark">V</span><b>바르니아인 연합회</b><em>회원 게시판</em></div><span class="bd-user" id="bdUser"></span><button type="button" class="bd-out" onclick="bdLogout()">로그아웃</button></div></div>
+<div id="bdLogin" class="bd-page">
+  <form class="bd-login" onsubmit="bdLoginSubmit(event)">
+    <h1>회원 로그인</h1>
+    <p>연합회 회원과 준회원만 이용할 수 있습니다.</p>
+    <label>아이디<input id="bdId" type="text" autocomplete="off"></label>
+    <label>비밀번호<input id="bdPw" type="password" autocomplete="off"></label>
+    <div class="bd-err hidden" id="bdErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
+    <button type="submit" class="bd-btn">로그인</button>
+    <small>준회원 계정은 회원의 소개로 사무국에서 발급해 드립니다.</small>
+  </form>
+</div>
+<div id="bdList" class="bd-page hidden">
+  <h1 class="bd-h">회원 게시판</h1>
+  <table class="bd-table"><thead><tr><th>번호</th><th>분류</th><th>제목</th><th>작성자</th><th>날짜</th></tr></thead><tbody id="bdRows"></tbody></table>
+</div>
+<div id="bdDetail" class="bd-page hidden">
+  <button type="button" class="bd-back" onclick="bdGoBack()">← 목록으로</button>
+  <div class="bd-card" id="bdCard" onclick="bdDetailClick()"></div>
+</div>
+</div>
+
 <div id="osNotif" onclick="osNotifClick()" role="status" aria-live="polite"><div class="oi"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></div><div class="ob"><div class="ot"><span id="osNotifApp">도렌은행</span><time>지금</time></div><div class="os" id="osNotifSub"></div><div class="od" id="osNotifBody"></div></div></div>
 <div id="fragModal" onclick="if(event.target===this)fragClose()"><div id="fragBody"></div></div>
 <div id="toast" onclick="mOpenFromToast()">
@@ -2593,6 +2662,7 @@ const TAB_META = {
   raden:{title:"라덴통상 ERP",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJjYXJnby1jcmF0ZSI+CiAgICA8cGF0aCBpZD0iY3JhdGUtYm9keSIgZD0iTTEwNiAyNzkgNTEyIDQ4IDkxOSAyNzkgOTE5IDc0OSA1MTIgOTgzIDEwNiA3NDlaIiBmaWxsPSIjMkIzMjM1IiAvPgogICAgPGcgaWQ9InRvcC1zbGF0cyIgZmlsbD0iIzNCNkU3MSI+CiAgICAgIDxwYXRoIGQ9Ik0xNzUgMjg4IDUxMiA5NCA2MDUgMTQ2IDI2OSAzNDFaIiAvPgogICAgICA8cGF0aCBkPSJNMzExIDM2NSA2NDYgMTY5IDczMiAyMTkgNDAwIDQxNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00NDAgNDM3IDc3MCAyNDMgODQ5IDI4OCA1MjIgNDgyWiIgLz4KICAgIDwvZz4KICAgIDxnIGlkPSJsZWZ0LXNsYXRzIiBmaWxsPSIjM0I2RTcxIj4KICAgICAgPHBhdGggZD0iTTE2MSAzNTkgMjI1IDM5NCAyMjUgNjg1IDE2MSA3MzJaIiAvPgogICAgICA8cGF0aCBkPSJNMjY2IDQxNiAzMjkgNDUwIDMyOSA4MzEgMjY2IDc5NVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zNzMgNDc0IDQzOSA1MTAgNDM5IDg5MiAzNzMgODU0WiIgLz4KICAgIDwvZz4KICAgIDxwYXRoIGlkPSJyaWdodC1mYWNlIiBkPSJNNTEyIDUxNyA5MTkgMjc5IDkxOSA3NDkgNTEyIDk4M1oiIGZpbGw9IiMzQjZFNzEiIC8+CiAgICA8cGF0aCBpZD0iZm9yd2FyZC1hcnJvdy1jdXRvdXQiIGQ9Ik0xNjQgNzg0QzI5MSA2NDQgNDYyIDU3MyA2NzQgNTU3TDY3NCA0NjkgODc3IDYwNSA2NzQgNzU2IDY3NCA2NjRDNTE2IDY1NSAzMzcgNzIwIDE5NSA4MDNaIiBmaWxsPSIjRkZGRkZGIiAvPgogIDwvZz4KPC9zdmc+'},
   orginfo:{title:"단체정보마당",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJzZWFsIj4KICAgIDxjaXJjbGUgY3g9IjUxMSIgY3k9IjUxMiIgcj0iNDgwIiBmaWxsPSJub25lIiBzdHJva2U9IiMwQjJBNEEiIHN0cm9rZS13aWR0aD0iNTUiIC8+CiAgICA8ZyBpZD0iY2l2aWMtYnVpbGRpbmciIGZpbGw9IiMwQjJBNEEiPgogICAgICA8cGF0aCBkPSJNNDk3IDEyMiBRNTEyIDExNCA1MjcgMTIyIEw4MDIgMjcyIEM4MjcgMjg2IDgxOCAzMTkgNzkyIDMxOSBIMjMyIEMyMDYgMzE5IDE5NyAyODYgMjIyIDI3MloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yNTAgMzM3IEgzOTcgQzQwMSAzNjAgMzkxIDM3OCAzNzEgMzg0IFY1NzAgSDI3NiBWMzg0IEMyNTYgMzc4IDI0NiAzNjEgMjUwIDMzN1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik00MzcgMzM3IEg1ODcgQzU5MSAzNjAgNTgxIDM3OCA1NjIgMzg0IFY1NjcgUTUxMiA1NTEgNDYzIDU2NyBWMzg0IEM0NDIgMzc4IDQzMyAzNjEgNDM3IDMzN1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MjcgMzM3IEg3NzQgQzc3OCAzNjEgNzY4IDM3OCA3NDggMzg0IFY1NzAgSDY1MyBWMzg0IEM2MzMgMzc4IDYyMyAzNjEgNjI3IDMzN1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yNjMgNTg0IEgzOTEgUTQwNSA1ODQgNDE0IDU5MSBRMzkzIDYwNyAzNzcgNjI5IEgyNDMgVjYwNSBRMjQzIDU4NCAyNjMgNTg0WiIgLz4KICAgICAgPHBhdGggZD0iTTYzMSA1ODQgSDc2MSBRNzgxIDU4NCA3ODEgNjA1IFY2MjkgSDY0NyBRNjMyIDYwNyA2MTEgNTkxIFE2MjAgNTg0IDYzMSA1ODRaIiAvPgogICAgICA8cGF0aCBkPSJNMjMzIDY0MiBIMzY5IFEzNTcgNjY1IDM1MSA2OTIgSDIxMyBWNjYzIFEyMTMgNjQyIDIzMyA2NDJaIiAvPgogICAgICA8cGF0aCBkPSJNNjU1IDY0MiBINzkwIFE4MTAgNjQyIDgxMCA2NjMgVjY5MiBINjcyIFE2NjYgNjY1IDY1NSA2NDJaIiAvPgogICAgPC9nPgogICAgPHBhdGggaWQ9InBlZGltZW50LWluc2V0IiBkPSJNMzMxIDI3MiBMNTEyIDE3NSBMNjkzIDI3MloiIGZpbGw9IiM3RkQxRkYiIC8+CiAgICA8ZyBpZD0ibGF1cmVscyIgZmlsbD0iIzdGRDFGRiI+CiAgICAgIDxwYXRoIGQ9Ik00ODQgOTA0IEM0NTggOTAxIDQzNCA4ODcgNDE1IDg4OSBDMzg5IDg5NSAzNTAgOTI0IDI4OCA4NzMgQzMxNCA4NjIgMzM3IDg1NyAzNTkgODYxIEwzMTUgODQzIEMyOTUgODM3IDI0NiA4NzIgMTk3IDc5OCBDMjE5IDc5MyAyNDQgNzk1IDI2NSA4MDMgTDIzMSA3NzkgQzIxNiA3NjcgMTU5IDc4NiAxMzIgNzA3IEMxNTggNzA1IDE4MSA3MTYgMjAwIDcyOSBMMTgxIDcwNSBDMTM3IDY4NSAxMTQgNjQzIDEzNiA1ODcgQzE3NCA2MTQgMTkzIDY1MCAxOTMgNjkyIEMyMTMgNzMwIDIyNCA3NTEgMjQ4IDc3NiBDMjM3IDc1MiAyMzQgNzMwIDI0MCA3MTEgQzI4MiA3MzUgMjk0IDc3MiAyOTcgODA2IEMyOTkgODE4IDMyMyA4MzEgMzQ0IDg0MyBDMzI1IDgyNCAzMTcgODAwIDMxNSA3NzUgQzM2MCA3OTAgMzg0IDgyNiAzOTcgODU5IEM0MjMgODc0IDQ2OSA4ODMgNDg0IDkwNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik01MzggOTA0IEM1NjQgOTAxIDU4OCA4ODcgNjA3IDg4OSBDNjMzIDg5NSA2NzIgOTI0IDczNCA4NzMgQzcwOCA4NjIgNjg1IDg1NyA2NjMgODYxIEw3MDcgODQzIEM3MjcgODM3IDc3NiA4NzIgODI1IDc5OCBDODAzIDc5MyA3NzggNzk1IDc1NyA4MDMgTDc5MSA3NzkgQzgwNiA3NjcgODYzIDc4NiA4OTAgNzA3IEM4NjQgNzA1IDg0MSA3MTYgODIyIDcyOSBMODQxIDcwNSBDODg1IDY4NSA5MDggNjQzIDg4NiA1ODcgQzg0OCA2MTQgODI5IDY1MCA4MjkgNjkyIEM4MDkgNzMwIDc5OCA3NTEgNzc0IDc3NiBDNzg1IDc1MiA3ODggNzMwIDc4MiA3MTEgQzc0MCA3MzUgNzI4IDc3MiA3MjUgODA2IEM3MjMgODE4IDY5OSA4MzEgNjc4IDg0MyBDNjk3IDgyNCA3MDUgODAwIDcwNyA3NzUgQzY2MiA3OTAgNjM4IDgyNiA2MjUgODU5IEM1OTkgODc0IDU1MyA4ODMgNTM4IDkwNFoiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0idmVyaWZpY2F0aW9uIj4KICAgICAgPGNpcmNsZSBjeD0iNTExIiBjeT0iNzIxIiByPSIxNDQiIGZpbGw9IiM3RkQxRkYiIC8+CiAgICAgIDxwYXRoIGQ9Ik00MzQgNzI3IEw0ODMgNzc2IEw1ODIgNjcwIiBmaWxsPSJub25lIiBzdHJva2U9IiNGRkZGRkYiIHN0cm9rZS13aWR0aD0iNDgiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIgLz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg=='},
   listing:{title:"이스크라 부동산",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJvZmZpY2UiPgogICAgPHBhdGggZD0iTTYwMSAxOTggNzg2IDI4NlE4MTUgMzAwIDgxNSAzMzNWNzE3TDYwMSA2MDhaIiBmaWxsPSIjMEY3NjZFIiAvPgogICAgPHBhdGggZD0iTTIxOSA3MDhWMjM0UTIxOSAxOTkgMjUxIDE4Nkw1NjkgNzBRNTg4IDYzIDYwNCA3NlE2MTkgODcgNjE5IDEwNVY2MDlMNTEyIDU1MVoiIGZpbGw9IiMwRjc2NkUiIC8+CiAgICA8ZyBpZD0iZnJvbnQtd2luZG93cyIgZmlsbD0iI0ZGRDk4QSI+CiAgICAgIDxwYXRoIGQ9Ik0yOTQgMjM4IDM0MCAyMjRRMzUzIDIyMCAzNTMgMjMzVjI4OFEzNTMgMjk4IDM0MyAzMDFMMjk3IDMxNFEyODUgMzE3IDI4NSAzMDRWMjUxUTI4NSAyNDEgMjk0IDIzOFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zOTAgMjA5IDQzNyAxOTVRNDUwIDE5MSA0NTAgMjA0VjI1OVE0NTAgMjcwIDQ0MCAyNzNMMzk0IDI4NlEzODEgMjg5IDM4MSAyNzZWMjIyUTM4MSAyMTIgMzkwIDIwOVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00ODcgMTgwIDUzNCAxNjZRNTQ3IDE2MSA1NDcgMTc1VjIzMlE1NDcgMjQyIDUzNyAyNDVMNDkxIDI1OVE0NzggMjYyIDQ3OCAyNDlWMTkzUTQ3OCAxODMgNDg3IDE4MFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yOTQgMzU5IDM0MCAzNDdRMzUzIDM0MyAzNTMgMzU2VjQxMVEzNTMgNDIyIDM0MyA0MjVMMjk3IDQzNVEyODUgNDM4IDI4NSA0MjVWMzcyUTI4NSAzNjIgMjk0IDM1OVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zOTAgMzM0IDQzNyAzMjNRNDUwIDMxOSA0NTAgMzMyVjM4N1E0NTAgMzk4IDQ0MCA0MDFMMzk0IDQxMlEzODEgNDE0IDM4MSA0MDJWMzQ3UTM4MSAzMzcgMzkwIDMzNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00ODcgMzEwIDUzNCAyOTlRNTQ3IDI5NSA1NDcgMzA4VjM2NFE1NDcgMzc1IDUzNyAzNzhMNDkxIDM4OVE0NzggMzkyIDQ3OCAzNzlWMzIzUTQ3OCAzMTMgNDg3IDMxMFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yOTQgNDgyIDM0MCA0NzBRMzUzIDQ2NyAzNTMgNDgwVjUzNFEzNTMgNTQ1IDM0MyA1NDhMMjk3IDU1N1EyODUgNTYwIDI4NSA1NDdWNDk1UTI4NSA0ODUgMjk0IDQ4MloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zOTAgNDU5IDQzNyA0NDlRNDUwIDQ0NiA0NTAgNDU5VjUxM1E0NTAgNTI0IDQ0MCA1MjdMMzk0IDUzN1EzODEgNTM5IDM4MSA1MjdWNDcyUTM4MSA0NjIgMzkwIDQ1OVoiIC8+CiAgICAgIDxwYXRoIGQ9Ik00ODcgNDM5IDUzNCA0MzBRNTQ3IDQyNyA1NDcgNDQwVjQ5NFE1NDcgNTA1IDUzNyA1MDhMNDkxIDUxOFE0NzggNTIwIDQ3OCA1MDhWNDUyUTQ3OCA0NDIgNDg3IDQzOVoiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0ic2lkZS13aW5kb3dzIiBmaWxsPSIjRkZEOThBIj4KICAgICAgPHBhdGggZD0iTTY2MyAzMDcgNzczIDM0OFE3ODMgMzUyIDc4MyAzNjRWMzk2UTc4MyA0MTEgNzcwIDQwNkw2NjAgMzY3UTY1MCAzNjMgNjUwIDM1MlYzMThRNjUwIDMwMiA2NjMgMzA3WiIgLz4KICAgICAgPHBhdGggZD0iTTY2MyA0MTQgNzczIDQ1M1E3ODMgNDU3IDc4MyA0NjlWNTAwUTc4MyA1MTUgNzcwIDUxMEw2NjAgNDc0UTY1MCA0NzAgNjUwIDQ1OVY0MjVRNjUwIDQwOSA2NjMgNDE0WiIgLz4KICAgICAgPHBhdGggZD0iTTY2MyA1MjEgNzczIDU1OVE3ODMgNTYzIDc4MyA1NzVWNjA1UTc4MyA2MjEgNzcwIDYxNkw2NjAgNTgxUTY1MCA1NzcgNjUwIDU2NlY1MzJRNjUwIDUxNiA2NjMgNTIxWiIgLz4KICAgIDwvZz4KICA8L2c+CiAgPGcgaWQ9InByb3BlcnR5Ij4KICAgIDxwYXRoIGQ9Ik0yNDcgNzc1IDQ5NiA2MThRNTEyIDYwOCA1MjggNjE4TDc3NSA3NzVWODkyUTc3NSA5MTAgNzU2IDkxMEgyNjZRMjQ3IDkxMCAyNDcgODkyWiIgZmlsbD0iIzBGNzY2RSIgLz4KICAgIDxwYXRoIGQ9Ik0xOTcgNzYyIDUxMiA1NzMgODI3IDc2MiIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjRkZEOThBIiBzdHJva2Utd2lkdGg9Ijc3IiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIC8+CiAgICA8cGF0aCBkPSJNNDgzIDc4M0E1NC41IDU0LjUgMCAxIDEgNTQwIDc4M0w1NjIgODUxUTU2NCA4NTggNTU2IDg1OEg0NjhRNDYwIDg1OCA0NjIgODUxWiIgZmlsbD0iI0ZGRDk4QSIgLz4KICAgIDxwYXRoIGQ9Ik05NyA5NzNDMTkwIDg1MiA4MzEgODQwIDkyNyA5NzMgNzEwIDkwMiAzMTcgOTAyIDk3IDk3M1oiIGZpbGw9IiNGRkQ5OEEiIC8+CiAgPC9nPgo8L3N2Zz4='},
+  board:{title:"연합회 게시판",icon:outletIcon({color:'#4A2E22',fav:'V'})},
   alumni:{title:"총동문회 동문수첩",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJsYXVyZWwiIGZpbGw9IiNGRkM5QTgiPgogICAgPHBhdGggZD0iTTQ1MCA5NjZDNDk0IDkyOCA1NTQgOTE2IDYxNCA4OTdDNzI2IDg2MiA4MjAgNzg1IDg3NyA2ODNDOTI2IDU5NiA5NDcgNDk4IDkzMyA0MDdDOTI5IDM3NSA5MjAgMzQ0IDkwOSAzMTVMOTAwIDMwOUM5MjEgMzc1IDkzMSA0MzUgOTI0IDQ5NUM5MTcgNTkwIDg3OCA2ODIgODIxIDc1MUM3NTkgODI3IDY5MiA4NjQgNjA5IDg4OEM1MjkgOTExIDQ1NSA5MjggNDA2IDk2NEM0MjAgOTY2IDQzNSA5NjggNDUwIDk2NloiIC8+CiAgICA8cGF0aCBkPSJNNTc0IDk2NkM1MzAgOTI4IDQ3MCA5MTYgNDEwIDg5N0MyOTggODYyIDIwNCA3ODUgMTQ3IDY4M0M5OCA1OTYgNzcgNDk4IDkxIDQwN0M5NSAzNzUgMTA0IDM0NCAxMTUgMzE1TDEyNCAzMDlDMTAzIDM3NSA5MyA0MzUgMTAwIDQ5NUMxMDcgNTkwIDE0NiA2ODIgMjAzIDc1MUMyNjUgODI3IDMzMiA4NjQgNDE1IDg4OEM0OTUgOTExIDU2OSA5MjggNjE4IDk2NEM2MDQgOTY2IDU4OSA5NjggNTc0IDk2NloiIC8+CiAgICA8ZyBpZD0ibGVmdC1sZWF2ZXMiPgogICAgICA8cGF0aCBkPSJNMTExIDMzMEMxMTQgMzAyIDk2IDI3NyAxMTkgMjM5QzEzMSAyMjAgMTQ5IDIwNSAxNjUgMTk2QzE2OSAyMjYgMTY4IDI1MyAxNTUgMjc1QzE0NCAyOTQgMTIyIDMwNiAxMTEgMzMwWiIgLz4KICAgICAgPHBhdGggZD0iTTk4IDQyNEM5NCA0MDAgNzMgMzkxIDYwIDM2NkM0NiAzMzkgNTcgMzA0IDcwIDI3NkM5MCAzMDIgMTAyIDMyNSA5OCAzNThDMTA2IDM0MSAxMDUgMzM4IDEwOSAzMzBDMTAzIDM2MSAxMDAgMzkyIDk4IDQyNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xMDAgNDIxQzEwNCAzNzkgMTE5IDMzOCAxNzkgMzEzQzE3NSAzNDUgMTY1IDM3MyAxNDQgMzg4QzEyNiA0MDIgMTA5IDQwMyAxMDAgNDIxWiIgLz4KICAgICAgPHBhdGggZD0iTTk2IDUzN0M4OCA1MTcgNjYgNTEwIDQ5IDQ5M0MyOSA0NzMgMjQgNDM0IDMzIDM5MkM1OSA0MTMgODEgNDQ0IDg2IDQ3OUM4NiA1MDAgOTEgNTE5IDk2IDUzN1oiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xMDYgNTQwQzk2IDUxNiAxMDIgNDc4IDExNyA0NTNDMTI4IDQzNSAxNDUgNDIwIDE2MSA0MTFDMTY2IDQ0NiAxNjMgNDcyIDE0NyA0OTJDMTMyIDUxMSAxMTEgNTE2IDEwNiA1NDBaIiAvPgogICAgICA8cGF0aCBkPSJNMTQxIDY1NkMxMjggNjM3IDEwOCA2MzkgODYgNjMwQzUzIDYxNyAzMyA1ODIgMjcgNTMxQzYyIDU0NSA5MSA1NjYgMTA1IDU5NkMxMTcgNjIwIDEyNiA2NDIgMTQxIDY1NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik0xNDggNjU0QzE0OSA2MzEgMTcwIDYyMiAxNzcgNTkxQzE4NCA1NjcgMTc3IDUzNiAxNjkgNTEzQzE0NSA1MzYgMTI3IDU2MCAxMjkgNTkzQzEzMCA2MTYgMTQ0IDYzOSAxNDggNjU0WiIgLz4KICAgICAgPHBhdGggZD0iTTIxMCA3NjJDMTg2IDc0NiAxNzcgNzUyIDE1MiA3NTFDMTExIDc1MSA4NCA3MjMgNjMgNjY5QzEwNiA2NzEgMTMzIDY4MyAxNTQgNzA1QzE3NSA3MjcgMTkwIDc0NiAyMTAgNzYyWiIgLz4KICAgICAgPHBhdGggZD0iTTIxNSA3NThDMjAzIDczNSAyMjQgNzIyIDIyOCA2OTNDMjM1IDY2NyAyMjAgNjMyIDIwNCA2MDlDMTg0IDY0MSAxNzMgNjcwIDE4MSA2OThDMTg4IDcyNCAyMDMgNzQ0IDIxNSA3NThaIiAvPgogICAgICA8cGF0aCBkPSJNMjk2IDg0MEMyNzMgODMwIDI1OCA4NDUgMjMwIDg0OUMxOTEgODU0IDE2NCA4MzAgMTMyIDc5MkMxNjkgNzgzIDIwMyA3ODQgMjMxIDgwMUMyNTMgODE1IDI3NSA4MzUgMjk2IDg0MFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik0zMDQgODMzQzI4OCA4MTMgMzA4IDc5NSAzMDIgNzY1QzI5OCA3MzcgMjc3IDcxMSAyNjAgNjkyQzI0OSA3MjAgMjQyIDc1MCAyNTMgNzc3QzI2NCA4MDQgMjg5IDgyMiAzMDQgODMzWiIgLz4KICAgICAgPHBhdGggZD0iTTQwNSA4OTZDMzc5IDg5MCAzNjUgOTE0IDMzNCA5MjFDMzAyIDkyOCAyNzAgOTE1IDIzOCA4OTBDMjczIDg3MSAzMDAgODY0IDMyOCA4NzJDMzU1IDg3OCAzODAgODkyIDQwNSA4OTZaIiAvPgogICAgICA8cGF0aCBkPSJNNDE0IDg4N0MzOTUgODc1IDQwNSA4NTEgMzk2IDgyNUMzODcgNzk3IDM1NyA3NzYgMzMwIDc2NUMzMjcgODAwIDMzNSA4MjkgMzUxIDg0OUMzNzEgODcyIDM5NSA4ODAgNDE0IDg4N1oiIC8+CiAgICA8L2c+CiAgICA8ZyBpZD0icmlnaHQtbGVhdmVzIj4KICAgICAgPHBhdGggZD0iTTkxMyAzMzBDOTEwIDMwMiA5MjggMjc3IDkwNSAyMzlDODkzIDIyMCA4NzUgMjA1IDg1OSAxOTZDODU1IDIyNiA4NTYgMjUzIDg2OSAyNzVDODgwIDI5NCA5MDIgMzA2IDkxMyAzMzBaIiAvPgogICAgICA8cGF0aCBkPSJNOTI2IDQyNEM5MzAgNDAwIDk1MSAzOTEgOTY0IDM2NkM5NzggMzM5IDk2NyAzMDQgOTU0IDI3NkM5MzQgMzAyIDkyMiAzMjUgOTI2IDM1OEM5MTggMzQxIDkxOSAzMzggOTE1IDMzMEM5MjEgMzYxIDkyNCAzOTIgOTI2IDQyNFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik05MjQgNDIxQzkyMCAzNzkgOTA1IDMzOCA4NDUgMzEzQzg0OSAzNDUgODU5IDM3MyA4ODAgMzg4Qzg5OCA0MDIgOTE1IDQwMyA5MjQgNDIxWiIgLz4KICAgICAgPHBhdGggZD0iTTkyOCA1MzdDOTM2IDUxNyA5NTggNTEwIDk3NSA0OTNDOTk1IDQ3MyAxMDAwIDQzNCA5OTEgMzkyQzk2NSA0MTMgOTQzIDQ0NCA5MzggNDc5QzkzOCA1MDAgOTMzIDUxOSA5MjggNTM3WiIgLz4KICAgICAgPHBhdGggZD0iTTkxOCA1NDBDOTI4IDUxNiA5MjIgNDc4IDkwNyA0NTNDODk2IDQzNSA4NzkgNDIwIDg2MyA0MTFDODU4IDQ0NiA4NjEgNDcyIDg3NyA0OTJDODkyIDUxMSA5MTMgNTE2IDkxOCA1NDBaIiAvPgogICAgICA8cGF0aCBkPSJNODgzIDY1NkM4OTYgNjM3IDkxNiA2MzkgOTM4IDYzMEM5NzEgNjE3IDk5MSA1ODIgOTk3IDUzMUM5NjIgNTQ1IDkzMyA1NjYgOTE5IDU5NkM5MDcgNjIwIDg5OCA2NDIgODgzIDY1NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik04NzYgNjU0Qzg3NSA2MzEgODU0IDYyMiA4NDcgNTkxQzg0MCA1NjcgODQ3IDUzNiA4NTUgNTEzQzg3OSA1MzYgODk3IDU2MCA4OTUgNTkzQzg5NCA2MTYgODgwIDYzOSA4NzYgNjU0WiIgLz4KICAgICAgPHBhdGggZD0iTTgxNCA3NjJDODM4IDc0NiA4NDcgNzUyIDg3MiA3NTFDOTEzIDc1MSA5NDAgNzIzIDk2MSA2NjlDOTE4IDY3MSA4OTEgNjgzIDg3MCA3MDVDODQ5IDcyNyA4MzQgNzQ2IDgxNCA3NjJaIiAvPgogICAgICA8cGF0aCBkPSJNODA5IDc1OEM4MjEgNzM1IDgwMCA3MjIgNzk2IDY5M0M3ODkgNjY3IDgwNCA2MzIgODIwIDYwOUM4NDAgNjQxIDg1MSA2NzAgODQzIDY5OEM4MzYgNzI0IDgyMSA3NDQgODA5IDc1OFoiIC8+CiAgICAgIDxwYXRoIGQ9Ik03MjggODQwQzc1MSA4MzAgNzY2IDg0NSA3OTQgODQ5QzgzMyA4NTQgODYwIDgzMCA4OTIgNzkyQzg1NSA3ODMgODIxIDc4NCA3OTMgODAxQzc3MSA4MTUgNzQ5IDgzNSA3MjggODQwWiIgLz4KICAgICAgPHBhdGggZD0iTTcyMCA4MzNDNzM2IDgxMyA3MTYgNzk1IDcyMiA3NjVDNzI2IDczNyA3NDcgNzExIDc2NCA2OTJDNzc1IDcyMCA3ODIgNzUwIDc3MSA3NzdDNzYwIDgwNCA3MzUgODIyIDcyMCA4MzNaIiAvPgogICAgICA8cGF0aCBkPSJNNjE5IDg5NkM2NDUgODkwIDY1OSA5MTQgNjkwIDkyMUM3MjIgOTI4IDc1NCA5MTUgNzg2IDg5MEM3NTEgODcxIDcyNCA4NjQgNjk2IDg3MkM2NjkgODc4IDY0NCA4OTIgNjE5IDg5NloiIC8+CiAgICAgIDxwYXRoIGQ9Ik02MTAgODg3QzYyOSA4NzUgNjE5IDg1MSA2MjggODI1QzYzNyA3OTcgNjY3IDc3NiA2OTQgNzY1QzY5NyA4MDAgNjg5IDgyOSA2NzMgODQ5QzY1MyA4NzIgNjI5IDg4MCA2MTAgODg3WiIgLz4KICAgIDwvZz4KICA8L2c+CiAgPGcgaWQ9InNoaWVsZCI+CiAgICA8cGF0aCBmaWxsPSIjNkUxRjJCIiBkPSJNNTEyIDU2QzQzNCAxMzMgMzE3IDE3MyAxOTkgMTU2TDE5OCA0MzZDMTk4IDYxNiAzMDkgNzMwIDUxMiA4NTZDNzE1IDczMCA4MjYgNjE2IDgyNiA0MzZMODI1IDE1NkM3MDcgMTczIDU5MCAxMzMgNTEyIDU2WiIgLz4KICAgIDxwYXRoIGZpbGw9IiNGRkM5QTgiIGQ9Ik01MTIgOTRDNDMwIDE2MCAzMjkgMTkzIDIyMyAxODhWNDM1QzIyMyA2MDAgMzI0IDcxMCA1MTIgODI3QzcwMCA3MTAgODAxIDYwMCA4MDEgNDM1VjE4OEM2OTUgMTkzIDU5NCAxNjAgNTEyIDk0WiIgLz4KICAgIDxwYXRoIGZpbGw9IiM2RTFGMkIiIGQ9Ik01MTIgMTMwQzQzMyAxODcgMzQ1IDIxNiAyNTAgMjE3VjQzNEMyNTAgNTg0IDM0MCA2ODUgNTEyIDc5NUM2ODQgNjg1IDc3NCA1ODQgNzc0IDQzNFYyMTdDNjc5IDIxNiA1OTEgMTg3IDUxMiAxMzBaIiAvPgogIDwvZz4KICA8ZyBpZD0ib3Blbi1ib29rIiBmaWxsPSIjRkZDOUE4Ij4KICAgIDxwYXRoIGQ9Ik0zMDcgMzQ1TDMzMSAzMzVWNTQwQzQwMSA1MTUgNDU1IDUzMiA1MTIgNTc3QzU2OSA1MzIgNjIzIDUxNSA2OTMgNTQwVjMzNUw3MTcgMzQ1VjU3NkM2MzQgNTQ3IDU3OCA1NTIgNTE3IDU5MlE1MTIgNTk3IDUwNyA1OTJDNDQ2IDU1MiAzOTAgNTQ3IDMwNyA1NzZaIiAvPgogICAgPHBhdGggZD0iTTM0NiAzMDdDNDA2IDI4NSA0NzEgMzA4IDUwNiAzNTdWNTU4QzQ1OCA1MTcgNDAyIDUwMiAzNDYgNTE5WiIgLz4KICAgIDxwYXRoIGQ9Ik02NzggMzA3QzYxOCAyODUgNTUzIDMwOCA1MTggMzU3VjU1OEM1NjYgNTE3IDYyMiA1MDIgNjc4IDUxOVoiIC8+CiAgPC9nPgo8L3N2Zz4='},
   archive:{title:"도렌통신 아카이브",icon:'data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDx0aXRsZT5OZXdzcGFwZXIgYXJjaGl2ZSBlbWJsZW08L3RpdGxlPgogIDxnIGlkPSJlbWJsZW0iPgogICAgPGNpcmNsZSBjeD0iNTEwIiBjeT0iNTEwIiByPSI0ODgiIGZpbGw9IiMxRTNBMkIiIHN0cm9rZT0iI0U4Qzc3QSIgc3Ryb2tlLXdpZHRoPSIzMiIgLz4KICAgIDxnIGlkPSJmb2xkZWQtbmV3c3BhcGVyIj4KICAgICAgPHBhdGggZD0iTTE4NyAzNzAgMTc1IDMyOUMxNjYgMjk3IDE4OCAyNjQgMjE5IDI1OEw3NDAgMTgzQzc2OCAxNzggNzkxIDE5NCA3OTkgMjIzTDg5OCA2MDlDOTA5IDY1MiA4OTEgNjkyIDg1MCA2OThMMjg1IDc5MUMyMzcgNzk5IDE5NCA3NzYgMTc5IDczM0w5OSA0NDdDODggNDE0IDEwNyAzODEgMTM5IDM3NloiIGZpbGw9IiNGRkZGRkYiIC8+CiAgICAgIDxwYXRoIGQ9Ik0yMTAgMjg5QzE5NCAyOTIgMTg3IDMwNyAxOTIgMzI1TDI5MSA2OTRDMjk3IDcxNiAyOTQgNzI3IDI4MCA3MzIgMjY1IDczNyAyNTIgNzI4IDI0NyA3MDlMMTcyIDQzMkMxNjcgNDEzIDE1MyA0MDMgMTQwIDQwOSAxMjYgNDE0IDEyMiA0MjcgMTI3IDQ0M0wyMDcgNzIxQzIxNyA3NTIgMjQzIDc2OCAyNzMgNzY0IDMxMCA3NTkgMzI2IDczMSAzMTYgNjkyWiIgZmlsbD0iIzFFM0EyQiIgLz4KICAgICAgPHBhdGggZD0iTTI2OSAzMDcgNDk3IDI3NiA1NDAgNDMzIDMwOSA0NjFaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZyBpZD0ibmV3c3BhcGVyLWNvbHVtbnMiIGZpbGw9IiMxRTNBMkIiPgogICAgICAgIDxwYXRoIGQ9Ik01MzAgMjc4IDc2MSAyNDUgNzcxIDI3OCA1NDAgMzEyWiIgLz4KICAgICAgICA8cGF0aCBkPSJNNTQ4IDM0MiA3NzkgMzEwIDc4OCAzNDIgNTU3IDM3NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTU2NSA0MDIgNzk2IDM3MyA4MDQgNDAxIDU3MyA0MzBaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik01ODggNDY4IDgxNyA0NDAgODI1IDQ2OCA1OTYgNDk3WiIgLz4KICAgICAgICA8cGF0aCBkPSJNNjA0IDUyNCA4MzMgNDk2IDg0MSA1MjYgNjEyIDU1NFoiIC8+CiAgICAgICAgPHBhdGggZD0iTTYyMSA1ODMgODUwIDU1NSA4NTggNTg2IDYyOSA2MTRaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zMTggNTAxIDU1MSA0NzIgNTU5IDUwMCAzMjUgNTMwWiIgLz4KICAgICAgICA8cGF0aCBkPSJNMzMyIDU1NyA1NjYgNTI4IDU3NCA1NTcgMzQwIDU4N1oiIC8+CiAgICAgICAgPHBhdGggZD0iTTM0NiA2MTUgNTgwIDU4NSA1ODggNjE3IDM1NCA2NDdaIiAvPgogICAgICAgIDxwYXRoIGQ9Ik0zNTkgNjc4IDU5MyA2NDcgNjAxIDY3OSAzNjIgNzExWiIgLz4KICAgICAgPC9nPgogICAgPC9nPgogICAgPGcgaWQ9ImFyY2hpdmUtbWFnbmlmaWVyIj4KICAgICAgPHBhdGggZD0iTTc1OSA3NzIgNzg4IDc1NSA4ODYgODM4QzkwNSA4NTcgOTA0IDg4NCA4ODYgOTAyIDg2OCA5MjAgODQwIDkxOCA4MjIgOTAwTDc0MCA4MTdaIiBmaWxsPSIjMUUzQTJCIiAvPgogICAgICA8cGF0aCBkPSJNNzcyIDc0NiA4NzQgODQ5Qzg4NSA4NjAgODg2IDg3NyA4NzUgODg5IDg2NCA5MDAgODQ2IDg5OSA4MzUgODg4TDczNSA3ODhaIiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTQ2IiByeT0iMTQ5IiBmaWxsPSIjRThDNzdBIiAvPgogICAgICA8ZWxsaXBzZSBjeD0iNjgxIiBjeT0iNjg4IiByeD0iMTEwIiByeT0iMTEyIiBmaWxsPSIjRkZGRkZGIiAvPgogICAgICA8ZyBpZD0ibWFnbmlmaWVkLWNvbHVtbiIgZmlsbD0iIzFFM0EyQiI+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2MTkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI2NzQiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgICAgPHJlY3QgeD0iNjA3IiB5PSI3MjkiIHdpZHRoPSIxNDgiIGhlaWdodD0iMjgiIC8+CiAgICAgIDwvZz4KICAgIDwvZz4KICA8L2c+Cjwvc3ZnPg=='}
 };
@@ -2677,7 +2747,7 @@ function switchTab(id){
   document.querySelectorAll('.panel').forEach(p => p.classList.add('hidden'));
   const t = TABS.find(x => x.id === id);
   const k = t ? t.kind : 'search';
-  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni' && k !== 'archive') exitCaptureMode();
+  if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni' && k !== 'archive' && k !== 'board') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'article' && t){
@@ -2723,6 +2793,7 @@ function chromeBack(){
     else if(k === 'listing') lsGoBack();
     else if(k === 'alumni') alGoBack();
     else if(k === 'archive') arGoBack();
+    else if(k === 'board') bdGoBack();
     return;
   }
   backToOrigin(t);
@@ -2741,6 +2812,7 @@ function chromeReload(){
   else if(k === 'listing') lsReload();
   else if(k === 'alumni') alReload();
   else if(k === 'archive') arReload();
+  else if(k === 'board') bdReload();
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
@@ -2800,7 +2872,8 @@ const CAPTURE_HINTS = {
   orginfo: '캡처할 등록 정보 화면을 클릭하세요 (Esc로 취소)',
   listing: '캡처할 매물 정보 화면을 클릭하세요 (Esc로 취소)',
   alumni: '캡처할 동문 기록을 클릭하세요 (Esc로 취소)',
-  archive: '캡처할 기사를 클릭하세요 (Esc로 취소)'
+  archive: '캡처할 기사를 클릭하세요 (Esc로 취소)',
+  board: '캡처할 게시글 화면을 클릭하세요 (Esc로 취소)'
 };
 function updateCaptureHint(){
   const btn = document.getElementById('captureBtn');
@@ -3426,8 +3499,28 @@ const CONTACT1_MAIL = {
     "레나, 오랜만이다. 델라 아줌마야. 너희 어머니랑 연합회에서 자주 뵙는 사람.",
     "요즘 잘 지내지? 어머니는 좀 어떠셔, 요새 몸이 안 좋으시다고 들었는데.",
     "그런데 얼마 전에 네가 이것저것 옛날 일들을 찾아보고 다닌다는 말을 들었어. 학교 과제 때문인가 싶었는데, 궁금해서 연락해 봤어.",
-    "이번 주 토요일에 연합회에서 조촐하게 모임이 있는데, 시간 되면 한번 들르지 않을래? 어머니도 아는 분들 많이 오실 거야."
+    "이번 주 토요일에 연합회에서 조촐하게 모임이 있는데, 시간 되면 한번 들르지 않을래? 어머니도 아는 분들 많이 오실 거야.",
+    "그리고 연합회 회원 게시판에 네 준회원 계정을 만들어 뒀어. 모임 안내가 거기에 먼저 올라오거든.<br>게시판: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('board','연합회 게시판','V')\">varnia-assoc.dr</a><br>아이디: <span class=\"mono\">guest_lena</span> / 비밀번호: <span class=\"mono\">Vr4!guest</span>"
   ]
+};
+const ASSIGNMENT6_MAIL = {
+  id:'assign6', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[6차 테스트] 커뮤니티 게시판 연동 테스트',
+  preview:'이번에는 회원 전용 화면 점검이에요.', time:'방금 전', unread:true,
+  body:[
+    "6차 테스트를 의뢰드립니다.",
+    "의뢰: 커뮤니티 게시판 연동 테스트 (게시 처리 표시 점검)<br>대상: 바르니아인 연합회 회원 게시판 (<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('board','연합회 게시판','V')\">varnia-assoc.dr</a>)",
+    "자세한 설명은 메신저로 보내드릴게요."
+  ]
+};
+const SUCCESS6_MAIL = {
+  id:'success6', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[6차 테스트] 확인 감사합니다',
+  preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
+  body:["전달해 주신 화면 확인했습니다. 게시 처리 표시가 의도대로 보이는 것을 확인했어요.","이번 건 사례금도 바로 입금해 드렸습니다.","다음 건은 정리되는 대로 다시 안내드리겠습니다."]
+};
+const RETRY6_MAIL = {
+  id:'retry6', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[6차 테스트] 다시 한번 확인 부탁드립니다',
+  preview:'보내 주신 내용으로는 확인이 어려워요. 다시 부탁드립니다.', time:'방금 전', unread:true,
+  body:["다시 한번 확인 부탁드립니다. 자세한 내용은 메신저로 말씀드렸어요."]
 };
 let replied = false;
 let assignmentPending = false;
@@ -3440,6 +3533,8 @@ let assignment4Pending = false;
 let assignment4Resolved = false;
 let assignment5Pending = false;
 let assignment5Resolved = false;
+let assignment6Pending = false;
+let assignment6Resolved = false;
 let lastDelivered = NEW_MAIL;
 let gameDay = 0;
 function mailTimeLabel(m){
@@ -3455,7 +3550,8 @@ const REWARD_BY_MAIL = {
   [SUCCESS2_MAIL.id]: {amount:180000, label:'이스크라 베타테스트팀 · 2차 테스트 사례금'},
   [SUCCESS3_MAIL.id]: {amount:220000, label:'이스크라 베타테스트팀 · 3차 테스트 사례금'},
   [SUCCESS4_MAIL.id]: {amount:260000, label:'이스크라 베타테스트팀 · 4차 테스트 사례금'},
-  [SUCCESS5_MAIL.id]: {amount:300000, label:'이스크라 베타테스트팀 · 5차 테스트 사례금'}
+  [SUCCESS5_MAIL.id]: {amount:300000, label:'이스크라 베타테스트팀 · 5차 테스트 사례금'},
+  [SUCCESS6_MAIL.id]: {amount:350000, label:'이스크라 베타테스트팀 · 6차 테스트 사례금'}
 };
 let bankBalance = 0;
 let bankTx = [];
@@ -3564,7 +3660,7 @@ const BGM_TRACKS = {
   archive: {file:'bgm/archive.mp3', title:'도렌통신 아카이브'},
   listing: {file:'bgm/listing.mp3', title:'이스크라 부동산'}
 };
-const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', archive:'archive', listing:'listing'};
+const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', board:'alumni', archive:'archive', listing:'listing'};
 const BGM_VOL = 0.42;
 const bgm = {audios:{}, cur:null, wanted:true, fadeTimers:{}};
 try{ bgm.wanted = localStorage.getItem('iskra_bgm_off') !== '1'; }catch(e){}
@@ -3823,7 +3919,31 @@ function renderActions(m){
       </div>
     `;
   }
+  if(m.id === ASSIGNMENT6_MAIL.id){
+    if(assignment6Resolved){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 회신을 전달했습니다.</div>`;
+    }
+    if(assignment6Pending){
+      return `<div class="sentnote"><svg class="ic" viewBox="0 0 24 24"><path d="M5 12l4 4 10-10"/></svg>확인 요청을 보냈습니다. 결과는 메신저로 알려드릴게요.</div>`;
+    }
+    return `
+      <div class="actions"><button class="live" onclick="showAssign6Reply()">답장</button><button>전달</button><button>삭제</button></div>
+      <div class="replybox hidden" id="assign6ReplyBox">
+        <textarea id="assign6ReplyText" rows="3">게시 처리 표시를 확인할 수 있는 글을 찾아 캡처해서 함께 보내드립니다.</textarea>
+        <div id="assign6Chip">${assign6ChipHtml()}</div>
+        <div class="replyactions">
+          <button class="sendbtn" onclick="sendAssign6Reply()">보내기</button>
+          <button class="cancelbtn" onclick="hideAssign6Reply()">취소</button>
+        </div>
+      </div>
+    `;
+  }
   return `<div class="actions"><button>답장</button><button>전달</button><button>삭제</button></div>`;
+}
+function assign6ChipHtml(){
+  return capturedEvidence6
+    ? `<div class="attachchip"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M8 16h5"/></svg>첨부: ${capturedEvidence6.title}</div>`
+    : `<div class="attachchip empty"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>첨부된 캡처 없음</div>`;
 }
 function assignChipHtml(){
   return capturedEvidence
@@ -3861,12 +3981,14 @@ function refreshChips(){
   if(d) d.innerHTML = assign4ChipHtml();
   const e = document.getElementById('assign5Chip');
   if(e) e.innerHTML = assign5ChipHtml();
+  const g = document.getElementById('assign6Chip');
+  if(g) g.innerHTML = assign6ChipHtml();
 }
 
 /* ===== 메일 지연 발송 스케줄러 (새로고침에도 살아남음) ===== */
 let pendingDeliveries = {};
 const MAIL_BY_ID = {};
-[NEW_MAIL, TUTORIAL_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL, ASSIGNMENT5_MAIL, RETRY5_MAIL, SUCCESS5_MAIL, CONTACT1_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
+[NEW_MAIL, TUTORIAL_MAIL, ASSIGNMENT_MAIL, RETRY_MAIL, SUCCESS_MAIL, ASSIGNMENT2_MAIL, RETRY2_MAIL, SUCCESS2_MAIL, ASSIGNMENT3_MAIL, RETRY3_MAIL, SUCCESS3_MAIL, ASSIGNMENT4_MAIL, RETRY4_MAIL, SUCCESS4_MAIL, ASSIGNMENT5_MAIL, RETRY5_MAIL, SUCCESS5_MAIL, CONTACT1_MAIL, ASSIGNMENT6_MAIL, RETRY6_MAIL, SUCCESS6_MAIL].forEach(m => { MAIL_BY_ID[m.id] = m; });
 
 function setFlag(name, val){
   if(name === 'assignmentPending') assignmentPending = val;
@@ -3879,6 +4001,8 @@ function setFlag(name, val){
   else if(name === 'assignment4Resolved') assignment4Resolved = val;
   else if(name === 'assignment5Pending') assignment5Pending = val;
   else if(name === 'assignment5Resolved') assignment5Resolved = val;
+  else if(name === 'assignment6Pending') assignment6Pending = val;
+  else if(name === 'assignment6Resolved') assignment6Resolved = val;
 }
 function applyEffect(name){
   if(name === 'hint116') addDynamicArticle(116);
@@ -3889,7 +4013,9 @@ function applyEffect(name){
   else if(name === 'chainAssign3'){ antonSchedule(2); queueDelivery('assign3', 45000, ASSIGNMENT3_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS2_MAIL.id] = 122; }
   else if(name === 'chainAssign4'){ antonSchedule(3); queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
   else if(name === 'chainAssign5'){ antonSchedule(4); queueDelivery('assign5', 45000, ASSIGNMENT5_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS4_MAIL.id] = 125; }
-  else if(name === 'chainContact1'){ antonSchedule(5); queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true}); }
+  else if(name === 'chainContact1'){ antonSchedule(5); queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true, effect:'chainAssign6'}); }
+  else if(name === 'chainAssign6'){ queueDelivery('assign6', 90000, ASSIGNMENT6_MAIL.id, {skipIfPresent:true}); }
+  else if(name === 'chainAssign7'){ /* 7차 의뢰는 다음 단계에서 이어짐 */ }
 }
 
 /* ===== 인트로 — 첫 실행 시 빈 화면 + 메일 아이콘으로 시작 ===== */
@@ -4219,6 +4345,18 @@ function sendAssign4Reply(){
   openDetail('inbox', ASSIGNMENT4_MAIL.id);
 }
 
+function showAssign6Reply(){ document.getElementById('assign6ReplyBox').classList.remove('hidden'); }
+function hideAssign6Reply(){ document.getElementById('assign6ReplyBox').classList.add('hidden'); }
+function sendAssign6Reply(){
+  msgClearOpts();
+  const correct = !!capturedEvidence6 && capturedEvidence6.id === 'b4';
+  queueDelivery('result6', 15000, correct ? SUCCESS6_MAIL.id : RETRY6_MAIL.id, {
+    pendingFlag: 'assignment6Pending',
+    resolvedFlag: correct ? 'assignment6Resolved' : null,
+    effect: correct ? 'chainAssign7' : null
+  });
+  openDetail('inbox', ASSIGNMENT6_MAIL.id);
+}
 function showAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.remove('hidden'); }
 function hideAssign5Reply(){ document.getElementById('assign5ReplyBox').classList.add('hidden'); }
 function sendAssign5Reply(){
@@ -4987,12 +5125,55 @@ function performCaptureArchive(){
   saveProgress();
 }
 
+/* ===== 바르니아인 연합회 게시판 (회원 전용, 6차) ===== */
+var BOARD_ACCOUNT = {id:'guest_lena', pw:'Vr4!guest'};
+var BOARD_POSTS = [{"id": "b1", "tag": "공지", "title": "11월 정기모임 안내", "author": "사무국", "date": "2026-10-27", "body": ["이번 달 정기모임은 11월 둘째 주 토요일 오후 3시, 연합회 회관에서 열립니다.", "안건은 고향 소식 공유, 겨울 구호성금 모금, 통행증 갱신 대행 신청 안내입니다.", "참석 여부는 댓글로 남겨 주세요."], "comments": [["회원 하나", "참석합니다."], ["회원 민수", "아이 데리고 가도 되나요?"], ["사무국", "네, 함께 오셔도 됩니다."]]}, {"id": "b2", "tag": "공지", "title": "겨울 구호성금 모금 결과 보고", "author": "사무국", "date": "2026-10-21", "body": ["올해 겨울 구호성금 모금이 마무리되었습니다. 참여해 주신 모든 회원분께 감사드립니다.", "모금액은 상회를 통해 북부 지역 식료품과 의료물품으로 전달될 예정입니다."], "comments": [["회원 유리", "올해도 고생 많으셨어요."]]}, {"id": "b3", "tag": "공지", "title": "회관 난방 설비 점검 안내", "author": "사무국", "date": "2026-10-18", "body": ["11월 첫째 주 평일 오전에 회관 난방 설비를 점검합니다. 해당 시간에는 회관 이용이 제한됩니다."], "comments": []}, {"id": "b4", "tag": "안내", "title": "11월 추모모임 장소 변경 안내", "author": "에르딘 이안", "date": "2026-10-30", "body": ["올해 추모모임은 회관이 아닌 별도의 장소에서 진행합니다.", "참석을 원하시는 분은 사무국에 먼저 알려 주세요. 구체적인 위치는 참석 신청자에게 따로 연락드립니다."], "comments": [["회원 소라", "작년에 모였던 그 자리인가요?"], ["사무국", "장소가 확정되기 전이라, 선생님께 여쭤보고 다시 안내드리겠습니다."], ["사무국", "그 자리는 올해도 비워 둡니다."]]}, {"id": "b5", "tag": "안내", "title": "구술 기록 사업 참여자 모집", "author": "에르딘 이안", "date": "2026-10-15", "body": ["1세대 구술 기록 사업에 함께할 자원 봉사자를 모집합니다. 녹취와 정리를 도와주실 분을 찾습니다.", "경험은 필요 없습니다. 어르신들의 이야기를 듣는 마음만 있으면 됩니다."], "comments": [["사무국", "문의는 사무국으로 연락 주세요."], ["회원 하나", "저도 신청하고 싶어요."]]}, {"id": "b6", "tag": "자유", "title": "고향 외삼촌 소식 전합니다", "author": "회원 마르타", "date": "2026-10-12", "body": ["얼마 전 외삼촌과 통화가 겨우 연결됐습니다. 다들 건강하시다고 합니다. 전화가 자주 끊겨서 길게 얘기는 못 했어요."], "comments": [["회원 유리", "다행이네요."], ["회원 민수", "저희도 연락이 안 돼서 걱정입니다."]]}, {"id": "b7", "tag": "회원전용", "title": "모임 문서 #3", "author": "(열람 제한)", "date": "2026-10-30", "body": ["앉젅읅 홖읹핝 뒥엑 옥싮식옥.", "석쪾 획괁 직학, 복읽럭싥 옇 묹잆닉닥.", "섡샞닙읁 늧겍 독찪학싮닉닥."], "comments": []}, {"id": "b8", "tag": "자유", "title": "겨울철 건강 챙기세요", "author": "회원 유리", "date": "2026-10-09", "body": ["일교차가 커서 감기 걸린 분들이 많습니다. 따뜻하게 지내시고 어르신들 안부도 한 번씩 물어봐 주세요."], "comments": [["회원 하나", "감사합니다."]]}];
+var boardLoggedIn = false, bdCurrent = null, capturedEvidence6 = null;
+function bdShow(v){ ['bdLogin','bdList','bdDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v)); document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 · guest_lena' : ''; }
+function bdLoginSubmit(e){
+  if(e) e.preventDefault();
+  const id = document.getElementById('bdId').value.trim(), pw = document.getElementById('bdPw').value;
+  const err = document.getElementById('bdErr');
+  if(id === BOARD_ACCOUNT.id && pw === BOARD_ACCOUNT.pw){ boardLoggedIn = true; err.classList.add('hidden'); bdShowList(); saveProgress(); }
+  else err.classList.remove('hidden');
+}
+function bdLogout(){ boardLoggedIn = false; bdCurrent = null; bdShow('bdLogin'); setAddr('board', 'varnia-assoc.dr/login'); setBack('board', false); saveProgress(); }
+function bdShowList(){
+  if(!boardLoggedIn){ bdShow('bdLogin'); setAddr('board', 'varnia-assoc.dr/login'); setBack('board', false); return; }
+  bdCurrent = null;
+  document.getElementById('bdRows').innerHTML = BOARD_POSTS.map((p, i) => '<tr onclick="bdOpen(\'' + p.id + '\')"><td class="n">' + (BOARD_POSTS.length - i) + '</td><td><span class="bd-tag t-' + (p.tag === '회원전용' ? 'lock' : p.tag === '공지' ? 'notice' : p.tag === '안내' ? 'info' : 'free') + '">' + p.tag + '</span></td><td class="t">' + p.title + (p.comments.length ? ' <b>[' + p.comments.length + ']</b>' : '') + '</td><td class="a">' + p.author + '</td><td class="d">' + p.date.slice(5).replace('-', '.') + '</td></tr>').join('');
+  bdShow('bdList'); setAddr('board', 'varnia-assoc.dr/board'); setBack('board', false);
+}
+function bdOpen(id){
+  const p = BOARD_POSTS.find(x => x.id === id); if(!p) return;
+  bdCurrent = p;
+  document.getElementById('bdCard').innerHTML =
+    '<div class="bd-ph"><span class="bd-tag t-' + (p.tag === '회원전용' ? 'lock' : p.tag === '공지' ? 'notice' : p.tag === '안내' ? 'info' : 'free') + '">' + p.tag + '</span><h2>' + p.title + '</h2><div class="bd-pm"><span>작성자 ' + p.author + '</span><span>게시 처리 사무국</span><span>' + p.date + '</span></div></div>' +
+    '<div class="bd-pb' + (p.tag === '회원전용' ? ' enc' : '') + '">' + p.body.map(t => '<p>' + t + '</p>').join('') + (p.tag === '회원전용' ? '<p class="bd-note">※ 암호화된 회원 전용 문서입니다. 열람 코드가 있어야 읽을 수 있습니다.</p>' : '') + '</div>' +
+    (p.comments.length ? '<div class="bd-cm"><div class="bd-ch">댓글 <b>' + p.comments.length + '</b></div>' + p.comments.map(c => '<div class="bd-cr"><span class="u">' + c[0] + '</span><span class="t">' + c[1] + '</span></div>').join('') + '</div>' : '');
+  bdShow('bdDetail'); setAddr('board', 'varnia-assoc.dr/board/' + p.id); setBack('board', true);
+  window.scrollTo(0, 0);
+}
+function bdGoBack(){ if(!document.getElementById('bdDetail').classList.contains('hidden')) bdShowList(); }
+function bdReload(){ if(bdCurrent) bdOpen(bdCurrent.id); else bdShowList(); }
+function bdDetailClick(){ if(captureMode){ performCaptureBoard(); } }
+function performCaptureBoard(){
+  if(!bdCurrent) return;
+  capturedEvidence6 = bdCurrent;
+  exitCaptureMode();
+  showCaptureToast('캡처됨: ' + bdCurrent.title, 'ok');
+  refreshChips(); saveProgress();
+}
+
 setAddr('archive', 'archive.dorentong.dr');
 setBack('archive', false);
+setAddr('board', 'varnia-assoc.dr/login');
+setBack('board', false);
+if(boardLoggedIn) { /* 로그인 상태 복원은 탭 진입 시 */ }
 
 /* ===================== 베타테스트용: 진행상황 저장/복원 ===================== */
 const SAVE_KEY = 'iskra_save_v1';
-const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, TUTORIAL_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id];
+const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, TUTORIAL_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id, ASSIGNMENT6_MAIL.id, RETRY6_MAIL.id, SUCCESS6_MAIL.id];
 
 function saveProgress(){
   if(typeof resetting !== 'undefined' && resetting) return;
@@ -5006,7 +5187,7 @@ function saveProgress(){
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
-      assignment5Resolved, capturedEvidence5,
+      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn,
       bankBalance, bankTx, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue,
       pendingDeliveries, pendingCutscene,
@@ -5050,6 +5231,9 @@ function loadProgress(){
   capturedEvidence4 = saved.capturedEvidence4 || null;
   assignment5Resolved = !!saved.assignment5Resolved;
   capturedEvidence5 = saved.capturedEvidence5 || null;
+  assignment6Resolved = !!saved.assignment6Resolved;
+  capturedEvidence6 = saved.capturedEvidence6 || null;
+  boardLoggedIn = !!saved.boardLoggedIn;
   bankBalance = saved.bankBalance || 0;
   omOpened = !!saved.omOpened;
   (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
@@ -5160,7 +5344,7 @@ function resetProgress(){
 
 /* 모바일 탭 전환기 */
 function tsBody(t){
-  const map = {oldmail:'받은메일함', search:'검색', searchresult:'검색 결과', article:'기사', mail:'이스크라 메일', raden:'ERP', orginfo:'단체 등록정보', listing:'매물 검색', alumni:'동문수첩', archive:'아카이브'};
+  const map = {oldmail:'받은메일함', search:'검색', searchresult:'검색 결과', article:'기사', mail:'이스크라 메일', raden:'ERP', orginfo:'단체 등록정보', listing:'매물 검색', alumni:'동문수첩', archive:'아카이브', board:'연합회 게시판'};
   return map[t.kind] || '';
 }
 function renderTabSwitcher(){
@@ -5213,11 +5397,16 @@ const MSG_STAGES = {
             "기사를 열어서 기고문이나 인터뷰처럼 본문이 긴 글인지 확인해 보세요.",
             "기고문이나 인터뷰 형식의 기사 중 하나를 열고, 상세 화면에서 캡처하면 돼요."],
      wait:"5차까지 정말 고생 많으셨어요. 다음 안내는 정리되는 대로 보낼게요."},
-  6:{now:"지금은 따로 드릴 테스트가 없어요. 메일함을 가끔 확인해 주세요.",
+  6:{now:"6차 테스트는 연합회 게시판에서, 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글 한 건을 찾아 캡처하는 거예요.",
+     hints:["게시판은 준회원 계정(아이디 guest_lena)으로 로그인해요. 글 제목만 보지 말고 상세 화면까지 들어가 보세요.",
+            "공지가 아니라 '안내' 성격의 글 중에서 댓글을 읽어 보세요. 사무국이 남긴 답변이 달린 글이 있어요.",
+            "'~께 여쭤보고 다시 안내드리겠다'는 식으로, 다른 사람의 확인이 필요하다는 말이 나오는 글이에요. 그 상세 화면을 캡처하면 돼요."],
+     wait:"6차 확인 감사해요. 다음 안내는 정리되는 대로 보낼게요."},
+  7:{now:"지금은 따로 드릴 테스트가 없어요. 메일함을 가끔 확인해 주세요.",
      hints:["지금은 대기 중이에요. 궁금한 사이트는 자유롭게 둘러보셔도 돼요."],
      wait:""}
 };
-const MSG_ASSIGN_IDS = ['assign1','assign2','assign3','assign4','assign5'];
+const MSG_ASSIGN_IDS = ['assign1','assign2','assign3','assign4','assign5','assign6'];
 
 const MSG_INTRO = [{"x": "안녕하세요, 레나 씨. 이스크라 개발을 맡고 있는 다나예요. 체험단 신청해 주셔서 감사합니다.", "o": [{"r": "안녕하세요. 선정해 주셔서 감사해요", "re": "네, 저희도 도움이 필요했어요. 설명드릴게요."}, {"r": "안녕하세요. 지원자가 많았을 텐데, 제가 선정된 이유가 있나요?", "re": "학교 커뮤니티 모집 글로 신청하신 분들 중에서 무작위로 골랐어요. 특별한 기준은 없었어요."}]}, {"x": "이스크라는 여러 사이트의 정보를 한 곳에서 찾게 해 주는 검색 포털이에요. 정식 오픈 전에 써 보고 이상한 부분을 알려 줄 분이 필요했고요. 신청서를 보니 학교 다니면서 일도 하신다고 되어 있던데, 하루에 쓸 수 있는 시간이 어느 정도예요?", "o": [{"r": "수업 없는 시간에 한두 시간 정도요. 알바 때문에 불규칙해요", "re": "충분해요. 시간대는 상관없어요."}, {"r": "시간은 만들면 돼요. 한 건에 얼마나 걸리는지가 중요하죠", "re": "한 건에 짧으면 몇 분, 길어도 한두 시간이에요."}]}, {"x": "앞으로는 메일로 '의뢰'를 보낼 거예요. 메일에는 사이트 주소와 테스트 이름만 적고, 자세한 설명은 여기서 드릴게요. 하는 일은 사이트를 둘러보면서 이상한 데이터를 찾아 캡처하는 거고요.", "o": [{"r": "어려운 건 아니죠?", "re": "어렵지 않아요. 꼼꼼히 보는 편이면 충분해요."}, {"r": "찾는 기준은 정해져 있나요?", "re": "의뢰마다 그때그때 설명드려요. 막히면 힌트도 드려요."}]}, {"x": "의뢰가 확인되면 건마다 바로 사례금을 입금해요. 학생분께는 적은 돈이 아닐 텐데, 이번 학기 등록금은 마련하셨어요?", "o": [{"r": "솔직히 그게 제일 걱정이에요. 이걸로 보탬이 되면 좋겠어요", "re": "그럼 해 주시는 만큼 보답할게요."}, {"r": "일단 얼마나 주시는지부터 알고 싶어요", "re": "난이도마다 달라요. 1차는 십오만 원 정도예요."}]}, {"x": "막히면 언제든 여기로 말 걸어 주세요. 힌트도 드릴 수 있어요. 곧 첫 번째 의뢰를 보낼게요.", "o": [{"r": "네, 기다릴게요", "re": "네, 잠시만요.", "fire": "introDone"}, {"r": "잘 부탁드려요. 열심히 할게요", "re": "네, 기대할게요.", "fire": "introDone"}]}];
 const MSG_ACK = ["네","알겠어요","그렇군요","네, 계속 말씀해 주세요","확인했어요"];
@@ -5232,11 +5421,10 @@ function msgLoad(){
 function msgSave(){ if(resetting) return; try{ localStorage.setItem(MSG_KEY, JSON.stringify(msgState)); }catch(e){} }
 
 function msgStage(){
-  if(FOLDERS.inbox.some(m => m.id === 'contact1')) return {n:6, done:false};
   let n = 0;
   MSG_ASSIGN_IDS.forEach((id,i) => { if(FOLDERS.inbox.some(m => m.id === id)) n = i+1; });
   if(n === 0) return {n:0, done:false};
-  const resolved = [assignmentResolved, assignment2Resolved, assignment3Resolved, assignment4Resolved, assignment5Resolved][n-1];
+  const resolved = [assignmentResolved, assignment2Resolved, assignment3Resolved, assignment4Resolved, assignment5Resolved, assignment6Resolved][n-1];
   return {n, done: !!resolved};
 }
 function msgClock(ts){ const d = new Date(ts||Date.now()); const h = d.getHours(); return (h<12?'오전 ':'오후 ')+((h%12)||12)+':'+String(d.getMinutes()).padStart(2,'0'); }
@@ -5487,7 +5675,7 @@ function msgRefreshVisible(){
   if(!show){ msgOpen = false; document.getElementById('msgPanel').classList.remove('open'); document.getElementById('msgPeek').classList.remove('show'); l.style.display = ''; }
   else if(msgOpen) l.style.display = 'none';
 }
-const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일에는 접속 정보밖에 없어서 금방이에요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요. 이상하다고 느낀 부분만 기억해 두세요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'뉴스 아카이브 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이분도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}]};
+const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일에는 접속 정보밖에 없어서 금방이에요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요. 이상하다고 느낀 부분만 기억해 두세요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'뉴스 아카이브 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이분도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}], "assign6": [{"x": "6차 의뢰 메일 보냈어요. 이번 건은 지금까지와 조금 달라요.", "o": [{"r": "뭐가 다른데요?", "re": "이번에는 회원 전용 화면이라 로그인이 필요해요."}, {"r": "로그인은 어떻게 해요?", "re": "연합회 게시판 준회원 계정이 있으시죠. 오늘 받은 안내 메일에 있는 계정을 테스트용으로 쓰면 돼요."}, {"r": "그 메일을 어떻게 아세요?", "re": "신청서에서 메일 연동에 동의해 주셨어요. 계정 안내 메일 제목만 확인했어요. 내용은 보지 않았고요."}]}, {"x": "'커뮤니티 게시판 연동' 테스트예요. 게시글마다 작성자와 게시 처리자가 따로 기록되는데, 이 구분이 화면에 제대로 표시되는지 확인하는 거예요. 글 중에는 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글이 있어요. 그 글이 어떤 건지 찾아 주세요.", "o": [{"r": "다른 사람의 확인을 거친 글이요?", "re": "작성자가 올린 내용에 대해 다른 사람이 확인하거나 허락을 구했다는 말이 남은 경우예요."}, {"r": "어디서 보면 돼요?", "re": "게시글 상세 화면의 본문과 댓글을 보세요."}, {"r": "회원 전용 글을 봐도 괜찮은 거예요?", "re": "테스트용 준회원 계정으로 볼 수 있는 범위만 확인하는 거예요. 걱정하지 않으셔도 돼요."}]}, {"x": "해당하는 글을 찾으면 상세 화면을 캡처해서 보내 주세요. 한 건이면 돼요."}], "retry6": [{"x": "이 글은 일반 안내였어요. 작성자 외에 다른 사람의 확인을 거쳤다는 말이 보이는 글로 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success6": [{"x": "6차 확인됐어요. 입금했어요. 이번 건이 특히 도움이 됐어요.", "o": [{"r": "입금 확인했어요. 이번엔 좀 찜찜하네요", "re": "테스트가 늘 개운하지는 않아요. 다음 안내를 기다려 주세요.", "fire": "result:success6"}]}]};
 function msgOnMail(id){
   if(!introSeen || (msgState.seenMail[id] && !/^(success|retry)\d$/.test(id))) return;
   msgState.seenMail[id] = 1;
@@ -5547,18 +5735,18 @@ function jumpToStage(n){
 }
 function applyJump(n){
   const REW = [150000, 180000, 220000, 260000, 300000];
-  const ASSIGN = [ASSIGNMENT_MAIL, ASSIGNMENT2_MAIL, ASSIGNMENT3_MAIL, ASSIGNMENT4_MAIL, ASSIGNMENT5_MAIL, CONTACT1_MAIL];
-  const SUCC = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL];
+  const ASSIGN = [ASSIGNMENT_MAIL, ASSIGNMENT2_MAIL, ASSIGNMENT3_MAIL, ASSIGNMENT4_MAIL, ASSIGNMENT5_MAIL, ASSIGNMENT6_MAIL];
+  const SUCC = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL, SUCCESS6_MAIL];
   introSeen = true; omOpened = true; replied = true;
   gameDay = n - 1;
   iskraUpdated = n >= 2;
   applyIskraTheme();
-  const flags = ['assignmentResolved','assignment2Resolved','assignment3Resolved','assignment4Resolved','assignment5Resolved'];
-  for(let i = 0; i < 5; i++){ setFlag(flags[i], i < n - 1); }
-  ['assignmentPending','assignment2Pending','assignment3Pending','assignment4Pending','assignment5Pending'].forEach(f => setFlag(f, false));
+  const flags = ['assignmentResolved','assignment2Resolved','assignment3Resolved','assignment4Resolved','assignment5Resolved','assignment6Resolved'];
+  for(let i = 0; i < 6; i++){ setFlag(flags[i], i < n - 1); }
+  ['assignmentPending','assignment2Pending','assignment3Pending','assignment4Pending','assignment5Pending','assignment6Pending'].forEach(f => setFlag(f, false));
   pendingDeliveries = {}; pendingCutscene = {};
   bankBalance = 0; bankTx = [];
-  for(let i = 0; i < n - 1 && i < 5; i++){
+  for(let i = 0; i < n - 1 && i < 6; i++){
     const r = REWARD_BY_MAIL[SUCC[i].id];
     bankBalance += r.amount; bankTx.unshift({amount:r.amount, label:r.label, fresh:false});
   }
@@ -5566,6 +5754,7 @@ function applyJump(n){
   /* 받은메일함: 튜토리얼 + 지난 차수 의뢰 메일(읽음) + 이번 차수 의뢰 메일(안읽음) */
   FOLDERS.inbox.length = 0;
   const past = [TUTORIAL_MAIL].concat(ASSIGN.slice(0, n - 1));
+  if(n >= 6) past.push(CONTACT1_MAIL);
   const cur = ASSIGN[n - 1];
   past.forEach(m => { m.unread = false; m.deliveredDay = Math.max(0, gameDay - 1); });
   cur.unread = true; cur.deliveredDay = gameDay;
@@ -5576,7 +5765,7 @@ function applyJump(n){
   [[117,1],[118,2],[122,3],[124,4],[125,5]].forEach(pair => { if(n >= pair[1]) addDynamicArticle(pair[0]); });
   /* 메신저: 인트로는 끝난 상태에서 이번 차수 안내만 시작 */
   msgState = {log:[], unread:0, hintLevel:{}, seenMail:{}, greeted:true, followup:false, chain:[], ackO:[], ackIdx:0};
-  ['tutorial1','assign1','assign2','assign3','assign4','assign5','contact1'].forEach(id => { msgState.seenMail[id] = 1; });
+  ['tutorial1','assign1','assign2','assign3','assign4','assign5','assign6','contact1'].forEach(id => { msgState.seenMail[id] = 1; });
   msgPush('bot', "베타 테스트 구간 이동으로 " + n + "차 시점부터 시작했어요 :)", true);
   msgState.seenMail[cur.id] = 0;
   TABS = TABS.filter(t => t.kind === 'oldmail' || t.kind === 'search');
@@ -5585,7 +5774,7 @@ function applyJump(n){
   omOpenMail(); omRenderList();
   goToMainScreen();
   msgRefreshVisible(); msgRender();
-  if(n <= 5) msgOnMail(cur.id);
+  if(n <= 6) msgOnMail(cur.id);
   document.getElementById('toast').classList.remove('show');
   saveProgress();
   showCaptureToast(n + '차 시점으로 이동했습니다', 'ok');
