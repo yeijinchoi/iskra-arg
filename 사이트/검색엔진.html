@@ -2840,9 +2840,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
       <div class="gsub">라덴통상 내부 관리시스템 · 승인된 계정으로 접속하세요</div>
       <form onsubmit="doLogin(event)">
         <label>아이디</label>
-        <input id="idInput" type="text" autocomplete="off">
+        <input id="idInput" type="text" autocomplete="off" oninput="loginWatch('raden')">
         <label>비밀번호</label>
-        <input id="pwInput" type="password" autocomplete="off">
+        <input id="pwInput" type="password" autocomplete="off" oninput="loginWatch('raden')">
         <button class="gbtn" type="submit">로그인</button>
         <div class="gerr" id="gateErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
       </form>
@@ -3232,8 +3232,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     <img class="bd-login-logo" src="img/logo_varnia.svg" alt="">
     <h1>회원 로그인</h1>
     <p>바르니아인 연합회 회원과 준회원만 이용할 수 있습니다.</p>
-    <label>아이디<input id="bdId" type="text" autocomplete="off" placeholder="아이디를 입력해 주세요"></label>
-    <label>비밀번호<input id="bdPw" type="password" autocomplete="off" placeholder="비밀번호를 입력해 주세요"></label>
+    <label>아이디<input id="bdId" type="text" autocomplete="off" placeholder="아이디를 입력해 주세요" oninput="loginWatch('board')"></label>
+    <label>비밀번호<input id="bdPw" type="password" autocomplete="off" placeholder="비밀번호를 입력해 주세요" oninput="loginWatch('board')"></label>
     <div class="bd-err hidden" id="bdErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <button type="submit" class="bd-btn">로그인</button>
     <div class="bd-links"><span>아이디 찾기</span><span>비밀번호 찾기</span><span>준회원 안내</span></div>
@@ -3283,8 +3283,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     <h1>열람 계정 로그인</h1>
     <p>공공 기록 열람 신청이 승인된 계정만 이용할 수 있습니다.</p>
     <div class="dl-ltabs"><span class="on">아이디 로그인</span><span>공동인증서</span><span>간편인증</span></div>
-    <label>아이디<input id="dlId" type="text" autocomplete="off" placeholder="열람 계정 아이디"></label>
-    <label>비밀번호<input id="dlPw" type="password" autocomplete="off" placeholder="비밀번호"></label>
+    <label>아이디<input id="dlId" type="text" autocomplete="off" placeholder="열람 계정 아이디" oninput="loginWatch('dlt')"></label>
+    <label>비밀번호<input id="dlPw" type="password" autocomplete="off" placeholder="비밀번호" oninput="loginWatch('dlt')"></label>
     <div class="dl-err hidden" id="dlErr">아이디 또는 비밀번호가 올바르지 않습니다.</div>
     <button type="submit" class="dl-btn">로그인</button>
     <div class="dl-links"><span>아이디 찾기</span><span>비밀번호 재설정</span><span>열람 신청</span></div>
@@ -5523,6 +5523,7 @@ function doLogin(e){
   const id = document.getElementById('idInput').value.trim();
   const pw = document.getElementById('pwInput').value;
   if(id === 'audit_temp7' && pw === 'Rd7!temp'){
+    savedLogin.raden = true;
     document.getElementById('gateView').classList.add('hidden');
     document.getElementById('appView').classList.remove('hidden');
     setAddr('raden', 'admin.raden-trading.dr/dashboard');
@@ -5539,6 +5540,7 @@ function doLogout(){
   document.getElementById('idInput').value = '';
   document.getElementById('pwInput').value = '';
   document.getElementById('gateErr').classList.remove('show');
+  loginFill('raden');
   saveProgress();
 }
 function rReload(){
@@ -6055,6 +6057,27 @@ function performCaptureArchive(){
 /* ===== 바르니아인 연합회 게시판 (회원 전용, 6차) ===== */
 var BOARD_ACCOUNT = {id:'guest_lena', pw:'Vr4!guest'};
 var BOARD_POSTS = [{"id": "b1", "tag": "공지", "title": "11월 정기모임 안내", "author": "사무국", "date": "2026-10-27", "body": ["이번 달 정기모임은 11월 둘째 주 토요일 오후 3시, 연합회 회관에서 열립니다.", "안건은 고향 소식 공유, 겨울 구호성금 모금, 통행증 갱신 대행 신청 안내입니다.", "참석 여부는 댓글로 남겨 주세요."], "comments": [["회원 하나", "참석합니다."], ["회원 테오", "아이 데리고 가도 되나요?"], ["사무국", "네, 함께 오셔도 됩니다."]]}, {"id": "b2", "tag": "공지", "title": "겨울 구호성금 모금 결과 보고", "author": "사무국", "date": "2026-10-21", "body": ["올해 겨울 구호성금 모금이 마무리되었습니다. 참여해 주신 모든 회원분께 감사드립니다.", "모금액은 상회를 통해 북부 지역 식료품과 의료물품으로 전달될 예정입니다."], "comments": [["회원 노엘", "올해도 고생 많으셨어요."]]}, {"id": "b3", "tag": "공지", "title": "회관 난방 설비 점검 안내", "author": "사무국", "date": "2026-10-18", "body": ["11월 첫째 주 평일 오전에 회관 난방 설비를 점검합니다. 해당 시간에는 회관 이용이 제한됩니다."], "comments": []}, {"id": "b4", "tag": "안내", "title": "11월 추모모임 장소 변경 안내", "author": "에르딘 이안", "date": "2026-10-30", "body": ["올해 추모모임은 회관이 아닌 별도의 장소에서 진행합니다.", "참석을 원하시는 분은 사무국에 먼저 알려 주세요. 구체적인 위치는 참석 신청자에게 따로 연락드립니다."], "comments": [["회원 소라", "작년에 모였던 그 자리인가요?"], ["사무국", "장소가 확정되기 전이라, 선생님께 여쭤보고 다시 안내드리겠습니다."], ["사무국", "그 자리는 올해도 비워 둡니다."]]}, {"id": "b5", "tag": "안내", "title": "구술 기록 사업 참여자 모집", "author": "에르딘 이안", "date": "2026-10-15", "body": ["1세대 구술 기록 사업에 함께할 자원 봉사자를 모집합니다. 녹취와 정리를 도와주실 분을 찾습니다.", "경험은 필요 없습니다. 어르신들의 이야기를 듣는 마음만 있으면 됩니다."], "comments": [["사무국", "문의는 사무국으로 연락 주세요."], ["회원 하나", "저도 신청하고 싶어요."]]}, {"id": "b6", "tag": "자유", "title": "고향 외삼촌 소식 전합니다", "author": "회원 마르타", "date": "2026-10-12", "body": ["얼마 전 외삼촌과 통화가 겨우 연결됐습니다. 다들 건강하시다고 합니다. 전화가 자주 끊겨서 길게 얘기는 못 했어요."], "comments": [["회원 노엘", "다행이네요."], ["회원 테오", "저희도 연락이 안 돼서 걱정입니다."]]}, {"id": "b7", "tag": "회원전용", "title": "모임 문서 #3", "author": "(열람 제한)", "date": "2026-10-30", "body": ["앉젅읅 홖읹핝 뒥엑 옥싮식옥.", "석쪾 획괁 직학, 복읽럭싥 옇 묹잆닉닥.", "섡샞닙읁 늧겍 독찪학싮닉닥."], "comments": []}, {"id": "b8", "tag": "자유", "title": "겨울철 건강 챙기세요", "author": "회원 노엘", "date": "2026-10-09", "body": ["일교차가 커서 감기 걸린 분들이 많습니다. 따뜻하게 지내시고 어르신들 안부도 한 번씩 물어봐 주세요."], "comments": [["회원 하나", "감사합니다."]]}];
+/* ===== 저장된 로그인: 메일에서 복사한 아이디·비밀번호를 칸에 한 번 넣은 뒤로는, 그 사이트 로그인 칸이 채워진 채로 열린다(브라우저의 저장된 비밀번호처럼) ===== */
+var savedLogin = {raden:false, board:false, dlt:false};
+function loginAcct(site){
+  if(site === 'raden') return {id:'audit_temp7', pw:'Rd7!temp', idEl:'idInput', pwEl:'pwInput'};
+  if(site === 'board') return {id:BOARD_ACCOUNT.id, pw:BOARD_ACCOUNT.pw, idEl:'bdId', pwEl:'bdPw'};
+  if(site === 'dlt') return {id:DLT_ACCOUNT.id, pw:DLT_ACCOUNT.pw, idEl:'dlId', pwEl:'dlPw'};
+  return null;
+}
+/* 칸에 맞는 아이디·비밀번호가 들어가면(붙여넣기든 직접 입력이든) 저장 */
+function loginWatch(site){
+  const a = loginAcct(site); if(!a || savedLogin[site]) return;
+  const i = document.getElementById(a.idEl), p = document.getElementById(a.pwEl); if(!i || !p) return;
+  if(i.value.trim() === a.id && p.value === a.pw){ savedLogin[site] = true; try{ saveProgress(); }catch(e){} }
+}
+/* 저장된 사이트의 로그인 칸이 비어 있으면 채운다 */
+function loginFill(site){
+  const a = loginAcct(site); if(!a || !savedLogin[site]) return;
+  const i = document.getElementById(a.idEl), p = document.getElementById(a.pwEl); if(!i || !p) return;
+  if(!i.value && !p.value){ i.value = a.id; p.value = a.pw; }
+}
+function loginFillAll(){ ['raden', 'board', 'dlt'].forEach(loginFill); }
 var boardLoggedIn = false, bdCurrent = null, capturedEvidence6 = null;
 var BOARD_B9 = {"id": "b9", "tag": "공지", "title": "11월 추모모임을 마쳤습니다", "author": "사무국", "date": "2026-11-15", "body": ["올해 추모모임도 무사히 마쳤습니다. 함께해 주신 모든 분께 감사드립니다.", "늦게 도착하신 선생님께서도 자리를 함께해 주셨습니다.", "구술 기록 사업은 다음 달부터 다시 시작합니다. 참여를 원하시는 분은 사무국으로 연락 주세요."], "comments": [["회원 소라", "올해도 모일 수 있어서 다행이에요."], ["회원 노엘", "선생님 건강해 보이셔서 마음이 놓였어요."], ["회원 하나", "내년에도 같은 자리에서 뵈어요."]]};
 /* 게시판 진입: 엔딩 A 뒤에는 접속 불가, 로그인 상태면 목록부터 */
@@ -6083,12 +6106,13 @@ function bdShow(v){
   ['bdLogin','bdList','bdDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
   document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 guest_lena 님' : '';
   const out = document.querySelector('#panel-board .bd-out'); if(out) out.style.display = boardLoggedIn ? '' : 'none';
+  if(v === 'bdLogin') loginFill('board');
 }
 function bdLoginSubmit(e){
   if(e) e.preventDefault();
   const id = document.getElementById('bdId').value.trim(), pw = document.getElementById('bdPw').value;
   const err = document.getElementById('bdErr');
-  if(id === BOARD_ACCOUNT.id && pw === BOARD_ACCOUNT.pw){ boardLoggedIn = true; err.classList.add('hidden'); bdShowList(); saveProgress(); }
+  if(id === BOARD_ACCOUNT.id && pw === BOARD_ACCOUNT.pw){ boardLoggedIn = true; savedLogin.board = true; err.classList.add('hidden'); bdShowList(); saveProgress(); }
   else err.classList.remove('hidden');
 }
 function bdLogout(){ boardLoggedIn = false; bdCurrent = null; bdShow('bdLogin'); setAddr('board', 'varnia-assoc.dr/login'); setBack('board', false); saveProgress(); }
@@ -6153,12 +6177,13 @@ var dlKind = '전체';
 function dlShow(v){
   ['dlLogin','dlMain','dlDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
   document.getElementById('dlUser').textContent = dltLoggedIn ? '열람 계정 req_lena 님' : '';
+  if(v === 'dlLogin') loginFill('dlt');
 }
 function dlLoginSubmit(e){
   if(e) e.preventDefault();
   const id = document.getElementById('dlId').value.trim(), pw = document.getElementById('dlPw').value;
   const err = document.getElementById('dlErr');
-  if(id === DLT_ACCOUNT.id && pw === DLT_ACCOUNT.pw){ dltLoggedIn = true; err.classList.add('hidden'); dlShowMain(); saveProgress(); }
+  if(id === DLT_ACCOUNT.id && pw === DLT_ACCOUNT.pw){ dltLoggedIn = true; savedLogin.dlt = true; err.classList.add('hidden'); dlShowMain(); saveProgress(); }
   else err.classList.remove('hidden');
 }
 function dlKindsRender(){
@@ -6746,7 +6771,7 @@ function saveProgress(){
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
-      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
+      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
       bankBalance, bankTx, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue,
       pendingDeliveries, pendingCutscene,
@@ -6798,6 +6823,8 @@ function loadProgress(){
   assignment8Resolved = !!saved.assignment8Resolved;
   capturedEvidence8 = saved.capturedEvidence8 || null;
   dltLoggedIn = !!saved.dltLoggedIn;
+  { const sl = saved.savedLogin || {};   /* 예전 저장본: 이미 로그인된 사이트는 저장된 것으로 본다 */
+    savedLogin = {raden: !!sl.raden || !!saved.radenLoggedIn, board: !!sl.board || !!saved.boardLoggedIn, dlt: !!sl.dlt || !!saved.dltLoggedIn}; }
   bdDecoded = !!saved.bdDecoded;
   endingChosen = saved.endingChosen || '';
   endingVariant = saved.endingVariant || '';
@@ -7344,6 +7371,9 @@ function applyJump(n){
   const ASSIGN = [ASSIGNMENT_MAIL, ASSIGNMENT2_MAIL, ASSIGNMENT3_MAIL, ASSIGNMENT4_MAIL, ASSIGNMENT5_MAIL, ASSIGNMENT6_MAIL, ASSIGNMENT7_MAIL, ASSIGNMENT8_MAIL];
   const SUCC = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL, SUCCESS6_MAIL, SUCCESS7_MAIL, SUCCESS8_MAIL];
   introSeen = true; omOpened = true; replied = true;
+  /* 이전 차수에서 이미 로그인했을 사이트(1차 라덴통상, 6차 연합회, 8차 열람센터)는 저장된 로그인으로 시작 */
+  { let endJump = false; try{ endJump = !!sessionStorage.getItem('iskra_end'); }catch(e){}
+    savedLogin = {raden: n >= 2, board: n >= 7, dlt: endJump}; loginFillAll(); }
   gameDay = n - 1;
   iskraUpdated = n >= 2;
   applyIskraTheme();
@@ -7387,6 +7417,7 @@ function applyJump(n){
 }
 
 loadProgress();
+try{ loginFillAll(); }catch(e){}
 applyIskraTheme();
 if(!introSeen && !omOpened){ switchTab(TABS[0].id); omStartGate(); }
 else { omOpenMail(); }
