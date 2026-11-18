@@ -5511,7 +5511,7 @@ var endingChosen = '';
 function finalChoiceOpen(){
   const ov = document.getElementById('finalOverlay'), c = document.getElementById('finalCard');
   c.className = 'final-card ending-stage';
-  c.innerHTML = '<img class="ending-pic" src="ending/mail.png" alt="">' +
+  c.innerHTML = '<img class="ending-pic" src="ending/choice.png?v=1" alt="">' +
     '<div class="ending-text">보고서에는 \'서쪽 회관 지하\'와 \'루카 발렌\'이 적혀 있습니다.<br>제출하면 사례금 300만 원이 입금됩니다.</div>' +
     '<div class="ending-choices"><button type="button" class="ending-next" onclick="finalEnding(\'A\')">그대로 제출한다 <small>사례금 3,000,000원</small></button>' +
     '<button type="button" class="ending-next" onclick="finalEnding(\'B\')">장소를 바꿔 적거나, 아무것도 제출하지 않는다 <small>사례금은 받을 수 없어요</small></button></div>';
