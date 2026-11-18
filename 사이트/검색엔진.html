@@ -3101,12 +3101,12 @@ const NEW_MAIL = {
 };
 const TUTORIAL_MAIL = {
   id:'tutorial1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[베타 테스트 안내] 검색 기능부터 가볍게 써보세요',
-  preview:'본격적인 테스트 전에 검색 기능부터 살펴봐 주세요.', time:'방금 전', unread:true,
+  preview:'본격적인 테스트 전에 검색 기능부터 써 보세요.', time:'방금 전', unread:true,
   body:[
-    "베타 버전 접속 확인됐습니다. 본격적인 테스트에 들어가기 전에, 저희 핵심 기능인 검색부터 한번 가볍게 써보셨으면 해요.",
-    "먼저 지금 계신 나라인 '도렌'을 검색창에 한번 입력해 보시겠어요? 저희가 여러 사이트에서 모아온 관련 소식들이 한 번에 뜨는 걸 보실 수 있을 거예요. 마음에 드는 기사가 있으면 오른쪽 아래 스크랩 기능으로 저장해 두셔도 좋고요.",
+    "베타 버전 접속 확인됐습니다. 본격적인 테스트에 들어가기 전에, 저희의 핵심 기능인 검색부터 가볍게 써 보세요.",
+    "먼저 지금 살고 계신 나라인 '도렌'을 검색창에 입력해 보세요. 저희가 여러 사이트에서 모아 온 관련 소식이 한꺼번에 나와요. 마음에 드는 기사는 왼쪽 아래 스크랩 기능으로 저장해 두셔도 좋아요.",
     "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('search','이스크라','&#10022;')\">검색창 열어보기 →</a>",
-    "충분히 둘러보셨다면 괜찮습니다. 곧 첫 번째 테스트 안내를 드릴게요."
+    "충분히 둘러보셨다면 됐어요. 곧 첫 번째 테스트 안내를 드릴게요."
   ]
 };
 const ASSIGNMENT_MAIL = {
@@ -3130,14 +3130,14 @@ const SUCCESS_MAIL = {
 };
 const RETRY_MAIL = {
   id:'retry1', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[1차 테스트] 다시 한번 봐주시겠어요',
-  preview:'보내주신 내용으로는 테스트가 끝나질 않네요.', time:'방금 전', unread:true,
+  preview:'보내 주신 내용을 한 번 더 확인해 주세요.', time:'방금 전', unread:true,
   body:[
     "다시 한번 확인 부탁드립니다. 어떤 점이 달랐는지는 메신저로 말씀드렸어요."
   ]
 };
 const ASSIGNMENT2_MAIL = {
   id:'assign2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[2차 테스트] 공공데이터 연동 테스트',
-  preview:'번거로우시겠지만 테스트 하나 더 부탁드려요.', time:'방금 전', unread:true,
+  preview:'두 번째 테스트를 안내드립니다.', time:'방금 전', unread:true,
   body:[
     "2차 테스트를 의뢰드립니다.",
     "의뢰: 공공 등록정보 연동 테스트<br>대상: 단체정보마당 (<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">org-info.go.dr</a>)",
@@ -3155,14 +3155,14 @@ const SUCCESS2_MAIL = {
 };
 const RETRY2_MAIL = {
   id:'retry2', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[2차 테스트] 다시 한번 부탁드려요',
-  preview:'보내주신 내용으로는 테스트가 끝나질 않네요.', time:'방금 전', unread:true,
+  preview:'보내 주신 내용을 한 번 더 확인해 주세요.', time:'방금 전', unread:true,
   body:[
     "다시 한번 확인 부탁드립니다. 자세한 내용은 메신저로 말씀드렸어요."
   ]
 };
 const ASSIGNMENT3_MAIL = {
   id:'assign3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[3차 테스트] 검색 결과 정확도 테스트',
-  preview:'검색 결과가 실제랑 맞는지 한번 봐주시겠어요.', time:'방금 전', unread:true,
+  preview:'검색 결과가 실제와 맞는지 확인해 주세요.', time:'방금 전', unread:true,
   body:[
     "3차 테스트를 의뢰드립니다.",
     "의뢰: 검색 결과 정확도 테스트<br>대상: 이스크라 검색 (<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('search','이스크라','&#10022;')\">iskra.dr</a>)",
@@ -3173,21 +3173,21 @@ const SUCCESS3_MAIL = {
   id:'success3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[3차 테스트] 확인 감사합니다',
   preview:'테스트해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "확인했습니다. 단순 친목·구호단체일 가능성도 있겠네요.",
-    "저희 쪽 데이터랑은 여전히 안 맞는 부분이 있어서 좀 더 살펴보고 다시 연락드릴게요.",
+    "확인했습니다. 단순한 친목·구호 단체일 수도 있겠네요.",
+    "저희 쪽 데이터와 맞지 않는 부분이 남아 있어서, 더 살펴보고 다시 연락드릴게요.",
     "이번 테스트 사례금도 바로 입금해 드렸어요. 참여해 주셔서 감사합니다."
   ]
 };
 const RETRY3_MAIL = {
   id:'retry3', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[3차 테스트] 다시 한번 부탁드려요',
-  preview:'아직 관련 내용을 못 찾으신 것 같습니다.', time:'방금 전', unread:true,
+  preview:'관련 내용을 아직 찾지 못하신 것 같아요.', time:'방금 전', unread:true,
   body:[
     "다시 한번 부탁드립니다. 자세한 내용은 메신저로 말씀드렸어요."
   ]
 };
 const ASSIGNMENT4_MAIL = {
   id:'assign4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[4차 테스트] 동문 네트워크 연동 테스트',
-  preview:'이름을 조금 더 확인해 주셨으면 해요.', time:'방금 전', unread:true,
+  preview:'동문 이름 대조를 부탁드립니다.', time:'방금 전', unread:true,
   body:[
     "4차 테스트를 의뢰드립니다.",
     "의뢰: 동문 네트워크 연동 테스트<br>대상: 총동문회 동문수첩 (<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">alumni.dnu.dr</a>)",
@@ -3198,21 +3198,21 @@ const SUCCESS4_MAIL = {
   id:'success4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[4차 테스트] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "확인했습니다. 전체 성함을 알게 되어 정말 큰 도움이 됐어요.",
+    "확인했습니다. 이름이 확인돼서 데이터 대조에 큰 도움이 됐어요.",
     "이번 테스트 사례금도 바로 입금해 드렸습니다.",
     "다음 건은 정리되는 대로 다시 안내드릴게요. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY4_MAIL = {
   id:'retry4', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[4차 테스트] 다시 한번 확인 부탁드립니다',
-  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  preview:'보내 주신 내용으로는 확인이 어려워요. 다시 부탁드립니다.', time:'방금 전', unread:true,
   body:[
     "다시 한번 확인 부탁드립니다. 자세한 내용은 메신저로 말씀드렸어요."
   ]
 };
 const ASSIGNMENT5_MAIL = {
   id:'assign5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[5차 테스트] 아카이브 검색 연동 테스트',
-  preview:'이 분이 예전에 쓴 글이 있는지 찾아봐 주셨으면 해요.', time:'방금 전', unread:true,
+  preview:'기사 검색이 잘 되는지 확인해 주세요.', time:'방금 전', unread:true,
   body:[
     "5차 테스트를 의뢰드립니다.",
     "의뢰: 아카이브 검색 연동 테스트<br>대상: 도렌통신 디지털 아카이브 (<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">archive.dorentong.dr</a>)",
@@ -3223,14 +3223,14 @@ const SUCCESS5_MAIL = {
   id:'success5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[5차 테스트] 확인 감사합니다',
   preview:'전달해 주신 내용 확인했습니다.', time:'방금 전', unread:true,
   body:[
-    "전달해 주신 글 잘 읽었습니다. 이 정도면 이 분에 대해 꽤 입체적으로 파악이 된 것 같아요.",
+    "전달해 주신 화면 잘 확인했습니다. 긴 기사 본문도 문제없이 열리는 것을 확인했어요.",
     "이번 건 사례금도 바로 입금해 드렸습니다.",
     "다음 건은 정리되는 대로 다시 안내드리겠습니다. 협조해 주셔서 감사합니다."
   ]
 };
 const RETRY5_MAIL = {
   id:'retry5', sender:'이스크라 베타테스트팀', addr:'beta@iskra.dr', subject:'[5차 테스트] 다시 한번 확인 부탁드립니다',
-  preview:'보내주신 내용으로는 확인이 어려워 다시 요청드립니다.', time:'방금 전', unread:true,
+  preview:'보내 주신 내용으로는 확인이 어려워요. 다시 부탁드립니다.', time:'방금 전', unread:true,
   body:[
     "다시 한번 확인 부탁드립니다. 자세한 내용은 메신저로 말씀드렸어요."
   ]
@@ -3731,7 +3731,7 @@ function omStartGate(){
     setTimeout(() => icon.classList.remove('ding'), 500);
   }, 1400);
 }
-const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dr-mail.dr", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dr", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "미라 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 델라"], "translated": false}, {"id": "mom", "sender": "미라 (엄마)", "addr": "mira.s@dr-mail.dr", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락 주기를 바라.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dr", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
+const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dr-mail.dr", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dr", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "미라 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 델라"], "translated": false}, {"id": "mom", "sender": "미라 (엄마)", "addr": "mira.s@dr-mail.dr", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락하렴.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dr", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
 /* ===== 안톤(백스토리) — 의뢰를 마칠 때마다 노을메일에 도착, 첨부된 자료 조각을 스크랩해 직접 맞춰 본다 ===== */
 var ANTON_MAILS = [{"id": "anton1", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "갑자기 연락드립니다", "preview": "이스크라 베타팀에서 일하는 안톤입니다.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑자기 연락드려서 죄송합니다. 저는 이스크라 베타팀에서 일하는 안톤이라고 합니다. 체험단 신청서에 적어 주신 메일 주소로 보냈어요.", "이 메일 얘기는 팀 메신저에서 하지 말아 주세요.", "첨부한 건 제가 가지고 있는 자료의 일부예요. 설명은 드리지 않을게요. 직접 읽어 보시고, 필요하겠다 싶으면 스크랩해 두세요. 자료가 쌓이면 어떤 상황인지 보일 거예요.", "안톤"], "frag": "frag1"}, {"id": "anton2", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "두 번째 자료", "preview": "아직 따로 드릴 말씀은 없어요.", "time": "방금 전", "unread": true, "body": ["두 번째 자료예요. 아직 따로 드릴 말씀은 없어요.", "앞에서 보신 자료와 겹치는 내용이 있는지만 봐 주세요.", "안톤"], "frag": "frag2"}, {"id": "anton3", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "세 번째 자료", "preview": "제가 따로 구한 자료예요.", "time": "방금 전", "unread": true, "body": ["이건 제가 따로 구한 자료예요.", "메모는 설명 없이 그대로 읽어 보시는 게 좋겠어요.", "안톤"], "frag": "frag3"}, {"id": "anton4", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "네 번째 자료", "preview": "꺼내 오는 데 시간이 걸렸어요.", "time": "방금 전", "unread": true, "body": ["팀 내부 자료예요. 꺼내 오는 데 시간이 좀 걸렸어요.", "이니셜은 제가 풀어 드릴 수 없어요. 앞의 자료와 겹치는 이름이 어디에 있는지만 찾아보세요.", "안톤"], "frag": "frag4"}, {"id": "anton5", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "마지막 자료", "preview": "다 모았으면 정리해 보세요.", "time": "방금 전", "unread": true, "body": ["이게 마지막 자료예요. 다섯 개를 다 모으면 스크랩 창에 '단서 정리' 버튼이 생겨요.", "제가 제대로 보고 있는 건지, 레나 씨가 직접 확인해 주세요. 이 메일은 읽고 나서 지워 주세요.", "안톤"], "frag": "frag5"}, {"id": "anton6", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "확인했어요", "preview": "제대로 보셨네요.", "time": "방금 전", "unread": true, "body": ["제대로 보셨네요. 제가 설명하지 않은 부분까지 짚어 내셨어요.", "저는 이스크라에 일부러 들어온 사람이에요. 누가 저를 보냈는지는 아직 말씀드리기 어려워요.", "다만 6단계는 곧 시작될 거예요. 그때 레나 씨가 어느 쪽에 서는지가 중요해질 거예요.", "안톤"]}];
@@ -5202,7 +5202,7 @@ function msgReply(intent){
   else if(intent === 'yes'){ msgState.followup = false; msgBotSay(MSG_PICK(["알겠어요. 또 막히면 말씀하세요.","좋아요. 천천히 해 보세요. 필요하면 다시 불러 주세요."])); }
   else if(intent === 'cap') msgBotSay("주소창 오른쪽에 카메라 아이콘 보이시죠? 그걸 누르면 캡처 모드가 켜져요. 캡처하고 싶은 기록이나 화면을 클릭하면 저장되고, 의뢰 메일 회신창에 자동으로 붙어요. 취소는 Esc예요.");
   else if(intent === 'mail') msgBotSay("이스크라 첫 화면의 '메일' 아이콘으로 들어가시거나, 새 메일 올 때 뜨는 알림을 눌러도 돼요. 의뢰 메일을 열면 아래쪽에 회신하는 칸이 있어요.");
-  else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두면 오른쪽 아래 스크랩 창에서 다시 볼 수 있어요. 단서를 비교할 때 편해요.");
+  else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두면 왼쪽 아래 스크랩 창에서 다시 볼 수 있어요. 단서를 비교할 때 편해요.");
   else if(intent === 'pay') msgBotSay("사례금은 테스트 내용이 확인되면 바로 입금돼요. 노을메일 오른쪽의 인터넷뱅킹 카드에서 확인하실 수 있어요.");
   else if(intent === 'thanks') msgBotSay(MSG_PICK(["네.","필요하면 말씀하세요."]));
   else if(intent === 'greet') msgBotSay(MSG_PICK(["안녕하세요. 막히는 부분 있으세요?","오늘도 테스트 진행해 볼까요."]));
