@@ -378,6 +378,37 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .backlink .ic{width:12px;height:12px;}
 .article img.hero-img{width:100%;max-height:360px;object-fit:cover;border-radius:12px;margin-bottom:18px;display:block;}
 .article .cat{color:var(--accent);font-weight:700;font-size:12px;}
+/* 외부 매체 기사 레이아웃 */
+#panel-article .backlinks{display:none;}
+#panel-article .article{--oc:var(--accent);}
+#panel-article .article .cat{color:var(--oc);}
+#panel-article .article .cmts-head b,#panel-article .article .scrapbtn:hover{color:var(--oc);border-color:var(--oc);}
+#panel-article .article .scrapbtn.on{background:var(--oc);border-color:var(--oc);color:#fff;}
+.ext-mast{margin:0 0 22px;}
+.ext-news{text-align:center;border-top:3px double var(--oc);border-bottom:1px solid var(--oc);padding:14px 0 10px;}
+.ext-news .mn{font-family:'Noto Serif KR',Georgia,serif;font-size:26px;font-weight:800;letter-spacing:.02em;color:var(--oc);}
+.ext-news .ms{font-size:10.5px;letter-spacing:.14em;color:var(--muted);margin-top:4px;}
+.ext-portal{display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--oc);padding-bottom:10px;}
+.ext-portal .mn{font-size:20px;font-weight:800;color:var(--oc);}
+.ext-portal .ms{font-size:11px;font-weight:700;color:#fff;background:var(--oc);border-radius:4px;padding:2px 7px;}
+.ext-org{display:flex;align-items:center;gap:12px;padding-bottom:14px;border-bottom:1px solid var(--border);}
+.ext-org .mi{width:42px;height:42px;border-radius:9px;background:var(--oc);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:13px;flex-shrink:0;}
+.ext-org .mn{display:block;font-size:15px;font-weight:700;}
+.ext-org .ms{display:block;font-size:10.5px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;margin-top:2px;}
+.ext-state{display:flex;align-items:center;gap:10px;background:var(--oc);color:#fff;padding:10px 14px;border-radius:4px;}
+.ext-state .mi{font-size:11px;font-weight:800;background:#fff;color:var(--oc);padding:2px 7px;border-radius:3px;}
+.ext-state .mn{font-weight:700;font-size:14px;letter-spacing:.04em;}
+.ext-blog{text-align:center;padding:6px 0 16px;border-bottom:1px dashed var(--oc);}
+.ext-blog .mn{font-family:'Noto Serif KR',Georgia,serif;font-size:22px;font-style:italic;color:var(--oc);}
+.ext-blog .ms{font-size:11px;color:var(--muted);margin-top:3px;}
+.art-news h1{font-family:'Noto Serif KR',Georgia,serif;font-size:25px;}
+.art-news p{font-family:'Noto Serif KR',Georgia,serif;}
+.art-blog{background:#FBF6EC;border-radius:16px;padding:26px 28px 40px;border:1px solid #EADFC9;}
+.art-blog h1,.art-blog p{font-family:'Noto Serif KR',Georgia,serif;}
+.art-org h1{font-size:23px;letter-spacing:-.01em;}
+.art-org .cmts,.art-state .cmts{display:none;}
+.art-state{border-top:0;}
+
 .article h1{font-size:21px;margin:6px 0 8px;line-height:1.35;}
 .article .byline{color:var(--muted);font-size:12px;}
 .article .bylinerow{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:22px;}
@@ -2574,10 +2605,42 @@ function tabNoticeCount(t){
   }catch(e){}
   return 0;
 }
+/* 기사는 이스크라가 아니라 각 매체(외부 사이트)에서 가져온 것 — 매체별 파비콘·주소·레이아웃 */
+var OUTLETS = {
+  '도렌통신':{domain:'dorentong.dr',color:'#0F3D6B',fav:'도',type:'news',tag:'DORENTONG'},
+  '보스토일보':{domain:'vostoil.dr',color:'#2A6F4E',fav:'보',type:'news',tag:'VOSTOIL'},
+  '노바포스트':{domain:'novapost.dr',color:'#E4572E',fav:'N',type:'portal',tag:'NOVA POST'},
+  '새벽신문':{domain:'saebyeok-news.org',color:'#2B2B2B',fav:'새',type:'news',tag:'SAEBYEOK'},
+  '국제인권감시기구':{domain:'ihw-watch.org',color:'#1E5A8A',fav:'IHW',type:'org',tag:'International Human Rights Watch'},
+  '국제탐사보도연합':{domain:'ici-reports.org',color:'#0B6B5D',fav:'ICI',type:'org',tag:'Investigative Consortium'},
+  '도렌국제학술원 논문집':{domain:'dias-journal.dr',color:'#5B3B8C',fav:'학',type:'org',tag:'DIAS Journal'},
+  '오르벤 국영방송':{domain:'obs-news.or',color:'#8C1C1C',fav:'OBS',type:'state',tag:'ORBEN BROADCASTING'},
+  '기억의 서랍':{domain:'drawer-of-memory.blog',color:'#8A6F4D',fav:'서',type:'blog',tag:'기억의 서랍'}
+};
+function outletOf(name){ return OUTLETS[name] || {domain:'news.dr',color:'#555B66',fav:String(name||'?').slice(0,1),type:'news',tag:String(name||'')}; }
+function outletIcon(o){
+  const svg = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="' + o.color + '"/><text x="16" y="' + (o.fav.length > 2 ? 20.5 : 22) + '" text-anchor="middle" font-family="sans-serif" font-weight="700" font-size="' + (o.fav.length > 2 ? 11 : 16) + '" fill="#fff">' + o.fav + '</text></svg>';
+  return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+}
+function tabIcon(t, m){
+  if(t.kind === 'article'){
+    const a = ARTICLES.find(x => x.id === t.articleId) || HINTS.find(x => x.id === t.articleId);
+    if(a) return outletIcon(outletOf(a.outlet));
+  }
+  return m.icon;
+}
+function outletMast(a){
+  const o = outletOf(a.outlet);
+  if(o.type === 'news') return '<div class="ext-mast ext-news"><div class="mn">' + a.outlet + '</div><div class="ms">' + o.tag + ' · ' + o.domain + '</div></div>';
+  if(o.type === 'portal') return '<div class="ext-mast ext-portal"><span class="mn">' + a.outlet + '</span><span class="ms">뉴스</span></div>';
+  if(o.type === 'org') return '<div class="ext-mast ext-org"><span class="mi">' + o.fav + '</span><span><span class="mn">' + a.outlet + '</span><span class="ms">' + o.tag + '</span></span></div>';
+  if(o.type === 'state') return '<div class="ext-mast ext-state"><span class="mi">NEWS</span><span class="mn">' + a.outlet + '</span></div>';
+  return '<div class="ext-mast ext-blog"><div class="mn">' + a.outlet + '</div><div class="ms">' + o.tag + '</div></div>';
+}
 function renderTabs(){
   document.getElementById('tabstrip').innerHTML = TABS.map(t => {
     const m = TAB_META[t.kind];
-    const fav = m ? '<img class="dzfav" src="'+m.icon+'" alt="">' : t.favicon;
+    const fav = m ? '<img class="dzfav" src="'+tabIcon(t, m)+'" alt="">' : t.favicon;
     return `
     <div class="tab ${t.id===activeId?'active':''}${tabNoticeCount(t) && t.id!==activeId ? ' notice' : ''}" onclick="switchTab('${t.id}')">
       <span class="favicon${m?' img':''}">${fav}</span>
@@ -2619,7 +2682,7 @@ function switchTab(id){
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'article' && t){
     renderArticleBody(t.articleId);
-    document.getElementById('addrText').textContent = 'iskra.dr/article/' + t.articleId;
+    { const aa = ARTICLES.find(x => x.id === t.articleId) || HINTS.find(x => x.id === t.articleId); document.getElementById('addrText').textContent = outletOf(aa ? aa.outlet : '').domain + '/article/' + t.articleId; }
   } else {
     document.getElementById('addrText').textContent = chromeAddr[k] || '';
   }
@@ -2974,7 +3037,10 @@ document.getElementById('pills').addEventListener('click', (e) => {
 function renderArticleBody(id){
   const a = ARTICLES.find(x=>x.id===id) || HINTS.find(x=>x.id===id);
   if(!a) return;
+  const av = document.getElementById('articleView'), oo = outletOf(a.outlet);
+  av.className = 'article art-' + oo.type; av.style.setProperty('--oc', oo.color);
   document.getElementById('articleBody').innerHTML = `
+    ${outletMast(a)}
     ${a.img ? `<img class="hero-img" src="${a.img}" alt="">` : ''}
     <p class="cat">${a.cat}</p>
     <h1>${a.title}</h1>
@@ -5102,7 +5168,7 @@ function renderTabSwitcher(){
   l.innerHTML = TABS.map(t => {
     const m = TAB_META[t.kind];
     const title = (m && !m.keep) ? m.title : t.title;
-    const icon = m ? '<img src="'+m.icon+'" alt="">' : '';
+    const icon = m ? '<img src="'+tabIcon(t, m)+'" alt="">' : '';
     return '<div class="ts-card'+(t.id===activeId?' active':'')+'" onclick="tsPick(\''+t.id+'\')"><div class="ts-top">'+icon+'<span>'+title+'</span>'+(t.id!==activeId && tabNoticeCount(t) ? '<i class="nd"></i>' : '')+'<button type="button" onclick="event.stopPropagation();tsClose(\''+t.id+'\')" aria-label="탭 닫기">&times;</button></div><div class="ts-body">'+tsBody(t)+'</div></div>';
   }).join('');
 }
