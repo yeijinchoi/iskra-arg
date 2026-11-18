@@ -4,7 +4,7 @@
 <script>document.documentElement.setAttribute("data-theme","light");</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap">
 <style>
 /* layout: 공유 브라우저 크롬(멀티탭 탭스트립+툴바 1개) -> 패널 3개(이스크라 검색/이스크라 메일/라덴통상 ERP, 탭으로 전환, 상태 유지) */
 :root{
@@ -2323,6 +2323,85 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-board .bd-bt .dzwm{height:17px;margin-bottom:0;}
   #panel-dlt .dl-bt .dzwm{height:15px;margin-bottom:0;}
   #panel-board .bd-user,#panel-dlt .dl-user{display:none;}
+}
+
+/* ===== 최종 확인 보고서(원본) — 국내 업무 보고서 양식(결재란·개조식·표) + 대외비 도장, PDF 뷰어 화면 ===== */
+#panel-report.v-orig{background:#525659;}
+#panel-report.v-orig .rp-top{display:none;}
+#panel-report .rv-bar{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:14px;height:48px;padding:0 14px;background:#323639;color:#F1F3F4;font-size:13px;box-shadow:0 1px 3px rgba(0,0,0,.4);}
+#panel-report .rv-back{flex-shrink:0;width:32px;height:32px;border:none;border-radius:50%;background:transparent;color:#F1F3F4;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+#panel-report .rv-back:hover{background:rgba(255,255,255,.12);}
+#panel-report .rv-back.off{opacity:.35;cursor:default;}
+#panel-report .rv-file{flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:500;}
+#panel-report .rv-pg,#panel-report .rv-zoom{flex-shrink:0;background:#191B1C;border-radius:4px;padding:3px 9px;font-size:12px;color:#E8EAED;}
+#panel-report .rv-ic{display:flex;gap:16px;flex-shrink:0;}
+#panel-report .rv-ic svg{width:18px;height:18px;fill:none;stroke:#F1F3F4;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+#panel-report .rv-stage{padding:28px 16px 40px;display:flex;justify-content:center;}
+#panel-report .rv-paper{position:relative;width:794px;max-width:100%;background:#fff;color:#111;box-shadow:0 2px 14px rgba(0,0,0,.45);padding:40px 64px 34px;font-family:'Noto Serif KR','Batang',serif;font-size:14.5px;line-height:1.8;}
+#panel-report .rv-head{display:flex;justify-content:space-between;font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:#666;border-bottom:1px solid #999;padding-bottom:6px;margin-bottom:22px;}
+#panel-report .rv-stamp{position:absolute;top:66px;left:56px;font-family:'Noto Sans KR',sans-serif;font-weight:900;font-size:21px;letter-spacing:.2em;color:#C0392B;border:3px solid #C0392B;border-radius:6px;padding:3px 10px 3px 15px;transform:rotate(-8deg);opacity:.82;mix-blend-mode:multiply;}
+#panel-report .rv-stamp.back{top:auto;bottom:250px;left:auto;right:76px;font-size:42px;padding:6px 20px 6px 28px;transform:rotate(-14deg);opacity:.7;}
+#panel-report .rv-title{font-family:'Noto Sans KR',sans-serif;text-align:center;font-size:24px;font-weight:700;letter-spacing:.1em;margin:16px auto 20px;padding:0 6px 8px;border-bottom:3px double #111;display:table;}
+#panel-report .rv-sign{margin:0 0 18px auto;border-collapse:collapse;font-family:'Noto Sans KR',sans-serif;font-size:12px;}
+#panel-report .rv-sign th,#panel-report .rv-sign td{border:1px solid #333;text-align:center;}
+#panel-report .rv-sign th{font-weight:500;padding:2px 10px;background:#F2F2F2;width:64px;}
+#panel-report .rv-sign th.v{width:26px;padding:0;line-height:1.7;}
+#panel-report .rv-sign td{height:52px;}
+#panel-report .rv-sign td.dg{color:#888;font-size:11.5px;}
+#panel-report .rv-seal{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;border:2px solid #C0392B;border-radius:50%;color:#C0392B;font-family:'Noto Serif KR',serif;font-weight:700;font-size:11px;line-height:1.15;text-align:center;transform:rotate(-10deg);opacity:.86;}
+#panel-report .rv-meta{width:100%;border-collapse:collapse;border-top:2px solid #111;font-size:13.5px;margin-bottom:6px;}
+#panel-report .rv-meta th{background:#F2F2F2;font-family:'Noto Sans KR',sans-serif;font-weight:500;width:104px;padding:7px 8px;border:1px solid #999;white-space:nowrap;}
+#panel-report .rv-meta td{padding:7px 10px;border:1px solid #999;}
+#panel-report .rv-meta .red{color:#C0392B;font-family:'Noto Sans KR',sans-serif;}
+#panel-report .rv-paper h2{font-family:'Noto Sans KR',sans-serif;font-size:16px;font-weight:700;margin:22px 0 6px;letter-spacing:0;color:#111;}
+#panel-report .rv-ul{list-style:none;margin:0 0 4px;padding:0;}
+#panel-report .rv-ul li{position:relative;padding-left:24px;}
+#panel-report .rv-ul li.o::before{content:'○';position:absolute;left:4px;}
+#panel-report .rv-ul li.d{padding-left:44px;color:#333;}
+#panel-report .rv-ul li.d::before{content:'-';position:absolute;left:28px;}
+#panel-report .rv-cap{display:flex;justify-content:space-between;gap:10px;font-family:'Noto Sans KR',sans-serif;font-size:12.5px;margin:2px 0 6px;}
+#panel-report .rv-tbl{width:100%;border-collapse:collapse;font-size:13px;line-height:1.6;border-top:2px solid #111;}
+#panel-report .rv-tbl th{background:#E9E9E9;font-family:'Noto Sans KR',sans-serif;font-weight:500;padding:6px;border:1px solid #888;}
+#panel-report .rv-tbl td{padding:6px 8px;border:1px solid #AAA;vertical-align:top;}
+#panel-report .rv-tbl td.c{text-align:center;white-space:nowrap;}
+#panel-report .rv-tbl td.l b{font-family:'Noto Sans KR',sans-serif;font-weight:700;margin-right:4px;}
+#panel-report .rv-tbl td.ev,#panel-report .rv-tbl th.ev{font-size:12px;color:#444;white-space:nowrap;text-align:center;}
+#panel-report .rv-redact{display:inline-block;background:#111;color:#111;padding:0 8px;letter-spacing:-.1em;line-height:1.35;user-select:none;}
+#panel-report .rv-loc{font:inherit;font-weight:700;border:none;border-bottom:1.5px dashed #C0392B;background:#FFF8E6;padding:0 6px;width:230px;max-width:62%;outline:none;}
+#panel-report .rv-att{margin:20px 0 0;}
+#panel-report .rv-att b{font-family:'Noto Sans KR',sans-serif;margin-right:10px;}
+#panel-report .rv-confirm{text-align:center;margin:36px 0 24px;}
+#panel-report .rv-confirm p{margin:0 0 4px;}
+#panel-report .rv-confirm .who{font-size:16px;font-weight:700;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:10px;}
+#panel-report .rv-in{display:inline-flex;min-width:46px;min-height:40px;justify-content:center;align-items:center;color:#777;font-weight:400;}
+#panel-report .rv-note{border-top:1px dotted #888;padding-top:10px;font-family:'Noto Sans KR',sans-serif;font-size:11.5px;color:#555;display:flex;flex-direction:column;gap:2px;line-height:1.6;}
+#panel-report .rv-note b{font-weight:700;color:#333;}
+#panel-report .rv-pageno{text-align:center;font-size:12px;color:#555;margin-top:20px;}
+#panel-report .rv-approve{position:sticky;bottom:0;z-index:5;display:flex;align-items:center;gap:14px;justify-content:space-between;padding:12px 20px;background:#202124;color:#E8EAED;border-top:1px solid #3C4043;font-family:'Noto Sans KR',sans-serif;}
+#panel-report .rv-st{display:flex;align-items:center;gap:10px;font-size:13px;min-width:0;}
+#panel-report .rv-st b{flex-shrink:0;font-size:12.5px;padding:3px 10px;border-radius:999px;background:#5F4B00;color:#FDD663;}
+#panel-report .rv-s-done .rv-st b{background:#0B3D91;color:#AECBFA;}
+#panel-report .rv-s-back .rv-st b{background:#5C1A16;color:#F6AEA9;}
+#panel-report .rv-s-none .rv-st b{background:#3C4043;color:#DADCE0;}
+#panel-report .rv-act{display:flex;gap:8px;flex-shrink:0;}
+#panel-report .rv-ok{border:none;border-radius:6px;background:#8AB4F8;color:#202124;font-family:inherit;font-size:14px;font-weight:700;padding:10px 16px;cursor:pointer;}
+#panel-report .rv-ok:hover{background:#AECBFA;}
+#panel-report .rv-close{border:1px solid #5F6368;border-radius:6px;background:transparent;color:#E8EAED;font-family:inherit;font-size:13.5px;padding:9px 14px;cursor:pointer;}
+#panel-report .rv-wrap:has(.rv-paper.wait) .rv-act{pointer-events:none;opacity:.45;}
+@media (max-width:640px){
+  #panel-report .rv-stage{padding:14px 8px 30px;}
+  #panel-report .rv-paper{padding:26px 16px 22px;font-size:13.5px;}
+  #panel-report .rv-stamp{top:54px;left:12px;font-size:14px;padding:2px 6px 2px 9px;border-width:2px;}
+  #panel-report .rv-stamp.back{bottom:200px;right:20px;font-size:28px;}
+  #panel-report .rv-title{font-size:18px;letter-spacing:.04em;margin-top:26px;}
+  #panel-report .rv-meta th{width:auto;font-size:12px;padding:6px 5px;}
+  #panel-report .rv-meta td{font-size:12.5px;padding:6px;}
+  #panel-report .rv-tbl th.ev,#panel-report .rv-tbl td.ev{display:none;}
+  #panel-report .rv-tbl{font-size:12px;}
+  #panel-report .rv-zoom,#panel-report .rv-ic{display:none;}
+  #panel-report .rv-approve{flex-direction:column;align-items:stretch;padding:10px 12px;}
+  #panel-report .rv-act button{flex:1;}
+  #panel-report .rv-loc{width:100%;max-width:100%;}
 }
 /* 엔딩 A 뒤: 연합회 게시판 접속 불가 */
 #panel-board .net-down{display:none;}
@@ -6058,39 +6137,59 @@ function rpRenderCover(el, animate){
 }
 function rpRenderOrig(el, animate){
   const done = !!endingChosen;
-  const loc = rpLocVal;
-  const st = !done ? ['제출 대기', 'wait'] : endingChosen === 'A' ? ['제출 완료', 'done'] : endingVariant === 'edit' ? ['반려', 'back'] : ['미제출', 'none'];
   const D = animate ? (t => ' style="animation-delay:' + t.toFixed(2) + 's"') : (() => '');
   const escA = v => msgEsc(v).replace(/"/g, '&quot;');
-  const base = animate === 'morph' ? 0.15 : 1.25, step = animate === 'morph' ? 0.26 : 0.32;
-  const rows = rpRows().map((r, n) => '<div class="rp-row rp-a"' + D(base + 0.45 + n * step) + '><span class="rp-n">0' + (n + 1) + '</span><span class="rp-k">' + r[0] + '</span><span class="rp-v">' + r[1] + ' <em class="rp-ev">근거 · ' + r[2] + '</em></span></div>').join('');
-  const tc = base + 0.45 + 8 * step + 0.2, ts = tc + 0.9, tf = ts + 0.6;
-  const locHtml = done ? '<b class="rp-locv">' + (loc ? msgEsc(loc) : '(비어 있음)') + '</b>'
-    : '<label class="rp-loc"><input id="rpLoc" type="text" value="' + escA(loc) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="확인 위치"><svg class="ic" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="m13.5 6.5 4 4"/></svg></label>';
-  const concl = [
-    ['대상', '루카 발렌 (개명 전 이름 비공개). 23년 전 11월 14일, 광장 연단에 섰던 시민 대표로 추정.'],
-    ['확인 위치', locHtml],
-    ['예상 일시', '11월 14일 저녁, 추모모임'],
-    ['요청 조치', '현장 확인 및 신병 확보']
-  ].map(r => '<div class="rp-crow"><span class="rp-k">' + r[0] + '</span><span class="rp-v">' + r[1] + '</span></div>').join('');
-  const foot = done
-    ? '<p class="rp-final">' + (endingChosen === 'A' ? '이 보고서는 수집 협력자 명의로 제출되었습니다.' : endingVariant === 'edit' ? '확인 위치가 열람 기록과 맞지 않아 보고서가 반려되었습니다.' : '이 보고서는 제출되지 않았습니다.') + '</p>'
-    : '<p class="rp-notice">확인서에서 [확인 및 정산 요청]을 누르면 이 원본이 수집 협력자 명의로 제출되고, 사례금 3,000,000원이 지급됩니다.</p>' +
-      '<div class="rp-act"><button type="button" class="rp-submit" onclick="rpSubmit()">확인 및 정산 요청</button><button type="button" class="rp-close" onclick="rpClose()">확인하지 않고 닫기</button></div>' +
-      '<p class="rp-tiny">※ 결론 항목은 수집 협력자가 최종 확인한 내용 그대로 제출됩니다.</p>';
-  el.className = 'rp-page' + (animate ? ' rp-anim' : '');
-  el.innerHTML = (animate === true ? '<div class="rp-load"><i></i><span>테스트 자료 8건을 정리하는 중…</span></div>' : '') +
-    (!done ? '<button type="button" class="rp-back" onclick="rpSetView(\'cover\')">← 확인서 화면으로</button>' : '') +
-    '<article class="rp-doc' + (animate ? ' wait' : '') + '">' +
-      '<div class="rp-meta rp-a"' + D(base) + '><span>문서 번호 IS-1114</span><span>작성 베타테스트팀</span><span class="rp-st s-' + st[1] + '">' + st[0] + '</span></div>' +
-      '<h1 class="rp-a"' + D(base) + '>최종 확인 보고서</h1>' +
-      '<p class="rp-lead rp-a"' + D(base + 0.12) + '>베타테스터가 1~8차 테스트에서 수집한 자료로 대상의 신원과 위치를 확인했습니다. 이 문서는 베타 테스트 결과 확인서의 원본이며, 수집 협력자가 확인하면 그 명의로 제출됩니다.</p>' +
-      '<h2 class="rp-a"' + D(base + 0.3) + '>수집 자료</h2>' + rows +
-      '<h2 class="rp-a"' + D(tc) + '>결론</h2><div class="rp-concl rp-a"' + D(tc + 0.1) + '>' + concl + '</div>' +
-      '<div class="rp-sign"><span class="rp-sk rp-a"' + D(ts - 0.2) + '>수집 협력자</span><span class="rp-stamp"' + D(ts) + '>레나 세인<small>베타테스터</small></span></div>' +
-      '<div class="rp-foot rp-a"' + D(tf) + '>' + foot + '</div>' +
-    '</article>';
-  if(animate) setTimeout(() => { const d = el.querySelector('.rp-doc'); if(d) d.classList.remove('wait'); }, (tf + 0.6) * 1000);
+  const base = animate === 'morph' ? 0.15 : 0.6, step = 0.2;
+  const names = ['기업 시스템 연동 테스트', '공공 등록정보 연동 테스트', '검색 결과 정확도 테스트', '동문 네트워크 연동 테스트', '아카이브 검색 연동 테스트', '커뮤니티 게시판 연동 테스트', '이름 이력 연동 테스트', '물류·통신 기록 조회 테스트'];
+  const trs = rpRows().map((r, n) => '<tr class="rp-a"' + D(base + 1.15 + n * step) + '><td class="c">' + (n + 1) + '차</td><td>' + names[n] + '</td><td class="l"><b>' + r[0] + '</b>' + r[1] + '</td><td class="ev">' + r[2] + '</td></tr>').join('');
+  const t = base + 1.15 + 8 * step + 0.2;
+  const locHtml = done ? '<b>' + (rpLocVal ? msgEsc(rpLocVal) : '(비어 있음)') + '</b>'
+    : '<input id="rpLoc" class="rv-loc" type="text" value="' + escA(rpLocVal) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="소재">';
+  const st = !done ? ['결재 대기', '수집 협력자 확인 필요', 'wait'] : endingChosen === 'A' ? ['결재 완료', '수집 협력자 확인 · 2026. 11. 13.', 'done'] : endingVariant === 'edit' ? ['반려', '소재가 열람 기록과 맞지 않음', 'back'] : ['미확인', '수집 협력자 확인 없음', 'none'];
+  const seal = x => '<span class="rv-seal">' + x + '</span>';
+  el.className = 'rv-wrap' + (animate ? ' rp-anim' : '');
+  el.innerHTML =
+    '<div class="rv-bar">' +
+      (!done ? '<button type="button" class="rv-back" onclick="rpSetView(\'cover\')" title="확인서 화면으로">&larr;</button>' : '<span class="rv-back off">&larr;</span>') +
+      '<span class="rv-file">IS-1114_대상자_소재_확인_결과_보고.pdf</span><span class="rv-pg">1 / 1</span><span class="rv-zoom">100%</span>' +
+      '<span class="rv-ic"><svg viewBox="0 0 24 24"><path d="M12 4v11m0 0-4-4m4 4 4-4M5 19h14"/></svg><svg viewBox="0 0 24 24"><path d="M7 9V4h10v5M7 17H5a1 1 0 0 1-1-1v-5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v5a1 1 0 0 1-1 1h-2M7 14h10v6H7z"/></svg></span>' +
+    '</div>' +
+    '<div class="rv-stage"><article class="rv-paper' + (animate ? ' wait' : '') + '">' +
+      '<div class="rv-head rp-a"' + D(base) + '><span>IS-1114</span><span>이스크라 베타테스트팀</span></div>' +
+      '<div class="rv-stamp rp-a"' + D(base + 0.1) + '>대외비</div>' +
+      ((done && endingChosen === 'B' && endingVariant === 'edit') ? '<div class="rv-stamp back">반려</div>' : '') +
+      '<h1 class="rv-title rp-a"' + D(base + 0.15) + '>대상자 소재 확인 결과 보고</h1>' +
+      '<table class="rv-sign rp-a"' + D(base + 0.3) + '><tr><th rowspan="2" class="v">결<br>재</th><th>담 당</th><th>팀 장</th><th>실 장</th></tr>' +
+        '<tr><td>' + seal('다나') + '</td><td>' + ((done && endingChosen === 'A') ? seal('확인') : '') + '</td><td class="dg">전결</td></tr></table>' +
+      '<table class="rv-meta rp-a"' + D(base + 0.45) + '>' +
+        '<tr><th>작 성 부 서</th><td>베타테스트팀</td><th>작 성 자</th><td>다나</td></tr>' +
+        '<tr><th>작 성 일</th><td>2026. 11. 13.(금)</td><th>공 개 구 분</th><td><b class="red">대외비</b> · 보존 1년</td></tr>' +
+        '<tr><th>수집 협력자</th><td colspan="3">레나 세인 (베타테스터, 도렌 국립대 재학) — 테스트 목적 미인지</td></tr>' +
+      '</table>' +
+      '<h2 class="rp-a"' + D(base + 0.6) + '>1. 개요</h2>' +
+      '<ul class="rv-ul rp-a"' + D(base + 0.7) + '><li class="o">베타 테스트(1~8차)로 수집한 자료를 바탕으로 대상자의 신원과 소재를 확인함</li><li class="d">수집 협력자에게는 \'샘플 데이터 점검\'으로 안내하였음</li></ul>' +
+      '<h2 class="rp-a"' + D(base + 0.85) + '>2. 수집 경과</h2>' +
+      '<p class="rv-cap rp-a"' + D(base + 0.95) + '><span>&lt;표 1&gt; 차수별 수집 자료</span><span>(근거: 수집 화면 9건)</span></p>' +
+      '<table class="rv-tbl"><thead class="rp-a"' + D(base + 1.05) + '><tr><th>차수</th><th>대외 명칭</th><th>확인 내용</th><th class="ev">근거</th></tr></thead><tbody>' + trs + '</tbody></table>' +
+      '<h2 class="rp-a"' + D(t) + '>3. 확인 결과</h2>' +
+      '<ul class="rv-ul rp-a"' + D(t + 0.1) + '>' +
+        '<li class="o"><b>대상자</b> : 루카 발렌 (개명 전 이름 <span class="rv-redact">■■■</span>)</li>' +
+        '<li class="d">23년 전 11. 14. 광장 연단에 섰던 시민 대표로 추정</li>' +
+        '<li class="o"><b>소재</b> : ' + locHtml + '</li>' +
+        '<li class="d">서쪽 회관 지하 보일러실 관리인으로 거주 추정 (10. 28. 수령 확인 기록)</li>' +
+        '<li class="o"><b>예상 일시</b> : 11. 14.(토) 저녁, 추모모임</li>' +
+      '</ul>' +
+      '<h2 class="rp-a"' + D(t + 0.3) + '>4. 조치 계획</h2>' +
+      '<ul class="rv-ul rp-a"' + D(t + 0.4) + '><li class="o">현장 확인 및 신병 확보 (관계 기관 협조 요청)</li><li class="o">수집 협력자 사례금 3,000,000원 지급 후 베타 계정 정리</li></ul>' +
+      '<p class="rv-att rp-a"' + D(t + 0.55) + '><b>붙임</b>수집 화면 9건. &nbsp;끝.</p>' +
+      '<div class="rv-confirm rp-a"' + D(t + 0.7) + '><p>위 내용을 확인함.</p><p>2026년 11월 13일</p><p class="who">수집 협력자 &nbsp;레나 세인<span class="rv-in">' + ((done && endingChosen === 'A') ? seal('레나<br>세인') : '(인)') + '</span></p></div>' +
+      '<div class="rv-note rp-a"' + D(t + 0.85) + '><b>※ 유의사항</b><span>▸ 이 문서는 대외비로 분류되어 있으며 무단 복제·유출을 금함</span><span>▸ 수집 협력자에게는 원본을 공개하지 않음</span></div>' +
+      '<div class="rv-pageno">- 1 -</div>' +
+    '</article></div>' +
+    '<div class="rv-approve rv-s-' + st[2] + '"><div class="rv-st"><b>' + st[0] + '</b><span>' + st[1] + '</span></div>' +
+      (!done ? '<div class="rv-act"><button type="button" class="rv-close" onclick="rpClose()">확인하지 않고 닫기</button><button type="button" class="rv-ok" onclick="rpSubmit()">확인 및 정산 요청</button></div>' : '') +
+    '</div>';
+  if(animate) setTimeout(() => { const d = el.querySelector('.rv-paper'); if(d) d.classList.remove('wait'); }, (t + 1.5) * 1000);
 }
 function rpMorph(){
   const el = document.getElementById('rpPage'); if(!el || rpView === 'orig') return;
