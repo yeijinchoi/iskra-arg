@@ -570,7 +570,10 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
   #panel-oldmail .omside .weathercard{padding:14px 6px;border-top:1px solid var(--border);}
   #panel-oldmail .omside .weathercard .temp{font-size:20px;}
   #panel-oldmail .omside .financecard{display:none;}
-  #panel-oldmail .omside .newscard{display:none;}
+  #panel-oldmail .omside .newscard{display:block;background:none;box-shadow:none;border-radius:0;padding:14px 6px 4px;border-top:1px solid var(--border);}
+  #panel-oldmail .omside .newscard .head{margin:0 0 4px;}
+  #panel-oldmail .omside .newscard li button{border-radius:0;padding:9px 0;}
+  #panel-oldmail .omside .newscard .t{font-size:12.5px;}
   /* 뉴스는 목록 아래 두 칸으로 */
   #panel-oldmail .omnewshost .newscard{display:block;background:none;box-shadow:none;border-radius:0;padding:18px 2px 0;border-top:1px solid var(--border);margin-top:22px;}
   #panel-oldmail .omnewshost .newscard ul{display:grid;grid-template-columns:1fr 1fr;gap:0 24px;}
@@ -3911,8 +3914,7 @@ function omDesk(){ return window.matchMedia && window.matchMedia('(min-width:861
 function omPlaceNews(){
   const nc = document.querySelector('#panel-oldmail .newscard'), host = document.getElementById('omNewsHost'), side = document.querySelector('#panel-oldmail .omside'), wx = document.querySelector('#panel-oldmail .weathercard');
   if(!nc || !host || !side) return;
-  if(omDesk()){ if(nc.parentNode !== host) host.appendChild(nc); }
-  else if(nc.parentNode !== side) side.insertBefore(nc, wx);
+  if(nc.parentNode !== side) side.insertBefore(nc, wx);
 }
 function omPlaceReader(){
   omPlaceNews();
