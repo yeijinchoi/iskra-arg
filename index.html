@@ -4,7 +4,7 @@
 <script>document.documentElement.setAttribute("data-theme","light");</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&family=Nanum+Pen+Script&display=swap">
 <style>
 /* layout: 공유 브라우저 크롬(멀티탭 탭스트립+툴바 1개) -> 패널 3개(이스크라 검색/이스크라 메일/라덴통상 ERP, 탭으로 전환, 상태 유지) */
 :root{
@@ -2403,6 +2403,121 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
   #panel-report .rv-act button{flex:1;}
   #panel-report .rv-loc{width:100%;max-width:100%;}
 }
+
+/* ===== 결과 확인서(겉면) — 국내 전자서명 서비스식: 왼쪽 확인서 문서 + 오른쪽 서명 요청 카드 + 서명 창 ===== */
+#panel-report.v-cover{background:#F3F5F8;}
+#panel-report .rc.es{max-width:1040px;margin:0 auto;}
+#panel-report .es-steps{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:2px 0 18px;}
+#panel-report .es-steps h1{margin:0;font-size:20px;font-weight:800;color:#1B1D21;letter-spacing:-.02em;}
+#panel-report .es-steps ol{display:flex;gap:6px;list-style:none;margin:0;padding:0;font-size:12.5px;color:#8A9099;}
+#panel-report .es-steps li{display:flex;align-items:center;gap:6px;}
+#panel-report .es-steps li i{font-style:normal;width:20px;height:20px;border-radius:50%;border:1.5px solid #C9CED6;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;}
+#panel-report .es-steps li.on{color:#1B1D21;font-weight:700;}
+#panel-report .es-steps li.on i{background:#3D5AFE;border-color:#3D5AFE;color:#fff;}
+#panel-report .es-steps li.ok i{background:#E8ECFF;border-color:#E8ECFF;color:#3D5AFE;}
+#panel-report .es-steps li+li::before{content:'';width:18px;height:1px;background:#C9CED6;margin-right:6px;}
+#panel-report .es-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:22px;align-items:start;}
+#panel-report .es-doc{background:#fff;border:1px solid #E1E5EA;border-radius:4px;box-shadow:0 1px 3px rgba(20,30,50,.06);padding:38px 46px 34px;font-size:13.5px;line-height:1.7;color:#1B1D21;}
+#panel-report .es-dh{display:flex;justify-content:space-between;font-size:11.5px;color:#7A818C;border-bottom:1px solid #D5D9DF;padding-bottom:6px;}
+#panel-report .es-dt{text-align:center;font-size:25px;font-weight:800;letter-spacing:.32em;margin:26px 0 4px;padding-left:.32em;color:#1B1D21;}
+#panel-report .rp-page.es-page{max-width:1100px;}
+#panel-report .es-page .rp-anton,#panel-report .es-page .rc-load{max-width:1040px;}
+#panel-report .es-ds{text-align:center;font-size:12.5px;color:#7A818C;margin:0 0 24px;}
+#panel-report .es-doc h3{font-size:13.5px;font-weight:700;margin:20px 0 6px;}
+#panel-report .es-t{width:100%;border-collapse:collapse;border-top:2px solid #1B1D21;font-size:12.5px;}
+#panel-report .es-t th{background:#F2F4F7;font-weight:600;color:#3A3F47;padding:7px 8px;border:1px solid #D5D9DF;white-space:nowrap;}
+#panel-report .es-t td{padding:7px 9px;border:1px solid #D5D9DF;vertical-align:top;}
+#panel-report .es-t td.c{text-align:center;white-space:nowrap;}
+#panel-report .es-t td.r{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums;}
+#panel-report .es-t td.ok{text-align:center;color:#2B57D9;font-weight:700;white-space:nowrap;}
+#panel-report .es-t td.mod{text-align:center;color:#C2410C;font-weight:700;white-space:nowrap;}
+#panel-report .es-t tr.sum td{background:#FAFBFC;font-weight:700;}
+#panel-report .es-info th{width:92px;}
+#panel-report .es-fix{margin-left:6px;border:1px solid #C9CED6;background:#fff;border-radius:4px;font-family:inherit;font-size:11.5px;color:#4A515C;padding:1px 7px;cursor:pointer;}
+#panel-report .es-fix.on{border-color:#3D5AFE;color:#3D5AFE;}
+#panel-report .es-loc{border:none;border-bottom:1.5px solid #3D5AFE;background:#F1F4FF;font:inherit;font-weight:700;color:#1B1D21;padding:0 5px;width:170px;max-width:100%;outline:none;}
+#panel-report .es-total{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 0 0;background:#1B1D21;color:#fff;padding:12px 16px;}
+#panel-report .es-total span{font-size:13px;font-weight:600;}
+#panel-report .es-total b{font-size:20px;font-weight:800;letter-spacing:.01em;}
+#panel-report .es-total small{display:block;font-size:11px;font-weight:500;opacity:.7;text-align:right;}
+#panel-report .es-stmt{margin:22px 0 4px;font-size:13.5px;line-height:1.85;}
+#panel-report .es-fine{margin:0;font-size:11px;color:#8A9099;}
+#panel-report .es-date{text-align:center;margin:26px 0 12px;font-size:14px;}
+#panel-report .es-signer{display:flex;align-items:center;justify-content:flex-end;gap:12px;font-size:14px;font-weight:600;}
+#panel-report .es-sigbox{width:150px;height:56px;border:1.5px dashed #B9C0CA;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:#9AA1AB;background:#FAFBFC;position:relative;}
+#panel-report .es-sigbox img{max-width:100%;max-height:100%;}
+#panel-report .es-sigbox.signed{border-style:solid;border-color:#E1E5EA;background:#fff;}
+#panel-report .es-sigbox em{position:absolute;bottom:-17px;right:0;font-style:normal;font-size:10.5px;color:#C2410C;font-weight:600;}
+#panel-report .es-to{text-align:right;font-size:17px;font-weight:800;margin:32px 0 0;letter-spacing:.04em;}
+#panel-report .es-side{position:sticky;top:16px;display:flex;flex-direction:column;gap:12px;}
+#panel-report .es-card{background:#fff;border:1px solid #E1E5EA;border-radius:12px;padding:18px;}
+#panel-report .es-ch{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px;}
+#panel-report .es-ch b{font-size:15px;font-weight:800;}
+#panel-report .es-st{font-size:11.5px;font-weight:700;border-radius:999px;padding:3px 9px;}
+#panel-report .es-st.s-wait{background:#FFF4D6;color:#8A5A00;}
+#panel-report .es-st.s-done{background:#E8ECFF;color:#3D5AFE;}
+#panel-report .es-st.s-back{background:#FDE7E5;color:#B3261E;}
+#panel-report .es-st.s-none{background:#EEF0F3;color:#59606B;}
+#panel-report .es-kv{display:grid;grid-template-columns:64px 1fr;gap:7px 10px;font-size:12.5px;margin:0 0 14px;}
+#panel-report .es-kv dt{color:#8A9099;}
+#panel-report .es-kv dd{margin:0;color:#1B1D21;font-weight:600;}
+#panel-report .es-kv dd.due{color:#C2410C;}
+#panel-report .es-agree{border-top:1px solid #EEF0F3;padding-top:12px;display:flex;flex-direction:column;gap:9px;margin-bottom:14px;}
+#panel-report .es-agree label{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;cursor:pointer;color:#30353C;}
+#panel-report .es-agree input{width:17px;height:17px;margin:1px 0 0;accent-color:#3D5AFE;flex-shrink:0;}
+#panel-report .es-agree em{font-style:normal;color:#3D5AFE;font-weight:700;margin-right:3px;}
+#panel-report .es-go{display:block;width:100%;border:none;border-radius:10px;background:#3D5AFE;color:#fff;font-family:inherit;font-size:15px;font-weight:700;padding:13px;cursor:pointer;}
+#panel-report .es-go:disabled{background:#C3CCF5;cursor:default;}
+#panel-report .es-no{display:block;width:100%;border:none;background:none;font-family:inherit;font-size:12.5px;color:#7A818C;padding:11px 0 0;cursor:pointer;text-decoration:underline;text-underline-offset:3px;}
+#panel-report .es-links{display:flex;justify-content:center;gap:16px;}
+#panel-report .es-links .es-no{width:auto;}
+#panel-report .es-t tr.sum-m{display:none;}
+#panel-report .es-tip{font-size:11.5px;color:#8A9099;line-height:1.55;margin:0;padding:0 4px;}
+#panel-report .es-done{margin:0;font-size:13px;font-weight:600;line-height:1.6;color:#30353C;}
+#panel-report .rc.es.wait .es-go,#panel-report .rc.es.wait .es-no,#panel-report .rc.es.wait .es-fix{pointer-events:none;}
+/* 서명 창 */
+.es-modal{position:fixed;inset:0;z-index:520;background:rgba(15,20,30,.55);display:flex;align-items:center;justify-content:center;padding:16px;}
+.es-modal.hidden{display:none;}
+.es-dlg{width:min(560px,100%);background:#fff;border-radius:14px;box-shadow:0 20px 50px rgba(0,0,0,.3);padding:18px 20px 16px;font-family:'Noto Sans KR',sans-serif;}
+.es-dlg .es-dhd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.es-dlg .es-dhd b{font-size:16px;}
+.es-dlg .es-x{border:none;background:none;font-size:22px;line-height:1;color:#7A818C;cursor:pointer;}
+.es-dlg .es-tabs{display:flex;gap:18px;border-bottom:1px solid #E6E9EE;margin-bottom:12px;}
+.es-dlg .es-tabs button{border:none;background:none;font-family:inherit;font-size:13.5px;font-weight:600;color:#8A9099;padding:6px 0 9px;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;}
+.es-dlg .es-tabs button.on{color:#3D5AFE;border-bottom-color:#3D5AFE;}
+.es-dlg .es-pad{position:relative;height:190px;border:1px solid #E1E5EA;border-radius:8px;background:#FBFCFD;touch-action:none;}
+.es-dlg .es-pad canvas{position:absolute;inset:0;width:100%;height:100%;cursor:crosshair;}
+.es-dlg .es-ph{position:absolute;left:0;right:0;top:44%;text-align:center;font-size:13px;color:#B0B6BF;pointer-events:none;}
+.es-dlg .es-line{position:absolute;left:24px;right:24px;bottom:46px;border-bottom:1px dashed #C9CED6;pointer-events:none;}
+.es-dlg .es-typed input{width:100%;border:1px solid #C9CED6;border-radius:8px;padding:10px 12px;font-family:inherit;font-size:14px;margin-bottom:10px;}
+.es-dlg .es-preview{height:120px;border:1px solid #E1E5EA;border-radius:8px;background:#FBFCFD;display:flex;align-items:center;justify-content:center;font-family:'Nanum Pen Script',cursive;font-size:56px;color:#1A1A1A;overflow:hidden;white-space:nowrap;}
+.es-dlg .es-clear{margin-top:8px;border:none;background:none;font-family:inherit;font-size:12.5px;color:#59606B;cursor:pointer;text-decoration:underline;text-underline-offset:3px;padding:0;}
+.es-dlg .es-legal{font-size:11.5px;color:#7A818C;line-height:1.6;margin:10px 0 14px;}
+.es-dlg .es-act{display:flex;justify-content:flex-end;gap:8px;}
+.es-dlg .es-cancel{border:1px solid #D5D9DF;background:#fff;border-radius:8px;font-family:inherit;font-size:13.5px;padding:9px 16px;cursor:pointer;}
+.es-dlg .es-ok{border:none;background:#3D5AFE;color:#fff;border-radius:8px;font-family:inherit;font-size:13.5px;font-weight:700;padding:9px 18px;cursor:pointer;}
+.es-dlg .es-ok:disabled{background:#C3CCF5;cursor:default;}
+#panel-report .rv-sigimg{height:42px;width:auto;}
+@media (max-width:860px){
+  #panel-report .es-grid{grid-template-columns:1fr;}
+  #panel-report .es-side{position:static;}
+  #panel-report .es-steps{flex-direction:column;align-items:flex-start;gap:10px;}
+}
+@media (max-width:600px){
+  #panel-report .es-doc{padding:24px 14px 22px;}
+  #panel-report .es-dt{font-size:19px;letter-spacing:.18em;padding-left:.18em;}
+  #panel-report .es-t{font-size:11.5px;}
+  #panel-report .es-t .hd-m{display:none;}
+  #panel-report .es-t tr.sum-d{display:none;}
+  #panel-report .es-t tr.sum-m{display:table-row;}
+  #panel-report .es-info,#panel-report .es-info tbody{display:block;}
+  #panel-report .es-info tr{display:grid;grid-template-columns:78px minmax(0,1fr);}
+  #panel-report .es-info th,#panel-report .es-info td{border:0;border-bottom:1px solid #D5D9DF;}
+  #panel-report .es-info th{width:auto;text-align:left;}
+  #panel-report .es-total{flex-direction:column;align-items:flex-start;gap:4px;}
+  #panel-report .es-total small{text-align:left;}
+  #panel-report .es-steps ol{font-size:11.5px;}
+}
 /* 엔딩 A 뒤: 연합회 게시판 접속 불가 */
 #panel-board .net-down{display:none;}
 #panel-board.down .bd-top,#panel-board.down .bd-page,#panel-board.down .bd-footer{display:none!important;}
@@ -3158,6 +3273,15 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <div class="rp-top"><div class="rp-top-in"><span class="rp-brand"><b>iskra</b><em id="rpTopSub">베타 테스트</em></span><span class="rp-user" id="rpTopBadge">베타테스터 레나 세인 님</span></div></div>
 <div id="rpPage" class="rp-page"></div>
 </div>
+
+<div id="esModal" class="es-modal hidden" onclick="if(event.target===this) esCloseSign()"><div class="es-dlg" role="dialog" aria-label="서명">
+  <div class="es-dhd"><b>서명</b><button type="button" class="es-x" onclick="esCloseSign()" aria-label="닫기">&times;</button></div>
+  <div class="es-tabs"><button type="button" class="on" id="esTabDraw" onclick="esTab('draw')">그리기</button><button type="button" id="esTabType" onclick="esTab('type')">입력</button></div>
+  <div id="esDrawBox"><div class="es-pad" id="esPadWrap"><span class="es-ph" id="esPh">여기에 서명해 주세요</span><i class="es-line"></i><canvas id="esPad"></canvas></div><button type="button" class="es-clear" onclick="esClear()">지우기</button></div>
+  <div id="esTypeBox" class="es-typed hidden"><input id="esTypeIn" type="text" maxlength="12" value="레나 세인" oninput="esTypeChange()"><div class="es-preview" id="esPreview">레나 세인</div></div>
+  <p class="es-legal">전자서명법에 따라 이 전자서명은 자필 서명과 같은 효력을 가집니다. 서명한 문서는 원본과 함께 보관됩니다.</p>
+  <div class="es-act"><button type="button" class="es-cancel" onclick="esCloseSign()">취소</button><button type="button" class="es-ok" id="esOk" onclick="esAccept()" disabled>동의하고 서명</button></div>
+</div></div>
 
 <div id="finalOverlay" class="final-overlay hidden"><div class="final-card" id="finalCard"></div></div>
 
@@ -6078,7 +6202,7 @@ function rpRender(animate){
   try{ bgmSync(); }catch(e){}
 }
 function rpAntonHtml(){
-  return '<div class="rp-anton" id="rpAnton"><span class="rp-anton-ic">A</span><div class="rp-anton-tx"><b>이 확인서에는 원본이 따로 있어요.</b><span>확인을 누르면 원본이 레나 씨 이름으로 제출돼요. 누르기 전에 꼭 보세요. — 안톤</span></div><button type="button" onclick="rpMorph()">원본 보기</button></div>';
+  return '<div class="rp-anton" id="rpAnton"><span class="rp-anton-ic">A</span><div class="rp-anton-tx"><b>이 확인서에는 원본이 따로 있어요.</b><span>서명하면 원본이 레나 씨 이름으로 제출돼요. 서명하기 전에 꼭 보세요. — 안톤</span></div><button type="button" onclick="rpMorph()">원본 보기</button></div>';
 }
 function rpShowAnton(){
   if(endingChosen || badEnding) return;
@@ -6090,50 +6214,139 @@ function rpRenderCover(el, animate){
   const done = !!endingChosen;
   const D = animate ? (t => ' style="animation-delay:' + t.toFixed(2) + 's"') : (() => '');
   const escA = v => msgEsc(v).replace(/"/g, '&quot;');
-  const st = !done ? ['확인 대기', 'wait'] : endingChosen === 'A' ? ['정산 완료', 'done'] : endingVariant === 'edit' ? ['반려', 'back'] : ['미확인', 'none'];
+  const st = !done ? ['서명 대기', 'wait'] : endingChosen === 'A' ? ['서명 완료', 'done'] : endingVariant === 'edit' ? ['반려', 'back'] : ['미서명', 'none'];
   const w3 = assign3Word ? "'" + msgEsc(String(assign3Word).slice(0, 20)) + "'" : "'구호·나눔 단체'";
   const t5 = capturedEvidence5 && capturedEvidence5.title ? msgEsc(String(capturedEvidence5.title).replace(/<[^>]+>/g, '')) : '인터뷰 기사';
   const edited = String(rpLocVal || '').replace(/\s+/g, '').indexOf('서쪽회관') < 0;
   const locV = (rpEditing && !done)
-    ? '<label class="rc-loc"><input id="rpLoc" type="text" value="' + escA(rpLocVal) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="8차 조회 결과"></label>'
-    : '<b class="rc-v">' + (rpLocVal ? msgEsc(rpLocVal) : '(비어 있음)') + '</b>';
-  const items = [
-    ['기업 시스템 연동 테스트', '이상 데이터 검출 · 쌀 대량 반출 → 그라노프 물류허브'],
-    ['공공 등록정보 연동 테스트', '등록 소재지 대조 · 마렌 거리 44 (공실 매물)'],
-    ['검색 결과 정확도 테스트', '테스터 의견 · ' + w3],
-    ['동문 네트워크 연동 테스트', '동명이인 구분 · 에르딘 이안 (역사학과 2009년 졸업)'],
-    ['아카이브 검색 연동 테스트', '긴 기사 열람 확인 · ' + t5],
-    ['커뮤니티 게시판 연동 테스트', "게시 처리 표시 · '11월 추모모임 장소 변경 안내'"],
-    ['이름 이력 연동 테스트', '개명 공고 연결 · ○○○ → 루카 발렌 (2004년)'],
-    ['물류·통신 기록 조회 테스트', '조회 결과 · ' + locV + ' · 수령 확인 루카 발렌']
+    ? '<input id="rpLoc" class="es-loc" type="text" value="' + escA(rpLocVal) + '" maxlength="40" autocomplete="off" spellcheck="false" oninput="rpLocVal=this.value" onchange="saveProgress()" aria-label="8차 조회 결과">'
+    : '<b>' + (rpLocVal ? msgEsc(rpLocVal) : '(비어 있음)') + '</b>';
+  const fix = done ? '' : (rpEditing ? '<button type="button" class="es-fix on" onclick="rpEdit(false)">수정 완료</button>' : '<button type="button" class="es-fix" onclick="rpEdit(true)">수정</button>');
+  const R = [
+    ['기업 시스템 연동', '반출목록 이상 데이터 검출 (쌀 대량 반출 → 그라노프 물류허브)', '10. 31.', 150000],
+    ['공공 등록정보 연동', '등록 소재지 대조 (마렌 거리 44, 공실 매물)', '11. 02.', 180000],
+    ['검색 결과 정확도', '단체 성격 의견 ' + w3, '11. 04.', 220000],
+    ['동문 네트워크 연동', '동명이인 구분 (에르딘 이안, 역사학과 2009년 졸업)', '11. 05.', 260000],
+    ['아카이브 검색 연동', '긴 기사 열람 확인 (' + t5 + ')', '11. 07.', 300000],
+    ['커뮤니티 게시판 연동', "게시 처리 표시 확인 ('11월 추모모임 장소 변경 안내')", '11. 09.', 350000],
+    ['이름 이력 연동', '개명 공고 연결 (○○○ → 루카 발렌, 2004년)', '11. 11.', 400000],
+    ['물류·통신 기록 조회', '조회 결과 ' + locV + fix + ' · 수령 확인 루카 발렌', '11. 12.', 500000]
   ];
-  const base = animate ? 0.95 : 0, step = 0.11;
-  const rows = items.map((r, n) => '<li class="rc-item rp-a"' + D(base + 0.75 + n * step) + '><span class="rc-no">' + (n + 1) + '</span><div class="rc-body"><b>' + r[0] + '</b><p>' + r[1] + '</p>' +
-      ((n === 7 && !done) ? (rpEditing ? '<button type="button" class="rc-fix on" onclick="rpEdit(false)">수정 완료</button>' : '<button type="button" class="rc-fix" onclick="rpEdit(true)">결과 수정</button>') : '') +
-      '</div><span class="rc-pass' + (n === 7 && edited ? ' mod' : '') + '">' + (n === 7 && edited ? '수정됨' : '통과') + '</span></li>').join('');
-  const tSign = base + 0.75 + 8 * step + 0.25;
-  const sign = done
-    ? '<div class="rc-sign rp-a"' + D(tSign) + '><p class="rc-done">' + (endingChosen === 'A' ? '확인이 끝나 최종 사례금이 지급되었습니다.' : endingVariant === 'edit' ? '8차 결과가 열람 기록과 맞지 않아 확인서가 반려되었습니다.' : '확인서가 확인되지 않은 채 닫혔습니다.') + '</p></div>'
-    : '<div class="rc-sign rp-a"' + D(tSign) + '><label class="rc-check"><input type="checkbox" id="rpAgree" onchange="document.getElementById(\'rpCta\').disabled = !this.checked"><span>위 테스트 결과와 제출 자료가 사실과 같음을 확인합니다.</span></label>' +
-      '<button type="button" class="rc-cta" id="rpCta" onclick="rpSubmit()" disabled>확인 및 정산 요청</button><button type="button" class="rc-later" onclick="rpClose()">확인하지 않고 닫기</button>' +
-      '<p class="rc-tiny">결과가 실제와 다르면 해당 항목의 [결과 수정]으로 고쳐 주세요.</p></div>';
-  el.className = 'rp-page' + (animate ? ' rp-anim' : '');
-  el.innerHTML = (animate ? '<div class="rp-load rc-load"><i></i><span>테스트 결과를 불러오는 중…</span></div>' : '') +
+  const base = animate ? 0.9 : 0, step = 0.08;
+  const rows = R.map((r, n) => '<tr class="rp-a"' + D(base + 0.55 + n * step) + '><td class="c">' + (n + 1) + '차</td><td>' + r[0] + '</td><td>' + r[1] + '</td><td class="c hd-m">' + r[2] + '</td>' +
+      ((n === 7 && edited) ? '<td class="mod">수정</td>' : '<td class="ok">적합</td>') + '<td class="r hd-m">' + r[3].toLocaleString() + '</td></tr>').join('');
+  const tA = base + 0.55 + 8 * step + 0.15;
+  const sigHtml = rpSig ? '<img src="' + rpSig + '" alt="서명">' + (!done ? '<em>전송 전</em>' : '') : '(서명)';
+  const agreeOn = !!(rpAgree1 && rpAgree2);
+  const side = done
+    ? '<div class="es-card rp-a"' + D(base + 0.2) + '><div class="es-ch"><b>서명 요청</b><span class="es-st s-' + st[1] + '">' + st[0] + '</span></div>' +
+        '<p class="es-done">' + (endingChosen === 'A' ? '서명이 완료되어 최종 사례비가 지급되었습니다.' : endingVariant === 'edit' ? '8차 결과가 열람 기록과 맞지 않아 확인서가 반려되었습니다.' : '서명하지 않은 채 확인서가 닫혔습니다.') + '</p></div>'
+    : '<div class="es-card rp-a"' + D(base + 0.2) + '><div class="es-ch"><b>서명 요청</b><span class="es-st s-' + st[1] + '">' + st[0] + '</span></div>' +
+        '<dl class="es-kv"><dt>요청자</dt><dd>이스크라 베타테스트팀 · 다나</dd><dt>서명자</dt><dd>레나 세인</dd><dt>요청일</dt><dd>2026. 11. 13.</dd><dt>서명 기한</dt><dd class="due">오늘 23:59까지</dd><dt>문서</dt><dd>베타 테스트 결과 확인서 1건</dd></dl>' +
+        '<div class="es-agree"><label><input type="checkbox" id="esA1"' + (rpAgree1 ? ' checked' : '') + ' onchange="esAgree()"><span><em>[필수]</em>문서 내용을 모두 확인했습니다.</span></label>' +
+        '<label><input type="checkbox" id="esA2"' + (rpAgree2 ? ' checked' : '') + ' onchange="esAgree()"><span><em>[필수]</em>전자서명 이용과 제출 자료의 제3자 제공에 동의합니다.</span></label></div>' +
+        (rpSig && agreeOn
+          ? '<button type="button" class="es-go" id="rpCta" onclick="rpSubmit()">서명 제출하기</button>' +
+            '<div class="es-links"><button type="button" class="es-no" onclick="esOpenSign()">다시 서명</button><button type="button" class="es-no" onclick="rpClose()">제출하지 않고 닫기</button></div></div>'
+          : '<button type="button" class="es-go" id="rpCta" onclick="esOpenSign()"' + (agreeOn ? '' : ' disabled') + '>서명하기</button>' +
+            '<button type="button" class="es-no" onclick="rpClose()">서명하지 않고 닫기</button></div>') +
+      '<p class="es-tip rp-a"' + D(base + 0.3) + '>결과가 실제와 다르면 문서의 [수정]으로 고친 뒤 서명해 주세요. 서명한 뒤에는 수정할 수 없습니다.</p>';
+  const stepOn = (done && rpSig) ? 4 : rpSig ? 3 : agreeOn ? 2 : 1;
+  const steps = ['문서 확인', '동의', '서명'].map((x, i) => '<li class="' + (i + 1 < stepOn ? 'ok' : i + 1 === stepOn ? 'on' : '') + '"><i>' + (i + 1 < stepOn ? '✓' : (i + 1)) + '</i>' + x + '</li>').join('');
+  el.className = 'rp-page es-page' + (animate ? ' rp-anim' : '');
+  el.innerHTML = (animate ? '<div class="rp-load rc-load"><i></i><span>확인서를 불러오는 중…</span></div>' : '') +
     ((!done && rpAntonShown) ? rpAntonHtml() : '') +
-    '<div class="rc' + (animate ? ' wait' : '') + '">' +
-      '<p class="rc-eyebrow rp-a"' + D(base) + '>베타 테스트 결과 확인서 · IS-1114 <span class="rc-st s-' + st[1] + '">' + st[0] + '</span></p>' +
-      '<h1 class="rc-h rp-a"' + D(base + 0.05) + '>레나 세인 님,<br><b>베타 테스트 결과를 확인해 주세요</b></h1>' +
-      '<p class="rc-lead rp-a"' + D(base + 0.15) + '>참여하신 테스트 8건의 결과를 정리했어요. 내용이 맞으면 확인을 눌러 주세요. 확인이 끝나면 최종 사례금이 바로 지급돼요.</p>' +
-      '<div class="rc-kpis">' +
-        '<div class="rc-kpi rp-a"' + D(base + 0.3) + '><span>완료한 테스트</span><b>8<small>/8</small></b><i class="rc-bar"><em></em></i></div>' +
-        '<div class="rc-kpi rp-a"' + D(base + 0.38) + '><span>제출한 자료</span><b>9<small>건</small></b></div>' +
-        '<div class="rc-kpi rp-a"' + D(base + 0.46) + '><span>지금까지 받은 사례금</span><b>2,360,000<small>원</small></b></div>' +
-        '<div class="rc-kpi hl rp-a"' + D(base + 0.54) + '><span>' + (done && endingChosen === 'A' ? '최종 사례금 지급 완료' : '확인 후 지급') + '</span><b>3,000,000<small>원</small></b></div>' +
+    '<div class="rc es' + (animate ? ' wait' : '') + '">' +
+      '<div class="es-steps rp-a"' + D(base) + '><h1>전자서명 요청</h1><ol>' + steps + '</ol></div>' +
+      '<div class="es-grid">' +
+        '<article class="es-doc">' +
+          '<div class="es-dh rp-a"' + D(base + 0.1) + '><span>문서번호 IS-1114</span><span>발행일 2026. 11. 13.</span></div>' +
+          '<h2 class="es-dt rp-a"' + D(base + 0.15) + '>베타 테스트 결과 확인서</h2>' +
+          '<p class="es-ds rp-a"' + D(base + 0.2) + '>(사례비 지급 확인 포함)</p>' +
+          '<h3 class="rp-a"' + D(base + 0.3) + '>1. 인적 사항</h3>' +
+          '<table class="es-t es-info rp-a"' + D(base + 0.35) + '><tr><th>성명</th><td>레나 세인</td><th>소속</th><td>도렌 국립대학교</td></tr><tr><th>연락처</th><td>010-58**-**17</td><th>입금 계좌</th><td>도렌은행 342-**-****91</td></tr></table>' +
+          '<h3 class="rp-a"' + D(base + 0.45) + '>2. 테스트 수행 내역</h3>' +
+          '<table class="es-t"><thead class="rp-a"' + D(base + 0.5) + '><tr><th>차수</th><th>테스트명</th><th>수행 내용</th><th class="hd-m">수행일</th><th>결과</th><th class="hd-m">사례비(원)</th></tr></thead><tbody>' + rows +
+            '<tr class="sum sum-d rp-a"' + D(tA) + '><td colspan="4" class="c">기지급 사례비 합계 (1~8차)</td><td class="ok">지급 완료</td><td class="r">2,360,000</td></tr>' +
+            '<tr class="sum sum-m rp-a"' + D(tA) + '><td colspan="3" class="c">기지급 사례비 합계 (1~8차) 2,360,000원</td><td class="ok">지급 완료</td></tr></tbody></table>' +
+          '<div class="es-total rp-a"' + D(tA + 0.1) + '><span>최종 사례비 (확인 후 지급)</span><span><b>₩3,000,000</b><small>기타소득세는 이스크라가 부담합니다</small></span></div>' +
+          '<p class="es-stmt rp-a"' + D(tA + 0.2) + '>상기 본인은 이스크라 베타 테스트에 참여하여 위 테스트를 직접 수행하였으며, 제출한 자료가 사실과 같음을 확인합니다.</p>' +
+          '<p class="es-fine rp-a"' + D(tA + 0.25) + '>※ 제출 자료는 서비스 개선 및 제휴 기관 제공 목적으로 이용될 수 있습니다.</p>' +
+          '<p class="es-date rp-a"' + D(tA + 0.3) + '>2026년 11월 13일</p>' +
+          '<div class="es-signer rp-a"' + D(tA + 0.35) + '><span>확인자 &nbsp;레나 세인</span><span class="es-sigbox' + (rpSig ? ' signed' : '') + '">' + sigHtml + '</span></div>' +
+          '<p class="es-to rp-a"' + D(tA + 0.4) + '>이스크라 베타테스트팀 귀하</p>' +
+        '</article>' +
+        '<aside class="es-side">' + side + '</aside>' +
       '</div>' +
-      '<div class="rc-sec rp-a"' + D(base + 0.65) + '><h2>테스트 결과</h2><span>8건</span></div>' +
-      '<ol class="rc-list">' + rows + '</ol>' + sign +
     '</div>';
-  if(animate) setTimeout(() => { const d = el.querySelector('.rc'); if(d) d.classList.remove('wait'); }, (tSign + 0.7) * 1000);
+  if(animate) setTimeout(() => { const d = el.querySelector('.rc'); if(d) d.classList.remove('wait'); }, (tA + 0.9) * 1000);
+}
+/* ===== 서명 창: 그리기/입력 → 서명 이미지 저장 → 제출 확인 ===== */
+var rpSig = '', rpAgree1 = false, rpAgree2 = false, esMode = 'draw', esDirty = false, esCtx = null;
+function esAgree(){
+  rpAgree1 = !!(document.getElementById('esA1') || {}).checked; rpAgree2 = !!(document.getElementById('esA2') || {}).checked;
+  if(rpSig){ saveProgress(); rpRender(false); return; }
+  const b = document.getElementById('rpCta'); if(b) b.disabled = !(rpAgree1 && rpAgree2);
+  const ol = document.querySelector('#rpPage .es-steps ol');
+  if(ol){ const on = (rpAgree1 && rpAgree2) ? 2 : 1; [...ol.children].forEach((li, i) => { li.className = (i + 1 < on ? 'ok' : i + 1 === on ? 'on' : ''); li.querySelector('i').textContent = (i + 1 < on ? '✓' : (i + 1)); }); }
+  saveProgress();
+}
+function esOpenSign(){
+  if(endingChosen) return;
+  if(rpView !== 'orig' && !(rpAgree1 && rpAgree2)) return;
+  const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
+  document.getElementById('esModal').classList.remove('hidden');
+  esTab('draw'); esClear();
+}
+function esCloseSign(){ document.getElementById('esModal').classList.add('hidden'); }
+function esTab(m){
+  esMode = m;
+  document.getElementById('esTabDraw').classList.toggle('on', m === 'draw');
+  document.getElementById('esTabType').classList.toggle('on', m === 'type');
+  document.getElementById('esDrawBox').classList.toggle('hidden', m !== 'draw');
+  document.getElementById('esTypeBox').classList.toggle('hidden', m !== 'type');
+  if(m === 'draw') esSetupPad();
+  esOkState();
+}
+function esOkState(){
+  const ok = esMode === 'draw' ? esDirty : !!document.getElementById('esTypeIn').value.trim();
+  document.getElementById('esOk').disabled = !ok;
+}
+function esTypeChange(){ document.getElementById('esPreview').textContent = document.getElementById('esTypeIn').value; esOkState(); }
+function esSetupPad(){
+  const c = document.getElementById('esPad'), wrap = document.getElementById('esPadWrap');
+  const r = wrap.getBoundingClientRect(), dpr = window.devicePixelRatio || 1;
+  if(!r.width) return;
+  if(c.width !== Math.round(r.width * dpr)){ c.width = Math.round(r.width * dpr); c.height = Math.round(r.height * dpr); esDirty = false; }
+  esCtx = c.getContext('2d'); esCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  esCtx.lineCap = 'round'; esCtx.lineJoin = 'round'; esCtx.lineWidth = 2.6; esCtx.strokeStyle = '#1A1A1A';
+  if(c._bound) return; c._bound = true;
+  let drawing = false, last = null;
+  const pos = e => { const b = c.getBoundingClientRect(); return {x: e.clientX - b.left, y: e.clientY - b.top}; };
+  c.addEventListener('pointerdown', e => { drawing = true; last = pos(e); c.setPointerCapture(e.pointerId); esCtx.beginPath(); esCtx.arc(last.x, last.y, 1.2, 0, Math.PI * 2); esCtx.fillStyle = '#1A1A1A'; esCtx.fill(); });
+  c.addEventListener('pointermove', e => { if(!drawing) return; const p = pos(e); esCtx.beginPath(); esCtx.moveTo(last.x, last.y); esCtx.lineTo(p.x, p.y); esCtx.stroke(); last = p; if(!esDirty){ esDirty = true; document.getElementById('esPh').style.display = 'none'; esOkState(); } });
+  const end = () => { drawing = false; };
+  c.addEventListener('pointerup', end); c.addEventListener('pointercancel', end);
+}
+function esClear(){
+  const c = document.getElementById('esPad'); if(c && c.getContext){ const x = c.getContext('2d'); x.save(); x.setTransform(1, 0, 0, 1, 0, 0); x.clearRect(0, 0, c.width, c.height); x.restore(); }
+  esDirty = false; const ph = document.getElementById('esPh'); if(ph) ph.style.display = ''; esOkState();
+}
+async function esAccept(){
+  let url = '';
+  if(esMode === 'draw'){
+    url = document.getElementById('esPad').toDataURL('image/png');
+  } else {
+    const name = document.getElementById('esTypeIn').value.trim(); if(!name) return;
+    try{ await document.fonts.load('64px "Nanum Pen Script"'); }catch(e){}
+    const c = document.createElement('canvas'); c.width = 520; c.height = 160;
+    const x = c.getContext('2d'); x.fillStyle = '#1A1A1A'; x.font = '72px "Nanum Pen Script", cursive'; x.textAlign = 'center'; x.textBaseline = 'middle'; x.fillText(name, 260, 84);
+    url = c.toDataURL('image/png');
+  }
+  rpSig = url; saveProgress();
+  esCloseSign();
+  rpRender(false);
+  setTimeout(rpSubmit, 250);
 }
 function rpRenderOrig(el, animate){
   const done = !!endingChosen;
@@ -6182,12 +6395,12 @@ function rpRenderOrig(el, animate){
       '<h2 class="rp-a"' + D(t + 0.3) + '>4. 조치 계획</h2>' +
       '<ul class="rv-ul rp-a"' + D(t + 0.4) + '><li class="o">현장 확인 및 신병 확보 (관계 기관 협조 요청)</li><li class="o">수집 협력자 사례금 3,000,000원 지급 후 베타 계정 정리</li></ul>' +
       '<p class="rv-att rp-a"' + D(t + 0.55) + '><b>붙임</b>수집 화면 9건. &nbsp;끝.</p>' +
-      '<div class="rv-confirm rp-a"' + D(t + 0.7) + '><p>위 내용을 확인함.</p><p>2026년 11월 13일</p><p class="who">수집 협력자 &nbsp;레나 세인<span class="rv-in">' + ((done && endingChosen === 'A') ? seal('레나<br>세인') : '(인)') + '</span></p></div>' +
+      '<div class="rv-confirm rp-a"' + D(t + 0.7) + '><p>위 내용을 확인함.</p><p>2026년 11월 13일</p><p class="who">수집 협력자 &nbsp;레나 세인<span class="rv-in">' + ((done && endingChosen === 'A') ? (rpSig ? '<img class="rv-sigimg" src="' + rpSig + '" alt="서명">' : seal('레나<br>세인')) : '(인)') + '</span></p></div>' +
       '<div class="rv-note rp-a"' + D(t + 0.85) + '><b>※ 유의사항</b><span>▸ 이 문서는 대외비로 분류되어 있으며 무단 복제·유출을 금함</span><span>▸ 수집 협력자에게는 원본을 공개하지 않음</span></div>' +
       '<div class="rv-pageno">- 1 -</div>' +
     '</article></div>' +
     '<div class="rv-approve rv-s-' + st[2] + '"><div class="rv-st"><b>' + st[0] + '</b><span>' + st[1] + '</span></div>' +
-      (!done ? '<div class="rv-act"><button type="button" class="rv-close" onclick="rpClose()">확인하지 않고 닫기</button><button type="button" class="rv-ok" onclick="rpSubmit()">확인 및 정산 요청</button></div>' : '') +
+      (!done ? '<div class="rv-act"><button type="button" class="rv-close" onclick="rpClose()">확인하지 않고 닫기</button><button type="button" class="rv-ok" onclick="esOpenSign()">서명하고 정산 요청</button></div>' : '') +
     '</div>';
   if(animate) setTimeout(() => { const d = el.querySelector('.rv-paper'); if(d) d.classList.remove('wait'); }, (t + 1.5) * 1000);
 }
@@ -6199,6 +6412,7 @@ function rpMorph(){
 function rpSetView(v){ rpView = v; rpRender(false); window.scrollTo(0, 0); saveProgress(); }
 function rpEdit(on){
   const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
+  if(on && rpSig) rpSig = '';
   rpEditing = !!on; rpRender(false);
   if(on){ const i = document.getElementById('rpLoc'); if(i){ i.focus(); i.select(); } } else saveProgress();
 }
@@ -6225,14 +6439,14 @@ function finalConfirm(kind, v){
   let text, yes, sub = '', go;
   if(kind === 'A'){
     const where = v || RP_LOC;
-    text = "확인서의 원본에는 '" + msgEsc(where) + "'" + josa(where, '과', '와') + " '루카 발렌'이 적혀 있습니다.<br>확인을 누르면 원본이 레나 세인의 이름으로 제출되고, 사례금 300만 원이 입금됩니다.";
-    yes = '확인한다'; sub = '사례금 3,000,000원'; go = "finalEnding('A')";
+    text = "확인서의 원본에는 '" + msgEsc(where) + "'" + josa(where, '과', '와') + " '루카 발렌'이 적혀 있습니다.<br>서명을 보내면 원본이 레나 세인의 이름으로 제출되고, 사례금 300만 원이 입금됩니다.";
+    yes = '서명을 보낸다'; sub = '사례금 3,000,000원'; go = "finalEnding('A')";
   } else if(kind === 'edit'){
     text = v ? "8차 결과가 '" + msgEsc(v) + "'" + josaRo(v) + " 고쳐져 있습니다.<br>열람 기록과 맞지 않으면 확인서는 반려되고, 사례금은 입금되지 않습니다."
              : '8차 결과 칸이 비어 있습니다.<br>결과 없이 보내면 확인서는 반려되고, 사례금은 입금되지 않습니다.';
     yes = '이대로 보낸다'; go = "finalEnding('B','edit')";
   } else {
-    text = '확인서를 확인하지 않고 창을 닫습니다.<br>최종 사례금은 지급되지 않습니다.';
+    text = '확인서에 서명하지 않고 창을 닫습니다.<br>최종 사례금은 지급되지 않습니다.';
     yes = '창을 닫는다'; go = "finalEnding('B','close')";
   }
   endingKey = '';
@@ -6295,6 +6509,7 @@ function finalChoiceOpen(){ finalConfirm('A', RP_LOC); }
 function finalEnding(k, variant){
   endingChosen = k;
   endingVariant = k === 'B' ? (variant || 'close') : '';
+  if(k === 'B' && endingVariant === 'close') rpSig = '';
   const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
   rpLocVal = String(rpLocVal || '').trim(); if(k === 'A' && !rpLocVal) rpLocVal = RP_LOC;
   rpEditing = false;
@@ -6309,7 +6524,7 @@ function endingList(){
   if(String(endingKey).indexOf('BAD_') === 0){ const b = BAD_ENDINGS[endingKey.slice(4)]; return b ? b.slides : []; }
   const L = ENDING_SLIDES[endingKey] || [];
   if(endingKey === 'B' && endingVariant === 'edit')
-    return [['monitor_off', '레나는 8차 결과를 고쳐 쓴 확인서를 보내고 모니터를 껐습니다.'], ['bank0', '보고서는 열람 기록과 맞지 않는다는 이유로 반려됐고, 사례금은 입금되지 않았습니다.']].concat(L.slice(2));
+    return [['monitor_off', '레나는 8차 결과를 고쳐 쓴 확인서에 서명해 보내고 모니터를 껐습니다.'], ['bank0', '보고서는 열람 기록과 맞지 않는다는 이유로 반려됐고, 사례금은 입금되지 않았습니다.']].concat(L.slice(2));
   return L;
 }
 /* ===== 엔딩 뒤: 브라우저에 남는 흔적 ===== */
@@ -6427,7 +6642,7 @@ var ENDING_SCENES = {
   cafe: () => pxs([[0,0,64,36,'K2'],[0,22,64,5,'BR'],[0,27,64,9,'BR2'],[8,14,10,8,'W'],[18,16,3,4,'W'],[10,12,6,2,'G4'],[40,6,16,16,'G4'],[41,7,14,14,'W'],[47,9,2,6,'K'],[47,14,5,1,'K'],[0,0,64,3,'G1']])
 };
 var ENDING_SLIDES = {
-  A: [['hall','레나가 확인을 누른 그날 밤, 보고서가 제출됐습니다.'],['bank','레나의 통장에는 300만 원이 들어와 있었습니다.'],['school','등록금 걱정은 그날로 끝났습니다.'],['street','이틀 뒤 새벽, 서쪽 회관 앞에 낯선 차들이 서 있었다는 이야기가 돌았습니다.'],['messenger','이스크라의 메신저는 그 뒤로 한 번도 열리지 않았습니다.'],['candles','11월 14일 저녁, 사람들은 평소처럼 촛불을 켰습니다. 빈자리는 하나가 아니었습니다.'],['mail','안톤에게서 마지막 메일이 왔습니다. "레나 씨가 무엇을 골랐는지는, 오래 기억했으면 해요."']],
+  A: [['hall','레나가 서명한 그날 밤, 보고서가 제출됐습니다.'],['bank','레나의 통장에는 300만 원이 들어와 있었습니다.'],['school','등록금 걱정은 그날로 끝났습니다.'],['street','이틀 뒤 새벽, 서쪽 회관 앞에 낯선 차들이 서 있었다는 이야기가 돌았습니다.'],['messenger','이스크라의 메신저는 그 뒤로 한 번도 열리지 않았습니다.'],['candles','11월 14일 저녁, 사람들은 평소처럼 촛불을 켰습니다. 빈자리는 하나가 아니었습니다.'],['mail','안톤에게서 마지막 메일이 왔습니다. "레나 씨가 무엇을 골랐는지는, 오래 기억했으면 해요."']],
   B: [['monitor_off','레나는 확인서 창을 닫았습니다.'],['bank0','사례금은 입금되지 않았고, 베타 계정은 11월 30일에 만료됐습니다.'],['messenger','이스크라의 메신저는 더 이상 말을 걸지 않았습니다.'],['cafe','레나는 카페 소베크의 근무 시간을 늘렸고, 밤마다 과제를 했습니다.'],['school','쉽지는 않았지만, 그 선택을 후회하지는 않았습니다.'],['candles_old','11월 14일 저녁, 서쪽 회관 지하에서 사람들은 평소처럼 촛불을 켰습니다. 늦게 도착한 노인이 빈자리에 앉았습니다.'],['mail','안톤에게서 짧은 메일이 왔습니다. "고마워요."']]
 };
 /* 일러스트는 힉스필드로 생성한 픽셀 이미지(ending/*.png)를 사용 */
@@ -6476,7 +6691,7 @@ function saveProgress(){
       assignment2Resolved, capturedEvidence2, capturedEvidence3,
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
-      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, endNotified, danaWatched, searchLog, assign3Word,
+      assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
       bankBalance, bankTx, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue,
       pendingDeliveries, pendingCutscene,
@@ -6536,6 +6751,7 @@ function loadProgress(){
   rpView = saved.rpView || 'cover';
   rpAntonShown = !!saved.rpAntonShown;
   badEnding = saved.badEnding || '';
+  rpSig = saved.rpSig || ''; rpAgree1 = !!saved.rpAgree1; rpAgree2 = !!saved.rpAgree2;
   failCount = saved.failCount || {};
   endNotified = !!saved.endNotified;
   danaWatched = !!saved.danaWatched;
@@ -6918,7 +7134,7 @@ function msgHint(){
 function msgReply(intent){
   const st = msgStage(), S = MSG_STAGES[st.n];
   if(intent !== 'yes' && intent !== 'no' && intent !== 'hint'){ msgState.followup = false; }
-  if(intent === 'now' && reportStage === 'open' && !endingChosen) msgBotSay('띄워 드린 결과 확인서를 보시고, 내용이 맞으면 체크한 뒤 [확인 및 정산 요청]을 눌러 주세요.');
+  if(intent === 'now' && reportStage === 'open' && !endingChosen) msgBotSay('띄워 드린 결과 확인서를 보시고, 내용이 맞으면 동의 항목에 체크한 뒤 서명해 주세요.');
   else if(intent === 'now') msgBotSay((st.done && S.wait) ? S.wait : S.now);
   else if(intent === 'hint' || intent === 'no') msgHint();
   else if(intent === 'yes'){ msgState.followup = false; msgBotSay(MSG_PICK(["알겠어요. 또 막히면 말씀하세요.","좋아요. 천천히 해 보세요. 필요하면 다시 불러 주세요."])); }
