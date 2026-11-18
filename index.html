@@ -474,7 +474,14 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-board .bd-footer-in{max-width:1080px;margin:0 auto;padding:26px 24px 34px;font-size:12.5px;color:#888;line-height:1.8;}
 #panel-board .bd-footer-in b{display:block;color:#555;font-size:13.5px;margin-bottom:4px;}
 #panel-board .bd-code{margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;align-items:center;}
-#panel-board .bd-code input{width:130px;padding:10px 12px;border:1px solid #DDD;border-radius:4px;font-family:ui-monospace,Menlo,monospace;font-size:15px;letter-spacing:.2em;background:#fff;}
+#panel-board .bd-code input{width:min(240px,100%);padding:10px 12px;border:1px solid #DDD;border-radius:4px;font-family:inherit;font-size:15px;background:#fff;}
+#panel-board .bd-lockdoc{border:1px solid #DDD3C9;background:#FBF9F6;border-radius:6px;padding:20px 22px 18px;}
+#panel-board .bd-lk-h{display:flex;align-items:center;gap:8px;margin-bottom:12px;font-size:15px;color:#3B2A22;}
+#panel-board .bd-lk-h .bd-lock{width:16px;height:16px;margin:0;}
+#panel-board .bd-lk-h span{margin-left:auto;font-size:11.5px;color:#8A7B70;font-family:ui-monospace,Menlo,Consolas,monospace;}
+#panel-board .bd-cipher{margin:0 0 16px;padding:12px 14px;background:#F1EDE7;border-radius:4px;font-family:ui-monospace,Menlo,Consolas,monospace;font-size:12.5px;line-height:1.7;color:#5B4A40;word-break:break-all;white-space:pre-wrap;user-select:all;}
+#panel-board .bd-hint{margin:14px 0 0;font-size:13.5px;line-height:1.7;color:#5C4A3F;}
+#panel-board .bd-hint em{font-style:normal;display:inline-block;margin-right:8px;padding:1px 8px;border-radius:999px;background:#EFE4D8;color:#7A3E26;font-size:11.5px;font-weight:700;}
 #panel-board .bd-code button{padding:10px 18px;border:none;border-radius:4px;background:#222;color:#fff;font-family:inherit;font-weight:700;cursor:pointer;}
 #panel-board .bd-code .bd-codemsg{font-size:12.5px;color:#C2410C;flex-basis:100%;}
 body.capture-mode #panel-board .bd-card{cursor:crosshair;outline:2px dashed #B4582A;outline-offset:6px;}
@@ -1087,14 +1094,20 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
   opacity:0;pointer-events:none;transition:opacity .2s ease;
 }
 .fullpage-overlay.show{opacity:1;pointer-events:auto;}
-.cutscene-card{max-width:680px;margin:0 auto;padding:56px 20px 80px;}
-.cutscene-tag{font-size:11.5px;font-weight:700;color:var(--accent);letter-spacing:.02em;margin-bottom:16px;}
-.cutscene-img{width:100%;max-height:360px;object-fit:cover;display:block;margin-bottom:18px;}
-.cutscene-cat{font-size:12px;color:var(--muted);margin-bottom:6px;}
-.cutscene-title{font-size:23px;font-weight:800;line-height:1.4;margin-bottom:16px;}
-.cutscene-text{font-size:14.5px;line-height:1.8;color:var(--ink);margin-bottom:16px;}
-.cutscene-sleep{display:block;width:fit-content;margin:24px auto 0;background:none;border:none;padding:0;font:inherit;font-size:13.5px;font-weight:600;color:var(--ink);text-decoration:underline;text-underline-offset:3px;cursor:pointer;}
-.cutscene-sleep:hover{color:var(--accent);}
+.cutscene-card{max-width:520px;margin:0 auto;padding:0 20px;min-height:100%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:center;text-align:center;}
+#cutsceneBody{padding:4vh 0 5vh;}
+.cutscene-tag{font-size:12px;letter-spacing:.3em;color:#8FA08A;margin-bottom:24px;padding-left:.3em;}
+.cutscene-img{display:block;width:min(100%,560px,52vh);aspect-ratio:16/9;object-fit:cover;margin:0 auto 26px;background:#17181c;}
+.cutscene-cat{font-size:12.5px;letter-spacing:.06em;color:#8FA08A;margin:0 0 8px;}
+.cutscene-title{font-size:21px;font-weight:700;line-height:1.6;color:#ECECE4;margin:0 0 20px;}
+.cutscene-text{font-size:15px;line-height:1.85;color:#C9CCC2;text-align:left;margin:0 0 13px;}
+.cutscene-sleep{margin-top:26px;background:none;border:none;border-bottom:1px dotted #5E6A5B;color:#8FA08A;font-family:inherit;font-size:16px;padding:6px 64px;cursor:pointer;}
+.cutscene-sleep:hover{color:#C5D6BF;}
+.cutscene-card:not(.ready) .cutscene-sleep{pointer-events:none;}
+.cs-in{opacity:0;animation:csIn .9s ease forwards;animation-delay:var(--d,0s);}
+.cutscene-card.skip .cs-in{animation:none;opacity:1;}
+@keyframes csIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:none;}}
+@media (prefers-reduced-motion:reduce){.cs-in{animation:none;opacity:1;}}
 
 /* ===================== 패널: 라덴통상 ERP ===================== */
 #panel-raden .gate{min-height:70vh;display:flex;align-items:center;justify-content:center;padding:40px 0;}
@@ -1812,12 +1825,9 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 
 #msgPanel{background:var(--bg);}
 
-/* 컷씬: 다크 그레이 배경 위 밝은 카드로 사이트 화면과 분리 */
-#cutsceneOverlay{background:#26282B;z-index:200;}
-#cutsceneOverlay .cutscene-card{background:#FFFFFF;color:#1F2430;max-width:640px;margin:48px auto;padding:40px 36px 36px;border-radius:24px;box-shadow:0 24px 70px rgba(0,0,0,.45);--ink:#1F2430;--muted:#6B7280;--accent:#1E5FC2;}
-#cutsceneOverlay .cutscene-img{border-radius:14px;}
-#cutsceneOverlay .cutscene-sleep{color:#1F2430;}
-@media (max-width:560px){#cutsceneOverlay .cutscene-card{margin:0;border-radius:0;min-height:100%;padding:36px 22px 40px;}}
+/* 컷씬: 엔딩처럼 검은 화면 위에 도트 그림과 글만 */
+#cutsceneOverlay{background:#000;z-index:200;transition:opacity .6s ease;}
+@media (max-width:560px){#cutsceneOverlay .cutscene-card{padding:0 18px;}#cutsceneOverlay .cutscene-title{font-size:19px;}#cutsceneOverlay .cutscene-text{font-size:15px;}}
 
 /* ===== 검색 지식 패널(백과 카드) ===== */
 #panel-searchresult .kp{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:20px 22px 18px;margin:6px 0 22px;box-shadow:0 8px 28px rgba(20,30,60,.06);}
@@ -3372,11 +3382,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 
 <div id="cutsceneOverlay" class="fullpage-overlay">
-  <div class="cutscene-card">
-    <div class="cutscene-tag">테스트 완료 · 관련 기사</div>
-    <div id="cutsceneBody"></div>
-    <button class="cutscene-sleep" id="cutsceneSleep">오늘은 이만 잠들기</button>
-  </div>
+  <div class="cutscene-card"><div id="cutsceneBody"></div></div>
 </div>
 
 <script>
@@ -3766,10 +3772,10 @@ const HINTS = [
   {id:123, company:'바르니아교민상회', tags:['바르니아','도렌'], cat:"사회", title:"바르니아교민상회, 매년 11월 조용한 추모모임…\"그저 기리는 자리\"", outlet:"도렌통신", time:"11개월 전", c:19,
     comments:[{u:'ㅇㅇ',t:'매년 11월이면 뭔가 특별한 날인가'},{u:'현지교민',t:'저희 부모님도 매년 그맘때 조용히 어디 다녀오시던데 이거였나보네'},{u:'지나가던사람',t:'비공개라니 더 궁금해지네'},{u:'교포2세',t:'그냥 먼저 떠난 분들 기리는 거겠죠 뭐'},{u:'구경꾼',t:'특정 사건 기념이라는 추측은 무슨 말이지'},{u:'로엔**',t:'원로분들만 아시는 사연이 있나보다'}],
     body:["바르니아교민상회가 매년 11월 중순 비공개로 작은 추모모임을 갖는 것으로 알려졌다. 외부에 널리 알려지지 않은 채 조용히 치러지는 행사다.","참석자는 수십 명 규모로, 상회 회원과 일부 원로 교민들이 주로 참석한다고 전해진다. 상회 측은 \"그저 먼저 떠난 이들을 기리는 자리일 뿐\"이라며 구체적인 설명은 자제했다.","매년 같은 시기에 열린다는 점에서 특정 사건을 기념하는 것 아니냐는 추측도 나오지만, 상회는 별다른 입장을 내놓지 않았다."]},
-  {id:124, company:'도렌 국립대학교', tags:['도렌'], cat:"사회", title:"도렌 국립대학교 총동문회, 온라인 동문수첩 서비스 전면 개편", outlet:"도렌통신", time:"1개월 전", c:6,
+  {id:124, company:'도렌 국립대학교', tags:['도렌'], cat:"사회", title:"도렌 국립대학교 총동문회, 온라인 동문수첩 서비스 전면 개편", outlet:"도렌통신", time:"1개월 전", c:6,img:"img/art124.png",
     comments:[{u:'ㅇㅇ',t:'오프라인 문의만 되던 거 이제 편해졌네요'},{u:'교포2세',t:'저희 학교도 좀 이렇게 해줬으면'},{u:'베르**',t:'로그인 없이도 조회된다니 신기하다'},{u:'지나가던사람',t:'동문 근황까지 나온다니 다들 동의하고 올린건가'},{u:'구경꾼',t:'검색 많이 몰려서 서버 느려지겠네'},{u:'미오21',t:'학과별로도 찾아지나요'}],
     body:["도렌 국립대학교 총동문회가 온라인 동문수첩 서비스를 전면 개편했다고 밝혔다. 기존에는 오프라인 문의로만 할 수 있던 동문 조회를 이제 홈페이지에서 간편하게 할 수 있게 됐다.","총동문회 관계자는 \"다양한 분야에 진출한 동문들의 근황을 한눈에 볼 수 있도록 데이터베이스를 정비했다\"고 설명했다. 성명으로 검색할 수 있으며, 본인 동의를 거친 경우 간단한 근황도 함께 조회된다.","개편된 서비스는 홈페이지 내 '동문찾기' 메뉴에서 별도 로그인 없이 이용할 수 있다."]},
-  {id:125, company:'도렌통신', tags:['도렌'], cat:"사회", title:"도렌통신, 창간 60주년 맞아 디지털 아카이브 전면 공개", outlet:"도렌통신", time:"3주 전", c:7,
+  {id:125, company:'도렌통신', tags:['도렌'], cat:"사회", title:"도렌통신, 창간 60주년 맞아 디지털 아카이브 전면 공개", outlet:"도렌통신", time:"3주 전", c:7,img:"img/art125.png",
     comments:[{u:'ㅇㅇ',t:'옛날 기사 찾아보는 맛이 있네요'},{u:'구경꾼',t:'60주년이라니 역사가 꽤 깊은 신문이었구나'},{u:'지나가던사람',t:'예전 기고문 코너 찾아보니 재밌는 글들 많더라'},{u:'윈터**',t:'검색이 생각보다 잘 되네'},{u:'교포2세',t:'옛날 신문에 저희 동네 얘기도 나오려나'},{u:'한**',t:'창간호도 볼 수 있나요'},{u:'하루85',t:'아카이브 이용료 없는거 맞죠'}],
     body:["지역 일간지 도렌통신이 창간 60주년을 맞아 디지털 아카이브를 전면 공개했다고 밝혔다. 지난 60년간 발행된 지면을 날짜·이름·키워드로 검색할 수 있다.","신문사 관계자는 \"그동안 자료실 방문 신청을 통해서만 열람 가능했던 과거 지면을, 이제는 온라인에서 누구나 무료로 찾아볼 수 있게 됐다\"고 설명했다. 기고문·인터뷰·동정란 등 지면 전체가 검색 대상이다.","아카이브는 도렌통신 홈페이지 내 '디지털 아카이브' 메뉴에서 별도 가입 없이 이용할 수 있다."]},
   {id:130, type:'news', tags:['바르니아', '11월', '인권', '연단', '보고서'], cat:"국제", title:"국제인권감시기구, 바르니아 \"11월 14일 사태\" 23주기 보고서…\"연단 위 시민 대표는 끝까지 해산을 호소했다\"", outlet:"국제인권감시기구", time:"3일 전", c:41,
@@ -3784,7 +3790,7 @@ const HINTS = [
   {id:133, type:'news', tags:['접경', '도렌'], cat:"경제", title:"접경 거주구 상권 활성화 사업 착수…주차장·시장 정비", outlet:"도렌통신", time:"1주 전", c:3,
     comments:[{"u": "접경상인", "t": "주차장은 진작 정비했어야죠"}],
     body:["도렌 접경 거주구의 상권을 되살리기 위한 정비 사업이 시작된다. 시는 노후 시장과 주차장을 새로 단장한다는 계획이다.", "사업은 내년 봄까지 두 단계로 나눠 진행된다. 먼저 지붕과 배수 시설이 낡은 시장 건물을 보수하고, 이어서 인근 공영 주차장을 두 배 규모로 넓힌다.", "시 관계자는 \"주민 의견을 수렴해 상인들의 영업 시간에 맞춰 공사 일정을 조정하겠다\"고 밝혔다.", "시장 상인회는 \"공사 기간 매출 감소가 걱정되지만, 오래 기다려 온 정비라 환영한다\"는 입장이다."]},
-  {id:134, type:'blog', tags:['구술', '증언', '가족', '접경', '생존자'], cat:"사회", title:"그날의 이야기 3 — 아내와 아들을 잃은 분, 그리고 마지막으로 국경을 넘은 분", outlet:"기억의 서랍", time:"2개월 전", c:12,
+  {id:134, type:'blog', tags:['구술', '증언', '가족', '접경', '생존자', '선생님', '추모모임'], cat:"사회", title:"그날의 이야기 3 — 아내와 아들을 잃은 분, 그리고 마지막으로 국경을 넘은 분", outlet:"기억의 서랍", time:"2개월 전", c:12,
     comments:[{"u": "교포2세", "t": "어머니가 이 사람 얘기를 하신 적이 있어요"}, {"u": "현지교민", "t": "지금도 건강하시길"}, {"u": "익명", "t": "모임마다 빈자리를 남기는 이유가 이거였군요"}],
     body:["1세대 생존자들의 구술을 한 편씩 옮겨 적는 블로그입니다. 세 번째 이야기는 연단에 섰던 시민 대표, 우리가 \"선생님\"이라고 부르던 분에 대한 기억입니다.", "\"선생님의 아내와 아들은 그날 광장 쪽으로 오다가 돌아오지 못했어요. 선생님은 그걸 알고도 사흘 밤 동안 접경에서 사람들을 한 명씩 이끌어 건너게 했죠. 자기 가족을 찾으러 가지 않고, 남은 사람들을 먼저 보냈어요. 제일 마지막에 건너온 사람이 선생님이었어요.\"", "선생님은 그 뒤로 이름을 바꾸고 모습을 감췄다고 합니다. 해마다 11월 모임에서 빈자리를 하나 비워 두는 것은 그 사람의 아내와 아들, 그리고 돌아오지 못한 분들을 위해서입니다."]},
   {id:135, type:'blog', tags:['11월', '여행'], cat:"생활", title:"11월 도렌 단풍 명소 추천 TOP 5", outlet:"노바포스트", time:"5일 전", c:2,
@@ -4939,14 +4945,40 @@ function antonPick(i){
   if(notesDone.length >= ANTON_MISSIONS.length) setTimeout(() => antonAdd('anton6'), 6000);
 }
 function antonCheck(){ try{ renderScrapWidget(); }catch(e){} }
+/* ===== 노을메일 시각 표시: 메일마다 도착한 날(이야기 속 날짜)과 시각을 기록해 날짜로 보여 준다(방금 도착한 메일만 '방금 전') ===== */
+var mailAt = {};   /* 메일 id → {d: 날짜 번호, t: 시각} (진행 저장본에 포함) */
+/* 날짜 번호: 0=시작 전, 1~8=1~8차 수행일(결과 확인서의 날짜와 같음), 9=확인서가 뜬 날, 10=엔딩 뒤 */
+const NARR_DAYS = ['10월 30일', '10월 31일', '11월 2일', '11월 4일', '11월 5일', '11월 7일', '11월 9일', '11월 11일', '11월 12일', '11월 13일', '11월 15일'];
+const MAIL_AT_DEFAULT = {
+  new1:{d:0, t:'오후 6:12'}, tuition:{d:0, t:'오전 10:30'},
+  anton1:{d:1, t:'오후 11:42'}, anton2:{d:2, t:'오후 11:18'}, anton3:{d:3, t:'오후 10:56'}, anton4:{d:4, t:'오후 11:27'}, anton5:{d:5, t:'오후 10:41'},
+  contact1:{d:5, t:'오후 7:20'},
+  antonW:{d:null, f:4, t:'오후 8:23'}, anton6:{d:null, f:6, t:'오후 10:09'},   /* 도착 시점에 따라 달라지는 메일: 받은 날을 기록해 둠(옛 저장본은 f로 추정) */
+  anton7a:{d:9, t:'오후 11:34'}, anton7b:{d:9, t:'오후 11:34'}, assocB:{d:10, t:'오전 9:05'}
+};
+function narrResolved(){ return [assignmentResolved, assignment2Resolved, assignment3Resolved, assignment4Resolved, assignment5Resolved, assignment6Resolved, assignment7Resolved, assignment8Resolved].filter(Boolean).length; }
+function narrToday(){ return endingChosen ? 10 : Math.min(9, narrResolved() + 1); }
+function mailStamp(id, arrival){
+  if(mailAt[id]) return mailAt[id];
+  const d = MAIL_AT_DEFAULT[id]; if(!d) return null;
+  return (mailAt[id] = {d: d.d != null ? d.d : (arrival ? narrToday() : d.f), t: d.t});
+}
+function omLabel(m, full){
+  const st = m && m.id ? mailStamp(m.id, false) : null;
+  if(!st) return m.time;
+  if(m._fresh && Date.now() - m._fresh < 300000) return '방금 전';
+  if(st.d === 0 && narrResolved() === 0) return '방금 전';
+  if(full) return NARR_DAYS[st.d] + ' ' + st.t;
+  return st.d === narrToday() ? st.t : NARR_DAYS[st.d];
+}
 function antonAdd(id, silent){
   const m = ANTON_MAILS.find(x => x.id === id);
   if(!m || antonIds.indexOf(id) >= 0) return false;
   antonIds.push(id);
   if(OLDMAIL_LIST.indexOf(m) < 0) OLDMAIL_LIST.unshift(m);
-  if(silent) m.unread = false;
+  if(silent){ m.unread = false; mailStamp(id, false); }
   else{
-    m.time = '방금 전';
+    mailStamp(id, true); m._fresh = Date.now();
     const here = activeKind() === 'oldmail';
     m._notice = !here;
     try{ omRenderList(); if(here){ const r = document.querySelector('#omlist .omrow'); if(r) r.classList.add('fresh'); } }catch(e){}
@@ -5033,7 +5065,7 @@ function omRenderList(){
       <span class="omdot"></span>
       <span class="omsender">${m.sender}</span>
       <span class="omsubjwrap"><b>${m.subject}</b><span class="omprev">${m.preview || ''}</span></span>
-      <span class="omdate">${m.time}</span>
+      <span class="omdate">${omLabel(m)}</span>
     </div>
   `).join('');
 }
@@ -5044,7 +5076,7 @@ function omFootHtml(m){
   return '<div class="omfoot"><div class="omnav">' +
     '<button type="button" ' + (prev ? 'onclick="omOpenDetail(\''+prev.id+'\');window.scrollTo(0,0)"' : 'disabled') + '><svg class="ic" viewBox="0 0 24 24"><path d="M15 5 8 12l7 7"/></svg>이전 메일</button>' +
     '<button type="button" class="nx" ' + (next ? 'onclick="omOpenDetail(\''+next.id+'\');window.scrollTo(0,0)"' : 'disabled') + '>다음 메일<svg class="ic" viewBox="0 0 24 24"><path d="m9 5 7 7-7 7"/></svg></button></div>' +
-    (near.length ? '<div class="omnextlist"><div class="omnh">다음 메일</div><div class="omlist">' + near.map(n => '<div class="omrow ' + (n.unread ? 'unread' : '') + '" onclick="omOpenDetail(\''+n.id+'\');window.scrollTo(0,0)"><span class="omdot"></span><span class="omsender">'+n.sender+'</span><span class="omsubjwrap"><b>'+n.subject+'</b></span><span class="omdate">'+n.time+'</span></div>').join('') + '</div></div>' : '') +
+    (near.length ? '<div class="omnextlist"><div class="omnh">다음 메일</div><div class="omlist">' + near.map(n => '<div class="omrow ' + (n.unread ? 'unread' : '') + '" onclick="omOpenDetail(\''+n.id+'\');window.scrollTo(0,0)"><span class="omdot"></span><span class="omsender">'+n.sender+'</span><span class="omsubjwrap"><b>'+n.subject+'</b></span><span class="omdate">'+omLabel(n)+'</span></div>').join('') + '</div></div>' : '') +
     '<div class="ombanner"><div class="bi"><svg class="ic" viewBox="0 0 24 24"><path d="M4 6h16v12H4zM4 7l8 6 8-6"/></svg></div><div><b>새 메일은 노을메일에서 가장 먼저</b><span>중요한 메일을 놓치지 않도록 알림을 켜 두세요</span></div></div>' +
     '<div class="omlegal">노을메일 고객센터 · 이용약관 · 개인정보처리방침<br>© Noeul Corp. All rights reserved.</div></div>';
 }
@@ -5054,7 +5086,7 @@ function omRenderMail(m){
     <div class="ommeta">
       <span class="omavatar2">${initials(m.sender)}</span>
       <span class="omwho"><b>${m.sender}</b><span>${m.addr || ''}</span></span>
-      <span class="omwhen">${m.time}</span>
+      <span class="omwhen">${omLabel(m, true)}</span>
     </div>
     ${m.translated ? '<div class="omnote">원문: 바르니아어 · 자동 번역됨</div>' : ''}
     ${(endingChosen === 'A' && m.addr === 'anton.s@dr-mail.dr') ? '<div class="omnote">이 메일의 발신자 계정은 삭제되었습니다.</div>' : ''}
@@ -5117,19 +5149,36 @@ function showCutscene(hintId){
   const a = HINTS.find(x => x.id === hintId);
   if(!a) return;
   addDynamicArticle(hintId);
-  const ov = document.getElementById('cutsceneOverlay');
-  document.getElementById('cutsceneBody').innerHTML = `
-    ${a.img ? `<img class="cutscene-img" src="${a.img}" alt="">` : ''}
-    <p class="cutscene-cat">${a.cat} · ${a.outlet} · ${a.time}</p>
-    <h2 class="cutscene-title">${a.title}</h2>
-    ${a.body.map(p => `<p class="cutscene-text">${p}</p>`).join('')}
-  `;
+  const ov = document.getElementById('cutsceneOverlay'), card = ov.querySelector('.cutscene-card');
+  card.classList.remove('skip', 'ready');
+  let t = 0.2;
+  const at = inc => { const st = '--d:' + t.toFixed(2) + 's'; t += inc; return st; };
+  const parts = ['<div class="cutscene-tag cs-in" style="' + at(0.5) + '">테스트 완료 · 관련 기사</div>'];
+  if(a.img) parts.push('<img class="cutscene-img cs-in" src="' + a.img + '" alt="" style="' + at(1.3) + '">');
+  parts.push('<p class="cutscene-cat cs-in" style="' + at(0.45) + '">' + a.cat + ' · ' + a.outlet + ' · ' + a.time + '</p>');
+  parts.push('<h2 class="cutscene-title cs-in" style="' + at(0.8) + '">' + a.title + '</h2>');
+  a.body.forEach(p => parts.push('<p class="cutscene-text cs-in" style="' + at(0.95) + '">' + p + '</p>'));
+  parts.push('<button type="button" class="cutscene-sleep cs-in" id="cutsceneSleep" style="' + at(0) + '">오늘은 이만 잠들기</button>');
+  document.getElementById('cutsceneBody').innerHTML = parts.join('');
+  ov.scrollTop = 0;
   ov.classList.add('show');
-  document.getElementById('cutsceneSleep').onclick = () => {
+  clearTimeout(window._csReady);
+  window._csReady = setTimeout(() => card.classList.add('ready'), t * 1000 + 500);
+  ov.onclick = () => { card.classList.add('skip', 'ready'); };
+  document.getElementById('cutsceneSleep').onclick = e => {
+    e.stopPropagation();
     ov.classList.remove('show');
     endDay();
   };
 }
+document.addEventListener('keydown', e => {
+  const ov = document.getElementById('cutsceneOverlay');
+  if(!ov || !ov.classList.contains('show') || (e.key !== 'Enter' && e.key !== ' ')) return;
+  e.preventDefault();
+  const card = ov.querySelector('.cutscene-card');
+  if(!card.classList.contains('ready')) card.classList.add('skip', 'ready');
+  else { const b = document.getElementById('cutsceneSleep'); if(b) b.click(); }
+});
 function armTimer(uid, ms){
   setTimeout(() => fireDelivery(uid), Math.max(0, ms));
 }
@@ -6061,7 +6110,7 @@ function performCaptureArchive(){
 
 /* ===== 바르니아인 연합회 게시판 (회원 전용, 6차) ===== */
 var BOARD_ACCOUNT = {id:'guest_lena', pw:'Vr4!guest'};
-var BOARD_POSTS = [{"id": "b1", "tag": "공지", "title": "11월 정기모임 안내", "author": "사무국", "date": "2026-10-27", "body": ["이번 달 정기모임은 11월 둘째 주 토요일 오후 3시, 연합회 회관에서 열립니다.", "안건은 고향 소식 공유, 겨울 구호성금 모금, 통행증 갱신 대행 신청 안내입니다.", "참석 여부는 댓글로 남겨 주세요."], "comments": [["회원 하나", "참석합니다."], ["회원 테오", "아이 데리고 가도 되나요?"], ["사무국", "네, 함께 오셔도 됩니다."]]}, {"id": "b2", "tag": "공지", "title": "겨울 구호성금 모금 결과 보고", "author": "사무국", "date": "2026-10-21", "body": ["올해 겨울 구호성금 모금이 마무리되었습니다. 참여해 주신 모든 회원분께 감사드립니다.", "모금액은 상회를 통해 북부 지역 식료품과 의료물품으로 전달될 예정입니다."], "comments": [["회원 노엘", "올해도 고생 많으셨어요."]]}, {"id": "b3", "tag": "공지", "title": "회관 난방 설비 점검 안내", "author": "사무국", "date": "2026-10-18", "body": ["11월 첫째 주 평일 오전에 회관 난방 설비를 점검합니다. 해당 시간에는 회관 이용이 제한됩니다."], "comments": []}, {"id": "b4", "tag": "안내", "title": "11월 추모모임 장소 변경 안내", "author": "에르딘 이안", "date": "2026-10-30", "body": ["올해 추모모임은 회관이 아닌 별도의 장소에서 진행합니다.", "참석을 원하시는 분은 사무국에 먼저 알려 주세요. 구체적인 위치는 참석 신청자에게 따로 연락드립니다."], "comments": [["회원 소라", "작년에 모였던 그 자리인가요?"], ["사무국", "장소가 확정되기 전이라, 선생님께 여쭤보고 다시 안내드리겠습니다."], ["사무국", "그 자리는 올해도 비워 둡니다."]]}, {"id": "b5", "tag": "안내", "title": "구술 기록 사업 참여자 모집", "author": "에르딘 이안", "date": "2026-10-15", "body": ["1세대 구술 기록 사업에 함께할 자원 봉사자를 모집합니다. 녹취와 정리를 도와주실 분을 찾습니다.", "경험은 필요 없습니다. 어르신들의 이야기를 듣는 마음만 있으면 됩니다."], "comments": [["사무국", "문의는 사무국으로 연락 주세요."], ["회원 하나", "저도 신청하고 싶어요."]]}, {"id": "b6", "tag": "자유", "title": "고향 외삼촌 소식 전합니다", "author": "회원 마르타", "date": "2026-10-12", "body": ["얼마 전 외삼촌과 통화가 겨우 연결됐습니다. 다들 건강하시다고 합니다. 전화가 자주 끊겨서 길게 얘기는 못 했어요."], "comments": [["회원 노엘", "다행이네요."], ["회원 테오", "저희도 연락이 안 돼서 걱정입니다."]]}, {"id": "b7", "tag": "회원전용", "title": "모임 문서 #3", "author": "(열람 제한)", "date": "2026-10-30", "body": ["앉젅읅 홖읹핝 뒥엑 옥싮식옥.", "석쪾 획괁 직학, 복읽럭싥 옇 묹잆닉닥.", "섡샞닙읁 늧겍 독찪학싮닉닥."], "comments": []}, {"id": "b8", "tag": "자유", "title": "겨울철 건강 챙기세요", "author": "회원 노엘", "date": "2026-10-09", "body": ["일교차가 커서 감기 걸린 분들이 많습니다. 따뜻하게 지내시고 어르신들 안부도 한 번씩 물어봐 주세요."], "comments": [["회원 하나", "감사합니다."]]}];
+var BOARD_POSTS = [{"id": "b1", "tag": "공지", "title": "11월 정기모임 안내", "author": "사무국", "date": "2026-10-27", "body": ["이번 달 정기모임은 11월 둘째 주 토요일 오후 3시, 연합회 회관에서 열립니다.", "안건은 고향 소식 공유, 겨울 구호성금 모금, 통행증 갱신 대행 신청 안내입니다.", "참석 여부는 댓글로 남겨 주세요."], "comments": [["회원 하나", "참석합니다."], ["회원 테오", "아이 데리고 가도 되나요?"], ["사무국", "네, 함께 오셔도 됩니다."]]}, {"id": "b2", "tag": "공지", "title": "겨울 구호성금 모금 결과 보고", "author": "사무국", "date": "2026-10-21", "body": ["올해 겨울 구호성금 모금이 마무리되었습니다. 참여해 주신 모든 회원분께 감사드립니다.", "모금액은 상회를 통해 북부 지역 식료품과 의료물품으로 전달될 예정입니다."], "comments": [["회원 노엘", "올해도 고생 많으셨어요."]]}, {"id": "b3", "tag": "공지", "title": "회관 난방 설비 점검 안내", "author": "사무국", "date": "2026-10-18", "body": ["11월 첫째 주 평일 오전에 회관 난방 설비를 점검합니다. 해당 시간에는 회관 이용이 제한됩니다."], "comments": []}, {"id": "b4", "tag": "안내", "title": "11월 추모모임 장소 변경 안내", "author": "에르딘 이안", "date": "2026-10-30", "body": ["올해 추모모임은 회관이 아닌 별도의 장소에서 진행합니다.", "참석을 원하시는 분은 사무국에 먼저 알려 주세요. 구체적인 위치는 참석 신청자에게 따로 연락드립니다."], "comments": [["회원 소라", "작년에 모였던 그 자리인가요?"], ["사무국", "장소가 확정되기 전이라, 선생님께 여쭤보고 다시 안내드리겠습니다."], ["사무국", "그 자리는 올해도 비워 둡니다."]]}, {"id": "b5", "tag": "안내", "title": "구술 기록 사업 참여자 모집", "author": "에르딘 이안", "date": "2026-10-15", "body": ["1세대 구술 기록 사업에 함께할 자원 봉사자를 모집합니다. 녹취와 정리를 도와주실 분을 찾습니다.", "경험은 필요 없습니다. 어르신들의 이야기를 듣는 마음만 있으면 됩니다."], "comments": [["사무국", "문의는 사무국으로 연락 주세요."], ["회원 하나", "저도 신청하고 싶어요."]]}, {"id": "b6", "tag": "자유", "title": "고향 외삼촌 소식 전합니다", "author": "회원 마르타", "date": "2026-10-12", "body": ["얼마 전 외삼촌과 통화가 겨우 연결됐습니다. 다들 건강하시다고 합니다. 전화가 자주 끊겨서 길게 얘기는 못 했어요."], "comments": [["회원 노엘", "다행이네요."], ["회원 테오", "저희도 연락이 안 돼서 걱정입니다."]]}, {"id": "b7", "tag": "회원전용", "title": "모임 문서 #3", "author": "(열람 제한)", "date": "2026-10-30", "file": "모임문서3.enc · 160 B", "body": ["U2FsdGVkX1/EOAEHcCcd62BoHPElE2VU+ZNr/swLr7kJi1rMI9tRKx", "0wlX/iktJJOX+rF/pxrPlrTtIWeu1VT30R7wg+umk04TXSHIBx1SGm", "gQ7Fd/oftCXWFJfbQ99B9zT4FrPQUOuIjpd7v55ptptcizrRX8vf52", "NfQ/G5R6eIrlMB0z6huoWJkIifpLOGElox7X4C1Afw5hCqmzhhdg=="], "comments": [["사무국", "암호는 지난 모임에서 정한 말 그대로입니다."], ["회원 소라", "올해도 그대로군요."]]}, {"id": "b8", "tag": "자유", "title": "겨울철 건강 챙기세요", "author": "회원 노엘", "date": "2026-10-09", "body": ["일교차가 커서 감기 걸린 분들이 많습니다. 따뜻하게 지내시고 어르신들 안부도 한 번씩 물어봐 주세요."], "comments": [["회원 하나", "감사합니다."]]}];
 /* ===== 저장된 로그인: 메일에서 복사한 아이디·비밀번호를 칸에 한 번 넣은 뒤로는, 그 사이트 로그인 칸이 채워진 채로 열린다(브라우저의 저장된 비밀번호처럼) ===== */
 var savedLogin = {raden:false, board:false, dlt:false};
 function loginAcct(site){
@@ -6097,11 +6146,14 @@ var BOARD_PLAIN = ["안전을 확인한 뒤에 오십시오.", "서쪽 회관 �
 var bdDecoded = false;
 function bdDecode(e){
   if(e) e.preventDefault();
-  const v = document.getElementById('bdCode').value.trim();
+  const v = String(document.getElementById('bdCode').value || '').replace(/[\s.,!?'"·…~_-]/g, '').toLowerCase();
   const m = document.getElementById('bdCodeMsg');
-  if(v === '1114'){ bdDecoded = true; saveProgress(); bdOpen('b7'); }
-  else { m.textContent = '열람 코드가 올바르지 않습니다.'; }
+  if(BD_PASS.indexOf(v) >= 0){ bdDecoded = true; saveProgress(); bdOpen('b7'); }
+  else if(v === '자리' || v === '의자' || v === '좌석'){ m.textContent = '암호가 올바르지 않습니다. 조금 더 구체적인 말입니다.'; }
+  else { m.textContent = '암호가 올바르지 않습니다.'; }
 }
+/* 모임 문서의 암호: 해마다 11월 모임에서 선생님의 가족 몫으로 남겨 두는 '빈자리'(블로그 '그날의 이야기 3', 게시판 추모모임 안내 댓글에 나옴) */
+var BD_PASS = ['빈자리', '빈의자', '빈좌석', '비워둔자리', '비워두는자리', '남겨둔자리', '그자리'];
 
 var bdCat = '전체', bdKwVal = '';
 var BD_CATS = ['전체', '공지', '안내', '자유', '회원전용'];
@@ -6151,8 +6203,12 @@ function bdOpen(id){
   document.getElementById('bdCard').innerHTML =
     '<div class="bd-ph"><span class="bd-cat c-' + bdTagCls(p.tag) + '">' + p.tag + '</span><h2>' + p.title + '</h2>' +
     '<div class="bd-pm"><span><em>작성자</em>' + p.author + '</span><span><em>게시 처리</em>사무국</span><span><em>작성일</em>' + p.date.replace(/-/g, '.') + '.</span><span><em>조회</em>' + views + '</span></div></div>' +
-    '<div class="bd-pb' + (enc && !bdDecoded ? ' enc' : '') + '">' + (enc && bdDecoded ? BOARD_PLAIN : p.body).map(t => '<p>' + t + '</p>').join('') +
-      (enc ? (bdDecoded ? '<p class="bd-note">※ 열람 코드 확인됨</p>' : '<p class="bd-note">※ 암호화된 회원 전용 문서입니다. 열람 코드(4자리 숫자)가 있어야 읽을 수 있습니다.</p><form class="bd-code" onsubmit="bdDecode(event)" onclick="event.stopPropagation()"><input id="bdCode" type="text" inputmode="numeric" maxlength="4" autocomplete="off" placeholder="0000"><button type="submit">열람</button><div class="bd-codemsg" id="bdCodeMsg"></div></form>') : '') + '</div>' +
+    '<div class="bd-pb">' + (enc && !bdDecoded
+      ? '<div class="bd-lockdoc"><div class="bd-lk-h">' + BD_LOCK + '<b>암호로 보호된 문서</b><span>' + (p.file || '') + '</span></div>' +
+        '<pre class="bd-cipher">' + p.body.join('\n') + '</pre>' +
+        '<form class="bd-code" onsubmit="bdDecode(event)" onclick="event.stopPropagation()"><input id="bdCode" type="text" autocomplete="off" spellcheck="false" placeholder="열람 암호" aria-label="열람 암호"><button type="submit">열기</button><div class="bd-codemsg" id="bdCodeMsg"></div></form>' +
+        '<p class="bd-hint"><em>암호 힌트</em>해마다 11월, 선생님의 가족 몫으로 남겨 두는 것</p></div>'
+      : (enc ? BOARD_PLAIN : p.body).map(t => '<p>' + t + '</p>').join('') + (enc ? '<p class="bd-note">※ 열람 암호 확인됨</p>' : '')) + '</div>' +
     (p.comments.length ? '<div class="bd-cm"><div class="bd-ch">댓글 <b>' + p.comments.length + '</b></div>' + p.comments.map(c => '<div class="bd-cr"><span class="av">' + c[0].replace(/^회원\s*/, '').slice(0, 1) + '</span><div><span class="u">' + c[0] + '</span><p class="t">' + c[1] + '</p></div></div>').join('') + '</div>' : '');
   const i = BOARD_POSTS.indexOf(p), older = BOARD_POSTS[i + 1], newer = BOARD_POSTS[i - 1];
   document.getElementById('bdNav').innerHTML =
@@ -6778,7 +6834,7 @@ function saveProgress(){
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
       bankBalance, bankTx, scrapped, notesDone, introSeen,
-      omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue,
+      omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue, mailAt,
       pendingDeliveries, pendingCutscene,
       delivered,
       dynamicArticleIds: dynamicArticles.map(a => a.id),
@@ -6847,6 +6903,7 @@ function loadProgress(){
   bankBalance = saved.bankBalance || 0;
   omOpened = !!saved.omOpened;
   (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
+  mailAt = saved.mailAt || {};
   antonRestore(saved.antonIds, saved.omReadIds);
   antonDue = saved.antonDue || {};
   try{ antonResume(); }catch(e){}
@@ -7018,8 +7075,9 @@ const MSG_STAGES = {
             "허가일이 2004년 초인 공고 중에서 출신이 바르니아이고 사유에 가족 사별이 적힌 한 건이에요."],
      wait:"7차 확인 감사해요. 마지막 안내는 정리되는 대로 보낼게요."},
   8:{now:"8차 테스트는 연합회 게시판의 암호화된 글(모임 문서 #3)을 먼저 읽고, 글에 나온 장소를 공공기록 열람센터에서 검색해 물류 기록 중 개인 이름으로 수령 확인이 남은 한 건을 캡처하는 거예요. 게시판 주소와 준회원 계정은 8차 의뢰 메일에 있어요.",
-     hints:["게시판 주소와 준회원 계정은 8차 의뢰 메일에 있어요. 암호화된 글은 게시판 '회원전용' 글이에요. 상세 화면에 열람 코드를 넣는 칸이 있어요. 코드는 네 자리 숫자예요.",
-            "코드는 월과 일을 붙인 숫자예요. 11월 모임이 열리는 날짜가 기사에 나와 있어요. 이스크라에서 '11월'을 검색해 보세요.",
+     hints:["게시판 주소와 준회원 계정은 8차 의뢰 메일에 있어요. 암호화된 글은 게시판 '회원전용' 글이에요. 상세 화면에 열람 암호를 넣는 칸이 있고, 칸 아래에 암호 힌트가 적혀 있어요.",
+            "암호는 숫자가 아니라 말이에요. 연합회 사람들이 해마다 11월 모임에서 선생님을 위해 하는 일이 있어요. 게시판 글의 댓글에도 한 번 나온 적이 있고요.",
+            "선생님 이야기를 옮겨 적은 블로그가 있어요. 이스크라에서 '선생님'이나 '구술'로 검색해 보세요. 모임에서 해마다 남겨 두는 게 뭔지 나와요. 그걸 가리키는 말이 암호예요.",
             "글에 나온 장소('서쪽 회관')를 열람센터에서 검색하세요. 물류 기록 중 수령 확인에 사람 이름이 적힌 건이 한 건이에요."],
      wait:"8차까지 정말 고생 많으셨어요. 모든 테스트가 끝났어요."},
   9:{now:"더 드릴 테스트는 없어요. 수고 많으셨어요.",
@@ -7387,7 +7445,7 @@ function msgRefreshVisible(){
   if(!show){ msgOpen = false; document.getElementById('msgPanel').classList.remove('open'); document.getElementById('msgPeek').classList.remove('show'); l.style.display = ''; }
   else if(msgOpen) l.style.display = 'none';
 }
-const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일엔 접속 정보만 있어서 금방 보실 거예요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'아카이브 검색 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이 사람도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}], "assign6": [{"x": "6차 의뢰 메일 보냈어요. 이번 건은 지금까지와 조금 달라요.", "o": [{"r": "뭐가 다른데요?", "re": "이번에는 회원 전용 화면이라 로그인이 필요해요."}, {"r": "로그인은 어떻게 해요?", "re": "연합회 게시판 준회원 계정이 있으시죠. 오늘 노을메일로 받은 안내 메일에 있는 계정을 테스트용으로 쓰면 돼요."}, {"r": "그 메일을 어떻게 아세요?", "re": "신청서에서 메일 연동에 동의해 주셨어요. 계정 안내 메일 제목만 확인했어요. 내용은 보지 않았고요."}]}, {"x": "'커뮤니티 게시판 연동' 테스트예요. 게시글마다 작성자와 게시 처리자가 따로 기록되는데, 이 구분이 화면에 제대로 표시되는지 확인하는 거예요. 글 중에는 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글이 있어요. 그 글이 어떤 건지 찾아 주세요.", "o": [{"r": "다른 사람의 확인을 거친 글이요?", "re": "작성자가 올린 내용에 대해 다른 사람이 확인하거나 허락을 구했다는 말이 남은 경우예요."}, {"r": "어디서 보면 돼요?", "re": "게시글 상세 화면의 본문과 댓글을 보세요."}, {"r": "회원 전용 글을 봐도 괜찮은 거예요?", "re": "테스트용 준회원 계정으로 볼 수 있는 범위만 확인하는 거예요. 걱정하지 않으셔도 돼요."}]}, {"x": "해당하는 글을 찾으면 상세 화면을 캡처해서 보내 주세요. 한 건이면 돼요."}], "retry6": [{"x": "이 글은 일반 안내였어요. 작성자 외에 다른 사람의 확인을 거쳤다는 말이 보이는 글로 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success6": [{"x": "6차 확인됐어요. 입금했어요. 이번 건이 특히 도움이 됐어요.", "o": [{"r": "입금 확인했어요. 이번엔 좀 찜찜하네요", "re": "테스트가 늘 개운하지는 않아요. 다음 안내를 기다려 주세요.", "fire": "result:success6"}]}], "assign7": [{"x": "7차 의뢰 메일 보냈어요. 6차 게시판은 어떠셨어요? 글에 '선생님'이라는 말이 여러 번 나왔는데, 그게 누구를 가리키는 것 같으세요?", "o": [{"r": "그냥 존칭 아닌가요? 누군지는 모르겠어요", "re": "그럴 수 있어요. 테스트와는 상관없는 내용이니 신경 쓰지 않으셔도 돼요."}, {"r": "대표 위에 누가 있는 것 같긴 해요", "re": "그렇게 읽히셨군요. 참고할게요."}, {"r": "그게 테스트랑 무슨 상관이에요?", "re": "상관없어요. 그냥 궁금했어요."}]}, {"x": "'이름 이력 연동' 테스트예요. 이스크라가 개명 공고처럼 이름이 바뀐 기록을 한 사람의 기록으로 이어 붙이는 기능을 시험 중이에요. 먼저 이스크라에서 '개명'을 검색해서, 이런 공고가 어디에 실리는지 확인해 주세요.", "o": [{"r": "개명 공고요?", "re": "네. 법원이 개명을 허가하면 도렌통신 지면에 공고가 실려요."}, {"r": "검색하고 나서는요?", "re": "도렌통신 아카이브에서 '개명'으로 검색하면 공고 기록이 나와요."}]}, {"x": "공고 중에서 세 가지 조건에 맞는 한 건을 찾아 주세요. 첫째, 신청 사유가 가족 사별일 것. 둘째, 출신이 바르니아일 것. 셋째, 허가된 시점이 약 22~23년 전일 것이에요.", "o": [{"r": "조건이 꽤 구체적이네요", "re": "테스트 데이터를 그렇게 만들었어요."}, {"r": "이 사람은 실제 인물이에요?", "re": "아니요, 테스트용 페르소나예요. 실제 인물과는 관계없어요."}]}, {"x": "해당하는 공고의 상세 화면을 캡처해서 보내 주세요."}], "retry7": [{"x": "이 공고는 세 조건 중 하나가 맞지 않았어요. 신청 사유, 출신, 허가 시기를 한 번 더 대조해 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 맞는 공고를 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success7": [{"x": "7차 확인됐어요. 입금했어요. 이름 이력이 연결되는 것까지 확인됐어요.", "o": [{"r": "입금 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요. 마지막 단계가 될 거예요.", "fire": "result:success7"}]}], "assign8": [{"x": "8차 의뢰 메일 보냈어요. 이번이 마지막 테스트예요.", "o": [{"r": "마지막이요?", "re": "네. 이번 건만 끝나면 베타 기간이 마무리돼요."}, {"r": "어떤 건데요?", "re": ""}]}, {"x": "'물류·통신 기록 조회' 테스트예요. 공공 기록 열람 시스템인데, 주소로 검색하면 그 주소에서 오간 물류와 통신 기록이 나와요. 그런데 6차 때 연합회 게시판에서 암호화된 글을 보셨죠. 그 글을 먼저 읽어 주세요. 게시판 주소와 준회원 계정은 의뢰 메일에 다시 적어 뒀어요. 거기에 나오는 장소가 이번 테스트의 검색어예요.", "o": [{"r": "암호는 어떻게 풀어요?", "re": "열람 코드는 네 자리 숫자예요. 모임 날짜처럼 월과 일을 붙인 숫자일 수 있어요."}, {"r": "회원 전용 글을 읽어도 되는 건가요?", "re": "준회원 계정으로 열람되는 범위예요. 걱정하지 않으셔도 돼요."}, {"r": "그 글을 왜 읽어야 해요?", "re": "테스트 시나리오에 필요한 장소 정보가 거기 있어서요."}]}, {"x": "그 장소를 조회 시스템에서 검색하면 기록이 여러 건 나와요. 그중 물류 기록이면서, 개인 이름으로 수령 확인이 남은 기록 한 건을 찾아 캡처해 주세요.", "o": [{"r": "물류 기록이고 개인 이름이 있는 거요?", "re": "네, 맞아요."}, {"r": "이게 마지막이라면서, 뭘 찾는 건지 이제 말해 줄 수 있어요?", "re": "말씀드렸잖아요, 시스템 테스트예요. 끝나면 정리해서 알려 드릴게요."}]}, {"x": "기록을 찾으면 상세 화면을 캡처해서 보내 주세요."}], "retry8": [{"x": "이 기록은 조건에 맞지 않았어요. 암호화된 글에 나온 장소의 기록 중에서, 물류이면서 개인 이름으로 수령 확인이 남은 기록을 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success8": [{"x": "8차 확인됐어요. 입금했어요. 모든 테스트가 끝났어요. 마지막으로 하나만 더 부탁드릴게요.", "o": [{"r": "뭔데요?", "re": "최종 정산 전에 테스트 결과 확인서를 확인해 주셔야 해요. 지금 띄워 드릴게요.", "fire": "reportOpen"}]}]};
+const MSG_MAIL_SEQ = {"tutorial1": [{"x": "검색 연습용 메일을 하나 보냈어요. 본격적으로 시작하기 전에 검색 기능부터 써 보세요. 지금 사시는 나라 '도렌'을 검색하면 관련 소식이 한 번에 나와요.", "o": [{"r": "알겠어요. 해 볼게요", "re": "네. 마음에 드는 기사는 스크랩해 둘 수도 있어요. 어떤 기사를 눌러 보시는지도 저희한테는 참고가 돼요."}]}], "assign1": [{"x": "1차 의뢰 메일 보냈어요. 확인하셨어요?", "o": [{"r": "네, 봤어요. 라덴통상이 어떤 회사예요?", "re": "무역 회사예요. 기능 테스트용으로 샘플 데이터를 빌린 거라 신경 쓰실 건 없어요."}, {"r": "아직이요. 지금 볼게요", "re": "메일엔 접속 정보만 있어서 금방 보실 거예요."}]}, {"x": "'기업 시스템 연동' 테스트예요. 실제 거래 데이터를 본뜬 샘플인데, 깨졌거나 이상해 보이는 기록이 있는지 확인해 주세요.", "o": [{"r": "이상하다는 기준이 뭔데요?", "re": "표를 훑다 보면 다른 기록과 다르게 튀는 숫자가 있을 거예요."}, {"r": "엑셀 보는 거랑 비슷한가요?", "re": "비슷해요. 표를 훑으면서 어긋난 숫자를 찾는 일이에요."}]}, {"x": "메일 속 계정으로 ERP에 들어가서 '반출목록'을 훑어보세요. 눈에 띄게 이상한 기록이 있으면 캡처해서 메일로 회신해 주세요.", "o": [{"r": "캡처는 어떻게 해요?", "re": "주소창 오른쪽 카메라 아이콘이에요. 누르고 원하는 기록을 클릭하면 돼요."}, {"r": "알겠어요. 바로 해 볼게요", "re": "네. 끝나면 회신 주세요."}]}, {"x": "감이 안 오면 거래처 이름으로 뉴스를 검색해 보세요. 막히면 여기로 말 걸어 주세요."}], "retry1": [{"x": "이번 건 저희가 보려던 기록이 아니었어요. 반출목록에서 다른 품목과 비교했을 때 수량이 유독 큰 기록이 있는지 한 번 더 확인해 주세요.", "o": [{"r": "다시 볼게요", "re": "확인되면 그 내역만 캡처해서 다시 보내 주세요."}]}], "assign2": [{"x": "2차 의뢰 메일 보냈어요. 1차 사례금은 들어왔나요?", "o": [{"r": "네, 들어왔어요. 감사해요", "re": "네. 다음 건도 부탁드려요."}, {"r": "아직 확인 못 했어요. 바로 볼게요", "re": "노을메일 인터넷뱅킹 카드에서 확인하실 수 있어요."}]}, {"x": "이번엔 ERP 계정은 안 써도 돼요. 지난번 데이터에 수취인으로 '바르니아교민상회'가 있었죠. 이 이름을 <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 조회해 주세요.", "o": [{"r": "지난번에 봤던 수취인이네요", "re": "맞아요. 기억하고 계시네요."}, {"r": "이름만 검색하면 되나요?", "re": "네. 로그인 없이 단체명 검색만 하면 돼요."}]}, {"x": "연동된 데이터가 실제와 맞는지 보는 게 포인트라서, 거기 나온 주소에 실제 사무실이 있는지도 확인해 주세요.", "o": [{"r": "어떻게 확인해요?", "re": "부동산 서비스에서 그 주소를 검색하면 어떤 건물인지 나와요."}, {"r": "주소만 찾으면 되는 거죠?", "re": "네. 그 주소가 어떻게 올라와 있는지가 핵심이에요."}]}, {"x": "정리하면 캡처는 두 개예요. 등록 정보 하나, 그 주소의 건물 정보 하나요."}], "retry2": [{"x": "이번엔 필요한 자료와 달랐어요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('orginfo','단체정보마당','&#128196;')\">단체정보마당</a>에서 '바르니아교민상회' 등록현황(소재지 포함)을 캡처하고, 그 주소에 실제 사무실이 있는지 알 수 있는 자료를 하나 더 보내 주세요.", "o": [{"r": "두 개 다 필요한 거였군요. 다시 할게요", "re": "네, 두 개 모두 캡처해서 보내 주세요."}]}], "assign3": [{"x": "3차 의뢰 메일 보냈어요. 지난번 주소 건은 저희 쪽에서 아직 확인 중이에요.", "o": [{"r": "주소가 이상하긴 했어요. 괜찮은 거예요?", "re": "테스트 데이터 문제일 수 있어요. 지금은 신경 쓰지 않으셔도 돼요."}, {"r": "이번엔 뭘 하면 돼요?", "re": ""}]}, {"x": "'검색 결과 정확도' 테스트예요. 이스크라에서 '바르니아교민상회'를 검색해서, 결과가 실제 활동과 맞는지 봐 주세요.", "o": [{"r": "기사 읽어보면 되는 거죠?", "re": "네. 거창한 조사는 필요 없어요."}, {"r": "검색만 하면 되는 거예요?", "re": "네. 이름 그대로 검색해 보세요."}]}, {"x": "다 보셨으면 이 단체가 어떤 성격인지 한 단어로 정리해서 메일로 회신해 주세요. 정답은 따로 없어요. 읽으면서 든 인상 그대로요."}], "retry3": [{"x": "아직 관련 내용을 못 찾으신 것 같아요. '바르니아교민상회'로 검색하면 관련 기사가 나와요.", "o": [{"r": "다시 검색해 볼게요", "re": "읽어 보시고 이 단체의 성격을 한 단어로 정리해서 다시 보내 주세요."}]}], "assign4": [{"x": "4차 의뢰 메일 보냈어요. 지난번 확인해 주신 덕분에 데이터 점검이 많이 끝났어요.", "o": [{"r": "이번엔 뭐예요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 사람 이름이 들어간 데이터 점검이에요. 조건만 보시면 어렵지 않아요."}]}, {"x": "'동문 네트워크 연동' 테스트예요. 등록 서류에는 대표자 이름이 '에르딘 ○○○'로만 나와 있는데, 동문수첩에서 성씨로 검색하면 같은 성의 동문이 여러 명 나와요. 이 중에 등록 서류 정보와 맞는 기록이 어떤 건지 가려내는 게 이번 테스트예요.", "o": [{"r": "동명이인이 많다는 거네요", "re": "맞아요. 동명이인 구분이 잘 되는지 보는 테스트예요."}, {"r": "어디서 찾아요?", "re": "<a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('alumni','총동문회 동문수첩','&#127891;')\">총동문회 동문수첩</a>에서 성씨로 검색하면 돼요."}, {"r": "이 이름, 실제 사람이에요? 개인정보 문제는 없는 거죠?", "re": "없어요. 테스트용으로 만든 페르소나라 실제 인물이 아니에요. 점검용 가상 기록이라 부담 갖지 않으셔도 돼요."}]}, {"x": "가려내는 기준은 두 가지예요. 단체가 2019년 4월에 등록됐으니 그 시점에 졸업한 지 10년 이상 된 동문이어야 하고, 동문수첩의 근황이 단체 업무와 어긋나지 않아야 해요.", "o": [{"r": "졸업 연도랑 근황을 맞춰 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "한 명만 고르면 되나요?", "re": "네, 한 명이요."}]}, {"x": "맞는 기록을 찾으면 전체 이름이 나온 화면을 캡처해서 보내 주세요. 서두르지 않으셔도 돼요."}], "retry4": [{"x": "보내 주신 기록은 등록 서류 정보와 맞지 않았어요. 2019년 4월 시점에 졸업한 지 10년 이상이어야 하고, 근황이 단체 업무와 어긋나지 않아야 해요. 한 번 더 대조해 주세요.", "o": [{"r": "조건을 다시 볼게요", "re": "네. 안 맞는 기록은 근황에서 걸러질 거예요."}]}], "assign5": [{"x": "5차 의뢰 메일 보냈어요. 4차 덕분에 이름 대조가 끝났어요.", "o": [{"r": "이번엔 뭘 하면 돼요?", "re": ""}, {"r": "어렵진 않죠?", "re": "이번엔 기사 검색이에요. 어렵지 않아요."}]}, {"x": "'아카이브 검색 연동' 테스트예요. <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('archive','도렌통신 아카이브','&#128240;')\">도렌통신 디지털 아카이브</a>에서 4차에서 찾은 그 이름으로 검색하면 기사 종류가 섞여서 나오는데, 동정란 같은 짧은 단신 말고 기고문이나 인터뷰처럼 본문이 긴 기사가 제대로 열리는지 확인하는 거예요.", "o": [{"r": "기사 아무거나요?", "re": "아니요. 단신 말고 기고문이나 인터뷰예요."}, {"r": "기고문이나 인터뷰만 보면 되는 거죠?", "re": "네, 맞아요."}, {"r": "이 사람도 실제로 있는 분이에요?", "re": "아니요, 이것도 테스트용 페르소나예요. 기사 데이터도 점검용 가상 자료라 실제 인물과는 관계없어요."}]}, {"x": "긴 기사 중 하나를 열어서 본문 화면을 캡처해 보내 주세요. 읽어 보시고 어떤 인상이었는지도 알려 주시면 참고할게요."}], "retry5": [{"x": "이건 짧은 단신(동정란)이었어요. 기고문이나 인터뷰처럼 본문이 긴 기사로 다시 확인해 주세요.", "o": [{"r": "다시 찾아볼게요", "re": "네, 찾으면 캡처해서 보내 주세요."}]}], "success1": [{"x": "1차 확인됐어요. 사례금 입금했어요. 수고하셨어요.", "o": [{"r": "입금 확인했어요. 다음 의뢰는 언제 와요?", "re": "정리되는 대로 곧 보낼게요.", "fire": "result:success1"}]}], "success2": [{"x": "2차도 확인됐어요. 사례금 입금했어요.", "o": [{"r": "확인했어요. 다음 건도 해 볼게요", "re": "네, 곧 보낼게요.", "fire": "result:success2"}]}], "success3": [{"x": "3차 확인됐어요. 입금했어요. 인상을 말씀해 주신 게 참고가 됐어요.", "o": [{"r": "도움이 됐다니 다행이에요", "re": "네. 다음 의뢰는 곧 보낼게요.", "fire": "result:success3"}]}], "success4": [{"x": "4차 확인됐어요. 입금했어요. 이름 확인이 큰 도움이 됐어요.", "o": [{"r": "금액 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요.", "fire": "result:success4"}]}], "success5": [{"x": "5차 확인됐어요. 입금했어요. 여기까지 정말 수고하셨어요.", "o": [{"r": "감사합니다. 다음은 언제쯤이에요?", "re": "정리되는 대로 바로 연락드릴게요. 그동안 메일함을 가끔 확인해 주세요.", "fire": "result:success5"}]}], "assign6": [{"x": "6차 의뢰 메일 보냈어요. 이번 건은 지금까지와 조금 달라요.", "o": [{"r": "뭐가 다른데요?", "re": "이번에는 회원 전용 화면이라 로그인이 필요해요."}, {"r": "로그인은 어떻게 해요?", "re": "연합회 게시판 준회원 계정이 있으시죠. 오늘 노을메일로 받은 안내 메일에 있는 계정을 테스트용으로 쓰면 돼요."}, {"r": "그 메일을 어떻게 아세요?", "re": "신청서에서 메일 연동에 동의해 주셨어요. 계정 안내 메일 제목만 확인했어요. 내용은 보지 않았고요."}]}, {"x": "'커뮤니티 게시판 연동' 테스트예요. 게시글마다 작성자와 게시 처리자가 따로 기록되는데, 이 구분이 화면에 제대로 표시되는지 확인하는 거예요. 글 중에는 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글이 있어요. 그 글이 어떤 건지 찾아 주세요.", "o": [{"r": "다른 사람의 확인을 거친 글이요?", "re": "작성자가 올린 내용에 대해 다른 사람이 확인하거나 허락을 구했다는 말이 남은 경우예요."}, {"r": "어디서 보면 돼요?", "re": "게시글 상세 화면의 본문과 댓글을 보세요."}, {"r": "회원 전용 글을 봐도 괜찮은 거예요?", "re": "테스트용 준회원 계정으로 볼 수 있는 범위만 확인하는 거예요. 걱정하지 않으셔도 돼요."}]}, {"x": "해당하는 글을 찾으면 상세 화면을 캡처해서 보내 주세요. 한 건이면 돼요."}], "retry6": [{"x": "이 글은 일반 안내였어요. 작성자 외에 다른 사람의 확인을 거쳤다는 말이 보이는 글로 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success6": [{"x": "6차 확인됐어요. 입금했어요. 이번 건이 특히 도움이 됐어요.", "o": [{"r": "입금 확인했어요. 이번엔 좀 찜찜하네요", "re": "테스트가 늘 개운하지는 않아요. 다음 안내를 기다려 주세요.", "fire": "result:success6"}]}], "assign7": [{"x": "7차 의뢰 메일 보냈어요. 6차 게시판은 어떠셨어요? 글에 '선생님'이라는 말이 여러 번 나왔는데, 그게 누구를 가리키는 것 같으세요?", "o": [{"r": "그냥 존칭 아닌가요? 누군지는 모르겠어요", "re": "그럴 수 있어요. 테스트와는 상관없는 내용이니 신경 쓰지 않으셔도 돼요."}, {"r": "대표 위에 누가 있는 것 같긴 해요", "re": "그렇게 읽히셨군요. 참고할게요."}, {"r": "그게 테스트랑 무슨 상관이에요?", "re": "상관없어요. 그냥 궁금했어요."}]}, {"x": "'이름 이력 연동' 테스트예요. 이스크라가 개명 공고처럼 이름이 바뀐 기록을 한 사람의 기록으로 이어 붙이는 기능을 시험 중이에요. 먼저 이스크라에서 '개명'을 검색해서, 이런 공고가 어디에 실리는지 확인해 주세요.", "o": [{"r": "개명 공고요?", "re": "네. 법원이 개명을 허가하면 도렌통신 지면에 공고가 실려요."}, {"r": "검색하고 나서는요?", "re": "도렌통신 아카이브에서 '개명'으로 검색하면 공고 기록이 나와요."}]}, {"x": "공고 중에서 세 가지 조건에 맞는 한 건을 찾아 주세요. 첫째, 신청 사유가 가족 사별일 것. 둘째, 출신이 바르니아일 것. 셋째, 허가된 시점이 약 22~23년 전일 것이에요.", "o": [{"r": "조건이 꽤 구체적이네요", "re": "테스트 데이터를 그렇게 만들었어요."}, {"r": "이 사람은 실제 인물이에요?", "re": "아니요, 테스트용 페르소나예요. 실제 인물과는 관계없어요."}]}, {"x": "해당하는 공고의 상세 화면을 캡처해서 보내 주세요."}], "retry7": [{"x": "이 공고는 세 조건 중 하나가 맞지 않았어요. 신청 사유, 출신, 허가 시기를 한 번 더 대조해 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 맞는 공고를 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success7": [{"x": "7차 확인됐어요. 입금했어요. 이름 이력이 연결되는 것까지 확인됐어요.", "o": [{"r": "입금 확인했어요. 다음은 뭐예요?", "re": "곧 알려 드릴게요. 마지막 단계가 될 거예요.", "fire": "result:success7"}]}], "assign8": [{"x": "8차 의뢰 메일 보냈어요. 이번이 마지막 테스트예요.", "o": [{"r": "마지막이요?", "re": "네. 이번 건만 끝나면 베타 기간이 마무리돼요."}, {"r": "어떤 건데요?", "re": ""}]}, {"x": "'물류·통신 기록 조회' 테스트예요. 공공 기록 열람 시스템인데, 주소로 검색하면 그 주소에서 오간 물류와 통신 기록이 나와요. 그런데 6차 때 연합회 게시판에서 암호화된 글을 보셨죠. 그 글을 먼저 읽어 주세요. 게시판 주소와 준회원 계정은 의뢰 메일에 다시 적어 뒀어요. 거기에 나오는 장소가 이번 테스트의 검색어예요.", "o": [{"r": "암호는 어떻게 풀어요?", "re": "숫자가 아니라 말이에요. 문서 아래에 암호 힌트가 적혀 있어요."}, {"r": "회원 전용 글을 읽어도 되는 건가요?", "re": "준회원 계정으로 열람되는 범위예요. 걱정하지 않으셔도 돼요."}, {"r": "그 글을 왜 읽어야 해요?", "re": "테스트 시나리오에 필요한 장소 정보가 거기 있어서요."}]}, {"x": "그 장소를 조회 시스템에서 검색하면 기록이 여러 건 나와요. 그중 물류 기록이면서, 개인 이름으로 수령 확인이 남은 기록 한 건을 찾아 캡처해 주세요.", "o": [{"r": "물류 기록이고 개인 이름이 있는 거요?", "re": "네, 맞아요."}, {"r": "이게 마지막이라면서, 뭘 찾는 건지 이제 말해 줄 수 있어요?", "re": "말씀드렸잖아요, 시스템 테스트예요. 끝나면 정리해서 알려 드릴게요."}]}, {"x": "기록을 찾으면 상세 화면을 캡처해서 보내 주세요."}], "retry8": [{"x": "이 기록은 조건에 맞지 않았어요. 암호화된 글에 나온 장소의 기록 중에서, 물류이면서 개인 이름으로 수령 확인이 남은 기록을 다시 찾아 주세요.", "o": [{"r": "다시 볼게요", "re": "네. 찾으면 상세 화면을 캡처해서 보내 주세요."}]}], "success8": [{"x": "8차 확인됐어요. 입금했어요. 모든 테스트가 끝났어요. 마지막으로 하나만 더 부탁드릴게요.", "o": [{"r": "뭔데요?", "re": "최종 정산 전에 테스트 결과 확인서를 확인해 주셔야 해요. 지금 띄워 드릴게요.", "fire": "reportOpen"}]}]};
 function msgOnMail(id){
   if(!introSeen || (msgState.seenMail[id] && !/^(success|retry)\d$/.test(id))) return;
   msgState.seenMail[id] = 1;
