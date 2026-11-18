@@ -1651,6 +1651,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #msgLauncher.on{display:flex;}
 #msgLauncher svg{width:28px;height:28px;fill:#fff;stroke:none;}
 #msgLauncher svg .d{fill:#6177F6;}
+#msgLauncher.nudge::after{content:'';position:absolute;left:3px;top:3px;width:15px;height:15px;border-radius:50%;background:#F5B301;border:2px solid #fff;animation:nudgePulse 1.7s ease-out infinite;}
+@keyframes nudgePulse{0%{box-shadow:0 0 0 0 rgba(245,179,1,.6);}100%{box-shadow:0 0 0 11px rgba(245,179,1,0);}}
 #msgBadge{position:absolute;top:-4px;right:-4px;min-width:22px;height:22px;border-radius:999px;background:#FF4D5E;color:#fff;font-size:11.5px;font-weight:800;display:none;align-items:center;justify-content:center;padding:0 6px;border:2.5px solid var(--surface);}
 #msgBadge.show{display:flex;}
 #msgPeek{position:fixed;right:92px;bottom:130px;z-index:91;max-width:260px;display:none;align-items:flex-start;gap:10px;background:var(--surface);color:var(--ink);border-radius:18px;padding:12px 16px 12px 12px;box-shadow:0 2px 6px rgba(0,0,0,.06),0 18px 44px rgba(30,40,100,.22);cursor:pointer;animation:peekIn .3s cubic-bezier(.2,.9,.3,1.2);}
@@ -1692,6 +1694,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #msgQuick::-webkit-scrollbar{display:none;}
 #msgQuick button{flex-shrink:0;background:var(--surface);border:1px solid var(--border);border-radius:999px;padding:7px 13px;font-family:inherit;font-size:12.5px;font-weight:600;color:var(--ink);cursor:pointer;transition:background .12s,border-color .12s,color .12s;}
 #msgQuick button:hover{background:var(--hover-bg);border-color:#6177F6;color:#6177F6;}
+#msgQuick button.doubt{border-color:#E0A21B;background:#FFF8E6;color:#7A4E00;}
+#msgQuick button.doubt:hover{background:#FFEFC4;border-color:#C98F00;color:#7A4E00;}
 #msgForm{display:flex;align-items:center;gap:8px;padding:10px 12px 14px;background:var(--bg);}
 #msgInput{flex:1;min-width:0;border:1px solid var(--border);background:var(--surface);color:var(--ink);border-radius:999px;padding:11px 16px;font-family:inherit;font-size:13.5px;outline:none;transition:border-color .15s,box-shadow .15s;}
 #msgInput:focus{border-color:#6177F6;box-shadow:0 0 0 3px rgba(97,119,246,.18);}
@@ -3486,6 +3490,7 @@ function switchTab(id){
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'report' && !document.getElementById('rpPage').innerHTML.trim()) rpRender(false);
   if(k === 'board') bdEnter();
+  try{ doubtSeen(k); }catch(e){}
   if(k === 'article' && t){
     renderArticleBody(t.articleId);
     { const aa = ARTICLES.find(x => x.id === t.articleId) || HINTS.find(x => x.id === t.articleId); document.getElementById('addrText').textContent = outletOf(aa ? aa.outlet : '').domain + '/article/' + t.articleId; }
@@ -7026,6 +7031,7 @@ const MSG_ASSIGN_IDS = ['assign1','assign2','assign3','assign4','assign5','assig
 const MSG_INTRO = [{"x": "안녕하세요, 레나 씨. 이스크라 개발을 맡고 있는 다나예요. 체험단 신청해 주셔서 감사합니다.", "o": [{"r": "안녕하세요. 선정해 주셔서 감사해요", "re": "저희가 감사하죠. 간단히 설명드릴게요."}, {"r": "안녕하세요. 지원자가 많았을 텐데, 제가 선정된 이유가 있나요?", "re": "학교 커뮤니티 모집 글로 신청하신 분들 중에서 무작위로 골랐어요. 특별한 기준은 없었어요."}]}, {"x": "이스크라는 여러 사이트의 정보를 한 곳에서 찾게 해 주는 검색 포털이에요. 정식 오픈 전에 써 보고 이상한 부분을 알려 줄 분이 필요했고요. 신청서를 보니 학교 다니면서 일도 하신다고 되어 있던데, 하루에 쓸 수 있는 시간이 어느 정도예요?", "o": [{"r": "수업 없는 시간에 한두 시간 정도요. 알바 때문에 불규칙해요", "re": "충분해요. 시간대는 상관없어요."}, {"r": "시간은 만들면 돼요. 한 건에 얼마나 걸리는지가 중요하죠", "re": "한 건에 짧으면 몇 분, 길어도 한두 시간이에요."}]}, {"x": "앞으로는 메일로 '의뢰'를 보낼 거예요. 메일에는 사이트 주소와 테스트 이름만 적고, 자세한 설명은 여기서 드릴게요. 하는 일은 사이트를 둘러보면서 이상한 데이터를 찾아 캡처하는 거고요.", "o": [{"r": "어려운 건 아니죠?", "re": "어렵지 않아요. 꼼꼼히 보는 편이면 충분해요."}, {"r": "찾는 기준은 정해져 있나요?", "re": "의뢰마다 그때그때 설명드려요. 막히면 힌트도 드려요."}]}, {"x": "의뢰가 확인되면 건마다 바로 사례금을 입금해요. 학생분께는 적은 돈이 아닐 텐데, 이번 학기 등록금은 마련하셨어요?", "o": [{"r": "솔직히 그게 제일 걱정이에요. 이걸로 보탬이 되면 좋겠어요", "re": "그럼 해 주시는 만큼 보답할게요."}, {"r": "일단 얼마나 주시는지부터 알고 싶어요", "re": "난이도마다 달라요. 1차는 십오만 원 정도예요."}]}, {"x": "궁금한 게 생기면 언제든 여기로 말 걸어 주세요. 곧 첫 번째 의뢰를 보낼게요.", "o": [{"r": "네, 기다릴게요", "re": "네, 잠시만요.", "fire": "introDone"}, {"r": "잘 부탁드려요. 열심히 할게요", "re": "네, 기대할게요.", "fire": "introDone"}]}];
 const MSG_ACK = ["네","알겠어요","그렇군요","네, 계속 말씀해 주세요","확인했어요"];
 let msgState = {log:[], unread:0, hintLevel:{}, seenMail:{}, greeted:false, followup:false, chain:[], ackO:[], ackIdx:0};
+var msgReady = false;   /* 저장된 메신저 상태를 불러온 뒤에만 true (그 전에 저장하면 불러올 기록을 덮어씀) */
 let msgOpen = false;
 let msgPeekTimer = null;
 
@@ -7081,6 +7087,7 @@ function msgRenderChips(){
     chips = [];
   } else {
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
+    { const dn = doubtAvail(); if(dn) chips.push(['doubt', DOUBT[dn].chip]); }
     if(!endingChosen && reportStage !== 'open' && antonIds.indexOf('anton6') >= 0 && !msgState.confronted) chips.push(['confront','이거 테스트 아니죠?']);
     if(!endingChosen && reportStage !== 'open' && msgStage().n >= 2) chips.push(['quit','테스트 그만둘래요']);
   }
@@ -7088,7 +7095,8 @@ function msgRenderChips(){
   q.classList.toggle('busy', hold);
   q.classList.toggle('hold', hold);
   q.style.display = chips.length ? '' : 'none';
-  q.innerHTML = chips.map(c => '<button type="button" onclick="msgChip(\''+c[0]+'\',this.textContent)">'+c[1].replace(/</g,'&lt;')+'</button>').join('');
+  q.innerHTML = chips.map(c => '<button type="button"'+(c[0]==='doubt'?' class="doubt"':'')+' onclick="msgChip(\''+c[0]+'\',this.textContent)">'+c[1].replace(/</g,'&lt;')+'</button>').join('');
+  { const l = document.getElementById('msgLauncher'); if(l) l.classList.toggle('nudge', !!doubtAvail() && !msgOpen); }
 }
 function msgPush(role, text, silent){
   msgState.log.push({t:role, x:text, ts:Date.now(), read:false});
@@ -7222,6 +7230,7 @@ function msgReply(intent){
   else if(intent === 'yes'){ msgState.followup = false; msgBotSay(MSG_PICK(["알겠어요. 또 막히면 말씀하세요.","좋아요. 천천히 해 보세요. 필요하면 다시 불러 주세요."])); }
   else if(intent === 'quit') msgStartChain([{x: '그만두시겠다는 거죠? 지금까지 진행하신 테스트는 정산이 끝났어요. 정말 그만두시겠어요?', o: [{r: '네, 그만둘게요', re: '알겠어요. 그동안 수고하셨어요.', bad: 'quit', fire: 'bad:quit'}, {r: '아니요, 계속할게요', re: '네, 하던 테스트 이어서 진행해 주세요.'}]}], 300);
   else if(intent === 'confront'){ msgState.confronted = true; msgStartChain([{x: '무슨 말씀이세요?', o: [{r: '누군가를 찾고 있는 거잖아요', re: '레나 씨, 베타 테스트 약관 7조를 다시 읽어 보세요. 베타 계정은 지금부터 정지됩니다.', bad: 'confront', fire: 'bad:confront'}, {r: '아니에요, 그냥 물어봤어요', re: '네. 테스트에만 집중해 주세요.'}]}], 300); }
+  else if(intent === 'doubt') msgDoubt();
   else if(intent === 'cap') msgBotSay("주소창 오른쪽에 카메라 아이콘 보이시죠? 그걸 누르면 캡처 모드가 켜져요. 캡처하고 싶은 기록이나 화면을 클릭하면 저장되고, 의뢰 메일 회신창에 자동으로 붙어요. 취소는 Esc예요.");
   else if(intent === 'mail') msgBotSay("이스크라 첫 화면의 '메일' 아이콘으로 들어가시거나, 새 메일 올 때 뜨는 알림을 눌러도 돼요. 의뢰 메일을 열면 아래쪽에 회신하는 칸이 있어요.");
   else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두면 왼쪽 아래 스크랩 창에서 다시 볼 수 있어요. 단서를 비교할 때 편해요.");
@@ -7232,6 +7241,84 @@ function msgReply(intent){
   else if(intent === 'about') msgBotSay("메일로 의뢰가 오면, 안내드린 사이트를 둘러보면서 찾아야 할 내용을 캡처해서 회신해 주시면 돼요. 자세한 설명은 여기서 제가 말씀드리고요. 확인되면 건마다 사례금이 입금돼요.");
   else msgBotSay(MSG_PICK(["그건 바로 답하기 어렵네요. 막히신 거면 '힌트'라고 보내 주세요.","지금 하시는 테스트 얘기면 '힌트'나 '뭘 하면 돼요?'라고 물어봐 주세요."]));
   msgRenderChips();
+}
+/* ===== 의심 선택지: 레나가 아는 사이트(4차 총동문회 동문수첩, 5·7차 도렌통신 아카이브, 6차 연합회 게시판, 8차 공공기록 열람센터)를 열면
+   메신저에 '이거 진짜 사이트 아니에요?' 선택지가 생긴다. 다나는 '실제와 흡사하게 제작한 더미 사이트'라고 둘러대며 이번 사례금을 들어 안 할 거냐고 종용하고,
+   레나는 이어 가거나(계속) 그만둔다(기존 '다른 테스터' 배드엔딩). 물을수록 다나의 말투가 날카로워진다(doubts 횟수). ===== */
+const DOUBT = {
+  4:{kind:'alumni', chip:'이거 우리 학교 총동문회 사이트 같은데요…? 진짜 아니에요?',
+     ex:["아, 도렌 국립대학교 총동문회요? 그건 실제와 흡사하게 제작된 더미 사이트예요? 진짜처럼 보여야 테스트가 되니까요. 안에 있는 이름이랑 졸업 연도도 전부 테스트용 데이터고요.",
+         "또 같은 걸 물어보시네요. 실제 동문수첩을 본떠서 만든 더미 사이트예요. 안에 있는 사람들도 전부 가상이에요.",
+         "그건 이미 말씀드렸어요. 더미 사이트예요. 그렇게 보이는 게 당연하죠."],
+     yesRe:"좋아요. 그럼 동문수첩에서 찾을 것만 찾아서 캡처해 주세요.", no:'그래도 찜찜해서 안 할래요'},
+  5:{kind:'archive', chip:'도렌통신 아카이브…? 이거 진짜 신문사 사이트 아니에요?',
+     ex:["도렌통신 화면을 본떠서 만든, 실제와 흡사한 더미 아카이브예요? 진짜 신문사 기록이었다면 저희가 이렇게 마음대로 열람하게 해 드릴 수 있겠어요. 기사도 시나리오에 맞춰 쓴 거고요.",
+         "아까도 말씀드렸잖아요. 실제 신문사 사이트와 흡사하게 제작한 더미예요. 기사 내용도 전부 테스트용이고요.",
+         "더미 사이트라고 말씀드렸어요. 걱정하실 일 아니에요."],
+     yesRe:"좋아요. 하던 검색 이어서 해 주세요.", no:'그래도 이상해요. 안 할래요'},
+  6:{kind:'board', chip:'이거 우리 엄마가 다니는 연합회 게시판 같은데요…? 진짜 아니에요?',
+     ex:["연합회 게시판을 본떠서 만든, 실제와 흡사한 더미 사이트예요? 준회원 계정도 테스트용으로 똑같이 맞춰 둔 거고요. 글이랑 댓글도 전부 가상이에요.",
+         "…또요? 실제 게시판처럼 보이게 만든 더미라고 했잖아요. 글도 댓글도 전부 가상이에요.",
+         "더미예요. 어머니가 다니시는 곳과 비슷해 보이는 건 당연하죠, 그렇게 만들었으니까요."],
+     yesRe:"좋아요. 글 제목만 보지 마시고, 상세 화면까지 들어가서 확인해 주세요.", no:'엄마가 다니는 곳인데… 안 할래요'},
+  7:{kind:'archive', chip:'이거 실제 개명 공고 같은데요…? 진짜 사람 기록 아니에요?',
+     ex:["공고 형식을 그대로 본뜬, 실제와 흡사한 테스트용 기록이에요? 이름도 ○○○로 가려져 있잖아요. 실제 기록이었다면 이렇게 보여 드릴 수 없어요.",
+         "더미예요. 실제 공고처럼 보여야 이름 이력 연동을 테스트할 수 있으니까요.",
+         "가상의 인물이에요. 이미 말씀드렸어요."],
+     yesRe:"좋아요. 조건에 맞는 공고 한 건만 찾으시면 돼요.", no:'사람 기록을 이렇게 보는 건 싫어요. 안 할래요'},
+  8:{kind:'dlt', chip:'공공기록 열람센터…? 이거 진짜 정부 사이트 아니에요?',
+     ex:["실제 열람센터와 똑같이 보이게 만든 더미 사이트예요? 진짜 열람센터에서 이런 조회를 하셨다면 큰일 나잖아요. 그래서 더미로 만든 거예요.",
+         "더미예요. 진짜였다면 저희가 열람 계정을 드릴 수 없죠.",
+         "더미 사이트라고 했어요. 이제 마지막 테스트예요."],
+     yesRe:"좋아요. 마지막까지 잘 부탁드려요.", no:'정부 사이트면 안 되잖아요. 안 할래요'}
+};
+/* 사례금을 들어 안 할 거냐고 종용하는 말(물은 횟수 0·1·2 이상) */
+const DOUBT_PRESS = [
+  "그런데… 이번 의뢰는 안 하실 거예요? 이번에 받으실 사례금이 {amt}원인데, 진짜 괜찮으시겠어요?",
+  "그럼 이번 의뢰는 안 하시겠다는 거죠? {amt}원이나 되는데, 진짜 괜찮으시겠어요?",
+  "그럼 여기까지 하시겠다는 거죠. {amt}원이에요. 지금 그만두시면 정말 후회 안 하시겠어요?"
+];
+const DOUBT_PRESS_LAST = [
+  "마지막 테스트인데 안 하실 거예요? 이번에 받으실 사례금이 {amt}원인데, 진짜 괜찮으시겠어요?",
+  "마지막인데 안 하시겠다는 거죠? {amt}원이에요. 지금까지 하신 게 있는데, 진짜 괜찮으시겠어요?",
+  "그럼 마지막 테스트는 안 하시겠다는 거죠. {amt}원이에요. 지금 그만두시면 정말 후회 안 하시겠어요?"
+];
+function doubtReward(n){
+  const S = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL, SUCCESS6_MAIL, SUCCESS7_MAIL, SUCCESS8_MAIL][n - 1];
+  const r = S && REWARD_BY_MAIL[S.id]; return r ? r.amount : 0;
+}
+function doubtStage(){ const st = msgStage(); return (st.n && !st.done && DOUBT[st.n]) ? st.n : 0; }
+/* 지금 차수의 아는 사이트를 열었다 → 선택지가 생김 */
+function doubtSeen(kind){
+  if(!msgReady) return;
+  const n = doubtStage(); if(!n || DOUBT[n].kind !== kind) return;
+  msgState.dseen = msgState.dseen || {};
+  if(msgState.dseen[n]) return;
+  msgState.dseen[n] = 1; msgSave(); msgRenderChips();
+}
+/* 선택지를 보여 줄 차수(없으면 0) */
+function doubtAvail(){
+  if(endingChosen || reportStage === 'open' || badEnding || msgState.left) return 0;
+  const n = doubtStage(); if(!n) return 0;
+  if(msgState.dused && msgState.dused[n]) return 0;
+  if(!(msgState.dseen && msgState.dseen[n])){
+    if(typeof activeKind === 'function' && activeKind() === DOUBT[n].kind){ msgState.dseen = msgState.dseen || {}; msgState.dseen[n] = 1; }
+    else return 0;
+  }
+  return n;
+}
+function msgDoubt(){
+  const n = doubtStage(), D = DOUBT[n]; if(!D) return;
+  msgState.dused = msgState.dused || {}; msgState.dused[n] = 1;
+  const k = Math.min(2, msgState.doubts || 0); msgState.doubts = (msgState.doubts || 0) + 1;
+  const press = (n === 8 ? DOUBT_PRESS_LAST : DOUBT_PRESS)[k].replace('{amt}', doubtReward(n).toLocaleString());
+  const w = Math.min(2600, 650 + D.ex[k].length * 22);
+  msgBotSay(D.ex[k]);
+  msgStartChain([{x: press, o: [
+    {r: '…알겠어요, 할게요', re: D.yesRe},
+    {r: D.no, re: '…그러시군요. 알겠어요. 그동안 수고하셨어요.', bad: 'quit', fire: 'bad:quit'}
+  ]}], w + 700);
+  msgSave();
 }
 function msgSend(text){
   text = String(text||'').trim(); if(!text) return;
@@ -7247,7 +7334,7 @@ function msgChip(id, label){
   if(/^pick\d+$/.test(id)){ const o = msgState.ackO[parseInt(id.slice(4), 10)]; if(o && o.bad) checkpointSave(); }
   if(msgTyping) return;
   msgTyping = true; msgRenderChips();
-  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront'};
+  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront', doubt:'doubt'};
   const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
   q.classList.add('busy');
   inp.value = ''; inp.classList.add('typing');
@@ -7310,6 +7397,7 @@ function msgOnMail(id){
 }
 function msgInit(){
   msgLoad();
+  msgReady = true;
   if(!document.getElementById('msgLauncher')) return;
   const _in = document.getElementById('msgInput');
   if(_in) _in.addEventListener('input', () => { document.getElementById('msgSend').disabled = !_in.value.trim(); });
