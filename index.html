@@ -714,6 +714,13 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .mailattach b{display:block;font-size:13px;}
 .mailattach span{display:block;font-size:11.5px;color:var(--muted);margin-top:2px;}
 .scrapfrag-head{margin:10px 6px 4px;padding-top:10px;border-top:1px solid var(--border);font-size:11.5px;font-weight:700;color:var(--accent);display:flex;justify-content:space-between;}
+.amq{margin:6px;padding:12px;border:1px solid var(--accent);border-radius:12px;background:var(--bg);}
+.amq-t{font-size:11px;font-weight:700;color:var(--accent);margin-bottom:6px;}
+.amq p{margin:0 0 10px;font-size:12.5px;line-height:1.6;}
+.amq-r{display:flex;gap:6px;}
+.amq-r input{flex:1;min-width:0;font-family:inherit;font-size:13px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;background:var(--surface);color:var(--ink);}
+.amq-r button{font-family:inherit;font-size:12px;font-weight:700;padding:7px 12px;border-radius:8px;border:none;background:var(--accent);color:var(--accent-ink);cursor:pointer;flex-shrink:0;}
+.amq-m{min-height:14px;margin-top:6px;font-size:11.5px;color:#B5452E;}
 .scrapquiz{display:block;width:calc(100% - 12px);margin:8px 6px 4px;padding:9px;border-radius:8px;border:1px solid var(--accent);background:var(--accent);color:var(--accent-ink);font-family:inherit;font-size:12.3px;font-weight:700;cursor:pointer;}
 .scrapquiz[disabled]{background:none;color:var(--muted);border-color:var(--border);cursor:default;}
 .scrapempty{padding:20px 14px;font-size:12px;color:var(--muted);text-align:center;}
@@ -2855,7 +2862,7 @@ const HINTS = [
     body:["도렌 접경 거주구의 상권을 되살리기 위한 정비 사업이 시작된다. 시는 노후 시장과 주차장을 새로 단장한다는 계획이다."]},
   {id:134, type:'blog', tags:['구술', '증언', '가족', '접경', '생존자'], cat:"사회", title:"그날의 이야기 3 — 아내와 아들을 광장에 두고 온 분, 그리고 마지막으로 국경을 넘은 분", outlet:"기억의 서랍", time:"2개월 전", c:12,
     comments:[{"u": "교포2세", "t": "어머니가 이분 얘기를 하신 적이 있어요"}, {"u": "현지교민", "t": "지금도 건강하시길"}, {"u": "익명", "t": "모임마다 빈 자리를 남기는 이유가 이거였군요"}],
-    body:["1세대 생존자들의 구술을 한 편씩 옮겨 적는 블로그입니다. 세 번째 이야기는 연단에 섰던 시민 대표, 우리가 \"선생님\"이라고 부르던 분에 대한 기억입니다.", "\"선생님의 아내와 아들은 그날 광장 쪽으로 오다가 돌아오지 못했어요. 선생님은 그걸 알고도 접경까지 사람들을 한 명씩 이끌어 건너게 했죠. 자기 가족을 찾으러 가지 않고, 남은 사람들을 먼저 보냈어요. 제일 마지막에 건너온 사람이 선생님이었어요.\"", "선생님은 그 뒤로 이름을 바꾸고 모습을 감췄다고 합니다. 해마다 11월 모임에서 빈 자리를 하나 비워 두는 것은 그분의 아내와 아들, 그리고 돌아오지 못한 분들을 위해서입니다."]},
+    body:["1세대 생존자들의 구술을 한 편씩 옮겨 적는 블로그입니다. 세 번째 이야기는 연단에 섰던 시민 대표, 우리가 \"선생님\"이라고 부르던 분에 대한 기억입니다.", "\"선생님의 아내와 아들은 그날 광장 쪽으로 오다가 돌아오지 못했어요. 선생님은 그걸 알고도 사흘 밤 동안 접경에서 사람들을 한 명씩 이끌어 건너게 했죠. 자기 가족을 찾으러 가지 않고, 남은 사람들을 먼저 보냈어요. 제일 마지막에 건너온 사람이 선생님이었어요.\"", "선생님은 그 뒤로 이름을 바꾸고 모습을 감췄다고 합니다. 해마다 11월 모임에서 빈 자리를 하나 비워 두는 것은 그분의 아내와 아들, 그리고 돌아오지 못한 분들을 위해서입니다."]},
   {id:135, type:'blog', tags:['11월', '여행'], cat:"생활", title:"11월 도렌 단풍 명소 추천 TOP 5", outlet:"노바포스트", time:"5일 전", c:2,
     comments:[{"u": "ㅇㅇ", "t": "올해는 좀 일찍 지는 것 같아요"}],
     body:["늦가을에 가기 좋은 도렌 근교 단풍 명소를 정리했습니다. 평일 오전이 비교적 한산합니다."]},
@@ -3420,22 +3427,26 @@ function renderScrapWidget(){
   const countEl = document.getElementById('scrapCount');
   const listEl = document.getElementById('scrapList');
   if(!widget) return;
-  const nn = notesDone.length;
-  widget.classList.toggle('hidden', scrapped.length === 0 && nn === 0);
+  const nn = notesDone.length, M = antonActive();
+  widget.classList.toggle('hidden', scrapped.length === 0 && nn === 0 && !M);
   countEl.textContent = scrapped.length;
-  let h = scrapped.map(id => {
+  const keep = document.getElementById('amIn') ? document.getElementById('amIn').value : '';
+  let h = '';
+  if(M){
+    h += '<form class="amq" onsubmit="antonSubmit(event)"><div class="amq-t">안톤의 질문 ' + (ANTON_MISSIONS.indexOf(M) + 1) + '/' + ANTON_MISSIONS.length + '</div><p>' + M.q + '</p><div class="amq-r"><input id="amIn" type="text" autocomplete="off" placeholder="' + M.ph + '"><button type="submit">답하기</button></div><div class="amq-m" id="amMsg"></div></form>';
+  }
+  h += scrapped.map(id => {
     const a = ARTICLES.find(x => x.id === id) || HINTS.find(x => x.id === id);
     if(!a) return '';
     return '<div class="scrap-row" onclick="scrapGo(' + a.id + ')"><div class="txt"><div class="t">' + a.title + '</div><div class="o">' + a.outlet + '</div></div><svg class="ic rm" viewBox="0 0 24 24" onclick="event.stopPropagation();toggleScrap(' + a.id + ')"><path d="M6 6l12 12M18 6 6 18"/></svg></div>';
   }).join('');
-  if(!h) h = '<div class="scrapempty">스크랩한 기사가 없습니다</div>';
+  if(!scrapped.length) h += '<div class="scrapempty">스크랩한 기사가 없습니다</div>';
   if(nn){
-    const total = Object.keys(ANTON_NOTES).length;
-    h += '<div class="scrapfrag-head"><span>안톤의 주석</span><span>' + nn + '/' + total + '</span></div>' +
+    h += '<div class="scrapfrag-head"><span>안톤의 주석</span><span>' + nn + '/' + ANTON_MISSIONS.length + '</span></div>' +
       notesDone.map(id => { const f = ANTON_NOTES[id]; return f ? '<div class="scrap-row" onclick="document.getElementById(\'scrapPanel\').classList.add(\'hidden\');noteOpen(\'' + id + '\')"><div class="txt"><div class="t">' + f.title + '</div><div class="o">' + f.tag + '</div></div></div>' : ''; }).join('');
-    if(antonIds.indexOf('anton5') >= 0 && !quizDone) h += '<button type="button" class="scrapquiz" ' + (quizReady() ? 'onclick="quizOpen()"' : 'disabled') + '>' + (quizReady() ? '단서 정리' : '단서 정리 (주석 ' + nn + '/' + total + ')') + '</button>';
   }
   listEl.innerHTML = h;
+  const inp = document.getElementById('amIn'); if(inp && keep) inp.value = keep;
 }
 
 /* ===== 배경음악 — 사이트(탭)마다 다른 곡, 자동재생 시도 + 첫 상호작용 시 시작 ===== */
@@ -3803,28 +3814,28 @@ function omStartGate(){
 const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dr-mail.dr", "subject": "[카페 소베크] 11월 2주차 근무표 안내", "preview": "이번 주 근무표 보내드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "이번 주 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 다음 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dr", "subject": "[연합회] 11월 정기모임 안내", "preview": "이번 달 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "이번 달 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 포크롭스카야 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "미라 선생님께도 안부 전해 주세요. 시간이 되시면 따님과 함께 들러 주시면 좋겠습니다.", "연합회 총무 델라"], "translated": false}, {"id": "mom", "sender": "미라 (엄마)", "addr": "mira.s@dr-mail.dr", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락하렴.", "이번 주말에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dr", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
 /* ===== 안톤(백스토리) — 기관이 별생각 없이 만든 스크랩 기능을 안톤이 안에서 고쳐 두었다.
-   의뢰를 마칠 때마다 노을메일로 '스크랩 미션'이 오고, 알맞은 항목을 스크랩해야 내부 주석이 붙는다 ===== */
-var ANTON_MAILS = [{"id": "anton1", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "레나 씨가 지금 누구를 찾고 있는지 아세요?", "preview": "이스크라 직원이 개인적으로 드리는 메일이에요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑자기 메일 드려서 놀라셨죠. 저는 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이에요. 체험단 신청서에 적힌 주소로 보냈어요. 이 메일 얘기는 팀 메신저에서 하지 말아 주세요.", "1차 때 보신 반출 기록은 샘플이 아니에요. 그리고 레나 씨가 하고 있는 건 이스크라 기능을 점검하는 일이 아니에요. 팀은 도렌 안에서만 구할 수 있는 정보를 레나 씨 손을 빌려 모으고 있어요. 한 사람을 찾기 위해서요. 그 사람이 누구인지, 어떤 사람인지 레나 씨는 아직 몰라요. 레나 씨는 이 일과 아무 관련이 없는 사람이에요. 그래서 알고 나서 선택해야 한다고 생각해요.", "팀이 시키는 일과는 별개로, 제가 따로 부탁드리고 싶은 게 있어요. 그분이 어떤 사람인지 직접 알아보세요. 이스크라 검색에는 바르니아 바깥에서 나온 기록도 들어 있어요. 알맞은 기록을 찾아 스크랩해 두세요. 스크랩 기능은 위에서 별생각 없이 만들어 둔 건데, 제가 안쪽에서 고쳐 놨어요. 알맞은 기록을 스크랩하면 제 주석이 같이 붙어요.", "첫 번째는 23년 전 11월 14일, 그날 광장 연단에 선 사람에 대한 기록이에요. 국제 인권 단체가 낸 보고서 기사예요. '인권'이나 '연단'으로 검색해 보세요. 오르벤 쪽에서 낸 기사도 섞여 있으니, 어느 쪽 이야기인지 보고 고르세요.", "안톤"]}, {"id": "anton2", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "그분이 그날 잃은 것", "preview": "한 사람의 구술을 옮겨 적은 블로그예요.", "time": "방금 전", "unread": true, "body": ["첫 번째 기록은 스크랩하셨나요? 아직이라면 '인권'으로 검색해서 보고서 기사부터 찾아보세요.", "두 번째는 그분을 곁에서 지켜본 사람의 기억이에요. 그날 이후 그분에게 무슨 일이 있었는지 담은 구술 블로그가 있어요. '구술'이나 '가족'으로 검색해 보세요. 읽기 쉬운 글은 아니에요. 그래도 꼭 읽어 보셨으면 해요.", "안톤"]}, {"id": "anton3", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "그분이 믿는 것", "preview": "한 번도 얼굴을 밝히지 않은 분의 인터뷰예요.", "time": "방금 전", "unread": true, "body": ["이번에는 그분이 직접 한 말이에요. 얼굴과 이름을 밝히지 않는 조건으로 응한 서면 인터뷰가 망명 언론에 실렸어요. '인터뷰'나 '기억'으로 검색해 보세요. 이름이 비슷한 인터뷰가 여러 개니까 매체와 제목을 잘 보세요.", "저희 부모님도 그 모임에 다니셨어요. 저는 어릴 때 모임마다 빈 자리가 하나 있는 이유를 몰랐어요. 이 인터뷰를 읽고서야 알았어요.", "안톤"]}, {"id": "anton4", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "그분이 지금 하는 일", "preview": "레나 씨가 따라온 상회 뒤에 있는 사람이에요.", "time": "방금 전", "unread": true, "body": ["레나 씨가 1차부터 따라온 상회가 하는 일들을 기억하시죠. 구호물자, 장학금, 구술 기록. 그 뒤에 누가 있는지 다룬 기사가 있어요. '후원'이나 '익명'으로 검색해 보세요. 사칭 문자 주의보 같은 비슷한 글도 있으니 잘 고르세요.", "그분이 숨어서 해 온 일이, 팀이 사례금을 주며 쫓는 일과 얼마나 다른지 읽어 보시면 알 수 있을 거예요.", "안톤"]}, {"id": "anton5", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "그분이 숨어 있는 이유", "preview": "이게 마지막이에요. 이제 선택은 레나 씨 몫이에요.", "time": "방금 전", "unread": true, "body": ["마지막은 해외 탐사보도 기사예요. 팀이 그분을 찾으려고 어떤 방식을 쓰는지, 찾아내고 나면 무슨 일이 벌어졌는지 다뤘어요. '체험단'이나 '위장'으로 검색해 보세요. 후기 블로그도 섞여 있으니 매체를 잘 보세요.", "여기까지 읽으셨다면 레나 씨는 알게 되셨을 거예요. 팀이 주는 사례금과, 그분이 지키려는 것 사이에서 어떻게 할지는 레나 씨가 정하는 일이에요. 저는 어느 쪽도 강요하지 않아요.", "스크랩이 다 모이면 스크랩 창에 '단서 정리' 버튼이 생겨요. 제가 맞게 보고 있는지 레나 씨가 직접 확인해 주세요. 이 메일들은 읽고 나서 지워 주세요.", "안톤"]}, {"id": "anton6", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "확인했어요", "preview": "이제 그분이 어떤 사람인지 보이셨을 거예요.", "time": "방금 전", "unread": true, "body": ["주석을 제대로 읽으셨네요. 이제 레나 씨가 누구를 찾고 있었는지, 그분이 어떤 사람인지 아셨을 거예요.", "레나 씨는 이 일의 당사자가 아니에요. 사례금을 받는 쪽에 설지, 그분이 지키려는 것 쪽에 설지는 레나 씨가 정하는 일이에요. 어느 쪽이든 저는 레나 씨를 탓하지 않을 거예요.", "저는 이스크라에 일부러 들어온 사람이에요. 누가 저를 보냈는지는 아직 말씀드리기 어려워요.", "안톤"]}];
-var ANTON_NOTES = {"n1": {"title": "안톤의 주석 · 그날 연단에서", "tag": "안톤의 주석", "html": "<h4>안톤의 주석 — 레나 씨가 찾고 있는 사람</h4><p>팀이 레나 씨를 시켜 찾는 사람이 바로 이분이에요. 이름은 루카 발렌. 교민들은 \"선생님\"이라고만 불러요.</p><p>23년 전 11월 14일, 광장에서 무기를 들자는 사람들을 끝까지 말린 사람이에요. 오르벤 쪽 기사는 그분을 \"폭도 수괴\"라고 부르고요.</p>"}, "n2": {"title": "안톤의 주석 · 그분이 잃은 것", "tag": "안톤의 주석", "html": "<h4>안톤의 주석 — 아내와 아들</h4><p>그분은 그날 아내와 아들을 잃었어요. 그런데도 가족을 찾으러 가지 않고, 접경에서 사람들을 한 명씩 먼저 건너게 했어요. 가장 마지막에 넘어온 사람이 그분이에요.</p><p>모임에서 빈 자리를 하나 남겨 두는 건 그분의 가족과, 돌아오지 못한 분들을 위해서예요.</p>"}, "n3": {"title": "안톤의 주석 · 그분이 믿는 것", "tag": "안톤의 주석", "html": "<h4>안톤의 주석 — 기억은 약속</h4><p>\"기억은 복수가 아니라 약속입니다.\" 그분이 늘 하는 말이에요. 다시는 누구도 광장에서 쓰러지지 않게 하겠다는 약속이요.</p><p>그 약속을 무기가 아니라 기록하고 서로 돌보는 일로 지키겠다고 해요. 돌아갈 날이 와도 가장 마지막에 돌아가겠다고 하고요.</p>"}, "n4": {"title": "안톤의 주석 · 그분이 지금 하는 일", "tag": "안톤의 주석", "html": "<h4>안톤의 주석 — 상회 뒤에 있는 사람</h4><p>레나 씨가 1차부터 따라온 상회의 구호, 장학금, 구술 기록은 전부 그분의 뜻에서 시작됐어요. 북부로 가는 쌀도 그래서 숨겨서 보내야 했고요.</p><p>그분은 감사 인사를 받는 걸 제일 불편해해요. 이름 대신 대표를 앞에 세워 두는 것도 그래서예요.</p>"}, "n5": {"title": "안톤의 주석 · 그분이 숨는 이유", "tag": "안톤의 주석", "html": "<h4>안톤의 주석 — 찾아내면 일어날 일</h4><p>소재가 알려지면 오르벤은 그분이 아니라 그분이 돌보는 사람들을 먼저 압박해 왔어요. 그래서 그분은 숨어 있어요. 자기 자신 때문이 아니에요.</p><p>레나 씨가 사례금을 받고 1차부터 5차까지 모아 온 것들이, 결국 이분의 소재로 이어지는 길이었어요.</p><p>그분이 지인에게 남긴 말이에요. \"나를 찾는 사람이 오거든, 나 말고 이 사람들을 지켜 주십시오.\"</p>"}};
-var ANTON_QUIZ = [{"q": "23년 전 11월 14일 연단에 선 시민 대표가 호소한 것은?", "o": ["무기를 들고 맞서자", "더 이상 아무도 다치지 않게 질서 있게 돌아가자", "오르벤군에 항복하자", "광장을 점거하자"], "a": 1}, {"q": "\"선생님\"이 그날 잃은 것은?", "o": ["재산과 집", "고향의 땅", "아내와 아들", "동료 몇 명"], "a": 2}, {"q": "\"선생님\"이 지켜 온 믿음은?", "o": ["빼앗긴 것은 반드시 되찾아야 한다", "기억은 복수가 아니라 약속이다", "힘이 있어야 지킬 수 있다", "과거는 잊어야 한다"], "a": 1}, {"q": "\"선생님\"이 지금 조용히 해 온 일은?", "o": ["오르벤 당국과의 협상", "상회를 통한 구호·장학·구술 기록 후원", "무기 구입", "해외 이주 준비"], "a": 1}, {"q": "\"선생님\"이 몸을 숨기고 있는 이유는?", "o": ["빚 때문에", "재판이 두려워서", "소재가 알려지면 그가 돌보는 사람들이 먼저 압박받기 때문에", "쉬고 싶어서"], "a": 2}];
+   의뢰를 마칠 때마다 안톤의 질문이 하나씩 열리고, 인터넷 기록을 찾아 근거를 스크랩한 뒤 답해야 한다 ===== */
+var ANTON_MAILS = [{"id": "anton1", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "이스크라에서 일하는 안톤입니다", "preview": "레나 씨가 받은 의뢰, 샘플 테스트가 아니에요.", "time": "방금 전", "unread": true, "body": ["레나 씨, 갑자기 연락드려서 죄송해요. 저는 이스크라 베타팀에서 데이터 관리를 맡고 있는 안톤이에요. 이 메일은 팀 몰래 보내는 거라, 팀 메신저에서는 언급하지 말아 주세요.", "지금 하고 계신 의뢰, 팀이 말하는 것처럼 샘플 테스트가 아니에요. 믿기 어려우시겠지만, 직접 확인하실 수 있게 해 둘게요. 스크랩 기능은 위에서 별생각 없이 만든 건데 제가 안쪽에서 고쳐 놨어요. 스크랩 창을 열어 보면 '안톤의 질문'이 있을 거예요.", "답은 이스크라 검색 안에 있어요. '인권'이나 '연단'으로 검색해 보세요. 근거가 되는 기사를 스크랩해야 답이 인정돼요. 같은 날을 두고 다르게 부르는 기사도 있으니 잘 보세요.", "안톤"]}, {"id": "anton2", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "두 번째 질문이에요", "preview": "스크랩 창을 열어 보세요.", "time": "방금 전", "unread": true, "body": ["첫 번째 질문은 풀어 보셨나요? 아직이라면 스크랩 창에서 먼저 답해 주세요.", "새 질문이 올라와 있어요. '구술'이나 '가족'으로 검색해 보세요. 읽기 편한 글은 아니에요.", "안톤"]}, {"id": "anton3", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "세 번째 질문이에요", "preview": "이번엔 그분이 직접 한 말이에요.", "time": "방금 전", "unread": true, "body": ["스크랩 창에 새 질문이 올라와 있어요. '인터뷰'나 '기억'으로 검색해 보세요. 이름이 비슷한 인터뷰가 여러 개니까 매체와 제목을 잘 보세요.", "안톤"]}, {"id": "anton4", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "네 번째 질문이에요", "preview": "상회와 관련된 질문이에요.", "time": "방금 전", "unread": true, "body": ["새 질문이 있어요. '후원'이나 '익명'으로 검색해 보세요. 비슷해 보이는 글도 있으니 잘 고르세요.", "안톤"]}, {"id": "anton5", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "마지막 질문이에요", "preview": "이번 질문이 마지막이에요.", "time": "방금 전", "unread": true, "body": ["마지막 질문이에요. '체험단'이나 '위장'으로 검색해 보세요. 후기 블로그도 섞여 있으니 매체를 잘 보세요.", "다 풀고 나면 연락드릴게요. 이 메일들은 읽고 나서 지워 주세요.", "안톤"]}, {"id": "anton6", "sender": "Anton", "addr": "anton.s@dr-mail.dr", "subject": "읽어 보셨네요", "preview": "이제 알게 되셨을 거예요.", "time": "방금 전", "unread": true, "body": ["끝까지 읽으셨네요. 이제 레나 씨가 누구를 찾고 있었는지 아셨을 거예요.", "레나 씨는 이 일의 당사자가 아니에요. 사례금을 받는 쪽에 설지, 그분이 지키려는 쪽에 설지는 레나 씨가 정하는 일이에요. 어느 쪽이든 저는 레나 씨를 탓하지 않을 거예요.", "저는 이스크라에 일부러 들어온 사람이에요. 누가 저를 보냈는지는 아직 말씀드리기 어려워요.", "안톤"]}];
+var ANTON_NOTES = {"n1": {"title": "안톤의 주석 1", "tag": "안톤의 주석", "html": "<p>방금 읽은 그 사람을, 팀이 찾고 있어요.</p><p>아직은 거기까지만 말할게요.</p>"}, "n2": {"title": "안톤의 주석 2", "tag": "안톤의 주석", "html": "<p>그분은 가족을 찾으러 가지 않았어요.</p><p>남은 사람들이 먼저였어요.</p>"}, "n3": {"title": "안톤의 주석 3", "tag": "안톤의 주석", "html": "<p>무기를 드는 대신, 기억하기로 했어요.</p><p>그게 그분이 싸우는 방식이에요.</p>"}, "n4": {"title": "안톤의 주석 4", "tag": "안톤의 주석", "html": "<p>레나 씨가 1차부터 따라온 상회 뒤에는 이 사람이 있었어요.</p>"}, "n5": {"title": "안톤의 주석 5", "tag": "안톤의 주석", "html": "<p>그분이 숨는 건 자기를 지키려는 게 아니에요.</p><p>사례금을 받는 쪽에 설지, 이 사람이 지키려는 쪽에 설지는 레나 씨가 정하는 일이에요.</p>"}};
+var ANTON_MISSIONS = [{"n": "n1", "mail": "anton1", "q": "23년 전 11월 14일, 광장 연단에 선 시민 대표가 마지막으로 호소한 말은 '천천히, ○○○ 돌아갑시다'였어요. 빈칸을 채워 주세요.", "a": ["질서있게"], "ev": [130], "ph": "빈칸에 들어갈 말"}, {"n": "n2", "mail": "anton2", "q": "그분은 가족을 두고 와서도 접경에서 몇 밤 동안 사람들을 건너게 했다고 해요. 며칠 밤일까요?", "a": ["사흘", "3일", "삼일", "사흘밤", "3일밤"], "ev": [134], "ph": "며칠 밤"}, {"n": "n3", "mail": "anton3", "q": "그분이 직접 말한 약속은 '다시는 누구도 ○○에서 쓰러지지 않게'예요. 빈칸은 어디일까요?", "a": ["광장"], "ev": [132], "ph": "장소"}, {"n": "n4", "mail": "anton4", "q": "그분의 후원으로 시작된 사업은 구호물자, 장학금, 그리고 하나가 더 있어요. 무엇일까요?", "a": ["구술기록", "구술", "구술기록사업"], "ev": [136], "ph": "나머지 하나"}, {"n": "n5", "mail": "anton5", "q": "그분이 지인에게 남긴 말은 '나를 찾는 사람이 오거든, 나 말고 이 ○○○을 지켜 주십시오'예요. 빈칸을 채워 주세요.", "a": ["사람들"], "ev": [138], "ph": "빈칸에 들어갈 말"}];
 var antonIds = [];
-var notesDone = [];   /* 붙은 안톤의 주석 */
-var quizDone = false;
-var ANTON_MISSIONS = [
-  {n:'n1', mail:'anton1', test:() => scrapped.indexOf(130) >= 0},
-  {n:'n2', mail:'anton2', test:() => scrapped.indexOf(134) >= 0},
-  {n:'n3', mail:'anton3', test:() => scrapped.indexOf(132) >= 0},
-  {n:'n4', mail:'anton4', test:() => scrapped.indexOf(136) >= 0},
-  {n:'n5', mail:'anton5', test:() => scrapped.indexOf(138) >= 0}
-];
-function antonCheck(){
-  let added = false;
-  ANTON_MISSIONS.forEach(M => {
-    if(notesDone.indexOf(M.n) >= 0 || antonIds.indexOf(M.mail) < 0) return;
-    if(M.test()){ notesDone.push(M.n); added = true; }
-  });
-  if(added){ showCaptureToast('내부 주석이 붙었습니다 — 스크랩 창에서 확인하세요', 'ok'); renderScrapWidget(); saveProgress(); }
+var notesDone = [];   /* 풀어낸 안톤의 질문 */
+function antonNorm(t){ return String(t||'').replace(/[\s.,!?'"~·…]/g,'').toLowerCase(); }
+function antonActive(){ return ANTON_MISSIONS.find(M => notesDone.indexOf(M.n) < 0 && antonIds.indexOf(M.mail) >= 0) || null; }
+function antonSubmit(e){
+  if(e) e.preventDefault();
+  const M = antonActive(); if(!M) return;
+  const inp = document.getElementById('amIn'), msg = document.getElementById('amMsg');
+  const v = antonNorm(inp.value);
+  if(!v){ msg.textContent = '답을 적어 주세요.'; return; }
+  if(!M.ev.every(id => scrapped.indexOf(id) >= 0)){ msg.textContent = '근거가 되는 기록을 먼저 스크랩해 주세요.'; return; }
+  if(M.a.map(antonNorm).indexOf(v) < 0){ msg.textContent = '아직 맞지 않아요. 기록을 다시 읽어 보세요.'; return; }
+  notesDone.push(M.n);
+  showCaptureToast('안톤의 질문을 풀었습니다', 'ok');
+  renderScrapWidget(); saveProgress();
+  if(notesDone.length >= ANTON_MISSIONS.length) setTimeout(() => antonAdd('anton6'), 6000);
 }
+function antonCheck(){ try{ renderScrapWidget(); }catch(e){} }
 function antonAdd(id, silent){
   const m = ANTON_MAILS.find(x => x.id === id);
   if(!m || antonIds.indexOf(id) >= 0) return false;
@@ -3840,7 +3851,7 @@ function antonAdd(id, silent){
     try{ renderTabs(); }catch(e){}
     if(!here) osNotify('노을메일', m.sender, m.subject, 'noeul', () => { const t = TABS.find(x => x.kind === 'oldmail'); if(t) switchTab(t.id); });
     saveProgress();
-    try{ antonCheck(); renderScrapWidget(); }catch(e){}
+    try{ renderScrapWidget(); }catch(e){}
   }
   return true;
 }
@@ -3849,7 +3860,7 @@ function antonSchedule(n){ setTimeout(() => antonAdd('anton' + n), 25000); }
 function antonRestore(ids, readIds){
   (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0){ m.unread = true; m._notice = true; } });
 }
-/* 내부 주석 열람 */
+/* 푼 질문에 붙은 안톤의 주석 열람 */
 function noteOpen(id){
   const f = ANTON_NOTES[id]; if(!f) return;
   document.getElementById('fragBody').innerHTML =
@@ -3858,27 +3869,6 @@ function noteOpen(id){
   document.getElementById('fragModal').classList.add('show');
 }
 function fragClose(){ document.getElementById('fragModal').classList.remove('show'); }
-/* 단서 정리 퀴즈 — 내부 주석이 모두 붙으면 열림 */
-function quizReady(){ return !quizDone && antonIds.indexOf('anton5') >= 0 && Object.keys(ANTON_NOTES).every(k => notesDone.indexOf(k) >= 0); }
-function quizOpen(){
-  document.getElementById('scrapPanel').classList.add('hidden');
-  document.getElementById('fragBody').innerHTML =
-    '<div class="fraghead"><span class="fragtag">정리</span><b>모은 주석으로 알 수 있는 것</b></div><form id="quizForm" onsubmit="quizSubmit(event)">'+
-    ANTON_QUIZ.map((q, qi) => '<fieldset class="quizq"><legend>'+(qi+1)+'. '+q.q+'</legend>'+q.o.map((o, oi) => '<label><input type="radio" name="q'+qi+'" value="'+oi+'"> '+o+'</label>').join('')+'</fieldset>').join('')+
-    '<p class="quizmsg" id="quizMsg"></p><div class="fragact"><button type="submit" class="fragbtn on">제출</button><button type="button" class="fragbtn ghost" onclick="fragClose()">닫기</button></div></form>';
-  document.getElementById('fragModal').classList.add('show');
-}
-function quizSubmit(e){
-  e.preventDefault();
-  const f = document.getElementById('quizForm'), msg = document.getElementById('quizMsg');
-  let ok = true, blank = false;
-  ANTON_QUIZ.forEach((q, qi) => { const c = f.querySelector('input[name="q'+qi+'"]:checked'); if(!c){ blank = true; ok = false; } else if(+c.value !== q.a) ok = false; });
-  if(blank){ msg.textContent = '모든 문항에 답해 주세요.'; return; }
-  if(!ok){ msg.textContent = '아직 맞지 않아요. 주석을 다시 읽어 보세요.'; return; }
-  quizDone = true; fragClose(); renderScrapWidget(); saveProgress();
-  showCaptureToast('정리를 마쳤습니다', 'ok');
-  setTimeout(() => antonAdd('anton6'), 6000);
-}
 const OM_NEWS_IDS = [113, 110, 115, 116];
 function omRenderNews(){
   const el = document.getElementById('omNewsList'); if(!el) return;
@@ -4897,7 +4887,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5,
-      bankBalance, bankTx, scrapped, notesDone, quizDone, introSeen,
+      bankBalance, bankTx, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -4948,7 +4938,6 @@ function loadProgress(){
   renderBankcard();
   scrapped = saved.scrapped || [];
   notesDone = saved.notesDone || [];
-  quizDone = !!saved.quizDone;
   renderScrapWidget();
   pendingCutscene = saved.pendingCutscene || {};
 
