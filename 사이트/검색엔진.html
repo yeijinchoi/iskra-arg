@@ -584,6 +584,21 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
   transform:translateY(20px);opacity:0;pointer-events:none;transition:transform .35s ease,opacity .35s ease;
 }
 #toast.show{transform:translateY(0);opacity:1;pointer-events:auto;}
+/* OS 스타일 입금 알림 — PC: macOS 알림, 모바일: iOS 배너 */
+#osNotif{position:fixed;z-index:400;top:12px;right:14px;width:360px;max-width:calc(100vw - 28px);display:flex;gap:11px;align-items:flex-start;padding:12px 14px;border-radius:16px;background:rgba(244,244,246,.78);-webkit-backdrop-filter:blur(28px) saturate(1.8);backdrop-filter:blur(28px) saturate(1.8);border:.5px solid rgba(0,0,0,.08);box-shadow:0 8px 30px rgba(0,0,0,.22);color:#1d1d1f;font-family:-apple-system,BlinkMacSystemFont,'Apple SD Gothic Neo','Pretendard',sans-serif;cursor:pointer;transform:translateX(120%);opacity:0;pointer-events:none;transition:transform .45s cubic-bezier(.2,.8,.2,1),opacity .3s ease;}
+#osNotif.show{transform:translateX(0);opacity:1;pointer-events:auto;}
+#osNotif .oi{width:38px;height:38px;border-radius:9px;flex-shrink:0;background:linear-gradient(160deg,#2FB7A8,#127C86);display:flex;align-items:center;justify-content:center;}
+#osNotif .oi svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;}
+#osNotif .ob{min-width:0;flex:1;}
+#osNotif .ot{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:13px;font-weight:700;}
+#osNotif .ot time{font-size:11.5px;font-weight:400;color:#6e6e73;flex-shrink:0;}
+#osNotif .os{font-size:13px;font-weight:600;margin-top:1px;}
+#osNotif .od{font-size:12.5px;color:#3a3a3c;margin-top:1px;line-height:1.4;}
+@media (max-width:640px){
+  #osNotif{top:max(8px, env(safe-area-inset-top,0px));left:8px;right:8px;width:auto;max-width:none;border-radius:22px;padding:11px 14px;transform:translateY(-130%);}
+  #osNotif.show{transform:translateY(0);}
+}
+
 #toast{z-index:120;}
 .tab.notice .favicon{position:relative;}
 .tab.notice .favicon::after{content:'';position:absolute;top:-4px;right:-5px;width:8px;height:8px;border-radius:50%;background:#E5352B;border:1.5px solid var(--chrome-strip);box-sizing:content-box;}
@@ -2385,6 +2400,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 </div>
 </div>
 
+<div id="osNotif" onclick="osNotifHide()" role="status" aria-live="polite"><div class="oi"><svg viewBox="0 0 24 24"><path d="M3 10 12 4l9 6M5 10v8M9.5 10v8M14.5 10v8M19 10v8M3 20h18"/></svg></div><div class="ob"><div class="ot"><span id="osNotifApp">도렌은행</span><time>지금</time></div><div class="os" id="osNotifSub"></div><div class="od" id="osNotifBody"></div></div></div>
 <div id="fragModal" onclick="if(event.target===this)fragClose()"><div id="fragBody"></div></div>
 <div id="toast" onclick="mOpenFromToast()">
   <span class="ticon"><svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg></span>
@@ -3250,13 +3266,23 @@ const REWARD_BY_MAIL = {
 };
 let bankBalance = 0;
 let bankTx = [];
+var osNotifTimer = null;
+function osNotify(app, sub, body){
+  const el = document.getElementById('osNotif'); if(!el) return;
+  document.getElementById('osNotifApp').textContent = app;
+  document.getElementById('osNotifSub').textContent = sub;
+  document.getElementById('osNotifBody').textContent = body;
+  el.classList.remove('show'); void el.offsetWidth; el.classList.add('show');
+  clearTimeout(osNotifTimer); osNotifTimer = setTimeout(osNotifHide, 6000);
+}
+function osNotifHide(){ const el = document.getElementById('osNotif'); if(el) el.classList.remove('show'); }
 function depositReward(mailId){
   const r = REWARD_BY_MAIL[mailId];
   if(!r) return;
   bankBalance += r.amount;
   bankTx.unshift({amount:r.amount, label:r.label, fresh:true});
   renderBankcard();
-  showCaptureToast(r.amount.toLocaleString() + '원이 입금되었습니다', 'ok');
+  osNotify('도렌은행', '입금 ' + r.amount.toLocaleString() + '원', r.label + ' · 잔액 ' + bankBalance.toLocaleString() + '원');
 }
 function renderBankcard(){
   const el = document.getElementById('bankcard');
