@@ -4752,6 +4752,7 @@ const SAVE_KEY = 'iskra_save_v1';
 const DYNAMIC_MAIL_IDS = [NEW_MAIL.id, TUTORIAL_MAIL.id, ASSIGNMENT_MAIL.id, RETRY_MAIL.id, SUCCESS_MAIL.id, ASSIGNMENT2_MAIL.id, RETRY2_MAIL.id, SUCCESS2_MAIL.id, ASSIGNMENT3_MAIL.id, RETRY3_MAIL.id, SUCCESS3_MAIL.id, ASSIGNMENT4_MAIL.id, RETRY4_MAIL.id, SUCCESS4_MAIL.id, ASSIGNMENT5_MAIL.id, RETRY5_MAIL.id, SUCCESS5_MAIL.id, CONTACT1_MAIL.id];
 
 function saveProgress(){
+  if(typeof resetting !== 'undefined' && resetting) return;
   try {
     const delivered = FOLDERS.inbox
       .filter(m => DYNAMIC_MAIL_IDS.includes(m.id))
@@ -4902,9 +4903,11 @@ function loadProgress(){
     switchTab(saved.activeId);
   }
 }
+var resetting = false;
 function resetProgress(){
   if(confirm('진행 상황을 초기화하고 처음부터 다시 시작할까요?')){
-    try { localStorage.removeItem(SAVE_KEY); } catch(e){}
+    resetting = true;   /* 새로고침 직전까지 남아 있는 타이머가 다시 저장하지 못하게 막음 */
+    try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY); sessionStorage.removeItem('iskra_jump'); } catch(e){}
     location.reload();
   }
 }
@@ -4982,7 +4985,7 @@ function msgLoad(){
   try{ if(!localStorage.getItem(SAVE_KEY)){ localStorage.removeItem(MSG_KEY); return; } }catch(e){}
   try{ const s = JSON.parse(localStorage.getItem(MSG_KEY)||'null'); if(s && s.log){ msgState = Object.assign(msgState, s); msgState.chain = msgNorm(msgState.chain||[]); if(!Array.isArray(msgState.ackO)) msgState.ackO = []; } }catch(e){}
 }
-function msgSave(){ try{ localStorage.setItem(MSG_KEY, JSON.stringify(msgState)); }catch(e){} }
+function msgSave(){ if(resetting) return; try{ localStorage.setItem(MSG_KEY, JSON.stringify(msgState)); }catch(e){} }
 
 function msgStage(){
   if(FOLDERS.inbox.some(m => m.id === 'contact1')) return {n:6, done:false};
