@@ -534,6 +534,34 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-oldmail .ombadge{position:absolute;top:-4px;right:-4px;min-width:20px;height:20px;border-radius:999px;background:var(--accent);color:var(--accent-ink);font-size:11px;font-weight:700;display:flex;align-items:center;justify-content:center;padding:0 5px;opacity:0;transform:scale(.4);transition:opacity .25s ease,transform .25s cubic-bezier(.34,1.56,.64,1);}
 #panel-oldmail .ombadge.show{opacity:1;transform:scale(1);}
 #panel-oldmail .omfoldertitle{font-size:15px;font-weight:700;margin:20px 0 12px;}
+/* ===== 노을메일 PC 레이아웃: 왼쪽 사이드바(폴더·위젯) + 오른쪽 읽기창(위)/목록(아래) ===== */
+.omfolders{display:none;}
+.omhead{display:none;}
+@media (min-width:861px){
+  #panel-oldmail > .wrap{max-width:1240px;margin-left:auto;margin-right:auto;}
+  #panel-oldmail .omlistwrap .omsplit{display:grid;grid-template-columns:244px minmax(0,1fr);gap:24px;align-items:start;}
+  #panel-oldmail .omside{order:-1;grid-column:1;grid-row:1;margin-top:20px;}
+  #panel-oldmail .omleft{grid-column:2;grid-row:1;min-width:0;}
+  #panel-oldmail .omfoldertitle{display:none;}
+  #panel-oldmail .omhead{display:flex;align-items:baseline;gap:12px;margin:20px 0 10px;}
+  #panel-oldmail .omhead h1{font-size:17px;font-weight:700;margin:0;}
+  #panel-oldmail .omhead .omcount{font-size:12.5px;color:var(--muted);}
+  #panel-oldmail .omfolders{display:flex;flex-direction:column;gap:2px;margin-bottom:6px;}
+  #panel-oldmail .omfolders button{display:flex;align-items:center;justify-content:space-between;font-family:inherit;font-size:13.5px;color:var(--ink);background:none;border:none;border-radius:12px;padding:10px 14px;cursor:pointer;text-align:left;}
+  #panel-oldmail .omfolders button:hover{background:var(--hover-bg);}
+  #panel-oldmail .omfolders button.on{background:var(--accent);color:var(--accent-ink);font-weight:700;}
+  #panel-oldmail .omfolders button b{font-size:12px;font-weight:700;}
+  #panel-oldmail .omfolders button:not(.on) b{color:var(--accent);}
+  #panel-oldmail .omlist{max-width:none;border:1px solid var(--border);border-radius:16px;overflow:hidden;background:var(--surface);}
+  #panel-oldmail .omlist .omrow{border-radius:0;margin:0;padding:11px 16px;border-bottom:1px solid var(--border);}
+  #panel-oldmail .omlist .omrow:last-child{border-bottom:none;}
+  #panel-oldmail .omlist .omrow.sel{background:var(--hover-bg);box-shadow:inset 3px 0 0 var(--accent);}
+  /* 읽기창은 목록 위에 붙는다 */
+  #panel-oldmail .omleft > .omreader{max-width:none;margin:0 0 16px;padding:18px 24px 6px;background:var(--surface);border:1px solid var(--border);border-radius:18px;}
+  #panel-oldmail .omleft > .omreader .omnextlist{display:none;}
+  #panel-oldmail .omleft > .omreader .omfoot{margin-top:22px;}
+}
+
 #panel-oldmail .omlist{display:flex;flex-direction:column;max-width:680px;}
 #panel-oldmail .omrow{display:flex;align-items:center;gap:12px;padding:12px 4px;border-bottom:1px solid var(--border);cursor:pointer;min-width:0;}
 #panel-oldmail .omrow:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
@@ -1834,9 +1862,11 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
    <div class="omsplit">
     <div class="omleft">
     <h1 class="omfoldertitle">받은메일함</h1>
+    <div class="omhead"><h1 id="omHeadTitle">받은메일함</h1><span class="omcount" id="omCount"></span></div>
     <div class="omlist" id="omlist"></div>
     </div>
       <aside class="side omside">
+        <nav class="omfolders" id="omFolders"></nav>
         <div class="mailcard">
           <span class="avatar3">레</span>
           <span class="mctext"><b>레나</b><span>노을메일 · 내 계정</span></span>
@@ -3860,14 +3890,31 @@ let omOpened = false;
 function omOpenMail(){
   if(!omOpened){ omOpened = true; try{ saveProgress(); }catch(e){} }
   omRenderNews();
+  omPlaceReader();
   document.getElementById('omGate').classList.add('hidden');
   document.getElementById('omTop').classList.remove('hidden');
   document.getElementById('omListWrap').classList.remove('hidden');
   omRenderList();
 }
+var omFilter = 'all', omCurId = null;
+function omDesk(){ return window.matchMedia && window.matchMedia('(min-width:861px)').matches; }
+/* PC에서는 읽기창을 목록 위로 옮겨 붙이고, 모바일에서는 원래 자리로 */
+function omPlaceReader(){
+  const r = document.getElementById('omReader'); if(!r) return;
+  const left = document.querySelector('#omListWrap .omleft'), wrap = document.querySelector('#panel-oldmail > .wrap');
+  if(omDesk()){ if(r.parentNode !== left) left.insertBefore(r, document.getElementById('omlist')); }
+  else if(r.parentNode !== wrap) wrap.appendChild(r);
+}
+function omSetFilter(f){ omFilter = f; omRenderList(); }
 function omRenderList(){
-  document.getElementById('omlist').innerHTML = OLDMAIL_LIST.map(m => `
-    <div class="omrow ${m.unread ? 'unread' : ''}" onclick="omOpenDetail('${m.id}')">
+  const unreadN = OLDMAIL_LIST.filter(m => m.unread).length;
+  const list = omFilter === 'unread' ? OLDMAIL_LIST.filter(m => m.unread) : OLDMAIL_LIST;
+  const nav = document.getElementById('omFolders');
+  if(nav) nav.innerHTML = '<button type="button" class="' + (omFilter === 'all' ? 'on' : '') + '" onclick="omSetFilter(\'all\')">받은메일함<b>' + OLDMAIL_LIST.length + '</b></button><button type="button" class="' + (omFilter === 'unread' ? 'on' : '') + '" onclick="omSetFilter(\'unread\')">안 읽은 메일<b>' + unreadN + '</b></button>';
+  const ht = document.getElementById('omHeadTitle'); if(ht) ht.textContent = omFilter === 'unread' ? '안 읽은 메일' : '받은메일함';
+  const hc = document.getElementById('omCount'); if(hc) hc.textContent = '안읽음 ' + unreadN + ' / 전체 ' + OLDMAIL_LIST.length;
+  document.getElementById('omlist').innerHTML = (list.length ? list : [{empty:1}]).map(m => m.empty ? '<div class="omrow" style="cursor:default"><span class="omsubjwrap" style="color:var(--muted)">안 읽은 메일이 없습니다</span></div>' : `
+    <div class="omrow ${m.unread ? 'unread' : ''}${omCurId === m.id && omDesk() ? ' sel' : ''}" onclick="omOpenDetail('${m.id}')">
       <span class="omdot"></span>
       <span class="omsender">${m.sender}</span>
       <span class="omsubjwrap"><b>${m.subject}</b><span class="omprev">${m.preview || ''}</span></span>
@@ -3903,16 +3950,20 @@ function omRenderMail(m){
 function omOpenDetail(id){
   const m = OLDMAIL_LIST.find(x => x.id === id);
   if(!m) return;
-  m.unread = false;
+  m.unread = false; omCurId = id;
+  omPlaceReader();
   omRenderList();
-  document.getElementById('omListWrap').classList.add('hidden');
+  if(omDesk()){ document.getElementById('omListWrap').classList.remove('hidden'); }
+  else document.getElementById('omListWrap').classList.add('hidden');
   document.getElementById('omReader').classList.remove('hidden');
   omRenderMail(m);
   setBack('oldmail', true);
   saveProgress();
 }
 function omCloseDetail(){
+  omCurId = null;
   document.getElementById('omReader').classList.add('hidden');
+  omRenderList();
   document.getElementById('omListWrap').classList.remove('hidden');
   setBack('oldmail', false);
 }
