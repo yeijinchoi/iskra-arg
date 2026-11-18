@@ -455,7 +455,8 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 #panel-mail .mrow:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
 #panel-mail .mrow.unread{background:var(--unread-bg);}
 #panel-mail .mrow.unread:hover{background:var(--hover-bg);box-shadow:0 0 0 1px var(--border) inset;}
-#panel-mail .mrow.flash{animation:flashin .9s ease-out;}
+#panel-mail .mrow.flash{animation:mailSlide .6s cubic-bezier(.2,.8,.2,1),flashin 1.6s ease-out;overflow:hidden;}
+@keyframes mailSlide{from{max-height:0;opacity:0;transform:translateY(-10px);padding-top:0;padding-bottom:0;}to{max-height:96px;opacity:1;transform:none;}}
 @keyframes flashin{0%{background:var(--accent2);}100%{background:var(--unread-bg);}}
 #panel-mail .mrow .star{width:15px;height:15px;color:var(--border);flex-shrink:0;}
 #panel-mail .mrow .sender{width:132px;flex-shrink:0;color:var(--muted);font-size:12.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
@@ -642,8 +643,9 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .tab.notice .favicon{position:relative;}
 .tab.notice .favicon::after{content:'';position:absolute;top:-4px;right:-5px;width:8px;height:8px;border-radius:50%;background:#E5352B;border:1.5px solid var(--chrome-strip);box-sizing:content-box;}
 .tab.notice.active .favicon::after{display:none;}
-#panel-oldmail .omrow.fresh{animation:omFresh 1.6s ease;}
-@keyframes omFresh{0%{transform:translateY(-14px);opacity:0;background:var(--hover-bg);}30%{transform:none;opacity:1;}100%{background:transparent;}}
+#panel-oldmail .omrow.fresh{animation:omSlide .6s cubic-bezier(.2,.8,.2,1),omFresh 2s ease-out;overflow:hidden;}
+@keyframes omSlide{from{max-height:0;opacity:0;transform:translateY(-10px);padding-top:0;padding-bottom:0;}to{max-height:96px;opacity:1;transform:none;}}
+@keyframes omFresh{0%{background:var(--hover-bg);box-shadow:inset 3px 0 0 var(--accent);}100%{background:var(--unread-bg);box-shadow:inset 3px 0 0 transparent;}}
 #toast:hover{background:var(--hover-bg);}
 #toast .ticon{width:34px;height:34px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;flex-shrink:0;}
 #toast .ticon .ic{width:16px;height:16px;}
