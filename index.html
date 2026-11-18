@@ -2059,6 +2059,10 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
           <button onclick="jumpToStage(4)">4차</button><button onclick="jumpToStage(5)">5차</button><button onclick="jumpToStage(6)">6차</button>
           <button onclick="jumpToStage(7)">7차</button><button onclick="jumpToStage(8)">8차</button>
         </div>
+        <div class="cm-sep">엔딩 바로가기 (베타테스트용)</div>
+        <div class="cm-jump">
+          <button onclick="jumpToEnding('C')">선택 화면</button><button onclick="jumpToEnding('A')">엔딩 A</button><button onclick="jumpToEnding('B')">엔딩 B</button>
+        </div>
       </div>
     </div>
   </div>
@@ -6141,6 +6145,14 @@ function jumpToStage(n){
   }catch(e){}
   location.reload();
 }
+function jumpToEnding(k){
+  if(!confirm((k === 'C' ? '엔딩 선택 화면' : '엔딩 ' + k) + '으로 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
+  try{
+    localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY);
+    sessionStorage.setItem('iskra_jump', '8'); sessionStorage.setItem('iskra_end', k);
+  }catch(e){}
+  location.reload();
+}
 function applyJump(n){
   const REW = [150000, 180000, 220000, 260000, 300000];
   const ASSIGN = [ASSIGNMENT_MAIL, ASSIGNMENT2_MAIL, ASSIGNMENT3_MAIL, ASSIGNMENT4_MAIL, ASSIGNMENT5_MAIL, ASSIGNMENT6_MAIL, ASSIGNMENT7_MAIL, ASSIGNMENT8_MAIL];
@@ -6195,4 +6207,5 @@ else { omOpenMail(); }
 updateInboxBadge();
 msgInit();
 try{ const _j = sessionStorage.getItem('iskra_jump'); if(_j){ sessionStorage.removeItem('iskra_jump'); applyJump(parseInt(_j,10)); } }catch(e){}
+try{ const _e = sessionStorage.getItem('iskra_end'); if(_e){ sessionStorage.removeItem('iskra_end'); setTimeout(() => { finalChoiceOpen(); if(_e !== 'C') finalEnding(_e); }, 1200); } }catch(e){}
 </script>
