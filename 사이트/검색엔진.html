@@ -5067,7 +5067,7 @@ function msgRenderChips(){
   } else {
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
   }
-  const hold = msgPending > 0 || msgTyping;
+  const hold = msgPending > 0 || msgTyping || msgFireHold > 0;
   q.classList.toggle('busy', hold);
   q.classList.toggle('hold', hold);
   q.style.display = chips.length ? '' : 'none';
@@ -5091,6 +5091,7 @@ function msgMarkRead(){
 }
 /* 사람처럼: 글자 수에 비례해서 '입력 중…' 후 전송 */
 let msgPending = 0;
+var msgFireHold = 0;   /* 입금·컷씬 같은 후속 이벤트가 끝날 때까지 일반 선택지를 숨김 */
 function msgBotSay(text, delay, startDelay, hook){
   msgPending++; msgRenderChips();
   const log = document.getElementById('msgLog');
@@ -5173,7 +5174,7 @@ function msgPick(i){
   const next = msgState.chain.shift();
   msgState.ackO = [];
   if(next) msgSetOpts(next);
-  if(opt.fire){ const w0 = Math.min(2600, 650 + String(opt.re||'').length * 22); setTimeout(() => msgFire(opt.fire), w0 + 1800); }
+  if(opt.fire){ const w0 = Math.min(2600, 650 + String(opt.re||'').length * 22); msgFireHold++; msgRenderChips(); setTimeout(() => { msgFire(opt.fire); setTimeout(() => { msgFireHold = Math.max(0, msgFireHold - 1); msgRenderChips(); }, 3500); }, w0 + 1800); }
   if(opt.re){
     msgBotSay(opt.re);
     if(next){ const w = Math.min(2600, 650 + String(opt.re).replace(/<[^>]+>/g,'').length * 22); msgBotSay(next.x, null, w + 700, msgHook(next)); }
