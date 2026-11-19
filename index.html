@@ -1655,23 +1655,68 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .navitem{border-radius:999px;padding:10px 14px;}
 #panel-raden .kpi,#panel-raden .kpicard,#panel-raden .card{border:none!important;border-radius:22px!important;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(20,40,50,.07);}
 #panel-oldmail .omicon{box-shadow:0 14px 40px rgba(199,49,31,.22);}
-/* 노을메일 첫 접속: 이름 정하기 */
-#panel-oldmail .omsetup{display:flex;align-items:center;justify-content:center;flex:1;min-height:55vh;padding:24px 16px;}
-#panel-oldmail .oms-card{width:100%;max-width:400px;box-sizing:border-box;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px 26px 26px;box-shadow:0 14px 40px rgba(199,49,31,.12);color:var(--ink);animation:viewIn .25s ease;}
-#panel-oldmail .oms-card h2{font-size:18px;font-weight:700;margin:0 0 8px;}
-#panel-oldmail .oms-card > p{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0 0 20px;}
-#panel-oldmail .oms-row{display:grid;grid-template-columns:1fr 92px;gap:10px;margin-bottom:16px;}
-#panel-oldmail .oms-row label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);}
-#panel-oldmail .oms-row input{font:inherit;font-size:15px;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;outline:none;min-width:0;}
-#panel-oldmail .oms-row input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hover-bg);}
-#panel-oldmail .oms-row input:disabled{background:var(--hover-bg);color:var(--muted);}
-#panel-oldmail .oms-prev{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:14px;}
-#panel-oldmail .oms-prev .avatar3{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
-#panel-oldmail .oms-prev b{display:block;font-size:13.5px;}
-#panel-oldmail .oms-prev small{font-size:12px;color:var(--muted);}
-#panel-oldmail .oms-err{min-height:18px;font-size:12.5px;color:var(--accent);margin:0 0 10px;}
-#panel-oldmail .oms-ok{width:100%;font:inherit;font-size:15px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:12px;cursor:pointer;}
-#panel-oldmail .oms-ok:hover{filter:brightness(1.06);}
+/* 노을메일 첫 접속: 이름 정하기(포털 로그인 화면 구성) */
+#panel-oldmail .omsetup{display:flex;flex-direction:column;align-items:center;padding:56px 16px 40px;color:var(--ink);animation:viewIn .25s ease;}
+#panel-oldmail .oms-brand{display:flex;align-items:center;gap:14px;margin-bottom:40px;}
+#panel-oldmail .oms-brand .dzlogo{width:54px;height:54px;}
+#panel-oldmail .oms-brand .dzwm{height:42px;}
+#panel-oldmail .oms-card{width:100%;max-width:580px;box-sizing:border-box;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:46px 58px 40px;}
+#panel-oldmail .oms-f{position:relative;margin-bottom:22px;}
+#panel-oldmail .oms-f input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--border);border-radius:0;padding:30px 2px 12px;outline:none;transition:border-color .15s;}
+#panel-oldmail .oms-f input:focus{border-bottom:2px solid var(--accent);padding-bottom:11px;}
+#panel-oldmail .oms-f label{position:absolute;left:2px;top:30px;font-size:18px;color:var(--muted);pointer-events:none;transition:top .15s,font-size .15s,color .15s;}
+#panel-oldmail .oms-f input:focus + label,#panel-oldmail .oms-f input:not(:placeholder-shown) + label{top:4px;font-size:13px;}
+#panel-oldmail .oms-f input:focus + label{color:var(--accent);}
+#panel-oldmail .oms-f input:disabled{color:var(--muted);-webkit-text-fill-color:var(--muted);}
+#panel-oldmail .oms-f .oms-lock{position:absolute;right:2px;top:34px;font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:2px 9px;}
+#panel-oldmail .oms-err{min-height:18px;font-size:13px;color:var(--accent);margin:-8px 0 10px;}
+#panel-oldmail .oms-opts{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px -4px 14px;}
+#panel-oldmail .oms-keep{display:flex;align-items:center;gap:8px;background:none;border:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
+#panel-oldmail .oms-keep .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;color:transparent;}
+#panel-oldmail .oms-keep[aria-pressed="true"] .ck{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
+#panel-oldmail .oms-keep .ck svg{width:13px;height:13px;}
+#panel-oldmail .oms-sw{display:flex;align-items:center;gap:10px;background:none;border:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
+#panel-oldmail .oms-sw .tg{position:relative;width:58px;height:34px;border-radius:999px;background:var(--border);transition:background .2s;}
+#panel-oldmail .oms-sw .tg::after{content:'';position:absolute;left:5px;top:5px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;}
+#panel-oldmail .oms-sw[aria-pressed="true"] .tg{background:var(--accent);}
+#panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:29px;}
+#panel-oldmail .oms-btns{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:0 -6px;}
+#panel-oldmail .oms-btns button{font:inherit;font-size:18px;font-weight:700;border:none;border-radius:10px;height:64px;cursor:pointer;}
+#panel-oldmail .oms-def{background:var(--hover-bg);color:var(--ink);}
+#panel-oldmail .oms-ok{background:var(--accent);color:var(--accent-ink);}
+#panel-oldmail .oms-btns button:hover{filter:brightness(1.05);}
+#panel-oldmail .oms-note{text-align:center;font-size:14px;font-weight:600;color:var(--ink);margin:26px 0 0;}
+#panel-oldmail .oms-note span{color:var(--muted);font-weight:400;}
+#panel-oldmail .oms-links,#panel-oldmail .oms-foot .fl{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;margin:28px 0 0;font-size:15px;color:var(--muted);}
+#panel-oldmail .oms-links span + span::before,#panel-oldmail .oms-foot .fl span + span::before{content:'';display:inline-block;width:1px;height:12px;background:var(--border);margin:0 14px;vertical-align:-1px;}
+#panel-oldmail .oms-links .hl{color:var(--accent);}
+#panel-oldmail .oms-banner{position:relative;overflow:hidden;width:100%;max-width:580px;height:170px;box-sizing:border-box;margin-top:44px;border-radius:4px;padding:34px 40px;color:#fff;background:linear-gradient(120deg,#3B1C4A 0%,#9A2F3E 52%,#F08A4B 100%);}
+#panel-oldmail .oms-banner small,#panel-oldmail .oms-banner b,#panel-oldmail .oms-banner em{position:relative;z-index:1;}
+#panel-oldmail .oms-banner small{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;opacity:.85;margin-bottom:8px;}
+#panel-oldmail .oms-banner b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.15;}
+#panel-oldmail .oms-banner em{display:block;font-style:normal;font-size:13.5px;opacity:.85;margin-top:10px;}
+#panel-oldmail .oms-banner .sun{position:absolute;right:46px;bottom:-54px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#FFE2A8 0%,#FFB45E 55%,rgba(255,180,94,0) 72%);}
+#panel-oldmail .oms-banner .hz{position:absolute;left:0;right:0;bottom:22px;height:1px;background:rgba(255,255,255,.35);}
+#panel-oldmail .oms-foot{text-align:center;margin-top:34px;}
+#panel-oldmail .oms-foot .fl{margin:0;}
+#panel-oldmail .oms-foot .cp{font-size:14px;color:var(--muted);margin-top:14px;}
+@media (max-width:560px){
+  #panel-oldmail .omsetup{padding-top:36px;}
+  #panel-oldmail .oms-brand{margin-bottom:28px;}
+  #panel-oldmail .oms-brand .dzlogo{width:42px;height:42px;}
+  #panel-oldmail .oms-brand .dzwm{height:32px;}
+  #panel-oldmail .oms-card{padding:30px 22px 28px;border-radius:18px;}
+  #panel-oldmail .oms-opts{margin:14px 0 12px;}
+  #panel-oldmail .oms-btns{margin:0;gap:10px;}
+  #panel-oldmail .oms-btns button{font-size:16px;height:56px;}
+  #panel-oldmail .oms-banner{height:150px;padding:26px 24px;}
+  #panel-oldmail .oms-banner b{font-size:24px;}
+  #panel-oldmail .oms-banner .sun{right:-34px;bottom:-64px;width:130px;height:130px;}
+  #panel-oldmail .oms-keep,#panel-oldmail .oms-sw{font-size:14px;}
+  #panel-oldmail .oms-sw .tg{width:50px;height:30px;}
+  #panel-oldmail .oms-sw .tg::after{width:20px;height:20px;}
+  #panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:25px;}
+}
 /* 이름이 세 글자 이상이면 확인서 도장을 옆으로 늘림 */
 body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;border-radius:12px;}
 #panel-oldmail .omrow{border-bottom:none;border-radius:16px;padding:14px 14px;margin-bottom:6px;}
@@ -2669,17 +2714,24 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
     </button>
   </div>
   <div class="omsetup hidden" id="omSetup">
+    <div class="oms-brand" id="omsBrand"></div>
     <form class="oms-card" onsubmit="event.preventDefault();omSetupOk()" autocomplete="off">
-      <h2>노을메일에 오신 것을 환영합니다</h2>
-      <p>메일에 표시할 이름을 정해 주세요. 받는 메일과 내 계정에 이 이름이 쓰입니다.</p>
-      <div class="oms-row">
-        <label>이름<input id="omsName" type="text" maxlength="6" placeholder="레나" oninput="omSetupPreview()"></label>
-        <label>성<input type="text" value="세인" disabled></label>
-      </div>
-      <div class="oms-prev"><span class="avatar3" id="omsAv"></span><span><b id="omsFull"></b><small>노을메일 · 내 계정</small></span></div>
+      <div class="oms-f"><input id="omsName" type="text" maxlength="6" placeholder=" " oninput="omSetupPreview()"><label for="omsName">표시할 이름</label></div>
+      <div class="oms-f"><input id="omsSur" type="text" value="세인" placeholder=" " disabled><label for="omsSur">성</label><span class="oms-lock">고정</span></div>
       <p class="oms-err" id="omsErr"></p>
-      <button type="submit" class="oms-ok">시작하기</button>
+      <div class="oms-opts">
+        <button type="button" class="oms-keep" aria-pressed="true" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') !== 'true')"><span class="ck"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 5 5 9-10"/></svg></span>로그인 상태 유지</button>
+        <button type="button" class="oms-sw" aria-pressed="true" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') !== 'true')">새 메일 알림<span class="tg"></span></button>
+      </div>
+      <div class="oms-btns">
+        <button type="button" class="oms-def" onclick="document.getElementById('omsName').value='';omSetupOk()">기본 이름 사용</button>
+        <button type="submit" class="oms-ok">시작하기</button>
+      </div>
+      <p class="oms-note">표시 이름 <span>· 받는 메일과 내 계정에 이 이름이 쓰입니다</span></p>
     </form>
+    <div class="oms-links"><span>계정 찾기</span><span>비밀번호 찾기</span><span class="hl">고객센터</span></div>
+    <div class="oms-banner" aria-hidden="true"><small>노을메일 플러스</small><b>대용량 첨부 2배</b><em>11월 한 달, 첨부 용량을 두 배로 드려요</em><span class="sun"></span><span class="hz"></span></div>
+    <div class="oms-foot"><div class="fl"><span>이용약관</span><span>개인정보처리방침</span><span>한국어</span></div><p class="cp">© Noeul Corp.</p></div>
   </div>
   <div class="omlistwrap hidden" id="omListWrap">
    <div class="omsplit">
@@ -6350,15 +6402,11 @@ function omGateClick(){
   if(omOpened){ omOpenMail(); return; }
   document.getElementById('omGate').classList.add('hidden');
   document.getElementById('omSetup').classList.remove('hidden');
+  { const br = document.querySelector('#omTop .ombrand'), host = document.getElementById('omsBrand'); if(br && host && !host.innerHTML) host.innerHTML = br.innerHTML; }
   const inp = document.getElementById('omsName'); inp.value = playerName; omSetupPreview();
   setTimeout(() => { try{ inp.focus(); inp.select(); }catch(e){} }, 60);
 }
-function omSetupPreview(){
-  const v = document.getElementById('omsName').value.trim() || NAME_DEFAULT;
-  document.getElementById('omsAv').textContent = v.slice(0, 1).toUpperCase();
-  document.getElementById('omsFull').textContent = v + ' 세인';
-  document.getElementById('omsErr').textContent = '';
-}
+function omSetupPreview(){ document.getElementById('omsErr').textContent = ''; }
 function omSetupOk(){
   const v = document.getElementById('omsName').value.trim() || NAME_DEFAULT;
   if(!/^[가-힣A-Za-z]{1,6}$/.test(v)){ document.getElementById('omsErr').textContent = '이름은 한글이나 영문 1~6자로 입력해 주세요.'; return; }
