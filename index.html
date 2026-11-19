@@ -2576,6 +2576,8 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-board .net-down{display:none;}
 #panel-board.down .bd-top,#panel-board.down .bd-page,#panel-board.down .bd-footer{display:none!important;}
 #panel-board.down .net-down{display:block;}
+/* 엔딩 B 뒤: 이스크라 접속 불가(도메인이 사라져 주소를 찾을 수 없음) */
+#panel-iskradown{background:#fff;}
 .net-down{background:#fff;min-height:100vh;color:#202124;}
 .net-down .nd-in{max-width:560px;margin:0 auto;padding:90px 24px 40px;}
 .net-down .nd-ic{width:56px;height:56px;color:#5F6368;margin-bottom:26px;}
@@ -3323,6 +3325,14 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 <footer class="dl-footer"><div class="dl-footer-in"><b>도렌 공공기록 열람센터</b>도렌 행정구역 공공청사 3동 · 열람 문의 1588-0300 (평일 09:00~18:00)<br>© Doren Public Records Center. All rights reserved.</div></footer>
 </div>
 
+<div id="panel-iskradown" class="panel hidden"><div class="net-down"><div class="nd-in">
+  <svg class="nd-ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/><path d="M10 16c1.2-1 2.8-1 4 0"/><circle cx="10.4" cy="12.4" r=".5" fill="currentColor"/><circle cx="13.6" cy="12.4" r=".5" fill="currentColor"/></svg>
+  <h1>사이트에 연결할 수 없음</h1>
+  <p><b id="ndHost">iskra.dr</b>의 서버 IP 주소를 찾을 수 없습니다.</p>
+  <ul><li>주소에 오타가 없는지 확인하세요.</li><li>연결 상태를 확인하세요.</li><li>프록시, 방화벽, DNS 설정을 확인하세요.</li></ul>
+  <code>DNS_PROBE_FINISHED_NXDOMAIN</code>
+  <button type="button" onclick="chromeReload()">새로고침</button>
+</div></div></div>
 <div id="panel-report" class="panel hidden">
 <div class="rp-top"><div class="rp-top-in"><span class="rp-brand"><b>iskra</b><em id="rpTopSub">베타 테스트</em></span><span class="rp-user" id="rpTopBadge">베타테스터 레나 세인 님</span></div></div>
 <div id="rpPage" class="rp-page"></div>
@@ -3453,12 +3463,12 @@ function outletMast(a){
 }
 function renderTabs(){
   document.getElementById('tabstrip').innerHTML = TABS.map(t => {
-    const m = TAB_META[t.kind];
-    const fav = m ? '<img class="dzfav" src="'+tabIcon(t, m)+'" alt="">' : t.favicon;
+    const m = TAB_META[t.kind], dn = iskraTabDown(t);
+    const fav = dn ? '<img class="dzfav" src="'+ND_FAV+'" alt="">' : m ? '<img class="dzfav" src="'+tabIcon(t, m)+'" alt="">' : t.favicon;
     return `
     <div class="tab ${t.id===activeId?'active':''}${tabNoticeCount(t) && t.id!==activeId ? ' notice' : ''}" onclick="switchTab('${t.id}')">
-      <span class="favicon${m?' img':''}">${fav}</span>
-      <span class="tabtitle">${(tabNoticeCount(t) && t.id!==activeId ? '('+tabNoticeCount(t)+') ' : '')}${(m && !m.keep) ? m.title : t.title}</span>
+      <span class="favicon${(m||dn)?' img':''}">${fav}</span>
+      <span class="tabtitle">${(tabNoticeCount(t) && t.id!==activeId ? '('+tabNoticeCount(t)+') ' : '')}${dn ? dn : (m && !m.keep) ? m.title : t.title}</span>
       <svg class="ic tabclose" onclick="event.stopPropagation();closeTab('${t.id}')" viewBox="0 0 24 24"><path d="M6 6l12 12M18 6 6 18"/></svg>
     </div>`;
   }).join('');
@@ -3493,6 +3503,7 @@ function switchTab(id){
   const k = t ? t.kind : 'search';
   if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni' && k !== 'archive' && k !== 'board' && k !== 'dlt') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
+  iskraDownApply();
   if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
   if(k === 'report' && !document.getElementById('rpPage').innerHTML.trim()) rpRender(false);
   if(k === 'board') bdEnter();
@@ -3501,7 +3512,7 @@ function switchTab(id){
     renderArticleBody(t.articleId);
     { const aa = ARTICLES.find(x => x.id === t.articleId) || HINTS.find(x => x.id === t.articleId); document.getElementById('addrText').textContent = outletOf(aa ? aa.outlet : '').domain + '/article/' + t.articleId; }
   } else {
-    document.getElementById('addrText').textContent = chromeAddr[k] || '';
+    document.getElementById('addrText').textContent = chromeAddr[k] || iskraTabDown(t) || '';
   }
   document.getElementById('backBtn').disabled = !backAllowed();
   if(typeof pushBackSentinel === 'function' && backAllowed()) pushBackSentinel();
@@ -3523,6 +3534,17 @@ function closeTab(id){
   }
 }
 
+/* 엔딩 B 뒤: 이스크라가 문을 닫음 — iskra.dr 쪽 화면은 모두 '사이트에 연결할 수 없음' (엔딩 A 뒤 연합회 게시판과 짝) */
+const ISKRA_KINDS = ['search', 'searchresult', 'mail', 'listing', 'report'];
+const ND_FAV = 'data:image/svg+xml,' + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="#5F6368" stroke-width="1.8" stroke-linejoin="round"><path d="M7 3h7l5 5v13H7z"/><path d="M14 3v5h5"/></svg>');
+function iskraDown(){ return typeof endingChosen !== 'undefined' && endingChosen === 'B'; }
+function iskraTabDown(t){ if(!t || !iskraDown() || ISKRA_KINDS.indexOf(t.kind) < 0) return ''; return String(chromeAddr[t.kind] || 'iskra.dr').split('/')[0]; }
+function iskraDownApply(){
+  const pd = document.getElementById('panel-iskradown'); if(!pd) return;
+  const t = TABS.find(x => x.id === activeId), host = iskraTabDown(t);
+  if(host){ const p = document.getElementById('panel-' + t.kind); if(p) p.classList.add('hidden'); document.getElementById('ndHost').textContent = host; pd.classList.remove('hidden'); const ad = document.getElementById('addrText'); if(ad && !ad.textContent.trim()) ad.textContent = host; }
+  else pd.classList.add('hidden');
+}
 function setAddr(kind, addr){
   chromeAddr[kind] = addr;
   if(activeKind() === kind) document.getElementById('addrText').textContent = addr;
@@ -3550,6 +3572,7 @@ function chromeReload(){
   const btn = document.getElementById('reloadBtn');
   btn.classList.remove('spin'); void btn.offsetWidth; btn.classList.add('spin');
   const k = activeKind();
+  if(iskraTabDown(TABS.find(x => x.id === activeId))){ const pd = document.getElementById('panel-iskradown'); pd.classList.add('hidden'); setTimeout(() => { if(iskraTabDown(TABS.find(x => x.id === activeId))) pd.classList.remove('hidden'); }, 450); return; }
   if(k === 'oldmail') omReload();
   else if(k === 'search') sReload();
   else if(k === 'mail') mReload();
@@ -4470,7 +4493,8 @@ const BGM_TRACKS = {
   dlt:     {file:'bgm/dlt.mp3',     title:'공공기록 열람센터'},
   results: {file:'bgm/results.mp3', title:'이스크라 베타 테스트'},
   reveal:  {file:'bgm/reveal.mp3',  title:'최종 확인 보고서'},
-  ending:  {file:'bgm/ending.mp3',  title:'엔딩'}
+  ending:  {file:'bgm/ending.mp3',  title:'엔딩'},
+  silent:  {file:'',                 title:'재생 중인 음악 없음'}
 };
 const BGM_KIND = {oldmail:'oldmail', search:'iskra', searchresult:'iskra', article:'iskra', mail:'iskra', raden:'raden', orginfo:'orginfo', alumni:'alumni', board:'board', dlt:'dlt', archive:'archive', listing:'listing', report:'results'};
 const BGM_VOL = 0.42;
@@ -4495,6 +4519,7 @@ function bgmTargetKey(){
   try{
     const ov = document.getElementById('finalOverlay');
     if(ov && !ov.classList.contains('hidden') && endingKey) return 'ending';   /* 엔딩·배드엔딩 화면 */
+    if(iskraTabDown(TABS.find(x => x.id === activeId)) || (activeKind() === 'board' && endingChosen === 'A')) return 'silent';   /* 연결 실패 화면 */
     if(activeKind() === 'report') return rpView === 'orig' ? 'reveal' : 'results';   /* 결과 확인서 겉면 / 원본 */
   }catch(e){}
   return BGM_KIND[activeKind()] || 'iskra';
@@ -4507,6 +4532,7 @@ function bgmUi(){
   btn.querySelector('.bgmicon-play').classList.toggle('hidden', !!playing);
   btn.querySelector('.bgmicon-pause').classList.toggle('hidden', !playing);
   if(title) title.textContent = BGM_TRACKS[bgmTargetKey()].title;
+  const w = document.getElementById('bgmWidget'); if(w) w.classList.toggle('hidden', bgmTargetKey() === 'silent');   /* 연결 실패 화면: 음악 칩 숨김 */
 }
 function bgmSync(){
   const key = bgmTargetKey();
@@ -4515,8 +4541,9 @@ function bgmSync(){
     bgmUi(); return;
   }
   if(bgm.cur && bgm.cur !== key){
-    const old = bgm.audios[bgm.cur]; if(old && !old.paused) bgmFade(old, 0, 700, () => old.pause());
+    const old = bgm.audios[bgm.cur]; if(old && !old.paused) bgmFade(old, 0, 700, () => { old.pause(); bgmUi(); });
   }
+  if(key === 'silent'){ bgm.cur = null; bgmUi(); return; }
   bgm.cur = key;
   const a = bgmAudio(key);
   if(a.paused){
@@ -6683,10 +6710,7 @@ function danaLeave(){
 }
 function iskraNoticeRender(){
   const el = document.getElementById('iskraNotice'); if(!el) return;
-  if(endingChosen === 'B'){
-    el.className = 'iskra-notice n-end';
-    el.innerHTML = '<b>서비스 종료 안내</b><span>이스크라 베타 서비스는 11월 30일부로 종료됩니다. 베타 계정과 메신저 대화 기록은 종료일에 함께 삭제됩니다. 그동안 참여해 주셔서 감사합니다.</span>';
-  } else if(reportStage === 'open' && !endingChosen){
+  if(reportStage === 'open' && !endingChosen){
     el.className = 'iskra-notice n-report';
     el.innerHTML = '<span>확인을 기다리는 테스트 결과 확인서가 있습니다.</span><button type="button" onclick="reportOpen()">확인서 열기</button>';
   } else { el.className = 'iskra-notice hidden'; el.innerHTML = ''; }
@@ -6699,6 +6723,7 @@ function endingTraces(){
   if(activeKind() === 'board') bdEnter();
   if(document.getElementById('rpPage').innerHTML.trim()) rpRender(false);
   iskraNoticeRender();
+  renderTabs(); iskraDownApply();
 }
 function endingContinue(){
   finalClose();
