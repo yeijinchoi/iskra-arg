@@ -3587,7 +3587,7 @@ function switchTab(id){
   if(captureMode && k !== 'raden' && k !== 'orginfo' && k !== 'listing' && k !== 'alumni' && k !== 'archive' && k !== 'board' && k !== 'dlt') exitCaptureMode();
   document.getElementById('panel-'+k).classList.remove('hidden');
   iskraDownApply();
-  if(k === 'mail' && typeof refreshChips === 'function') refreshChips();
+  if(k === 'mail'){ try{ renderList(); }catch(e){} if(typeof refreshChips === 'function') refreshChips(); }
   if(k === 'report' && !document.getElementById('rpPage').innerHTML.trim()) rpRender(false);
   if(k === 'board') bdEnter();
   try{ doubtSeen(k); }catch(e){}
@@ -4448,7 +4448,14 @@ let assignment8Pending = false;
 let assignment8Resolved = false;
 let lastDelivered = NEW_MAIL;
 let gameDay = 0;
+/* 이스크라 메일 시각: 노을메일·결과 확인서와 같은 이야기 속 날짜로 계산(N차 의뢰·결과는 N차 수행일) */
+function mailNarrDay(m){ const k = /^(assign|success|retry)(\d)$/.exec((m && m.id) || ''); if(k) return +k[2]; if(m && m.id === 'tutorial1') return 1; if(m && m.id === 'new1') return 0; return null; }
+function narrDate(d){ const x = /(\d+)월 (\d+)일/.exec(NARR_DAYS[d] || ''); return x ? new Date(2026, +x[1] - 1, +x[2]) : null; }
 function mailTimeLabel(m){
+  try{
+    const nd = mailNarrDay(m);
+    if(nd !== null){ const a = narrDate(nd), b = narrDate(narrToday()); if(a && b){ const diff = Math.round((b - a) / 86400000); return diff <= 0 ? '오늘' : diff === 1 ? '어제' : diff + '일 전'; } }
+  }catch(e){}
   if(typeof m.deliveredDay !== 'number') return m.time;
   const diff = gameDay - m.deliveredDay;
   if(diff <= 0) return '오늘';
@@ -5450,15 +5457,14 @@ function deliverMail(mail){
   lastDelivered = mail;
   updateInboxBadge();
   try{ renderTabs(); }catch(e){}
-  if(currentFolder === 'inbox' && !document.getElementById('listView').classList.contains('hidden')){
-    renderList();
-  }
+  if(currentFolder === 'inbox') renderList();   /* 메일을 읽는 중이어도 목록을 미리 갱신(목록으로 돌아가면 바로 보이게) */
   osNotify('이스크라 메일', mail.sender, mail.subject, 'iskra', mOpenFromToast);
   saveProgress();
 }
 function closeDetail(){
   document.getElementById('detailView').classList.add('hidden');
   document.getElementById('listView').classList.remove('hidden');
+  renderList();
   setBack('mail', false);
   setAddr('mail', currentFolder === 'inbox' ? 'mail.iskra.dr' : 'mail.iskra.dr/' + currentFolder);
 }
