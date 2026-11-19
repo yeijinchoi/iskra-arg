@@ -1733,6 +1733,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 @media (max-width:860px){#panel-oldmail .omreader{background:#FFFFFF;border-radius:16px;padding:18px 16px 8px;}}
 /* 노을메일 푸터: 페이지 맨 아래(첫 화면·이름 정하기 화면에서는 숨김) */
 #panel-oldmail .omfooter{margin:30px 0 26px;text-align:center;font-size:11.5px;line-height:1.7;color:var(--muted);}
+#panel-oldmail .omleft > .omfooter{text-align:left;margin:16px 6px 28px;}
 #omGate:not(.hidden) ~ #omFooter,#omSetup:not(.hidden) ~ #omFooter{display:none;}
 /* PC: 메일을 열면 읽기창과 목록이 흰 상자 하나로 이어짐(사이에 구분선 하나) */
 @media (min-width:861px){
@@ -5221,9 +5222,16 @@ function omPlaceReader(){
   omPlaceNews();
   const r = document.getElementById('omReader'); if(!r) return;
   const left = document.querySelector('#omListWrap .omleft'), wrap = document.querySelector('#panel-oldmail > .wrap');
-  if(omDesk()){ if(r.parentNode !== left) left.insertBefore(r, document.getElementById('omlist')); }
-  else if(r.parentNode !== wrap || r.nextElementSibling !== document.getElementById('omFooter')) wrap.insertBefore(r, document.getElementById('omFooter'));
+  const f = document.getElementById('omFooter');
+  if(omDesk()){
+    if(r.parentNode !== left) left.insertBefore(r, document.getElementById('omlist'));
+    if(f && f.parentNode !== left) left.appendChild(f);   /* PC: 푸터는 흰 상자 바로 아래 */
+  } else {
+    if(f && f.parentNode !== wrap) wrap.appendChild(f);   /* 모바일: 읽기창·목록 아래 */
+    if(r.parentNode !== wrap || r.nextElementSibling !== f) wrap.insertBefore(r, f);
+  }
 }
+window.addEventListener('resize', () => { try{ if(omOpened) omPlaceReader(); }catch(e){} });
 function omSetFilter(f){ omFilter = f; omRenderList(); }
 function omRenderList(){
   const unreadN = OLDMAIL_LIST.filter(m => m.unread).length;
