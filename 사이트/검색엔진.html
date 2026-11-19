@@ -1730,12 +1730,13 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-oldmail .omleft > .omreader,#panel-oldmail .omreader{border:none;}
 #panel-oldmail .omlist .omrow.sel{box-shadow:none;}
 /* 이름 정하기 카드: 글래스모피즘(테두리 없음). 뒤에 노을빛 번짐을 깔아 유리 너머로 비치게 */
-#panel-oldmail .omsetup{position:relative;overflow:hidden;}
-#panel-oldmail .omsetup::before{content:'';position:absolute;left:50%;top:84px;width:760px;height:620px;transform:translateX(-50%);pointer-events:none;z-index:0;
-  background:radial-gradient(closest-side at 26% 34%,rgba(240,138,75,.55),rgba(240,138,75,0)),radial-gradient(closest-side at 76% 30%,rgba(199,49,31,.32),rgba(199,49,31,0)),radial-gradient(closest-side at 54% 82%,rgba(255,190,110,.5),rgba(255,190,110,0));filter:blur(8px);}
+#panel-oldmail .omsetup{position:relative;}
+#panel-oldmail .omsetup::before,#panel-oldmail .omsetup::after{content:'';position:absolute;pointer-events:none;z-index:0;width:440px;height:440px;border-radius:50%;}
+#panel-oldmail .omsetup::before{left:min(calc(100% - 440px), calc(50% + 50px));top:0;background:radial-gradient(closest-side,rgba(240,140,92,.19) 0%,rgba(240,140,92,.12) 30%,rgba(240,140,92,.06) 55%,rgba(240,140,92,.02) 78%,rgba(240,140,92,0) 100%);}   /* 카드 오른쪽 위 */
+#panel-oldmail .omsetup::after{left:max(0px, calc(50% - 500px));top:340px;background:radial-gradient(closest-side,rgba(226,108,88,.14) 0%,rgba(226,108,88,.09) 30%,rgba(226,108,88,.045) 55%,rgba(226,108,88,.015) 78%,rgba(226,108,88,0) 100%);}   /* 카드 왼쪽 아래 */
 #panel-oldmail .omsetup > *{position:relative;z-index:1;}
 #panel-oldmail .oms-card{background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border:none;box-shadow:0 20px 50px rgba(0,0,0,.08);}
-@media (max-width:560px){#panel-oldmail .omsetup{overflow:visible;}#panel-oldmail .omsetup::before{width:100%;height:560px;top:64px;filter:none;}}
+@media (max-width:560px){#panel-oldmail .omsetup::before,#panel-oldmail .omsetup::after{width:280px;height:280px;}#panel-oldmail .omsetup::before{left:calc(100% - 280px);top:0;}#panel-oldmail .omsetup::after{left:0;top:300px;}}   /* 번짐은 영역 안에서만(잘리는 경계·가로 스크롤 없음) */
 @media (max-width:860px){#panel-oldmail .omreader{background:#FFFFFF;border-radius:16px;padding:18px 16px 8px;}}
 /* 안톤에게 답장(선택지) */
 #panel-oldmail .omreply{margin-top:26px;}
