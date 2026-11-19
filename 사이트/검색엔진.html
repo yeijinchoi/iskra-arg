@@ -1656,65 +1656,66 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .kpi,#panel-raden .kpicard,#panel-raden .card{border:none!important;border-radius:22px!important;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(20,40,50,.07);}
 #panel-oldmail .omicon{box-shadow:0 14px 40px rgba(199,49,31,.22);}
 /* 노을메일 첫 접속: 이름 정하기(포털 로그인 화면 구성) */
-#panel-oldmail .omsetup{--oms-line:#E0E0E0;display:flex;flex-direction:column;align-items:center;padding:56px 16px 40px;color:var(--ink);animation:viewIn .25s ease;}
-#panel-oldmail .oms-brand{display:flex;align-items:center;gap:14px;margin-bottom:40px;}
-#panel-oldmail .oms-brand .dzlogo{width:54px;height:54px;}
-#panel-oldmail .oms-brand .dzwm{height:42px;}
-#panel-oldmail .oms-card{width:100%;max-width:580px;box-sizing:border-box;background:var(--surface);border:1px solid var(--oms-line);border-radius:24px;padding:46px 58px 40px;}
+#panel-oldmail .omsetup{--oms-line:#E0E0E0;display:flex;flex-direction:column;align-items:center;padding:34px 16px 28px;color:var(--ink);animation:viewIn .25s ease;}
+#panel-oldmail .oms-brand{display:flex;align-items:center;gap:10px;margin-bottom:26px;}
+#panel-oldmail .oms-brand .dzlogo{width:38px;height:38px;}
+#panel-oldmail .oms-brand .dzwm{height:29px;}
+#panel-oldmail .oms-card{width:100%;max-width:440px;box-sizing:border-box;background:var(--surface);border:1px solid var(--oms-line);border-radius:18px;padding:30px 34px 26px;}
 #panel-oldmail .oms-f{position:relative;margin-bottom:22px;}
-#panel-oldmail .oms-f input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--oms-line);border-radius:0;padding:30px 2px 12px;outline:none;}
-#panel-oldmail .oms-f label{position:absolute;left:2px;top:30px;font-size:18px;color:var(--muted);pointer-events:none;transition:top .15s,font-size .15s,color .15s;}
-#panel-oldmail .oms-f input:focus + label,#panel-oldmail .oms-f input:not(:placeholder-shown) + label{top:4px;font-size:13px;}
+#panel-oldmail .oms-f input{width:100%;box-sizing:border-box;font:inherit;font-size:15px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--oms-line);border-radius:0;padding:22px 2px 9px;outline:none;}
+#panel-oldmail .oms-f label{position:absolute;left:2px;top:22px;font-size:15px;color:var(--muted);pointer-events:none;transition:top .15s,font-size .15s,color .15s;}
+#panel-oldmail .oms-f input:focus + label,#panel-oldmail .oms-f input:not(:placeholder-shown) + label{top:2px;font-size:11.5px;}
 #panel-oldmail .oms-f input:focus + label{color:var(--accent);}
 #panel-oldmail .oms-f input:disabled{color:var(--muted);-webkit-text-fill-color:var(--muted);}
-#panel-oldmail .oms-f .oms-lock{position:absolute;right:2px;top:34px;font-size:12px;color:var(--muted);border:1px solid var(--oms-line);border-radius:999px;padding:2px 9px;}
+#panel-oldmail .oms-f .oms-lock{position:absolute;right:2px;top:24px;font-size:11px;color:var(--muted);border:1px solid var(--oms-line);border-radius:999px;padding:2px 8px;}
 #panel-oldmail .oms-err{min-height:18px;font-size:13px;color:var(--accent);margin:-8px 0 10px;}
-#panel-oldmail .oms-opts{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px -4px 14px;}
-#panel-oldmail .oms-keep{display:flex;align-items:center;gap:8px;background:none;border:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
-#panel-oldmail .oms-keep .ck{width:22px;height:22px;border-radius:50%;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;color:transparent;}
+#panel-oldmail .oms-opts{display:flex;align-items:center;justify-content:space-between;gap:14px;margin:12px -2px 10px;}
+#panel-oldmail .oms-keep{display:flex;align-items:center;gap:7px;background:none;border:none;font:inherit;font-size:13px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
+#panel-oldmail .oms-keep .ck{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--muted);display:flex;align-items:center;justify-content:center;color:transparent;}
 #panel-oldmail .oms-keep[aria-pressed="true"] .ck{background:var(--accent);border-color:var(--accent);color:var(--accent-ink);}
-#panel-oldmail .oms-keep .ck svg{width:13px;height:13px;}
+#panel-oldmail .oms-keep .ck svg{width:11px;height:11px;}
 #panel-oldmail .oms-sw{display:flex;align-items:center;gap:10px;background:none;border:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
-#panel-oldmail .oms-sw .tg{position:relative;width:58px;height:34px;border-radius:999px;background:var(--border);transition:background .2s;}
-#panel-oldmail .oms-sw .tg::after{content:'';position:absolute;left:5px;top:5px;width:24px;height:24px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;}
+#panel-oldmail .oms-sw .tg{position:relative;width:46px;height:27px;border-radius:999px;background:var(--border);transition:background .2s;}
+#panel-oldmail .oms-sw .tg::after{content:'';position:absolute;left:4px;top:4px;width:19px;height:19px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.25);transition:left .2s;}
 #panel-oldmail .oms-sw[aria-pressed="true"] .tg{background:var(--accent);}
-#panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:29px;}
-#panel-oldmail .oms-btns{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0;}
-#panel-oldmail .oms-btns button{font:inherit;font-size:15px;font-weight:700;border:none;border-radius:10px;height:48px;cursor:pointer;}
+#panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:23px;}
+#panel-oldmail .oms-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:0;}
+#panel-oldmail .oms-btns button{font:inherit;font-size:13.5px;font-weight:700;border:none;border-radius:9px;height:42px;cursor:pointer;}
 #panel-oldmail .oms-def{background:#EEEEEE;color:var(--ink);}
 #panel-oldmail .oms-ok{background:var(--accent);color:var(--accent-ink);}
 #panel-oldmail .oms-btns button:hover{filter:brightness(1.05);}
-#panel-oldmail .oms-note{text-align:center;font-size:14px;font-weight:600;color:var(--ink);margin:26px 0 0;}
+#panel-oldmail .oms-note{text-align:center;font-size:12px;font-weight:600;color:var(--ink);margin:18px 0 0;}
 #panel-oldmail .oms-note span{color:var(--muted);font-weight:400;}
-#panel-oldmail .oms-links,#panel-oldmail .oms-foot .fl{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;margin:28px 0 0;font-size:15px;color:var(--muted);}
-#panel-oldmail .oms-links span + span::before,#panel-oldmail .oms-foot .fl span + span::before{content:'';display:inline-block;width:1px;height:12px;background:var(--oms-line);margin:0 14px;vertical-align:-1px;}
+#panel-oldmail .oms-links,#panel-oldmail .oms-foot .fl{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;margin:20px 0 0;font-size:13px;color:var(--muted);}
+#panel-oldmail .oms-links span + span::before,#panel-oldmail .oms-foot .fl span + span::before{content:'';display:inline-block;width:1px;height:10px;background:var(--oms-line);margin:0 11px;vertical-align:-1px;}
 #panel-oldmail .oms-links .hl{color:var(--accent);}
-#panel-oldmail .oms-banner{position:relative;overflow:hidden;width:100%;max-width:580px;height:170px;box-sizing:border-box;margin-top:44px;border-radius:4px;padding:34px 40px;color:#fff;background:linear-gradient(120deg,#3B1C4A 0%,#9A2F3E 52%,#F08A4B 100%);}
+#panel-oldmail .oms-banner{position:relative;overflow:hidden;width:100%;max-width:440px;height:122px;box-sizing:border-box;margin-top:26px;border-radius:4px;padding:22px 26px;color:#fff;background:linear-gradient(120deg,#3B1C4A 0%,#9A2F3E 52%,#F08A4B 100%);}
 #panel-oldmail .oms-banner small,#panel-oldmail .oms-banner b,#panel-oldmail .oms-banner em{position:relative;z-index:1;}
-#panel-oldmail .oms-banner small{display:block;font-size:13px;font-weight:700;letter-spacing:.04em;opacity:.85;margin-bottom:8px;}
-#panel-oldmail .oms-banner b{display:block;font-size:30px;font-weight:800;letter-spacing:-.02em;line-height:1.15;}
-#panel-oldmail .oms-banner em{display:block;font-style:normal;font-size:13.5px;opacity:.85;margin-top:10px;}
-#panel-oldmail .oms-banner .sun{position:absolute;right:46px;bottom:-54px;width:150px;height:150px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#FFE2A8 0%,#FFB45E 55%,rgba(255,180,94,0) 72%);}
+#panel-oldmail .oms-banner small{display:block;font-size:11px;font-weight:700;letter-spacing:.04em;opacity:.85;margin-bottom:6px;}
+#panel-oldmail .oms-banner b{display:block;font-size:21px;font-weight:800;letter-spacing:-.02em;line-height:1.15;}
+#panel-oldmail .oms-banner em{display:block;font-style:normal;font-size:11.5px;opacity:.85;margin-top:7px;}
+#panel-oldmail .oms-banner .sun{position:absolute;right:32px;bottom:-40px;width:108px;height:108px;border-radius:50%;background:radial-gradient(circle at 50% 50%,#FFE2A8 0%,#FFB45E 55%,rgba(255,180,94,0) 72%);}
 #panel-oldmail .oms-banner .hz{position:absolute;left:0;right:0;bottom:22px;height:1px;background:rgba(255,255,255,.35);}
-#panel-oldmail .oms-foot{text-align:center;margin-top:34px;}
+#panel-oldmail .oms-foot{text-align:center;margin-top:22px;}
 #panel-oldmail .oms-foot .fl{margin:0;}
-#panel-oldmail .oms-foot .cp{font-size:14px;color:var(--muted);margin-top:14px;}
+#panel-oldmail .oms-foot .cp{font-size:12px;color:var(--muted);margin-top:10px;}
 @media (max-width:560px){
-  #panel-oldmail .omsetup{padding-top:36px;}
-  #panel-oldmail .oms-brand{margin-bottom:28px;}
-  #panel-oldmail .oms-brand .dzlogo{width:42px;height:42px;}
-  #panel-oldmail .oms-brand .dzwm{height:32px;}
-  #panel-oldmail .oms-card{padding:30px 22px 28px;border-radius:18px;}
-  #panel-oldmail .oms-opts{margin:14px 0 12px;}
-  #panel-oldmail .oms-btns{margin:0;gap:10px;}
-  #panel-oldmail .oms-btns button{font-size:14.5px;height:46px;}
-  #panel-oldmail .oms-banner{height:150px;padding:26px 24px;}
-  #panel-oldmail .oms-banner b{font-size:24px;}
-  #panel-oldmail .oms-banner .sun{right:-34px;bottom:-64px;width:130px;height:130px;}
-  #panel-oldmail .oms-keep,#panel-oldmail .oms-sw{font-size:14px;}
-  #panel-oldmail .oms-sw .tg{width:50px;height:30px;}
-  #panel-oldmail .oms-sw .tg::after{width:20px;height:20px;}
-  #panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:25px;}
+  #panel-oldmail .omsetup{padding-top:24px;}
+  #panel-oldmail .oms-brand{margin-bottom:20px;}
+  #panel-oldmail .oms-brand .dzlogo{width:32px;height:32px;}
+  #panel-oldmail .oms-brand .dzwm{height:24px;}
+  #panel-oldmail .oms-card{padding:24px 18px 22px;border-radius:16px;}
+  #panel-oldmail .oms-f input{font-size:16px;}   /* iOS 자동 확대 방지(16px 미만이면 포커스 때 줌됨) */
+  #panel-oldmail .oms-opts{margin:10px 0 8px;}
+  #panel-oldmail .oms-btns{margin:0;gap:8px;}
+  #panel-oldmail .oms-btns button{font-size:13px;height:40px;}
+  #panel-oldmail .oms-banner{height:110px;padding:18px 18px;}
+  #panel-oldmail .oms-banner b{font-size:19px;}
+  #panel-oldmail .oms-banner .sun{right:-24px;bottom:-46px;width:96px;height:96px;}
+  #panel-oldmail .oms-keep,#panel-oldmail .oms-sw{font-size:12.5px;}
+  #panel-oldmail .oms-sw .tg{width:42px;height:25px;}
+  #panel-oldmail .oms-sw .tg::after{width:16px;height:16px;left:4px;top:4px;}
+  #panel-oldmail .oms-sw[aria-pressed="true"] .tg::after{left:21px;}
 }
 /* 이름이 세 글자 이상이면 확인서 도장을 옆으로 늘림 */
 body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;border-radius:12px;}
