@@ -1655,6 +1655,25 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .navitem{border-radius:999px;padding:10px 14px;}
 #panel-raden .kpi,#panel-raden .kpicard,#panel-raden .card{border:none!important;border-radius:22px!important;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(20,40,50,.07);}
 #panel-oldmail .omicon{box-shadow:0 14px 40px rgba(199,49,31,.22);}
+/* 노을메일 첫 접속: 이름 정하기 */
+#panel-oldmail .omsetup{display:flex;align-items:center;justify-content:center;flex:1;min-height:55vh;padding:24px 16px;}
+#panel-oldmail .oms-card{width:100%;max-width:400px;box-sizing:border-box;background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px 26px 26px;box-shadow:0 14px 40px rgba(199,49,31,.12);color:var(--ink);animation:viewIn .25s ease;}
+#panel-oldmail .oms-card h2{font-size:18px;font-weight:700;margin:0 0 8px;}
+#panel-oldmail .oms-card > p{font-size:13.5px;line-height:1.65;color:var(--muted);margin:0 0 20px;}
+#panel-oldmail .oms-row{display:grid;grid-template-columns:1fr 92px;gap:10px;margin-bottom:16px;}
+#panel-oldmail .oms-row label{display:flex;flex-direction:column;gap:6px;font-size:12px;color:var(--muted);}
+#panel-oldmail .oms-row input{font:inherit;font-size:15px;color:var(--ink);background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 12px;outline:none;min-width:0;}
+#panel-oldmail .oms-row input:focus{border-color:var(--accent);box-shadow:0 0 0 3px var(--hover-bg);}
+#panel-oldmail .oms-row input:disabled{background:var(--hover-bg);color:var(--muted);}
+#panel-oldmail .oms-prev{display:flex;align-items:center;gap:12px;border:1px solid var(--border);border-radius:14px;padding:12px 14px;margin-bottom:14px;}
+#panel-oldmail .oms-prev .avatar3{width:38px;height:38px;border-radius:50%;background:var(--accent);color:var(--accent-ink);display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;flex-shrink:0;}
+#panel-oldmail .oms-prev b{display:block;font-size:13.5px;}
+#panel-oldmail .oms-prev small{font-size:12px;color:var(--muted);}
+#panel-oldmail .oms-err{min-height:18px;font-size:12.5px;color:var(--accent);margin:0 0 10px;}
+#panel-oldmail .oms-ok{width:100%;font:inherit;font-size:15px;font-weight:700;background:var(--accent);color:var(--accent-ink);border:none;border-radius:10px;padding:12px;cursor:pointer;}
+#panel-oldmail .oms-ok:hover{filter:brightness(1.06);}
+/* 이름이 세 글자 이상이면 확인서 도장을 옆으로 늘림 */
+body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;border-radius:12px;}
 #panel-oldmail .omrow{border-bottom:none;border-radius:16px;padding:14px 14px;margin-bottom:6px;}
 
 /* ===== 이스크라 톡 — 사람처럼 말 거는 메신저(플로팅) ===== */
@@ -2644,10 +2663,23 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
     <div class="ombrand"><img class="dzlogo" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMTAyNCAxMDI0IiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDI0IiBoZWlnaHQ9IjEwMjQiPgogIDxnIGlkPSJzdW4iPgogICAgPHBhdGggZD0iTTE4MSA0NTVDMTgxIDI3MiAzMjggMTIzIDUwOSAxMjNDNjkwIDEyMyA4MzcgMjcyIDgzNyA0NTVaIiBmaWxsPSIjQzczMTFGIiAvPgogIDwvZz4KICA8ZyBpZD0iZW52ZWxvcGUiPgogICAgPHBhdGggZD0iTTE2NSA0NTVIODU3Qzg5MSA0NTUgOTE4IDQ4MiA5MTggNTE2VjgzMkM5MTggODc4IDg4MSA5MTYgODM1IDkxNkgxODhDMTQyIDkxNiAxMDUgODc5IDEwNSA4MzNWNTE2QzEwNSA0ODIgMTMyIDQ1NSAxNjUgNDU1WiIgZmlsbD0iI0M3MzExRiIgLz4KICAgIDxwYXRoIGQ9Ik0xMjcgODg5TDQ2MyA2MjZDNDkxIDYwNCA1MzEgNjA0IDU1OSA2MjZMODk2IDg4OUM4ODAgOTA2IDg1OSA5MTYgODM1IDkxNkgxODhDMTY0IDkxNiAxNDMgOTA2IDEyNyA4ODlaIiBmaWxsPSIjQzczMTFGIiAvPgogICAgPHBhdGggZD0iTTE2NSA0NTVIODU3Qzg4NSA0NTUgOTA5IDQ3NSA5MTUgNTAyTDU1MiA3NDZDNTI3IDc2MyA0OTUgNzYzIDQ3MCA3NDZMMTA2IDUwMkMxMTIgNDc1IDEzNiA0NTUgMTY1IDQ1NVoiIGZpbGw9IiNFMzVCM0YiIC8+CiAgPC9nPgo8L3N2Zz4=" alt="노을메일"><img class="dzwm" src="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSI0MCAyMzAgMTI2NCAyNjUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEyNjQiIGhlaWdodD0iMjY1Ij4KICA8ZyBpZD0id29yZG1hcmsiIGZpbGw9IiNDNzMxMUYiPgogICAgPHBhdGggaWQ9ImxldHRlci1uIiBkPSJNNTMuNSA0NTFWMzgyQzUzLjUgMzM4IDg2IDMwOC41IDEzMS41IDMwOC41QzE3NyAzMDguNSAyMTAgMzM4IDIxMCAzODJWNDUxQzIxMCA0NjYgMTk5IDQ3OCAxODQuNSA0NzhDMTcwIDQ3OCAxNTguNSA0NjYgMTU4LjUgNDUxVjM4NkMxNTguNSAzNjkgMTQ4IDM1NyAxMzEuNSAzNTdDMTE1IDM1NyAxMDQuNSAzNjkgMTA0LjUgMzg2VjQ1MUMxMDQuNSA0NjYgOTMgNDc4IDc5IDQ3OEM2NC41IDQ3OCA1My41IDQ2NiA1My41IDQ1MVoiIC8+CiAgICA8cGF0aCBpZD0ibGV0dGVyLW8iIGZpbGwtcnVsZT0iZXZlbm9kZCIgZD0iTTI5OCAzMDlDMzQzLjUgMzA5IDM3OS41IDM0NiAzNzkuNSAzOTMuNUMzNzkuNSA0NDEgMzQzLjUgNDc4IDI5OCA0NzhDMjUyLjUgNDc4IDIxNi41IDQ0MSAyMTYuNSAzOTMuNUMyMTYuNSAzNDYgMjUyLjUgMzA5IDI5OCAzMDlaTTI5OCAzNTYuNUMyNzcuNSAzNTYuNSAyNjIgMzczIDI2MiAzOTRDMjYyIDQxNSAyNzcuNSA0MzEuNSAyOTggNDMxLjVDMzE4LjUgNDMxLjUgMzM0LjUgNDE1IDMzNC41IDM5NEMzMzQuNSAzNzMgMzE4LjUgMzU2LjUgMjk4IDM1Ni41WiIgLz4KICAgIDxwYXRoIGlkPSJsZXR0ZXItZSIgZD0iTTQzMS41IDQwOUM0MzUuNSA0MjYgNDQ4IDQzNiA0NjQgNDM2QzQ3NSA0MzYgNDgzIDQzMiA0OTEuNSA0MjVDNTAyIDQxNyA1MTQuNSA0MjAuNSA1MjIgNDMwQzUzMCA0NDAuNSA1MjggNDU0IDUxNy41IDQ2MkM1MDMgNDczIDQ4NSA0ODAgNDYzIDQ4MEM0MTYgNDgwIDM4Mi41IDQ0NSAzODIuNSAzOTUuNUMzODIuNSAzNDcuNSA0MTcgMzExLjUgNDYyIDMxMS41QzUwNyAzMTEuNSA1MzggMzQ2IDUzOCAzODhDNTM4IDQwMiA1MzEgNDA5IDUxOCA0MDlaTTQzMS41IDM3OEg0OTAuNUM0ODYuNSAzNjMuNSA0NzYgMzU1IDQ2MiAzNTVDNDQ4IDM1NSA0MzYuNSAzNjMuNSA0MzEuNSAzNzhaIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiIC8+CiAgICA8cGF0aCBpZD0ibGV0dGVyLXUiIGQ9Ik01NDMuNSAzNDFDNTQzLjUgMzI2IDU1NC41IDMxNCA1NjkgMzE0QzU4My41IDMxNCA1OTQuNSAzMjYgNTk0LjUgMzQxVjQwMkM1OTQuNSA0MjAgNjAyIDQzMS41IDYxNiA0MzEuNUM2MzAgNDMxLjUgNjM4IDQyMCA2MzggNDAyVjM0MUM2MzggMzI2IDY0OSAzMTQgNjYzLjUgMzE0QzY3OCAzMTQgNjg5IDMyNiA2ODkgMzQxVjQwM0M2ODkgNDUwIDY2MSA0ODAuNSA2MTYgNDgwLjVDNTcxIDQ4MC41IDU0My41IDQ1MCA1NDMuNSA0MDNaIiAvPgogICAgPHBhdGggaWQ9ImxldHRlci1sLWZpcnN0IiBkPSJNNjk3IDI3MUM2OTcgMjU2IDcwOC41IDI0NCA3MjIuNSAyNDRDNzM3IDI0NCA3NDguNSAyNTYgNzQ4LjUgMjcxVjQ1M0M3NDguNSA0NjggNzM3IDQ4MC41IDcyMi41IDQ4MC41QzcwOC41IDQ4MC41IDY5NyA0NjggNjk3IDQ1M1oiIC8+CiAgICA8cGF0aCBpZD0ibGV0dGVyLW0iIGQ9Ik03NTguNSA0NTFWMzk1Qzc1OC41IDM0NS41IDc4OC41IDMxMS41IDgzMiAzMTEuNUM4NTMgMzExLjUgODcwIDMyMCA4ODEuNSAzMzQuNUM4OTQuNSAzMTkuNSA5MTEgMzExIDkzMSAzMTFDOTc1LjUgMzExIDEwMDQuNSAzNDQgMTAwNC41IDM5NFY0NTFDMTAwNC41IDQ2NiA5OTMuNSA0NzggOTc5IDQ3OEM5NjQuNSA0NzggOTUzIDQ2NiA5NTMgNDUxVjM5NUM5NTMgMzc1IDk0NC41IDM2Mi41IDkzMCAzNjIuNUM5MTUuNSAzNjIuNSA5MDcgMzc1IDkwNyAzOTVWNDUxQzkwNyA0NjYgODk2IDQ3OCA4ODEuNSA0NzhDODY3IDQ3OCA4NTUuNSA0NjYgODU1LjUgNDUxVjM5NUM4NTUuNSAzNzUgODQ3IDM2Mi41IDgzMi41IDM2Mi41QzgxOCAzNjIuNSA4MDkuNSAzNzUgODA5LjUgMzk1VjQ1MUM4MDkuNSA0NjYgNzk4IDQ3OCA3ODQgNDc4Qzc2OS41IDQ3OCA3NTguNSA0NjYgNzU4LjUgNDUxWiIgLz4KICAgIDxwYXRoIGlkPSJsZXR0ZXItYSIgZmlsbD0iI0UzNUIzRiIgZmlsbC1ydWxlPSJldmVub2RkIiBkPSJNMTA3NiAzMDlDMTEyNSAzMDkgMTE2My41IDM0NyAxMTYzLjUgMzk2VjQ1M0MxMTYzLjUgNDY4LjUgMTE1NC41IDQ3OSAxMTQwLjUgNDc5QzExMjkgNDc5IDExMjAuNSA0NzQgMTExNyA0NjNDMTEwNS41IDQ3NC41IDEwOTEuNSA0ODAuNSAxMDc0IDQ4MC41QzEwMjggNDgwLjUgOTkwLjUgNDQzIDk5MC41IDM5NUM5OTAuNSAzNDcgMTAyOCAzMDkgMTA3NiAzMDlaTTEwNzUuNSAzNTdDMTA1NC41IDM1NyAxMDM4LjUgMzczLjUgMTAzOC41IDM5NC41QzEwMzguNSA0MTYgMTA1NC41IDQzMi41IDEwNzUuNSA0MzIuNUMxMDk2LjUgNDMyLjUgMTExMi41IDQxNiAxMTEyLjUgMzk0LjVDMTExMi41IDM3My41IDEwOTYuNSAzNTcgMTA3NS41IDM1N1oiIC8+CiAgICA8ZyBpZD0ibGV0dGVyLWkiPgogICAgICA8cGF0aCBkPSJNMTE3My41IDM0OEMxMTczLjUgMzMzIDExODQuNSAzMjEgMTE5OSAzMjFDMTIxMy41IDMyMSAxMjI0LjUgMzMzIDEyMjQuNSAzNDhWNDUzQzEyMjQuNSA0NjggMTIxMy41IDQ4MC41IDExOTkgNDgwLjVDMTE4NC41IDQ4MC41IDExNzMuNSA0NjggMTE3My41IDQ1M1oiIC8+CiAgICAgIDxlbGxpcHNlIGN4PSIxMTk5IiBjeT0iMjgwIiByeD0iMjcuNSIgcnk9IjI4LjUiIC8+CiAgICA8L2c+CiAgICA8cGF0aCBpZD0ibGV0dGVyLWwtbGFzdCIgZD0iTTEyMzggMjcxQzEyMzggMjU2IDEyNDkuNSAyNDQgMTI2My41IDI0NEMxMjc4IDI0NCAxMjg5LjUgMjU2IDEyODkuNSAyNzFWNDUzQzEyODkuNSA0NjggMTI3OCA0ODAuNSAxMjYzLjUgNDgwLjVDMTI0OS41IDQ4MC41IDEyMzggNDY4IDEyMzggNDUzWiIgLz4KICA8L2c+Cjwvc3ZnPg==" alt="noeulmail"></div>
   </div>
   <div class="omgate" id="omGate">
-    <button class="omicon" id="omIcon" onclick="omOpenMail()" aria-label="메일함">
+    <button class="omicon" id="omIcon" onclick="omGateClick()" aria-label="메일함">
       <svg class="ic" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m4 7 8 6 8-6"/></svg>
       <span class="ombadge" id="omBadge">1</span>
     </button>
+  </div>
+  <div class="omsetup hidden" id="omSetup">
+    <form class="oms-card" onsubmit="event.preventDefault();omSetupOk()" autocomplete="off">
+      <h2>노을메일에 오신 것을 환영합니다</h2>
+      <p>메일에 표시할 이름을 정해 주세요. 받는 메일과 내 계정에 이 이름이 쓰입니다.</p>
+      <div class="oms-row">
+        <label>이름<input id="omsName" type="text" maxlength="6" placeholder="레나" oninput="omSetupPreview()"></label>
+        <label>성<input type="text" value="세인" disabled></label>
+      </div>
+      <div class="oms-prev"><span class="avatar3" id="omsAv"></span><span><b id="omsFull"></b><small>노을메일 · 내 계정</small></span></div>
+      <p class="oms-err" id="omsErr"></p>
+      <button type="submit" class="oms-ok">시작하기</button>
+    </form>
   </div>
   <div class="omlistwrap hidden" id="omListWrap">
    <div class="omsplit">
@@ -5061,6 +5093,7 @@ function omOpenMail(){
   omRenderNews();
   omPlaceReader();
   document.getElementById('omGate').classList.add('hidden');
+  { const su = document.getElementById('omSetup'); if(su) su.classList.add('hidden'); }
   document.getElementById('omTop').classList.remove('hidden');
   document.getElementById('omListWrap').classList.remove('hidden');
   omRenderList();
@@ -6189,7 +6222,7 @@ var BD_LOCK = '<svg class="bd-lock" viewBox="0 0 24 24" fill="none" stroke="curr
 function bdTagCls(t){ return t === '회원전용' ? 'lock' : t === '공지' ? 'notice' : t === '안내' ? 'info' : 'free'; }
 function bdShow(v){
   ['bdLogin','bdList','bdDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
-  document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 guest_lena 님' : '';
+  document.getElementById('bdUser').textContent = boardLoggedIn ? '준회원 ' + BOARD_ACCOUNT.id + ' 님' : '';
   const out = document.querySelector('#panel-board .bd-out'); if(out) out.style.display = boardLoggedIn ? '' : 'none';
   if(v === 'bdLogin') loginFill('board');
 }
@@ -6260,12 +6293,87 @@ setAddr('archive', 'archive.dorentong.dr');
 setBack('archive', false);
 /* ===== 공공기록 열람센터 — 물류·통신 기록 조회 (8차) ===== */
 var DLT_ACCOUNT = {id:'req_lena', pw:'Rq8!open'};
+/* ===== 주인공 이름: 노을메일 첫 접속 때 정함(성은 '세인' 고정). 데이터는 그대로 두고, 화면에 그려지는 글자에서 '레나'를 바꿔 넣는다 ===== */
+const NAME_KEY = 'iskra_name', NAME_DEFAULT = '레나';
+var playerName = NAME_DEFAULT;
+try{ const v = localStorage.getItem(NAME_KEY); if(v && /^[가-힣A-Za-z]{1,6}$/.test(v)) playerName = v; }catch(e){}
+const NM_RI = ['g','kk','n','d','tt','r','m','b','pp','s','ss','','j','jj','ch','k','t','p','h'];
+const NM_RM = ['a','ae','ya','yae','eo','e','yeo','ye','o','wa','wae','oe','yo','u','wo','we','wi','yu','eu','ui','i'];
+const NM_RF = ['','k','k','k','n','n','n','t','l','k','m','l','l','l','p','l','m','p','p','t','t','ng','t','t','k','t','p','t'];
+function nameRoman(n){   /* 계정 아이디용 로마자(국어의 로마자 표기법 기준, 간략) */
+  if(n === NAME_DEFAULT) return 'lena';
+  let o = '';
+  for(const ch of n){ const c = ch.charCodeAt(0); if(c >= 0xAC00 && c <= 0xD7A3){ const i = c - 0xAC00, ini = Math.floor(i / 588); o += ((ini === 5 && /l$/.test(o)) ? 'l' : NM_RI[ini]) + NM_RM[Math.floor((i % 588) / 28)] + NM_RF[i % 28]; } else if(/[a-z]/i.test(ch)) o += ch.toLowerCase(); }   /* ㄹㄹ은 ll */
+  return o || 'user';
+}
+function nameJosa(n, a, b){   /* a: 받침 있을 때, b: 없을 때 */
+  const c = n.slice(-1).charCodeAt(0);
+  if(c >= 0xAC00 && c <= 0xD7A3) return (c - 0xAC00) % 28 ? a : b;
+  return /[aeiouy]$/i.test(n) ? b : a;
+}
+const NM_JOSA = {'는':['은','는'], '가':['이','가'], '를':['을','를'], '와':['과','와'], '야':['아','야']};
+function nameSub(t){
+  return t.replace(/레나(는|가|를|와|야)?/g, (m, j) => playerName + (j ? nameJosa(playerName, NM_JOSA[j][0], NM_JOSA[j][1]) : ''))
+          .replace(/guest_lena/g, BOARD_ACCOUNT.id).replace(/req_lena/g, DLT_ACCOUNT.id);
+}
+/* 글자 노드마다 원문(_nmo)과 바꾼 결과(_nmv)를 기억 → 이름을 다시 정해도 원문에서 다시 바꿈 */
+function nameFix(n){
+  const src = (n._nmv !== undefined && n.data === n._nmv) ? n._nmo : n.data;
+  if(src.indexOf('레나') < 0 && src.indexOf('_lena') < 0) return;
+  const pe = n.parentElement; if(pe && pe.closest('#omSetup, #esTypeBox')) return;   /* 플레이어가 직접 친 글자는 그대로 */
+  const r = nameSub(src); n._nmo = src; n._nmv = r;
+  if(n.data !== r) n.data = r;
+}
+function nameWalk(root){
+  if(!root) return;
+  if(root.nodeType === 3){ nameFix(root); return; }
+  if(root.nodeType !== 1 || root.tagName === 'SCRIPT' || root.tagName === 'STYLE') return;
+  const w = document.createTreeWalker(root, NodeFilter.SHOW_TEXT); let t;
+  while((t = w.nextNode())) nameFix(t);
+}
+function nameApply(){
+  const r = nameRoman(playerName);
+  BOARD_ACCOUNT.id = 'guest_' + r; DLT_ACCOUNT.id = 'req_' + r;
+  const full = playerName + ' 세인';
+  const ti = document.getElementById('esTypeIn'), ep = document.getElementById('esPreview');
+  if(ti && (!ti.value.trim() || / 세인$/.test(ti.value))){ ti.value = full; if(ep) ep.textContent = full; }
+  document.querySelectorAll('.avatar3').forEach(a => { if(a.dataset.nm || a.textContent.trim() === '레'){ a.dataset.nm = '1'; a.textContent = playerName.slice(0, 1).toUpperCase(); } });
+  document.body.classList.toggle('nm-long', [...playerName].length > 2);
+  nameWalk(document.body);
+}
+new MutationObserver(list => { for(const m of list){ if(m.type === 'characterData') nameFix(m.target); else m.addedNodes.forEach(nameWalk); } })
+  .observe(document.body, {childList:true, subtree:true, characterData:true});
+nameApply();
+setTimeout(nameApply, 0);
+/* 노을메일 첫 접속(새 게임): 메일 아이콘을 누르면 이름부터 정함 */
+function omGateClick(){
+  if(omOpened){ omOpenMail(); return; }
+  document.getElementById('omGate').classList.add('hidden');
+  document.getElementById('omSetup').classList.remove('hidden');
+  const inp = document.getElementById('omsName'); inp.value = playerName; omSetupPreview();
+  setTimeout(() => { try{ inp.focus(); inp.select(); }catch(e){} }, 60);
+}
+function omSetupPreview(){
+  const v = document.getElementById('omsName').value.trim() || NAME_DEFAULT;
+  document.getElementById('omsAv').textContent = v.slice(0, 1).toUpperCase();
+  document.getElementById('omsFull').textContent = v + ' 세인';
+  document.getElementById('omsErr').textContent = '';
+}
+function omSetupOk(){
+  const v = document.getElementById('omsName').value.trim() || NAME_DEFAULT;
+  if(!/^[가-힣A-Za-z]{1,6}$/.test(v)){ document.getElementById('omsErr').textContent = '이름은 한글이나 영문 1~6자로 입력해 주세요.'; return; }
+  playerName = v;
+  try{ localStorage.setItem(NAME_KEY, v); }catch(e){}
+  nameApply();
+  document.getElementById('omSetup').classList.add('hidden');
+  omOpenMail();
+}
 var DLT_ROWS = [{"id": "d1", "date": "2026-10-28", "kind": "물류", "addr": "서쪽 회관 지하 보일러실", "party": "도렌난방설비", "note": "난방 점검 부품 납품", "sign": "수령 확인: 루카 발렌 (관리인)"}, {"id": "d2", "date": "2026-10-21", "kind": "통신", "addr": "서쪽 회관 지하 내선 12", "party": "연합회 사무국", "note": "정기 통화 (3분)", "sign": "응답자: 미기재"}, {"id": "d3", "date": "2026-10-14", "kind": "물류", "addr": "서쪽 회관 1층 로비", "party": "한결사무용품", "note": "복사용지 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d4", "date": "2026-10-09", "kind": "통신", "addr": "서쪽 회관 대표 회선", "party": "상회 사무실", "note": "정기 통화 (1분)", "sign": "응답자: 사무국"}, {"id": "d5", "date": "2026-09-30", "kind": "물류", "addr": "서쪽 회관 2층 회의실", "party": "도렌케이터링", "note": "다과 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d6", "date": "2026-10-25", "kind": "물류", "addr": "북쪽 창고 3동", "party": "도렌평야 영농조합", "note": "쌀 포대 입고", "sign": "수령 확인: 창고 근무자"}, {"id": "d7", "date": "2026-10-19", "kind": "통신", "addr": "북쪽 창고 사무실", "party": "상회 사무실", "note": "재고 확인 통화", "sign": "응답자: 창고 근무자"}, {"id": "d8", "date": "2026-10-17", "kind": "물류", "addr": "연합회 본관 1층", "party": "도렌난방설비", "note": "난방유 납품", "sign": "수령 확인: 경비"}, {"id": "d9", "date": "2026-10-12", "kind": "통신", "addr": "연합회 본관 대표 회선", "party": "이스크라 부동산", "note": "매물 문의 (2분)", "sign": "응답자: 사무국"}, {"id": "d10", "date": "2026-10-06", "kind": "물류", "addr": "마렌 거리 44, 2층", "party": "한결사무용품", "note": "우편물 수령", "sign": "수령 확인: 사무실 직원"}];
 var dltLoggedIn = false, dlCurrent = null, dlLastQ = '';
 var dlKind = '전체';
 function dlShow(v){
   ['dlLogin','dlMain','dlDetail'].forEach(x => document.getElementById(x).classList.toggle('hidden', x !== v));
-  document.getElementById('dlUser').textContent = dltLoggedIn ? '열람 계정 req_lena 님' : '';
+  document.getElementById('dlUser').textContent = dltLoggedIn ? '열람 계정 ' + DLT_ACCOUNT.id + ' 님' : '';
   if(v === 'dlLogin') loginFill('dlt');
 }
 function dlLoginSubmit(e){
