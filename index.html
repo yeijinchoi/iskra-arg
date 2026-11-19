@@ -1656,19 +1656,18 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-raden .kpi,#panel-raden .kpicard,#panel-raden .card{border:none!important;border-radius:22px!important;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 28px rgba(20,40,50,.07);}
 #panel-oldmail .omicon{box-shadow:0 14px 40px rgba(199,49,31,.22);}
 /* 노을메일 첫 접속: 이름 정하기(포털 로그인 화면 구성) */
-#panel-oldmail .omsetup{display:flex;flex-direction:column;align-items:center;padding:56px 16px 40px;color:var(--ink);animation:viewIn .25s ease;}
+#panel-oldmail .omsetup{--oms-line:#E0E0E0;display:flex;flex-direction:column;align-items:center;padding:56px 16px 40px;color:var(--ink);animation:viewIn .25s ease;}
 #panel-oldmail .oms-brand{display:flex;align-items:center;gap:14px;margin-bottom:40px;}
 #panel-oldmail .oms-brand .dzlogo{width:54px;height:54px;}
 #panel-oldmail .oms-brand .dzwm{height:42px;}
-#panel-oldmail .oms-card{width:100%;max-width:580px;box-sizing:border-box;background:var(--surface);border:1px solid var(--border);border-radius:24px;padding:46px 58px 40px;}
+#panel-oldmail .oms-card{width:100%;max-width:580px;box-sizing:border-box;background:var(--surface);border:1px solid var(--oms-line);border-radius:24px;padding:46px 58px 40px;}
 #panel-oldmail .oms-f{position:relative;margin-bottom:22px;}
-#panel-oldmail .oms-f input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--border);border-radius:0;padding:30px 2px 12px;outline:none;transition:border-color .15s;}
-#panel-oldmail .oms-f input:focus{border-bottom:2px solid var(--accent);padding-bottom:11px;}
+#panel-oldmail .oms-f input{width:100%;box-sizing:border-box;font:inherit;font-size:18px;color:var(--ink);background:transparent;border:none;border-bottom:1px solid var(--oms-line);border-radius:0;padding:30px 2px 12px;outline:none;}
 #panel-oldmail .oms-f label{position:absolute;left:2px;top:30px;font-size:18px;color:var(--muted);pointer-events:none;transition:top .15s,font-size .15s,color .15s;}
 #panel-oldmail .oms-f input:focus + label,#panel-oldmail .oms-f input:not(:placeholder-shown) + label{top:4px;font-size:13px;}
 #panel-oldmail .oms-f input:focus + label{color:var(--accent);}
 #panel-oldmail .oms-f input:disabled{color:var(--muted);-webkit-text-fill-color:var(--muted);}
-#panel-oldmail .oms-f .oms-lock{position:absolute;right:2px;top:34px;font-size:12px;color:var(--muted);border:1px solid var(--border);border-radius:999px;padding:2px 9px;}
+#panel-oldmail .oms-f .oms-lock{position:absolute;right:2px;top:34px;font-size:12px;color:var(--muted);border:1px solid var(--oms-line);border-radius:999px;padding:2px 9px;}
 #panel-oldmail .oms-err{min-height:18px;font-size:13px;color:var(--accent);margin:-8px 0 10px;}
 #panel-oldmail .oms-opts{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:18px -4px 14px;}
 #panel-oldmail .oms-keep{display:flex;align-items:center;gap:8px;background:none;border:none;font:inherit;font-size:15px;font-weight:600;color:var(--ink);cursor:pointer;padding:0;}
@@ -1688,7 +1687,7 @@ body.capture-mode #panel-listing .ls-detail:hover{outline:2px solid var(--ls-tea
 #panel-oldmail .oms-note{text-align:center;font-size:14px;font-weight:600;color:var(--ink);margin:26px 0 0;}
 #panel-oldmail .oms-note span{color:var(--muted);font-weight:400;}
 #panel-oldmail .oms-links,#panel-oldmail .oms-foot .fl{display:flex;justify-content:center;align-items:center;flex-wrap:wrap;margin:28px 0 0;font-size:15px;color:var(--muted);}
-#panel-oldmail .oms-links span + span::before,#panel-oldmail .oms-foot .fl span + span::before{content:'';display:inline-block;width:1px;height:12px;background:var(--border);margin:0 14px;vertical-align:-1px;}
+#panel-oldmail .oms-links span + span::before,#panel-oldmail .oms-foot .fl span + span::before{content:'';display:inline-block;width:1px;height:12px;background:var(--oms-line);margin:0 14px;vertical-align:-1px;}
 #panel-oldmail .oms-links .hl{color:var(--accent);}
 #panel-oldmail .oms-banner{position:relative;overflow:hidden;width:100%;max-width:580px;height:170px;box-sizing:border-box;margin-top:44px;border-radius:4px;padding:34px 40px;color:#fff;background:linear-gradient(120deg,#3B1C4A 0%,#9A2F3E 52%,#F08A4B 100%);}
 #panel-oldmail .oms-banner small,#panel-oldmail .oms-banner b,#panel-oldmail .oms-banner em{position:relative;z-index:1;}
