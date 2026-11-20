@@ -2031,10 +2031,12 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   .og-header-inner,.al-header-inner,.ar-header-inner,.ls-header-inner{padding:12px 16px!important;}
   #panel-orginfo .og-page,#panel-alumni .al-page,#panel-archive .ar-page,#panel-listing .ls-page{padding:14px 16px 56px!important;}
   /* 플로팅 위젯 */
-  .bgmwidget{right:12px;bottom:12px;max-width:44px;padding:4px;}
+  .bgmwidget{right:12px;bottom:calc(12px + env(safe-area-inset-bottom,0px));max-width:44px;padding:4px;}
   .bgmwidget .bgmtitle{display:none;}
-  #msgLauncher{right:14px;bottom:68px;}
-  #msgPeek{right:84px;bottom:76px;max-width:calc(100vw - 110px);}
+  #msgLauncher{right:14px;bottom:calc(68px + env(safe-area-inset-bottom,0px));}
+  #msgPeek{right:84px;bottom:calc(76px + env(safe-area-inset-bottom,0px));max-width:calc(100vw - 110px);}
+  /* 오른쪽 아래 떠 있는 버튼(메신저·BGM)이 내용 끝을 가리지 않게: 페이지 끝에 그만큼 여백 */
+  .panel{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px));}
   #msgPanel{left:8px;right:8px;bottom:8px;width:auto;max-width:none;height:min(82vh,640px);border-radius:24px;}
   #toast{left:12px;right:12px;top:calc(var(--chrome-h,100px) + 8px);bottom:auto;width:auto;max-width:none;transform:translateY(-16px);}
   .scrapwidget{left:12px;bottom:12px;}
@@ -2767,7 +2769,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
         <button type="button" class="oms-sw" aria-pressed="true" onclick="this.setAttribute('aria-pressed', this.getAttribute('aria-pressed') !== 'true')">새 메일 알림<span class="tg"></span></button>
       </div>
       <div class="oms-btns">
-        <button type="button" class="oms-def" onclick="document.getElementById('omsName').value='';omSetupOk()">기본 이름 사용</button>
+        <button type="button" class="oms-def" onclick="omSetupOk(true)">기본 이름 사용</button>
         <button type="submit" class="oms-ok">시작하기</button>
       </div>
       <p class="oms-note">표시 이름 <span>· 받는 메일과 내 계정에 이 이름이 쓰입니다</span></p>
@@ -6584,17 +6586,30 @@ function omGateClick(){
   setTimeout(() => { try{ inp.focus(); inp.select(); }catch(e){} }, 60);
 }
 function omSetupPreview(){ document.getElementById('omsErr').textContent = ''; }
-function omSetupOk(){
-  const v = document.getElementById('omsName').value.trim() || NAME_DEFAULT;
+function omSetupOk(useDefault){
+  if(!document.getElementById('omsNotice').classList.contains('hidden')) return;   /* 안내창이 떠 있는 동안 Enter로 다시 열지 않음 */
+  const v = useDefault ? NAME_DEFAULT : (document.getElementById('omsName').value.trim() || NAME_DEFAULT);
   if(!/^[가-힣A-Za-z]{1,6}$/.test(v)){ document.getElementById('omsErr').textContent = '이름은 한글이나 영문 1~6자로 입력해 주세요.'; return; }
   omNoticeName = v;
   document.getElementById('omsNotice').classList.remove('hidden');
+  setTimeout(() => { const b = document.querySelector('#omsNotice .oms-ok'); if(b) b.focus(); }, 0);
 }
+document.addEventListener('keydown', e => {
+  const nt = document.getElementById('omsNotice');
+  if(!nt || nt.classList.contains('hidden')) return;
+  if(e.key === 'Escape'){ e.preventDefault(); omNoticeClose(); return; }
+  if(e.key === 'Tab'){   /* 안내창 안의 두 버튼 사이에서만 이동 */
+    const bs = [...nt.querySelectorAll('button')]; if(!bs.length) return;
+    const i = bs.indexOf(document.activeElement);
+    e.preventDefault();
+    bs[(i < 0 ? 0 : (i + (e.shiftKey ? -1 : 1) + bs.length) % bs.length)].focus();
+  }
+});
 /* 시작 전 안내(가상 세계·개인정보·연출 메일·소리) → 확인하면 시작 */
 var omNoticeName = '';
-function omNoticeClose(){ document.getElementById('omsNotice').classList.add('hidden'); }
+function omNoticeClose(){ document.getElementById('omsNotice').classList.add('hidden'); const i = document.getElementById('omsName'); if(i) i.focus(); }
 function omNoticeOk(){
-  omNoticeClose();
+  document.getElementById('omsNotice').classList.add('hidden');
   const v = omNoticeName || NAME_DEFAULT;
   playerName = v;
   try{ localStorage.setItem(NAME_KEY, v); }catch(e){}
@@ -7542,12 +7557,24 @@ function msgPush(role, text, silent){
   if(role === 'bot' && !msgOpen && !silent){ msgState.unread++; msgPeekShow(text); try{ if(navigator.vibrate) navigator.vibrate(40); }catch(e){} }
   msgSave(); msgRender();
 }
+/* 모바일: 다른 곳을 만지거나 스크롤하면 다나 말풍선 알림을 바로 닫음(내용을 가리지 않게) */
+(function(){
+  const hide = e => {
+    if(!window.matchMedia('(max-width:640px)').matches) return;
+    const pk = document.getElementById('msgPeek');
+    if(!pk || !pk.classList.contains('show') || (e && e.target && pk.contains(e.target))) return;
+    pk.classList.remove('show'); clearTimeout(msgPeekTimer);
+  };
+  document.addEventListener('touchstart', hide, {passive:true, capture:true});
+  window.addEventListener('scroll', hide, {passive:true});
+})();
 function msgPeekShow(text){
   const pk = document.getElementById('msgPeek'); if(!pk) return;
   document.getElementById('msgPeekText').textContent = String(text).replace(/<[^>]+>/g,'').slice(0,60) + (String(text).length>60?'…':'');
   pk.classList.add('show');
   clearTimeout(msgPeekTimer);
-  msgPeekTimer = setTimeout(() => pk.classList.remove('show'), 9000);
+  const mob = window.matchMedia('(max-width:640px)').matches;
+  msgPeekTimer = setTimeout(() => pk.classList.remove('show'), mob ? 5000 : 9000);   /* 모바일: 내용을 오래 가리지 않게 짧게 */
 }
 function msgMarkRead(){
   for(let i = msgState.log.length-1; i >= 0; i--){ if(msgState.log[i].t === 'me'){ if(msgState.log[i].read) break; msgState.log[i].read = true; } }
@@ -7748,6 +7775,14 @@ function doubtAvail(){
   }
   return n;
 }
+/* 세 번째로 의심한 뒤(다나가 차가워진 상태)의 할 일 요약 — 합쇼체 */
+const DOUBT_COLD_NOW = {
+  4: "4차 테스트는 총동문회 동문수첩에서 '에르딘'으로 검색해, 2차 때 본 '바르니아교민상회'의 대표자와 맞는 동문 기록 한 건을 찾아 캡처하시는 겁니다. 어딘가에 소속돼 일하거나 은퇴했거나 다른 나라에서 일하는 사람, 근황이 비어 있는 사람은 빼고 보십시오.",
+  5: "5차 테스트는 도렌통신 아카이브에서 '에르딘 이안'을 검색해, 기고문이나 인터뷰처럼 본문이 긴 기사 한 건을 열어 캡처하시는 겁니다.",
+  6: "6차 테스트는 연합회 게시판에서, 작성자 외에 다른 사람의 확인을 거친 것으로 보이는 글 한 건을 찾아 캡처하시는 겁니다. 로그인은 원래 쓰시던 연합회 게시판 계정으로 하시고, 글은 상세 화면의 본문과 댓글까지 확인하십시오.",
+  7: "7차 테스트는 도렌통신 아카이브의 개명 공고 중 세 조건(신청 사유 가족 사별, 출신 바르니아, 허가 시점 약 22~23년 전)에 맞는 한 건을 캡처하시는 겁니다.",
+  8: "8차 테스트는 연합회 게시판의 암호화된 글(모임 문서 #3)을 먼저 읽고, 글에 나온 장소를 공공기록 열람센터에서 검색해 개인 이름으로 수령 확인이 남은 물류 기록 한 건을 캡처하시는 겁니다. 게시판 주소와 계정은 8차 의뢰 메일에 있습니다."
+};
 function msgDoubt(){
   const n = doubtStage(), D = DOUBT[n]; if(!D) return;
   msgState.dused = msgState.dused || {}; msgState.dused[n] = 1;
@@ -7756,7 +7791,7 @@ function msgDoubt(){
   const w = Math.min(2600, 650 + D.ex[k].length * 22);
   msgBotSay(D.ex[k]);
   msgStartChain([{x: press, o: [
-    {r: '…알겠어요, 할게요', re: (k >= 2 ? '알겠습니다. 다시 정리해 드리겠습니다.' : '좋아요. 그럼 할 일을 다시 정리해 드릴게요.') + '\n\n' + MSG_STAGES[n].now},
+    {r: '…알겠어요, 할게요', re: k >= 2 ? '알겠습니다. 다시 정리해 드리겠습니다.\n\n' + (DOUBT_COLD_NOW[n] || MSG_STAGES[n].now) : '좋아요. 그럼 할 일을 다시 정리해 드릴게요.\n\n' + MSG_STAGES[n].now},
     {r: D.no, re: '…그러십니까. 알겠습니다. 그동안 수고하셨습니다.', bad: 'quit', fire: 'bad:quit'}
   ]}], w + 700);
   msgSave();
