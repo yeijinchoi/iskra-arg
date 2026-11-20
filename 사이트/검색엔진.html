@@ -1739,10 +1739,10 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-oldmail .oms-notice{position:fixed;inset:0;z-index:120;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(40,30,30,.28);animation:omsNIn .18s ease-out;}
 #panel-oldmail .oms-notice.hidden{display:none;}
 #panel-oldmail .oms-ncard{width:100%;max-width:440px;box-sizing:border-box;background:rgba(255,255,255,.94);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border-radius:18px;box-shadow:0 20px 50px rgba(0,0,0,.14);padding:28px 30px 24px;}
-#panel-oldmail .oms-nt{margin:0 0 14px;font-size:16px;font-weight:700;color:var(--ink);}
-#panel-oldmail .oms-nl{margin:0 0 22px;padding:0 0 0 18px;font-size:13px;line-height:1.65;color:var(--ink);}
-#panel-oldmail .oms-nl li{margin:0 0 8px;word-break:keep-all;}
-#panel-oldmail .oms-nl li::marker{color:var(--muted);}
+#panel-oldmail .oms-nt{margin:0 0 14px;font-size:16px;font-weight:700;color:var(--ink);text-align:center;}
+#panel-oldmail .oms-nl{margin:0 0 22px;padding:0;list-style:none;font-size:13px;line-height:1.65;color:var(--ink);text-align:center;}
+#panel-oldmail .oms-nl li{margin:0;padding:10px 0;word-break:keep-all;text-wrap:balance;}
+#panel-oldmail .oms-nl li + li{border-top:1px dashed #E0E0E0;}
 @keyframes omsNIn{from{opacity:0;}to{opacity:1;}}
 @media (max-width:560px){#panel-oldmail .oms-ncard{padding:22px 18px 18px;border-radius:16px;}#panel-oldmail .oms-nl{font-size:12.5px;}}
 #panel-oldmail .oms-card{background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border:none;box-shadow:0 20px 50px rgba(0,0,0,.08);}
@@ -1766,6 +1766,8 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 @media (min-width:861px){
   #panel-oldmail .omleft > .omreader:not(.hidden){margin:0;border-radius:16px 16px 0 0;padding-bottom:20px;}
   #panel-oldmail .omleft > .omreader:not(.hidden) + .omlist{border-radius:0 0 16px 16px;border-top:1px solid var(--om-div);}
+/* 메일 목록·읽기창은 모서리를 둥글리지 않음(사용자 요청) */
+#panel-oldmail .omlist,#panel-oldmail .omlist .omrow,#panel-oldmail .omreader,#panel-oldmail .omleft > .omreader:not(.hidden),#panel-oldmail .omleft > .omreader:not(.hidden) + .omlist{border-radius:0;}
 }
 
 /* ===== 이스크라 톡 — 사람처럼 말 거는 메신저(플로팅) ===== */
@@ -2704,6 +2706,21 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .iskra-notice b{white-space:nowrap;}
 .iskra-notice button{margin-left:auto;flex-shrink:0;border:none;border-radius:8px;background:#1E5FC2;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;cursor:pointer;}
 @media (max-width:600px){.iskra-notice{margin:12px 14px 0;flex-wrap:wrap;}}
+/* ===== PC: 화면은 가장자리까지 꽉 채우고, 탭·떠 있는 버튼만 가장자리에서 띄움 ===== */
+@media (min-width:641px){
+  .chrome{margin-left:calc(-1 * max(16px, env(safe-area-inset-left,0px)))!important;margin-right:calc(-1 * max(16px, env(safe-area-inset-right,0px)))!important;padding-left:0!important;padding-right:0!important;}
+  .chrome .tabstrip{padding-left:12px;padding-right:12px;}
+  /* 각 화면 배경이 양옆 16px 여백까지 채우도록(빈 띠 없음) */
+  .panel{margin-left:calc(-1 * max(16px, env(safe-area-inset-left,0px)));margin-right:calc(-1 * max(16px, env(safe-area-inset-right,0px)));padding-left:max(16px, env(safe-area-inset-left,0px));padding-right:max(16px, env(safe-area-inset-right,0px));}
+  .bgmwidget{right:28px;bottom:84px;}
+  .scrapwidget{left:28px;bottom:28px;}
+  #msgLauncher{right:28px;bottom:132px;}
+  #msgPeek{right:100px;bottom:138px;}
+  /* 노을메일: 오른쪽 메일 영역(타이틀·읽기창·목록)을 하나의 흰 영역으로 */
+  #panel-oldmail .omleft{background:#FFFFFF;align-self:stretch;}
+  #panel-oldmail .omleft > .omhead{margin:0;padding:20px 24px 14px;border-bottom:1px solid var(--om-div);}
+  #panel-oldmail .omleft > .omfooter{margin:20px 24px 28px;}
+}
 </style>
 
 <div class="chrome">
@@ -2780,10 +2797,10 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
       <div class="oms-ncard">
         <p class="oms-nt" id="omsNoticeT">시작하기 전에 확인해 주세요</p>
         <ul class="oms-nl">
-          <li>이 게임에 나오는 나라, 단체, 사이트, 인물은 모두 가상입니다. 실제와는 관계가 없습니다.</li>
-          <li>실제 비밀번호나 개인정보는 입력하지 마세요. 입력한 내용은 이 브라우저에만 저장되고, 어디로도 전송되지 않습니다.</li>
-          <li>게임 속 메일 중에는 스팸이나 피싱처럼 보이는 메일이 있습니다. 모두 연출이며 실제로 연결되지 않습니다.</li>
-          <li>배경음악이 재생되고, 화면 안에 알림이 뜹니다.</li>
+          <li>등장하는 나라·단체·사이트·인물은 모두 가상입니다.<br>실제와는 관계가 없습니다.</li>
+          <li>실제 비밀번호나 개인정보는 입력하지 마세요.<br>입력한 내용은 이 브라우저에만 저장됩니다.</li>
+          <li>스팸·피싱처럼 보이는 메일도<br>모두 게임 속 연출입니다.</li>
+          <li>배경음악이 나오고, 화면 안에 알림이 뜹니다.</li>
         </ul>
         <div class="oms-btns">
           <button type="button" class="oms-def" onclick="omNoticeClose()">취소</button>
