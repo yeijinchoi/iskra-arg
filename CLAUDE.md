@@ -9,5 +9,5 @@
 - 바꾼 내용은 [기획/00_작업현황.md](기획/00_작업현황.md) 맨 아래에 한 줄씩 기록한다.
 - 캐릭터 말투와 설정은 [기획/02_캐릭터설정.md](기획/02_캐릭터설정.md), 세계관은 [기획/01_국가설정.md](기획/01_국가설정.md)를 따른다.
 - 원래 저장소에 커밋하고 main에 합친 뒤, 실행 파일(`index.html`, `img/`, `ending/`, `bgm/`)만 배포 저장소에 일반 커밋으로 반영한다.
-  - 배포 저장소: webgame-factory/in-iskra (플레이 주소 https://webgame-factory.github.io/in-iskra/), ygwebgames/iskra
+  - 배포 저장소: webgame-factory/in-iskra 하나만 (플레이 주소 https://webgame-factory.github.io/in-iskra/). ygwebgames/iskra는 더 이상 업데이트하지 않는다.
   - 배포 저장소에는 기획, 레퍼런스, 에셋 원본 등 제작 과정이 드러나는 파일을 넣지 않는다.
