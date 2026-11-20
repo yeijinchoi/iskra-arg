@@ -3,7 +3,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, viewport-fit=cover">
 <meta name="google" content="notranslate">
 <meta http-equiv="Content-Language" content="ko">
-<script>(function(d){d.setAttribute("data-theme","light");d.setAttribute("lang","ko");d.setAttribute("translate","no");d.classList.add("notranslate");})(document.documentElement);</script>
+<script>(function(d){d.setAttribute("data-theme","light");d.setAttribute("lang","ko");d.setAttribute("translate","no");d.classList.add("notranslate");/* 배포 주소(webgame-factory.github.io)에서는 베타테스트용 메뉴 숨김. 주소 끝에 ?dev 를 붙이면 보임 */try{if(/(^|\.)webgame-factory\.github\.io$/.test(location.hostname)&&!/[?&]dev\b/.test(location.search))d.classList.add("release");}catch(e){}})(document.documentElement);</script>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@400;600;700&family=Nanum+Pen+Script&display=swap">
@@ -2271,6 +2271,9 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 }
 
 .chromemenu .cm-sep{font-size:10.5px;font-weight:700;color:var(--chrome-sub);padding:10px 10px 4px;border-top:1px solid var(--chrome-border);margin-top:4px;letter-spacing:.02em;}
+.chromemenu .cm-rel{display:none!important;}
+.release .chromemenu .cm-dev{display:none!important;}
+.release .chromemenu .cm-rel{display:inline!important;}
 .chromemenu .cm-jump{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:2px 4px 4px;}
 .chromemenu .cm-jump button{text-align:center;padding:8px 0;background:var(--chrome-strip);}
 .chromemenu .cm-jump button:hover{background:var(--accent);color:var(--accent-ink);}
@@ -2753,19 +2756,19 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="chromemenu hidden" id="chromeMenu">
-        <button onclick="resetProgress()">진행 상황 초기화 (베타테스트용)</button>
-        <div class="cm-sep">차수 바로가기 (베타테스트용)</div>
-        <div class="cm-jump">
+        <button onclick="resetProgress()"><span class="cm-dev">진행 상황 초기화 (베타테스트용)</span><span class="cm-rel">처음부터 다시 하기</span></button>
+        <div class="cm-sep cm-dev">차수 바로가기 (베타테스트용)</div>
+        <div class="cm-jump cm-dev">
           <button onclick="jumpToStage(1)">1차</button><button onclick="jumpToStage(2)">2차</button><button onclick="jumpToStage(3)">3차</button>
           <button onclick="jumpToStage(4)">4차</button><button onclick="jumpToStage(5)">5차</button><button onclick="jumpToStage(6)">6차</button>
           <button onclick="jumpToStage(7)">7차</button><button onclick="jumpToStage(8)">8차</button>
         </div>
-        <div class="cm-sep">엔딩 바로가기 (베타테스트용)</div>
-        <div class="cm-jump">
+        <div class="cm-sep cm-dev">엔딩 바로가기 (베타테스트용)</div>
+        <div class="cm-jump cm-dev">
           <button onclick="jumpToEnding('C')">결과 확인서</button><button onclick="jumpToEnding('A')">엔딩 A</button><button onclick="jumpToEnding('B')">엔딩 B</button>
         </div>
-        <div class="cm-sep">배드엔딩 바로가기 (베타테스트용)</div>
-        <div class="cm-jump">
+        <div class="cm-sep cm-dev">배드엔딩 바로가기 (베타테스트용)</div>
+        <div class="cm-jump cm-dev">
           <button onclick="jumpToBad('betray')">밀고</button><button onclick="jumpToBad('quit')">포기</button><button onclick="jumpToBad('confront')">따짐</button><button onclick="jumpToBad('replace')">교체</button>
         </div>
       </div>

@@ -11,3 +11,4 @@
 - 원래 저장소에 커밋하고 main에 합친 뒤, 실행 파일(`index.html`, `img/`, `ending/`, `bgm/`)만 배포 저장소에 일반 커밋으로 반영한다.
   - 배포 저장소: webgame-factory/in-iskra 하나만 (플레이 주소 https://webgame-factory.github.io/in-iskra/). ygwebgames/iskra는 더 이상 업데이트하지 않는다.
   - 배포 저장소에는 기획, 레퍼런스, 에셋 원본 등 제작 과정이 드러나는 파일을 넣지 않는다.
+  - 배포 주소(webgame-factory.github.io)에서는 베타테스트용 메뉴(초기화·차수/엔딩/배드엔딩 바로가기)가 자동으로 숨겨지고 '처음부터 다시 하기'만 보인다. 주소 끝에 `?dev`를 붙이면 베타테스트용 메뉴가 보인다. 파일은 원래 저장소와 똑같이 유지한다.
