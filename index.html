@@ -628,7 +628,7 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
 .final-card .fe button{font-family:inherit;font-size:13px;padding:10px 16px;border-radius:999px;border:1px solid #3A3F47;background:none;color:#D5D8DD;cursor:pointer;}
 
 /* 노을메일 섹션 구분: 칸(박스) 없이 소제목 + 구분선 + 간격 */
-@media (min-width:861px){
+@media (min-width:641px){
   #panel-oldmail .omlistwrap .omside{gap:0;}
   #panel-oldmail .omlistwrap .omside .omfolders{padding:0 0 18px;border:none;background:none;}
   #panel-oldmail .omlistwrap .omside .mailcard,#panel-oldmail .omlistwrap .omside .bankcard,#panel-oldmail .omlistwrap .omside .newscard,#panel-oldmail .omlistwrap .omside .weathercard{background:none;border:none;border-top:1px solid var(--border);border-radius:0;box-shadow:none;margin:0;padding:20px 6px 22px;}
@@ -637,7 +637,7 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
   #panel-oldmail .omlistwrap .omside .bankcard .bankname{font-weight:600;letter-spacing:0;}
   #panel-oldmail .omlistwrap .omside .newscard li:first-child button{border-top:none;}
 }
-@media (max-width:860px){
+@media (max-width:640px){
   #panel-oldmail .omlistwrap .omsplit>.omside{gap:0;margin:8px 0 10px;}
   #panel-oldmail .omlistwrap .omsplit>.omside>.bankcard,#panel-oldmail .omlistwrap .omsplit>.omside>.newscard{background:none;border:none;border-top:1px solid var(--border);border-radius:0;box-shadow:none;padding:18px 2px 20px;}
   #panel-oldmail .omlistwrap .omsplit>.omside>.bankcard .head,#panel-oldmail .omlistwrap .omsplit>.omside>.newscard .head{font-size:11.5px;font-weight:700;color:var(--muted);letter-spacing:.08em;margin:0;}
@@ -848,7 +848,7 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
 #panel-oldmail > .wrap{padding-bottom:56px;}
 #panel-oldmail .omlistwrap{padding-bottom:8px;}
 /* 모바일/태블릿: 위젯 카드를 없애고 평평한 항목으로 (목록 위) */
-@media (max-width:860px){
+@media (max-width:640px){
   #panel-oldmail .omlistwrap .omside{display:flex;flex-direction:column;overflow:hidden;width:100%;max-width:100%;min-width:0;margin:0;padding:0;gap:0;scroll-snap-type:none;order:-1;}
   #panel-oldmail .omlistwrap .omside>*{flex:none;width:100%;margin:0;scroll-snap-align:none;background:none;border:none;border-radius:0;box-shadow:none;}
   #panel-oldmail .omlistwrap .omside .mailcard,#panel-oldmail .omlistwrap .omside .weathercard,#panel-oldmail .omlistwrap .omside .financecard{display:none;}
@@ -865,7 +865,7 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
 /* ===== 노을메일 PC 레이아웃: 왼쪽 사이드바(폴더·위젯) + 오른쪽 읽기창(위)/목록(아래) ===== */
 .omfolders{display:none;}
 .omhead{display:none;}
-@media (min-width:861px){
+@media (min-width:641px){
   #panel-oldmail > .wrap{max-width:1240px;margin-left:auto;margin-right:auto;}
   #panel-oldmail .omlistwrap .omsplit{display:grid;grid-template-columns:244px minmax(0,1fr);gap:24px;align-items:start;}
   #panel-oldmail .omside{order:-1;grid-column:1;grid-row:1;margin-top:20px;}
@@ -1747,7 +1747,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 @media (max-width:560px){#panel-oldmail .oms-ncard{padding:22px 18px 18px;border-radius:16px;}#panel-oldmail .oms-nl{font-size:12.5px;}}
 #panel-oldmail .oms-card{background:rgba(255,255,255,.5);-webkit-backdrop-filter:blur(24px) saturate(160%);backdrop-filter:blur(24px) saturate(160%);border:none;box-shadow:0 20px 50px rgba(0,0,0,.08);}
 @media (max-width:560px){#panel-oldmail .omsetup::before,#panel-oldmail .omsetup::after{width:280px;height:280px;}#panel-oldmail .omsetup::before{left:calc(100% - 280px);top:0;}#panel-oldmail .omsetup::after{left:0;top:300px;}}   /* 번짐은 영역 안에서만(잘리는 경계·가로 스크롤 없음) */
-@media (max-width:860px){#panel-oldmail .omreader{background:#FFFFFF;border-radius:16px;padding:18px 16px 8px;}}
+@media (max-width:640px){#panel-oldmail .omreader{background:#FFFFFF;border-radius:16px;padding:18px 16px 8px;}}
 /* 안톤에게 답장(선택지) */
 #panel-oldmail .omreply{margin-top:26px;}
 #panel-oldmail .omsent{background:#F7F7F7;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
@@ -1763,7 +1763,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-oldmail .omleft > .omfooter{text-align:left;margin:16px 6px 28px;}
 #omGate:not(.hidden) ~ #omFooter,#omSetup:not(.hidden) ~ #omFooter{display:none;}
 /* PC: 메일을 열면 읽기창과 목록이 흰 상자 하나로 이어짐(사이에 구분선 하나) */
-@media (min-width:861px){
+@media (min-width:641px){
   #panel-oldmail .omleft > .omreader:not(.hidden){margin:0;border-radius:16px 16px 0 0;padding-bottom:20px;}
   #panel-oldmail .omleft > .omreader:not(.hidden) + .omlist{border-radius:0 0 16px 16px;border-top:1px solid var(--om-div);}
 /* 메일 목록·읽기창은 모서리를 둥글리지 않음(사용자 요청) */
@@ -1867,7 +1867,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-oldmail .mailcard:hover{background:var(--surface);}
 #panel-oldmail .side{margin-top:20px;}
 #panel-oldmail .mailcard,#panel-oldmail .bankcard,#panel-oldmail .weathercard,#panel-oldmail .financecard{border:none;border-radius:24px;box-shadow:0 1px 2px rgba(0,0,0,.04),0 10px 30px rgba(0,0,0,.12);}
-@media (max-width:860px){#panel-oldmail .omsplit{grid-template-columns:1fr;}}
+@media (max-width:640px){#panel-oldmail .omsplit{grid-template-columns:1fr;}}
 /* 이스크라: 항상 구글풍 최소 홈. 업데이트되면 '부동산' 아이콘만 추가 */
 #panel-search.beta-mode.iskra-updated .serviceicons .svcitem:nth-child(2){display:flex;}
 
@@ -2706,6 +2706,8 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .iskra-notice b{white-space:nowrap;}
 .iskra-notice button{margin-left:auto;flex-shrink:0;border:none;border-radius:8px;background:#1E5FC2;color:#fff;font-family:inherit;font-size:12.5px;font-weight:700;padding:7px 12px;cursor:pointer;}
 @media (max-width:600px){.iskra-notice{margin:12px 14px 0;flex-wrap:wrap;}}
+/* 노을메일 메일 목록·읽기창은 모든 화면 크기에서 모서리를 둥글리지 않음 */
+#panel-oldmail .omlist,#panel-oldmail .omreader,#panel-oldmail .omleft > .omreader:not(.hidden),#panel-oldmail .omleft > .omreader:not(.hidden) + .omlist{border-radius:0!important;}
 /* ===== PC: 화면은 가장자리까지 꽉 채우고, 탭·떠 있는 버튼만 가장자리에서 띄움 ===== */
 @media (min-width:641px){
   .chrome{margin-left:calc(-1 * max(16px, env(safe-area-inset-left,0px)))!important;margin-right:calc(-1 * max(16px, env(safe-area-inset-right,0px)))!important;padding-left:0!important;padding-right:0!important;}
@@ -2720,6 +2722,15 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   #panel-oldmail .omleft{background:#FFFFFF;align-self:stretch;}
   #panel-oldmail .omleft > .omhead{margin:0;padding:20px 24px 14px;border-bottom:1px solid var(--om-div);}
   #panel-oldmail .omleft > .omfooter{margin:20px 24px 28px;}
+  /* 메일 목록 한 줄은 한 줄로(미리보기는 말줄임) — 전역 text-wrap:pretty 때문에 좁은 화면에서 줄이 넘어가던 문제 */
+  #panel-oldmail .omrow .omsubjwrap,#panel-oldmail .omrow .omsubjwrap *{white-space:nowrap;text-wrap:nowrap;}
+}
+@media (min-width:641px){
+  /* 사이트 상단 바·하단 정보가 화면 양끝까지 닿게(양옆 빈 띠 없음) — 본문은 각 사이트 안쪽 여백 사용 */
+  #panel-orginfo,#panel-alumni,#panel-archive,#panel-listing,#panel-board,#panel-dlt,#panel-report{padding-left:0!important;padding-right:0!important;}
+}
+@media (min-width:641px) and (max-width:1100px){
+  #panel-oldmail .omrow .omsender{width:120px;}
 }
 </style>
 
@@ -5327,7 +5338,7 @@ function omOpenMail(){
   omRenderList();
 }
 var omFilter = 'all', omCurId = null;
-function omDesk(){ return window.matchMedia && window.matchMedia('(min-width:861px)').matches; }
+function omDesk(){ return window.matchMedia && window.matchMedia('(min-width:641px)').matches; }
 /* PC에서는 읽기창을 목록 위로 옮겨 붙이고, 모바일에서는 원래 자리로 */
 function omPlaceNews(){
   const nc = document.querySelector('#panel-oldmail .newscard'), host = document.getElementById('omNewsHost'), side = document.querySelector('#panel-oldmail .omside'), wx = document.querySelector('#panel-oldmail .weathercard');
