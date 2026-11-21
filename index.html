@@ -2748,6 +2748,11 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .bug-l span{color:#8A9099;font-weight:400;}
 .bug-card textarea,.bug-card input{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:14px;color:#1F2329;border:1px solid #E0E0E0;border-radius:9px;padding:10px 12px;margin:0 0 14px;background:#FFFFFF;resize:vertical;}
 .bug-card textarea:focus,.bug-card input:focus{outline:none;border-color:#BDBDBD;}
+.bug-shot{display:grid;grid-template-columns:auto 1fr;align-items:center;gap:6px 8px;margin:-2px 0 12px;font-size:13px;color:#1F2329;cursor:pointer;}
+.bug-shot input{width:16px;height:16px;margin:0;accent-color:#1F2329;}
+.bug-shot img{grid-column:1 / 3;display:none;width:100%;max-height:150px;object-fit:cover;object-position:top;border:1px solid #E0E0E0;border-radius:8px;}
+.bug-shot.has img{display:block;}
+.bug-shot.none{display:none;}
 .bug-msg{min-height:18px;margin:-4px 0 10px;font-size:13px;color:#5F6670;}
 .bug-msg.err{color:#C0392B;}
 .bug-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
@@ -2761,12 +2766,13 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 <div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
   <form class="bug-card" onsubmit="event.preventDefault();bugSend()" autocomplete="off">
     <p class="bug-title" id="bugTitle">오류 제보하기</p>
-    <p class="bug-sub">게임을 하다 이상한 점을 발견하셨다면 알려 주세요. 지금 보고 있는 화면과 진행 단계는 자동으로 함께 보내집니다.</p>
+    <p class="bug-sub">게임을 하다 이상한 점을 발견하셨다면 알려 주세요. 진행 단계와 보고 있던 화면 정보는 자동으로 함께 보내집니다.</p>
     <div class="bug-types" role="radiogroup" aria-label="제보 종류">
       <button type="button" class="on" data-v="진행이 막힘" onclick="bugType(this)">진행이 막힘</button><button type="button" data-v="화면이 이상함" onclick="bugType(this)">화면이 이상함</button><button type="button" data-v="문장·오타" onclick="bugType(this)">문장·오타</button><button type="button" data-v="기타" onclick="bugType(this)">기타</button>
     </div>
     <label class="bug-l" for="bugText">무슨 일이 있었나요?</label>
     <textarea id="bugText" rows="5" maxlength="2000" oninput="document.getElementById('bugMsg').textContent=''" placeholder="예) 4차 의뢰 메일을 받았는데 다나 메시지가 오지 않아요."></textarea>
+    <label class="bug-shot" id="bugShotWrap"><input type="checkbox" id="bugShotOn" checked><span>지금 화면 캡처도 함께 보내기</span><img id="bugShotImg" alt="보낼 화면 캡처 미리보기"></label>
     <p class="bug-msg" id="bugMsg" role="status"></p>
     <div class="bug-btns"><button type="button" class="bug-cancel" onclick="bugClose()">취소</button><button type="submit" class="bug-send" id="bugSendBtn">보내기</button></div>
   </form>
@@ -8057,9 +8063,25 @@ const BUG_VER = '2026-11-21';
 var bugErrors = [], bugLastSent = 0;
 window.addEventListener('error', e => { try{ bugErrors.push(String(e.message || '').slice(0, 160)); if(bugErrors.length > 5) bugErrors.shift(); }catch(_){} });
 function bugType(b){ document.querySelectorAll('#bugModal .bug-types button').forEach(x => x.classList.toggle('on', x === b)); }
+/* 화면 캡처: 처음 쓸 때만 html2canvas를 불러옴 */
+var bugShot = '', bugH2cP = null;
+function bugLoadH2c(){
+  if(window.html2canvas) return Promise.resolve();
+  if(!bugH2cP) bugH2cP = new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); });
+  return bugH2cP;
+}
+function bugCapture(){
+  bugShot = '';
+  const wrap = document.getElementById('bugShotWrap'), img = document.getElementById('bugShotImg');
+  wrap.classList.remove('has'); wrap.classList.remove('none');
+  return bugLoadH2c().then(() => html2canvas(document.body, {x: scrollX, y: scrollY, width: innerWidth, height: innerHeight, scale: Math.min(1, 1280 / innerWidth), useCORS: true, logging: false, backgroundColor: '#FFFFFF', ignoreElements: el => el.id === 'bugModal'}))
+    .then(cv => { bugShot = cv.toDataURL('image/jpeg', 0.72); img.src = bugShot; wrap.classList.add('has'); })
+    .catch(() => { wrap.classList.add('none'); });
+}
 function bugOpen(){
   const m = document.getElementById('bugModal'); if(!m) return;
   try{ document.getElementById('chromeMenu').classList.add('hidden'); }catch(e){}
+  bugCapture();
   document.getElementById('bugMsg').textContent = ''; document.getElementById('bugMsg').classList.remove('err');
   document.getElementById('bugSendBtn').disabled = false;
   m.classList.remove('hidden');
@@ -8082,7 +8104,7 @@ function bugSend(){
   if(Date.now() - bugLastSent < 30000){ msg.textContent = '조금 뒤에 다시 보내 주세요.'; msg.classList.add('err'); return; }
   const on = document.querySelector('#bugModal .bug-types button.on');
   const info = bugInfo();
-  const data = {type: on ? on.dataset.v : '기타', text, screen: info.screen, stage: info.stage, name: (typeof playerName === 'string' ? playerName : ''), ua: navigator.userAgent, size: innerWidth + 'x' + innerHeight, errors: bugErrors.join(' | '), ver: BUG_VER};
+  const data = {type: on ? on.dataset.v : '기타', text, screen: info.screen, stage: info.stage, name: (typeof playerName === 'string' ? playerName : ''), ua: navigator.userAgent, size: innerWidth + 'x' + innerHeight, errors: bugErrors.join(' | '), ver: BUG_VER, shot: (document.getElementById('bugShotOn').checked && bugShot.length < 4000000) ? bugShot.replace(/^data:image\/jpeg;base64,/, '') : ''};
   btn.disabled = true; msg.textContent = '보내는 중…';
   fetch(BUG_ENDPOINT, {method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(data)})
     .then(() => { bugLastSent = Date.now(); msg.textContent = '보내 주셔서 고마워요. 확인해 볼게요.'; document.getElementById('bugText').value = ''; setTimeout(bugClose, 1600); })

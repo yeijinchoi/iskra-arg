@@ -11,10 +11,14 @@
  *    - 액세스 권한이 있는 사용자: 모든 사용자
  *    → [배포] → 권한 허용 → 나오는 "웹 앱 URL"(https://script.google.com/macros/s/…/exec)을 복사한다.
  * 5. 그 주소를 게임 index.html의 BUG_ENDPOINT에 넣는다.
+ *
+ * 코드를 고친 뒤에는 [배포] → [배포 관리] → 연필(수정) → 버전: [새 버전] → [배포]를 해야 반영된다(주소는 그대로).
+ * 화면 캡처 저장을 위해 처음 한 번 드라이브 권한을 허용해야 한다.
  */
 const SHEET_ID = '1-AtoJRsSk8ThjEX1zixUZ6VCOvLhmIhgvAOcnvsDPRs';   /* 기록할 구글 시트(주소의 /d/ 와 /edit 사이) */
 const SHEET_NAME = '제보';
-const HEADERS = ['받은 시각', '종류', '내용', '화면', '진행 단계', '플레이어 이름', '브라우저', '화면 크기', '최근 오류', '게임 버전'];
+const SHOT_FOLDER = '이스크라 오류 제보 캡처';   /* 화면 캡처를 저장할 내 드라이브 폴더 이름 */
+const HEADERS = ['받은 시각', '종류', '내용', '화면 캡처', '화면', '진행 단계', '플레이어 이름', '브라우저', '화면 크기', '최근 오류', '게임 버전'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -23,13 +27,24 @@ function doPost(e) {
     const ss = SpreadsheetApp.openById(SHEET_ID);   /* 시트 안에서 열지 않고 script.google.com에서 따로 만들어도 동작 */
     const sh = ss.getSheetByName(SHEET_NAME) || ss.insertSheet(SHEET_NAME);
     if (sh.getLastRow() === 0) { sh.appendRow(HEADERS); sh.setFrozenRows(1); }
+    else if (sh.getRange(1, 4).getValue() !== HEADERS[3]) sh.getRange(1, 1, 1, HEADERS.length).setValues([HEADERS]);   /* 예전 머리줄이면 새 칸 구성으로 바꿈 */
     let d = {};
     try { d = JSON.parse(e.postData.contents); } catch (err) { d = {}; }
     // 수식으로 해석되지 않게(=, +, -, @ 로 시작하면 앞에 ' 를 붙임), 길이 제한
+    // 화면 캡처(JPEG)는 드라이브 폴더에 저장하고 시트에는 링크만
+    let shotUrl = '';
+    if (d.shot && String(d.shot).length < 4000000) {
+      try {
+        const it = DriveApp.getFoldersByName(SHOT_FOLDER);
+        const folder = it.hasNext() ? it.next() : DriveApp.createFolder(SHOT_FOLDER);
+        const name = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyyMMdd-HHmmss') + '.jpg';
+        shotUrl = folder.createFile(Utilities.newBlob(Utilities.base64Decode(String(d.shot)), 'image/jpeg', name)).getUrl();
+      } catch (err) { shotUrl = '(캡처 저장 실패)'; }
+    }
     const clean = (v, n) => { let s = String(v == null ? '' : v).slice(0, n); return /^[=+\-@]/.test(s) ? "'" + s : s; };
     sh.appendRow([
       new Date(),
-      clean(d.type, 20), clean(d.text, 2000),
+      clean(d.type, 20), clean(d.text, 2000), shotUrl,
       clean(d.screen, 200), clean(d.stage, 30), clean(d.name, 20),
       clean(d.ua, 300), clean(d.size, 30), clean(d.errors, 1000), clean(d.ver, 40)
     ]);
