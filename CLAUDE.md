@@ -12,3 +12,6 @@
   - 배포 저장소: webgame-factory/in-iskra 하나만 (플레이 주소 https://webgame-factory.github.io/in-iskra/). ygwebgames/iskra는 더 이상 업데이트하지 않는다.
   - 배포 저장소에는 기획, 레퍼런스, 에셋 원본 등 제작 과정이 드러나는 파일을 넣지 않는다.
   - 배포는 `python3 tools/build_release.py <배포 저장소 폴더>`로 만든다. 원래 저장소(iskra-arg)에는 베타테스트 기능(초기화·차수/엔딩/배드엔딩 바로가기)이 그대로 있고, 배포용에서는 코드째 빠진다(메뉴에는 '처음부터 다시 하기'만). 베타테스트 전용 코드는 HTML은 `<!--DEV-->…<!--/DEV-->`, JS는 `/*DEV*/…/*/DEV*/`로 감싸고, 배포용에서만 보일 글자는 `<!--REL 글자 -->`로 쓴다.
+
+## 오류 제보
+- 브라우저 ⋮ 메뉴의 '오류 제보하기'는 배포용에도 들어간다. 제보는 구글 시트에 붙인 Apps Script 웹 앱(`tools/bug_report_apps_script.gs`)으로 보내고, 받는 주소는 index.html의 `BUG_ENDPOINT`에 넣는다(비어 있으면 '아직 연결되지 않았어요' 안내만 뜸).

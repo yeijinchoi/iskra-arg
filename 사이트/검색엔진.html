@@ -2734,8 +2734,45 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 @media (min-width:641px) and (max-width:1100px){
   #panel-oldmail .omrow .omsender{width:120px;}
 }
+/* ===== 오류 제보 창(게임 밖 기능: 중립 회색 톤) ===== */
+.bug-modal{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(20,22,26,.38);}
+.bug-modal.hidden{display:none;}
+.bug-card{width:100%;max-width:440px;box-sizing:border-box;background:#FFFFFF;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.18);padding:24px 26px 20px;font-family:'Noto Sans KR',sans-serif;color:#1F2329;max-height:calc(100dvh - 32px);overflow-y:auto;}
+.bug-title{margin:0 0 6px;font-size:16px;font-weight:700;}
+.bug-sub{margin:0 0 16px;font-size:13px;line-height:1.6;color:#5F6670;word-break:keep-all;}
+.bug-types{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 16px;}
+.bug-types button{font:inherit;font-size:13px;font-weight:400;padding:6px 12px;border-radius:999px;border:1px solid #E0E0E0;background:#FFFFFF;color:#1F2329;cursor:pointer;transition:background .15s ease;}
+.bug-types button:hover{background:#F0F0F0;}
+.bug-types button.on{background:#EEEEEE;border-color:#BDBDBD;font-weight:500;}
+.bug-l{display:block;font-size:13px;font-weight:500;margin:0 0 6px;}
+.bug-l span{color:#8A9099;font-weight:400;}
+.bug-card textarea,.bug-card input{display:block;width:100%;box-sizing:border-box;font:inherit;font-size:14px;color:#1F2329;border:1px solid #E0E0E0;border-radius:9px;padding:10px 12px;margin:0 0 14px;background:#FFFFFF;resize:vertical;}
+.bug-card textarea:focus,.bug-card input:focus{outline:none;border-color:#BDBDBD;}
+.bug-msg{min-height:18px;margin:-4px 0 10px;font-size:13px;color:#5F6670;}
+.bug-msg.err{color:#C0392B;}
+.bug-btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.bug-btns button{font:inherit;font-size:13.5px;border:none;border-radius:9px;height:42px;cursor:pointer;}
+.bug-cancel{background:#EEEEEE;color:#1F2329;font-weight:500;}
+.bug-send{background:#1F2329;color:#FFFFFF;font-weight:600;}
+.bug-send:disabled{opacity:.5;cursor:default;}
+@media (max-width:640px){.bug-card{padding:20px 18px 16px;}.bug-card textarea,.bug-card input{font-size:16px;}}
 </style>
 
+<div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
+  <form class="bug-card" onsubmit="event.preventDefault();bugSend()" autocomplete="off">
+    <p class="bug-title" id="bugTitle">오류 제보하기</p>
+    <p class="bug-sub">게임을 하다 이상한 점을 발견하셨다면 알려 주세요. 지금 보고 있는 화면과 진행 단계는 자동으로 함께 보내집니다.</p>
+    <div class="bug-types" role="radiogroup" aria-label="제보 종류">
+      <button type="button" class="on" data-v="진행이 막힘" onclick="bugType(this)">진행이 막힘</button><button type="button" data-v="화면이 이상함" onclick="bugType(this)">화면이 이상함</button><button type="button" data-v="문장·오타" onclick="bugType(this)">문장·오타</button><button type="button" data-v="기타" onclick="bugType(this)">기타</button>
+    </div>
+    <label class="bug-l" for="bugText">무슨 일이 있었나요?</label>
+    <textarea id="bugText" rows="5" maxlength="2000" oninput="document.getElementById('bugMsg').textContent=''" placeholder="예) 4차 의뢰 메일을 받았는데 다나 메시지가 오지 않아요."></textarea>
+    <label class="bug-l" for="bugContact">연락받을 곳 <span>(선택)</span></label>
+    <input id="bugContact" type="text" maxlength="100" placeholder="답변이 필요하면 메일이나 SNS 아이디를 남겨 주세요">
+    <p class="bug-msg" id="bugMsg" role="status"></p>
+    <div class="bug-btns"><button type="button" class="bug-cancel" onclick="bugClose()">취소</button><button type="submit" class="bug-send" id="bugSendBtn">보내기</button></div>
+  </form>
+</div>
 <div class="chrome">
   <div class="tabstrip" id="tabstrip"></div>
   <div class="toolbar">
@@ -2753,6 +2790,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="chromemenu hidden" id="chromeMenu">
+        <button onclick="bugOpen()">오류 제보하기</button>
         <button onclick="resetProgress()"><!--DEV-->진행 상황 초기화 (베타테스트용)<!--/DEV--><!--REL 처음부터 다시 하기 --></button>
         <!--DEV-->
         <div class="cm-sep">차수 바로가기 (베타테스트용)</div>
@@ -8015,6 +8053,43 @@ function applyJump(n){
 }
 
 /*/DEV*/
+/* ===== 오류 제보: 구글 시트(Apps Script 웹 앱)로 전송 ===== */
+const BUG_ENDPOINT = '';   /* Apps Script 웹 앱 주소(…/exec). 비어 있으면 보내지 않음 */
+const BUG_VER = '2026-11-21';
+var bugErrors = [], bugLastSent = 0;
+window.addEventListener('error', e => { try{ bugErrors.push(String(e.message || '').slice(0, 160)); if(bugErrors.length > 5) bugErrors.shift(); }catch(_){} });
+function bugType(b){ document.querySelectorAll('#bugModal .bug-types button').forEach(x => x.classList.toggle('on', x === b)); }
+function bugOpen(){
+  const m = document.getElementById('bugModal'); if(!m) return;
+  try{ document.getElementById('chromeMenu').classList.add('hidden'); }catch(e){}
+  document.getElementById('bugMsg').textContent = ''; document.getElementById('bugMsg').classList.remove('err');
+  document.getElementById('bugSendBtn').disabled = false;
+  m.classList.remove('hidden');
+  setTimeout(() => { const t = document.getElementById('bugText'); if(t) t.focus(); }, 0);
+}
+function bugClose(){ const m = document.getElementById('bugModal'); if(m) m.classList.add('hidden'); }
+document.addEventListener('keydown', e => { const m = document.getElementById('bugModal'); if(e.key === 'Escape' && m && !m.classList.contains('hidden')) bugClose(); });
+function bugInfo(){
+  let stage = '', screen = '';
+  try{ const st = msgStage(); stage = endingChosen ? ('엔딩 ' + endingChosen) : badEnding ? ('배드엔딩 ' + badEnding) : (st.n ? st.n + '차' + (st.done ? ' 완료' : '') : '시작 전'); }catch(e){}
+  try{ screen = activeKind() + ' · ' + (document.getElementById('addrText').textContent || ''); }catch(e){}
+  return {stage, screen};
+}
+function bugSend(){
+  const msg = document.getElementById('bugMsg'), btn = document.getElementById('bugSendBtn');
+  const text = (document.getElementById('bugText').value || '').trim();
+  msg.classList.remove('err');
+  if(!text){ msg.textContent = '무슨 일이 있었는지 적어 주세요.'; msg.classList.add('err'); return; }
+  if(!BUG_ENDPOINT){ msg.textContent = '제보 받는 곳이 아직 연결되지 않았어요.'; msg.classList.add('err'); return; }
+  if(Date.now() - bugLastSent < 30000){ msg.textContent = '조금 뒤에 다시 보내 주세요.'; msg.classList.add('err'); return; }
+  const on = document.querySelector('#bugModal .bug-types button.on');
+  const info = bugInfo();
+  const data = {type: on ? on.dataset.v : '기타', text, contact: (document.getElementById('bugContact').value || '').trim(), screen: info.screen, stage: info.stage, name: (typeof playerName === 'string' ? playerName : ''), ua: navigator.userAgent, size: innerWidth + 'x' + innerHeight, errors: bugErrors.join(' | '), ver: BUG_VER};
+  btn.disabled = true; msg.textContent = '보내는 중…';
+  fetch(BUG_ENDPOINT, {method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(data)})
+    .then(() => { bugLastSent = Date.now(); msg.textContent = '보내 주셔서 고마워요. 확인해 볼게요.'; document.getElementById('bugText').value = ''; setTimeout(bugClose, 1600); })
+    .catch(() => { msg.textContent = '보내지 못했어요. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.'; msg.classList.add('err'); btn.disabled = false; });
+}
 loadProgress();
 try{ loginFillAll(); }catch(e){}
 applyIskraTheme();
