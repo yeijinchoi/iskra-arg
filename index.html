@@ -8059,24 +8059,25 @@ function applyJump(n){
 /*/DEV*/
 /* ===== 오류 제보: 구글 시트(Apps Script 웹 앱)로 전송 ===== */
 const BUG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzCggLa8PMKOBkH3a_meWnrOIUFzF8YCRob5TshO9PGTE9SMM_QK7j4cb_bnXokfg2jXg/exec';   /* Apps Script 웹 앱 주소(…/exec). 비어 있으면 보내지 않음 */
-const BUG_VER = '2026-11-21';
+const BUG_VER = '2026-11-21b';
 var bugErrors = [], bugLastSent = 0;
 window.addEventListener('error', e => { try{ bugErrors.push(String(e.message || '').slice(0, 160)); if(bugErrors.length > 5) bugErrors.shift(); }catch(_){} });
 function bugType(b){ document.querySelectorAll('#bugModal .bug-types button').forEach(x => x.classList.toggle('on', x === b)); }
 /* 화면 캡처: 처음 쓸 때만 html2canvas를 불러옴 */
-var bugShot = '', bugH2cP = null;
+var bugShot = '', bugH2cP = null, bugCapP = null, bugShotNote = '';
 function bugLoadH2c(){
   if(window.html2canvas) return Promise.resolve();
   if(!bugH2cP) bugH2cP = new Promise((ok, no) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js'; sc.onload = ok; sc.onerror = no; document.head.appendChild(sc); });
   return bugH2cP;
 }
 function bugCapture(){
-  bugShot = '';
+  bugShot = ''; bugShotNote = '캡처 중';
   const wrap = document.getElementById('bugShotWrap'), img = document.getElementById('bugShotImg');
   wrap.classList.remove('has'); wrap.classList.remove('none');
-  return bugLoadH2c().then(() => html2canvas(document.body, {x: scrollX, y: scrollY, width: innerWidth, height: innerHeight, scale: Math.min(1, 1280 / innerWidth), useCORS: true, logging: false, backgroundColor: '#FFFFFF', ignoreElements: el => el.id === 'bugModal'}))
-    .then(cv => { bugShot = cv.toDataURL('image/jpeg', 0.72); img.src = bugShot; wrap.classList.add('has'); })
-    .catch(() => { wrap.classList.add('none'); });
+  bugCapP = bugLoadH2c().catch(() => { bugShotNote = '캡처 도구를 불러오지 못함'; throw 0; }).then(() => html2canvas(document.body, {x: scrollX, y: scrollY, width: innerWidth, height: innerHeight, scale: Math.min(1, 1280 / innerWidth), useCORS: true, logging: false, backgroundColor: '#FFFFFF', ignoreElements: el => el.id === 'bugModal'}))
+    .then(cv => { bugShot = cv.toDataURL('image/jpeg', 0.72); bugShotNote = ''; img.src = bugShot; wrap.classList.add('has'); })
+    .catch(err => { if(bugShotNote === '캡처 중') bugShotNote = '캡처 실패' + (err && err.message ? ': ' + String(err.message).slice(0, 80) : ''); wrap.classList.add('none'); });
+  return bugCapP;
 }
 function bugOpen(){
   const m = document.getElementById('bugModal'); if(!m) return;
@@ -8104,11 +8105,16 @@ function bugSend(){
   if(Date.now() - bugLastSent < 30000){ msg.textContent = '조금 뒤에 다시 보내 주세요.'; msg.classList.add('err'); return; }
   const on = document.querySelector('#bugModal .bug-types button.on');
   const info = bugInfo();
-  const data = {type: on ? on.dataset.v : '기타', text, screen: info.screen, stage: info.stage, name: (typeof playerName === 'string' ? playerName : ''), ua: navigator.userAgent, size: innerWidth + 'x' + innerHeight, errors: bugErrors.join(' | '), ver: BUG_VER, shot: (document.getElementById('bugShotOn').checked && bugShot.length < 4000000) ? bugShot.replace(/^data:image\/jpeg;base64,/, '') : ''};
+  const data = {type: on ? on.dataset.v : '기타', text, screen: info.screen, stage: info.stage, name: (typeof playerName === 'string' ? playerName : ''), ua: navigator.userAgent, size: innerWidth + 'x' + innerHeight, errors: bugErrors.join(' | '), ver: BUG_VER};
   btn.disabled = true; msg.textContent = '보내는 중…';
+  const wantShot = document.getElementById('bugShotOn').checked;
+  Promise.race([bugCapP || Promise.resolve(), new Promise(r => setTimeout(r, 8000))]).catch(() => {}).then(() => {
+  if(wantShot && bugShot && bugShot.length < 4000000) data.shot = bugShot.replace(/^data:image\/jpeg;base64,/, '');
+  else data.shotNote = !wantShot ? '보내지 않기로 함' : (bugShot ? '캡처가 너무 큼' : (bugShotNote || '캡처 없음'));
   fetch(BUG_ENDPOINT, {method: 'POST', mode: 'no-cors', headers: {'Content-Type': 'text/plain;charset=utf-8'}, body: JSON.stringify(data)})
     .then(() => { bugLastSent = Date.now(); msg.textContent = '보내 주셔서 고마워요. 확인해 볼게요.'; document.getElementById('bugText').value = ''; setTimeout(bugClose, 1600); })
     .catch(() => { msg.textContent = '보내지 못했어요. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.'; msg.classList.add('err'); btn.disabled = false; });
+  });
 }
 loadProgress();
 try{ loginFillAll(); }catch(e){}

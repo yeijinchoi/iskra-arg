@@ -39,7 +39,9 @@ function doPost(e) {
         const folder = it.hasNext() ? it.next() : DriveApp.createFolder(SHOT_FOLDER);
         const name = Utilities.formatDate(new Date(), 'Asia/Seoul', 'yyyyMMdd-HHmmss') + '.jpg';
         shotUrl = folder.createFile(Utilities.newBlob(Utilities.base64Decode(String(d.shot)), 'image/jpeg', name)).getUrl();
-      } catch (err) { shotUrl = '(캡처 저장 실패)'; }
+      } catch (err) { shotUrl = '(캡처 저장 실패: ' + String(err && err.message || err).slice(0, 120) + ')'; }
+    } else {
+      shotUrl = '(캡처 없음' + (d.shotNote ? ': ' + String(d.shotNote).slice(0, 120) : '') + ')';
     }
     const clean = (v, n) => { let s = String(v == null ? '' : v).slice(0, n); return /^[=+\-@]/.test(s) ? "'" + s : s; };
     sh.appendRow([
