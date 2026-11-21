@@ -54,6 +54,14 @@ function doPost(e) {
   }
 }
 
+/* 권한 허용용: 편집기 위쪽 함수 목록에서 setup 을 고르고 [실행]을 누르면 시트·드라이브 권한 창이 뜬다 */
+function setup() {
+  const ss = SpreadsheetApp.openById(SHEET_ID);
+  const it = DriveApp.getFoldersByName(SHOT_FOLDER);
+  const folder = it.hasNext() ? it.next() : DriveApp.createFolder(SHOT_FOLDER);
+  Logger.log('준비 완료: 시트 "' + ss.getName() + '", 캡처 폴더 "' + folder.getName() + '"');
+}
+
 /* 주소를 브라우저로 열었을 때 확인용 */
 function doGet() {
   return ContentService.createTextOutput('이스크라 오류 제보 수신 중');
