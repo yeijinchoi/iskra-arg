@@ -12,7 +12,7 @@
  * 5. 그 주소를 게임 index.html의 BUG_ENDPOINT에 넣는다.
  */
 const SHEET_NAME = '제보';
-const HEADERS = ['받은 시각', '종류', '내용', '연락처', '화면', '진행 단계', '플레이어 이름', '브라우저', '화면 크기', '최근 오류', '게임 버전'];
+const HEADERS = ['받은 시각', '종류', '내용', '화면', '진행 단계', '플레이어 이름', '브라우저', '화면 크기', '최근 오류', '게임 버전'];
 
 function doPost(e) {
   const lock = LockService.getScriptLock();
@@ -27,7 +27,7 @@ function doPost(e) {
     const clean = (v, n) => { let s = String(v == null ? '' : v).slice(0, n); return /^[=+\-@]/.test(s) ? "'" + s : s; };
     sh.appendRow([
       new Date(),
-      clean(d.type, 20), clean(d.text, 2000), clean(d.contact, 100),
+      clean(d.type, 20), clean(d.text, 2000),
       clean(d.screen, 200), clean(d.stage, 30), clean(d.name, 20),
       clean(d.ua, 300), clean(d.size, 30), clean(d.errors, 1000), clean(d.ver, 40)
     ]);
