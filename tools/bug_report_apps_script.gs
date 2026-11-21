@@ -17,6 +17,7 @@
  */
 const SHEET_ID = '1-AtoJRsSk8ThjEX1zixUZ6VCOvLhmIhgvAOcnvsDPRs';   /* 기록할 구글 시트(주소의 /d/ 와 /edit 사이) */
 const SHEET_NAME = '제보';
+const SCRIPT_VERSION = '캡처 저장판 v4';   /* 웹 앱 주소를 브라우저로 열면 이 글자가 보여야 새 코드가 돌고 있는 것 */
 const SHOT_FOLDER = '이스크라 오류 제보 캡처';   /* 화면 캡처를 저장할 내 드라이브 폴더 이름 */
 const HEADERS = ['받은 시각', '종류', '내용', '화면 캡처', '화면', '진행 단계', '플레이어 이름', '브라우저', '화면 크기', '최근 오류', '게임 버전'];
 
@@ -66,5 +67,5 @@ function setup() {
 
 /* 주소를 브라우저로 열었을 때 확인용 */
 function doGet() {
-  return ContentService.createTextOutput('이스크라 오류 제보 수신 중');
+  return ContentService.createTextOutput('이스크라 오류 제보 수신 중 · ' + SCRIPT_VERSION);
 }
