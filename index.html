@@ -8058,7 +8058,7 @@ function applyJump(n){
 
 /*/DEV*/
 /* ===== 오류 제보: 구글 시트(Apps Script 웹 앱)로 전송 ===== */
-const BUG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbw_lt371Y8W3pmLq-NW_4tiSiGWm5xyefQ-kCqlYLewYKL3q06URwQDR4lcuOKioJBpLA/exec';   /* Apps Script 웹 앱 주소(…/exec). 비어 있으면 보내지 않음 */
+const BUG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzCggLa8PMKOBkH3a_meWnrOIUFzF8YCRob5TshO9PGTE9SMM_QK7j4cb_bnXokfg2jXg/exec';   /* Apps Script 웹 앱 주소(…/exec). 비어 있으면 보내지 않음 */
 const BUG_VER = '2026-11-21';
 var bugErrors = [], bugLastSent = 0;
 window.addEventListener('error', e => { try{ bugErrors.push(String(e.message || '').slice(0, 160)); if(bugErrors.length > 5) bugErrors.shift(); }catch(_){} });
