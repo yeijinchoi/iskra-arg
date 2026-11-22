@@ -7654,12 +7654,14 @@ function msgEsc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function msgRender(){
   const log = document.getElementById('msgLog');
   if(!log) return;
-  let html = '', prev = null;
+  let html = '', prev = null, prevDay = null;
   msgState.log.forEach((m, i) => {
     if(m.t === 'time') return;
+    if(typeof m.d === 'number' && m.d !== prevDay){ html += '<div class="mday">' + msgDayLabel(m.d) + '</div>'; prevDay = m.d; prev = null; }   /* 날이 바뀌면 날짜 구분선 */
     const next = msgState.log[i+1];
+    const nextSameDay = next && (typeof next.d !== 'number' || next.d === m.d);
     const first = !prev || prev.t !== m.t;
-    const last = !next || next.t !== m.t;
+    const last = !next || next.t !== m.t || !nextSameDay;
     if(m.t === 'sys'){ html += '<div class="msys">'+msgEsc(m.x)+'</div>'; prev = m; return; }
     if(m.t === 'me'){
       html += '<div class="mrow2 me'+(first?'':' cont')+'">'+(last?'<span class="st">'+(m.read?'읽음 · ':'')+msgClock(m.ts)+'</span>':'')+'<div class="mm me">'+msgEsc(m.x)+'</div></div>';
@@ -7697,8 +7699,15 @@ function msgRenderChips(){
   q.style.display = chips.length ? '' : 'none';
   q.innerHTML = chips.map(c => '<button type="button" onclick="msgChip(\''+c[0]+'\',this.textContent)">'+c[1].replace(/</g,'&lt;')+'</button>').join('');
 }
+/* 메신저 날짜: 이야기 속 날짜(잠들 때마다 하루씩). 첫 의뢰 전은 베타 선정일(10월 30일) */
+function msgDayNow(){
+  if(endingChosen) return 10;
+  const started = FOLDERS.inbox.some(m => m.id === 'assign1' || m.id === 'tutorial1');
+  return started ? Math.min(9, gameDay + 1) : 0;
+}
+function msgDayLabel(d){ const dt = narrDate(d); return dt ? (NARR_DAYS[d] + ' ' + '일월화수목금토'[dt.getDay()] + '요일') : ''; }
 function msgPush(role, text, silent){
-  msgState.log.push({t:role, x:text, ts:Date.now(), read:false});
+  msgState.log.push({t:role, x:text, ts:Date.now(), read:false, d:msgDayNow()});
   if(role === 'bot' && !msgOpen && !silent){ msgState.unread++; msgPeekShow(text); try{ if(navigator.vibrate) navigator.vibrate(40); }catch(e){} }
   msgSave(); msgRender();
 }
