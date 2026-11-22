@@ -6686,7 +6686,7 @@ function mailStamp(id, arrival){
 function omLabel(m, full){
   const st = m && m.id ? mailStamp(m.id, false) : null;
   if(!st) return m.time;
-  if(m._fresh && Date.now() - m._fresh < 300000) return '방금 전';
+  if(m._fresh && Date.now() - m._fresh < 300000 && st.d === narrToday()) return '방금 전';   /* 날이 바뀌면 '방금 전' 대신 날짜 */
   if(st.d === 0 && narrResolved() === 0) return '방금 전';
   if(full) return NARR_DAYS[st.d] + ' ' + st.t;
   return st.d === narrToday() ? st.t : NARR_DAYS[st.d];
