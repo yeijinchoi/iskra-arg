@@ -2823,6 +2823,50 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   #panel-oldmail .omrow .omsender{width:120px;}
 }
 /* ===== 오류 제보 창(게임 밖 기능: 중립 회색 톤) ===== */
+/* ===== 카페 소베크 대타 미니게임(쯔꾸르풍) ===== */
+.cg{position:fixed;inset:0;z-index:500;background:#0B0C0E;display:flex;align-items:center;justify-content:center;padding:16px;}
+.cg.hidden{display:none;}
+.cg-box{container-type:inline-size;width:100%;max-width:960px;display:flex;flex-direction:column;gap:10px;font-family:'Noto Sans KR',sans-serif;}
+.cg-hud{display:flex;align-items:center;gap:14px;flex-wrap:wrap;color:#D6D6D6;font-size:13px;}
+.cg-hud #cgClock{font-weight:700;color:#FFFFFF;font-variant-numeric:tabular-nums;}
+.cg-quit{margin-left:auto;background:#2A2C30;color:#E6E6E6;border:none;border-radius:9px;height:32px;padding:0 14px;font:inherit;font-size:12.5px;font-weight:500;cursor:pointer;transition:background .15s ease;}
+.cg-quit:hover{background:#3A3D42;}
+.cg-stage{--t:calc(100cqw / 16);position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:#111;user-select:none;-webkit-user-select:none;}
+.cg-map{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;}
+.cg-act{position:absolute;left:0;top:0;width:var(--t);height:var(--t);transform:translate(calc(var(--x) * var(--t)), calc(var(--y) * var(--t)));transition:transform .14s linear;pointer-events:none;}
+.cg-act img{position:absolute;image-rendering:pixelated;}
+.cg-act.walk img{animation:cgBob .28s steps(2) infinite;}
+.cg-act.flip img{transform:scaleX(-1);}
+.cg-act.walk.flip img{animation-name:cgBobF;}
+@keyframes cgBob{50%{transform:translateY(-3%);}}
+@keyframes cgBobF{0%,100%{transform:scaleX(-1);}50%{transform:scaleX(-1) translateY(-3%);}}
+.cg-act.leave{opacity:0;transition:opacity .5s ease;}
+.cg-act.come{animation:cgCome .5s ease both;}
+@keyframes cgCome{from{opacity:0;}}
+.cg-bub{position:absolute;left:50%;bottom:calc(var(--t) * 1.55);transform:translateX(-50%);background:#FFFFFF;color:#1F2329;border-radius:8px;padding:2px 8px 3px;font-size:max(11px, calc(var(--t) * .2));font-weight:600;white-space:nowrap;box-shadow:0 2px 0 rgba(0,0,0,.25);}
+.cg-bub::after{content:'';position:absolute;left:50%;top:100%;transform:translateX(-50%);border:5px solid transparent;border-top-color:#FFFFFF;}
+.cg-bub i{display:block;height:3px;border-radius:2px;background:#D0D0D0;margin-top:2px;overflow:hidden;}
+.cg-bub i::before{content:'';display:block;height:100%;width:var(--p,100%);background:#5F6670;}
+.cg-msg{position:absolute;left:3%;right:3%;bottom:4%;min-height:22%;background:rgba(14,16,20,.88);border:2px solid rgba(255,255,255,.85);border-radius:6px;padding:10px 16px 12px;color:#FFFFFF;cursor:pointer;}
+.cg-msg b{display:block;font-size:max(12px, calc(var(--t) * .19));font-weight:700;color:#E7D9A8;margin-bottom:2px;}
+.cg-msg p{margin:0;font-size:max(13px, calc(var(--t) * .22));line-height:1.55;}
+.cg-more{position:absolute;right:12px;bottom:6px;font-size:11px;animation:cgMore 1s steps(2) infinite;}
+@keyframes cgMore{50%{opacity:.2;}}
+.cg-msg.hidden,.cg-choice.hidden{display:none;}
+.cg-choice{position:absolute;right:3%;bottom:30%;min-width:28%;background:rgba(14,16,20,.9);border:2px solid rgba(255,255,255,.85);border-radius:6px;padding:6px;}
+.cg-choice button{display:block;width:100%;text-align:left;background:none;border:none;color:#FFFFFF;font:inherit;font-size:max(13px, calc(var(--t) * .21));padding:6px 10px 6px 26px;border-radius:4px;cursor:pointer;position:relative;}
+.cg-choice button.on,.cg-choice button:hover{background:rgba(255,255,255,.14);}
+.cg-choice button.on::before{content:'▶';position:absolute;left:8px;font-size:.75em;top:50%;transform:translateY(-50%);}
+.cg-pad{display:none;justify-content:space-between;align-items:center;padding:4px 8px 0;}
+.cg-dpad{display:grid;grid-template-columns:repeat(3,52px);grid-template-rows:repeat(3,52px);}
+.cg-dpad button,.cg-a{border:none;background:#2A2C30;color:#E6E6E6;font:inherit;font-size:16px;border-radius:10px;touch-action:none;-webkit-tap-highlight-color:transparent;}
+.cg-dpad button:active,.cg-a:active{background:#45484E;}
+.cg-dpad .u{grid-column:2;grid-row:1;}.cg-dpad .l{grid-column:1;grid-row:2;}.cg-dpad .r{grid-column:3;grid-row:2;}.cg-dpad .d{grid-column:2;grid-row:3;}
+.cg-a{width:88px;height:88px;border-radius:50%;font-size:14px;font-weight:600;}
+.cg-help{margin:0;color:#8A8F96;font-size:12px;text-align:center;}
+@media (hover:none), (max-width:640px){.cg-pad{display:flex;}.cg-help{display:none;}}
+@media (max-width:640px){.cg{padding:10px;align-items:flex-start;padding-top:max(16px, env(safe-area-inset-top));}.cg-hud{gap:10px;font-size:12px;}}
+@media (prefers-reduced-motion:reduce){.cg-act{transition:none;}.cg-act.walk img{animation:none;}}
 /* 수집 노트: 영수증 */
 #collectModal .rc-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;max-height:calc(100dvh - 32px);width:100%;max-width:340px;}
 .rc-paper{--zz:8px;position:relative;width:100%;box-sizing:border-box;overflow-y:auto;background:#FFFFFF;color:#2A2D31;
@@ -2906,6 +2950,22 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
 <div id="crt" aria-hidden="true"><div class="crt-hole"></div></div>
+<div class="cg hidden" id="cafeGame" role="dialog" aria-modal="true" aria-label="카페 소베크 근무">
+  <div class="cg-box">
+    <div class="cg-hud"><span id="cgClock">18:00</span><span id="cgServed">서빙 0명</span><span id="cgTips">팁 0원</span><span id="cgHold">손에 든 것 없음</span><button type="button" class="cg-quit" id="cgQuit" onclick="cgQuit()">그만하기</button></div>
+    <div class="cg-stage" id="cgStage">
+      <img class="cg-map" src="img/cafe/map.png" alt="">
+      <div id="cgActors"></div>
+      <div class="cg-msg hidden" id="cgMsg" onclick="cgAction()"><b id="cgName"></b><p id="cgText"></p><span class="cg-more">▼</span></div>
+      <div class="cg-choice hidden" id="cgChoice"></div>
+    </div>
+    <div class="cg-pad" aria-hidden="true">
+      <div class="cg-dpad"><button type="button" data-d="up" class="u">▲</button><button type="button" data-d="left" class="l">◀</button><button type="button" data-d="right" class="r">▶</button><button type="button" data-d="down" class="d">▼</button></div>
+      <button type="button" class="cg-a" data-d="act">말 걸기</button>
+    </div>
+    <p class="cg-help">방향키로 걷고, 스페이스나 엔터로 말을 걸어요.</p>
+  </div>
+</div>
 <div class="bug-modal hidden" id="collectModal" role="dialog" aria-modal="true" aria-labelledby="collectTitle" onclick="if(event.target===this)collectClose()">
   <div class="rc-wrap">
     <div class="rc-paper" id="collectBody"></div>
@@ -4454,13 +4514,13 @@ function sobekRender(){
   const postHtml = posts.map(x => {
     const mine = cafeShifts[x.d], open = x.d === today && !mine && !dayEndPending && !endingChosen;
     let foot;
-    if(mine) foot = '<span>' + playerName + josa(playerName, '이', '가') + ' 맡음 · ' + x.h + '시간 · ' + won(x.h * SHIFT_WAGE) + (mine.paid ? ' 입금됨' : ' (오늘 밤 입금)') + '</span>';
+    if(mine) foot = '<span>' + playerName + josa(playerName, '이', '가') + ' 맡음 · ' + x.h + '시간 · ' + won(x.h * SHIFT_WAGE) + (mine.tips ? ' + 팁 ' + won(mine.tips) : '') + (mine.paid ? ' 입금됨' : ' (오늘 밤 입금)') + '</span>' + (!mine.played && !mine.paid && x.d === today && !dayEndPending ? '<button type="button" class="bm-btn" onclick="cgOpen(' + x.d + ')">근무하러 가기</button>' : '');
     else if(open) foot = '<span>' + x.h + '시간 · 시급 ' + won(SHIFT_WAGE) + '</span><button type="button" class="bm-btn" onclick="sobekTake(' + x.d + ')">제가 할게요</button>';
     else foot = '<span>' + (x.d === today ? '오늘은 더 맡을 수 없어요' : '다른 사람이 맡았어요') + '</span>';
     return '<div class="bm-post"><div class="who">' + x.who + '<span class="when">' + NARR_DAYS[x.d] + ' · ' + x.time + '</span></div><p>' + x.text + '</p><div class="foot">' + foot + '</div></div>';
   }).join('');
   el.innerHTML = bmHead('카페 소베크', '직원 전용 · ' + playerName) + '<div class="bm-main">' +
-    '<div class="bm-card"><h3>대타 구해요</h3><p class="bm-note">근무를 맡으면 그날 밤 시급이 입금돼요. 하루에 한 번만 맡을 수 있어요.</p>' + (postHtml || '<p class="bm-empty">아직 올라온 요청이 없어요.</p>') + '</div>' +
+    '<div class="bm-card"><h3>대타 구해요</h3><p class="bm-note">근무를 맡으면 바로 카페로 가서 일해요. 시급과 팁은 그날 밤 입금돼요.</p>' + (postHtml || '<p class="bm-empty">아직 올라온 요청이 없어요.</p>') + '</div>' +
     '<div class="bm-card"><h3>' + playerName + '의 고정 근무</h3>' +
       '<div class="bm-row"><span>월 · 수</span><b>14:00~20:00</b></div>' +
       '<div class="bm-row"><span>토</span><b>10:00~18:00</b></div>' +
@@ -4469,10 +4529,10 @@ function sobekRender(){
 }
 function sobekTake(d){
   if(cafeShifts[d] || d !== narrToday()) return;
-  cafeShifts[d] = {paid:false};
+  cafeShifts[d] = {paid:false, tips:0};
   collectAdd('shifts', String(d));
   saveProgress(); sobekRender();
-  showCaptureToast('오늘 저녁 근무를 맡았어요. 시급은 오늘 밤 입금돼요.', 'ok');
+  cgOpen(d);
 }
 /* 맡은 근무의 시급: 하루 마무리 내역(silent) 또는 잠들 때 입금 */
 function cafePay(silent){
@@ -4481,7 +4541,7 @@ function cafePay(silent){
     const sh = cafeShifts[d]; if(sh.paid) return;
     const x = SHIFT_POSTS.find(p => p.d === +d); if(!x) return;
     sh.paid = true;
-    const amt = x.h * SHIFT_WAGE, label = '카페 소베크 · 대타 근무 ' + x.h + '시간';
+    const amt = x.h * SHIFT_WAGE + (sh.tips || 0), label = '카페 소베크 · 대타 근무 ' + x.h + '시간' + (sh.tips ? ' + 팁' : '');
     bankBalance += amt; bankTx.unshift({amount: amt, label: label, fresh: !silent});
     items.push({amount: amt, label: label});
   });
@@ -4492,6 +4552,180 @@ function cafePay(silent){
   }
   return items;
 }
+/* ===== 카페 소베크 대타 미니게임(쯔꾸르풍): 손님 자리에서 주문을 받고, 카운터에서 챙겨서 가져다준다. 약 70초 ===== */
+const CG_W = 16, CG_H = 9;
+const CG_SPR = {lena:[19,242,129.5], c1:[24,250,132], c2:[37,220,127.5], c3:[35,223,125], c4:[17,251,128]};   /* 256 캔버스 안 [위, 아래, 가운데x] */
+const CG_SEATS = [{x:3, y:4, from:[4,4]}, {x:12, y:4, from:[11,4]}, {x:6, y:6, from:[7,6]}, {x:10, y:6, from:[9,6]}];
+const CG_MENU = ['꿀 라떼', '홍차', '보리 쿠키'];
+const CG_SAY = {c1:['꿀 라떼 하나 부탁해요.', '홍차 한 잔 주시겠어요?', '보리 쿠키 있으면 하나 주세요.'], c2:['꿀 라떼요! 따뜻한 걸로요.', '홍차 주세요. 공부하다 졸려서요.', '보리 쿠키 하나요.'], c3:['꿀 라떼 한 잔이요.', '홍차로 할게요.', '보리 쿠키 하나 포장 말고 여기서요.'], c4:['꿀 라떼 주세요.', '홍차 한 잔 부탁드려요.', '보리 쿠키 하나 주세요.']};
+const CG_DUR = 70000, CG_PATIENCE = 26000;
+let cg = null;
+function cgBlocked(x, y){
+  if(x < 1 || x > 14 || y < 3 || y > 7) return true;
+  if(y === 3 && x >= 4 && x <= 11) return true;                 /* 카운터 */
+  if(y >= 4 && y <= 5 && (x <= 3 || x >= 12)) return true;      /* 위쪽 두 테이블 */
+  if(y >= 6 && ((x >= 3 && x <= 6) || (x >= 10 && x <= 12))) return true;   /* 아래쪽 두 테이블 */
+  return false;
+}
+function cgSprite(key, x, y, h){
+  const b = CG_SPR[key], K = h * 256 / (b[1] - b[0]);
+  const el = document.createElement('div'); el.className = 'cg-act'; el.style.setProperty('--x', x); el.style.setProperty('--y', y);
+  el.innerHTML = '<img src="img/cafe/' + key + '.png" alt="" style="width:calc(var(--t) * ' + K.toFixed(3) + ');left:calc(var(--t) * ' + (0.5 - K * b[2] / 256).toFixed(3) + ');top:calc(var(--t) * ' + (0.96 - K * b[1] / 256).toFixed(3) + ')">';
+  el.style.zIndex = 10 + y;
+  document.getElementById('cgActors').appendChild(el);
+  return el;
+}
+function cgOpen(d){
+  const post = SHIFT_POSTS.find(p => p.d === d); if(!post) return;
+  const [h0, m0] = post.time.split('~')[0].split(':').map(Number);
+  document.getElementById('cgActors').innerHTML = '';
+  cg = {d: d, post: post, start0: h0 * 60 + m0, mins: post.h * 60, t0: 0, elapsed: 0, running: false, done: false,
+    x: 7, y: 5, dir: 'down', hold: null, served: 0, tips: 0, cust: [], spawnAt: 0, msgQ: [], msgCb: null, choice: null, keys: {}, lastStep: 0, raf: 0};
+  cg.me = cgSprite('lena', cg.x, cg.y, 1.5);
+  document.getElementById('cafeGame').classList.remove('hidden');
+  cgHud();
+  cgSay('점장', playerName + ', 오늘 저녁 잘 부탁해요. 손님 자리 옆에 서서 말을 걸면 주문을 받을 수 있어요.', () =>
+    cgSay('점장', '카운터 앞에서 말을 걸면 음료나 쿠키를 챙길 수 있어요. 손님이 오래 기다리면 그냥 가 버리니까 서둘러요!', () => { cg.running = true; cg.t0 = performance.now(); cgSpawn(); cgSpawn(); }));
+  cg.raf = requestAnimationFrame(cgLoop);
+}
+function cgHud(){
+  if(!cg) return;
+  const m = cg.start0 + Math.min(cg.mins, Math.floor(cg.mins * cg.elapsed / CG_DUR));
+  document.getElementById('cgClock').textContent = String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+  document.getElementById('cgServed').textContent = '서빙 ' + cg.served + '명';
+  document.getElementById('cgTips').textContent = '팁 ' + cg.tips.toLocaleString() + '원';
+  document.getElementById('cgHold').textContent = cg.hold ? '손에 든 것: ' + cg.hold : '손에 든 것 없음';
+}
+function cgSpawn(){
+  const free = CG_SEATS.filter(s => !cg.cust.some(c => c.seat === s));
+  if(!free.length) return;
+  const seat = free[Math.floor(Math.random() * free.length)];
+  const used = cg.cust.map(c => c.key), keys = ['c1', 'c2', 'c3', 'c4'].filter(k => used.indexOf(k) < 0);
+  const key = keys[Math.floor(Math.random() * keys.length)];
+  const want = Math.floor(Math.random() * CG_MENU.length);
+  const el = cgSprite(key, seat.x, seat.y, 1.38); el.classList.add('come');
+  if(seat.x > 7) el.classList.add('flip');
+  const c = {seat: seat, key: key, want: want, state: 'new', t: cg.elapsed, el: el};
+  el.insertAdjacentHTML('beforeend', '<div class="cg-bub">!<i></i></div>');
+  cg.cust.push(c);
+}
+function cgBub(c){
+  const b = c.el.querySelector('.cg-bub'); if(!b) return;
+  const left = Math.max(0, 1 - (cg.elapsed - c.t) / CG_PATIENCE);
+  b.firstChild.textContent = c.state === 'new' ? '!' : CG_MENU[c.want];
+  b.querySelector('i').style.setProperty('--p', Math.round(left * 100) + '%');
+}
+function cgLeave(c, happy){
+  const b = c.el.querySelector('.cg-bub'); if(b) b.firstChild.textContent = happy ? '고마워요' : '…';
+  const q = b && b.querySelector('i'); if(q) q.remove();
+  cg.cust = cg.cust.filter(x => x !== c);
+  setTimeout(() => { c.el.classList.add('leave'); setTimeout(() => c.el.remove(), 600); }, 900);
+}
+function cgLoop(now){
+  if(!cg) return;
+  if(cg.running && !cg.done){
+    cg.elapsed = now - cg.t0;
+    if(cg.elapsed >= cg.spawnAt + 7000 && cg.cust.length < 4){ cg.spawnAt = cg.elapsed; cgSpawn(); }
+    cg.cust.slice().forEach(c => { if(cg.elapsed - c.t > CG_PATIENCE) cgLeave(c, false); else cgBub(c); });
+    const k = cg.keys, dir = k.up ? 'up' : k.down ? 'down' : k.left ? 'left' : k.right ? 'right' : null;
+    if(dir && !cgBusy() && now - cg.lastStep > 150){ cg.lastStep = now; cgStep(dir); }
+    else if(!dir && now - cg.lastStep > 200) cg.me.classList.remove('walk');
+    if(cg.elapsed >= CG_DUR) cgEnd();
+    cgHud();
+  }
+  cg.raf = requestAnimationFrame(cgLoop);
+}
+function cgBusy(){ return !document.getElementById('cgMsg').classList.contains('hidden') || !!cg.choice; }
+function cgStep(dir){
+  cg.dir = dir;
+  const dx = dir === 'left' ? -1 : dir === 'right' ? 1 : 0, dy = dir === 'up' ? -1 : dir === 'down' ? 1 : 0;
+  cg.me.classList.toggle('flip', dir === 'left');
+  if(!cgBlocked(cg.x + dx, cg.y + dy)){ cg.x += dx; cg.y += dy; cg.me.style.setProperty('--x', cg.x); cg.me.style.setProperty('--y', cg.y); cg.me.style.zIndex = 10 + cg.y; cg.me.classList.add('walk'); }
+}
+function cgAction(){
+  if(!cg) return;
+  const msg = document.getElementById('cgMsg');
+  if(!msg.classList.contains('hidden')){ msg.classList.add('hidden'); const cb = cg.msgCb; cg.msgCb = null; if(cb) cb(); return; }
+  if(cg.choice){ cgPick(cg.choice.i); return; }
+  if(!cg.running || cg.done) return;
+  const dx = cg.dir === 'left' ? -1 : cg.dir === 'right' ? 1 : 0, dy = cg.dir === 'up' ? -1 : cg.dir === 'down' ? 1 : 0;
+  const tx = cg.x + dx, ty = cg.y + dy;
+  const c = cg.cust.find(c => (c.seat.x === tx && c.seat.y === ty) || (c.seat.from[0] === cg.x && c.seat.from[1] === cg.y));   /* 손님을 보고 있거나, 손님 바로 옆 자리에 서 있으면 */
+  if(c){
+    if(c.state === 'new'){ c.state = 'wait'; cgBub(c); cgSay('손님', CG_SAY[c.key][c.want]); return; }
+    if(!cg.hold){ cgSay('손님', CG_MENU[c.want] + josa(CG_MENU[c.want], '을', '를') + ' 기다리고 있어요.'); return; }
+    if(cg.hold !== CG_MENU[c.want]){ cgSay('손님', '어… 저는 ' + CG_MENU[c.want] + josa(CG_MENU[c.want], '을', '를') + ' 시켰는데요.'); return; }
+    const left = Math.max(0, 1 - (cg.elapsed - c.t) / CG_PATIENCE), tip = left > .5 ? 2000 : 1000;
+    cg.hold = null; cg.served++; cg.tips += tip; cgLeave(c, true); cgHud(); return;
+  }
+  if(ty === 3 && tx >= 4 && tx <= 11 && cg.dir === 'up'){ cgChoose(['꿀 라떼', '홍차', '보리 쿠키', '아무것도 안 들기']); return; }
+}
+function cgSay(name, text, cb){
+  document.getElementById('cgName').textContent = name;
+  document.getElementById('cgText').textContent = text;
+  document.getElementById('cgMsg').classList.remove('hidden');
+  cg.msgCb = cb || null;
+}
+function cgChoose(opts){
+  cg.choice = {opts: opts, i: 0};
+  cgChoiceRender();
+}
+function cgChoiceRender(){
+  const el = document.getElementById('cgChoice');
+  if(!cg.choice){ el.classList.add('hidden'); return; }
+  el.innerHTML = cg.choice.opts.map((o, i) => '<button type="button" class="' + (i === cg.choice.i ? 'on' : '') + '" onclick="cgPick(' + i + ')">' + o + '</button>').join('');
+  el.classList.remove('hidden');
+}
+function cgPick(i){
+  if(!cg || !cg.choice) return;
+  const o = cg.choice.opts[i]; cg.choice = null; cgChoiceRender();
+  cg.hold = CG_MENU.indexOf(o) >= 0 ? o : null; cgHud();
+}
+function cgEnd(){
+  if(cg.done) return;
+  cg.done = true; cg.running = false; cg.choice = null; cgChoiceRender();
+  cg.cust.slice().forEach(c => cgLeave(c, false));
+  cgSay('점장', '수고했어요! 오늘 손님 ' + cg.served + '명, 팁은 ' + cg.tips.toLocaleString() + '원이에요. 시급이랑 같이 오늘 밤에 넣어 줄게요.', cgClose);
+}
+function cgQuit(){
+  if(!cg) return;
+  if(!cg.done){ cgEnd(); return; }
+  cgClose();
+}
+function cgClose(){
+  if(!cg) return;
+  cancelAnimationFrame(cg.raf);
+  const sh = cafeShifts[cg.d]; if(sh && !sh.paid){ sh.tips = cg.tips; sh.served = cg.served; sh.played = true; }
+  cg = null;
+  document.getElementById('cafeGame').classList.add('hidden');
+  try{ saveProgress(); sobekRender(); }catch(e){}
+}
+document.addEventListener('keydown', e => {
+  if(!cg) return;
+  const map = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right', w:'up', s:'down', a:'left', d:'right', W:'up', S:'down', A:'left', D:'right'};
+  if(cg.choice && (e.key === 'ArrowUp' || e.key === 'ArrowDown')){ e.preventDefault(); cg.choice.i = (cg.choice.i + (e.key === 'ArrowUp' ? -1 : 1) + cg.choice.opts.length) % cg.choice.opts.length; cgChoiceRender(); return; }
+  if(cg.choice && e.key === 'Escape'){ cg.choice = null; cgChoiceRender(); return; }
+  if(map[e.key]){ e.preventDefault(); cg.keys[map[e.key]] = true; return; }
+  if(e.key === ' ' || e.key === 'Enter' || e.key === 'z' || e.key === 'Z'){ e.preventDefault(); if(!e.repeat) cgAction(); }
+}, true);
+document.addEventListener('keyup', e => {
+  if(!cg) return;
+  const map = {ArrowUp:'up', ArrowDown:'down', ArrowLeft:'left', ArrowRight:'right', w:'up', s:'down', a:'left', d:'right', W:'up', S:'down', A:'left', D:'right'};
+  if(map[e.key]) cg.keys[map[e.key]] = false;
+}, true);
+(function(){
+  document.addEventListener('pointerdown', e => {
+    const b = e.target.closest && e.target.closest('#cafeGame .cg-pad button'); if(!b || !cg) return;
+    e.preventDefault();
+    const d = b.dataset.d;
+    if(d === 'act'){ cgAction(); return; }
+    if(cg.choice){ if(d === 'up' || d === 'down'){ cg.choice.i = (cg.choice.i + (d === 'up' ? -1 : 1) + cg.choice.opts.length) % cg.choice.opts.length; cgChoiceRender(); } return; }
+    cg.keys = {}; cg.keys[d] = true;
+    if(cg.running && !cg.done && !cgBusy()){ cgStep(d); cg.lastStep = performance.now() + 140; }   /* 한 번 누르면 바로 한 칸, 누르고 있으면 계속 */
+  });
+  const up = () => { if(cg) cg.keys = {}; };
+  document.addEventListener('pointerup', up); document.addEventListener('pointercancel', up);
+})();
 /* 새 날이 시작될 때 대타 요청이 있으면 카페 단체 메일(노을메일) */
 function cafeMorning(){
   const today = narrToday(), x = SHIFT_POSTS.find(p => p.d === today); if(!x || endingChosen) return;
