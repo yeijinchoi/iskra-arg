@@ -3867,14 +3867,16 @@ function chromeReload(){
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
 /* 오류 제보 안내 말풍선: 게임을 시작하면 한 번만. 확인을 누르거나 메뉴를 열면 닫힘 */
-const BUGTIP_KEY = 'iskra_bugtip';
+const BUGTIP_KEY = 'iskra_bugtip2';
 function bugTipShow(delay){
   let seen = false; try{ seen = !!localStorage.getItem(BUGTIP_KEY); }catch(e){}
   if(seen) return;
   setTimeout(() => { const t = document.getElementById('bugTip'); if(t) t.classList.add('show'); }, delay || 0);
 }
 function bugTipClose(){
-  const t = document.getElementById('bugTip'); if(t) t.classList.remove('show');
+  const t = document.getElementById('bugTip');
+  if(!t || !t.classList.contains('show')) return;   /* 실제로 본 적이 있을 때만 '봤음'으로 기록 */
+  t.classList.remove('show');
   try{ localStorage.setItem(BUGTIP_KEY, '1'); }catch(e){}
 }
 function toggleChromeMenu(e){
@@ -7674,7 +7676,7 @@ var resetting = false;
 function resetProgress(){
   if(confirm('진행 상황을 초기화하고 처음부터 다시 시작할까요?')){
     resetting = true;   /* 새로고침 직전까지 남아 있는 타이머가 다시 저장하지 못하게 막음 */
-    try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY); sessionStorage.removeItem('iskra_jump'); } catch(e){}
+    try { localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY); localStorage.removeItem(BUGTIP_KEY); sessionStorage.removeItem('iskra_jump'); } catch(e){}
     location.reload();
   }
 }
