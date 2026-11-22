@@ -71,7 +71,7 @@
     · 11월 14일 저녁, 사람들은 평소처럼 촛불을 켰습니다. 빈자리는 하나가 아니었습니다.
     · 안톤에게서 마지막 메일이 왔습니다. "지훈 씨가 무엇을 골랐는지는, 오래 기억했으면 해요."
   엔딩 제목: ENDING A 사례금 계속 둘러보기 처음부터 다시 하기
-  엔딩 뒤 노을메일: anton1,anton2,anton3,antonW,anton4,anton5,contact1,anton6,anton7a | 다나 나감 true
+  엔딩 뒤 노을메일: anton1,cafe2,anton2,anton3,antonW,cafe4,anton4,anton5,contact1,cafe6,anton6,cafe7,anton7a | 다나 나감 true
   엔딩 A 뒤 게시판 접속 불가: true
 == 엔딩 B
   복원: 확인서 open | 엔딩 (없음) | 이름 지훈
@@ -85,7 +85,7 @@
     · 쉽지는 않았지만, 그 선택을 후회하지는 않았습니다.
     · 11월 14일 저녁, 서쪽 회관 지하에서 사람들은 평소처럼 촛불을 켰습니다. 늦게 도착한 노인이 빈자리에 앉았습니다.
     · 안톤에게서 짧은 메일이 왔습니다. "고마워요."
-  엔딩 뒤 노을메일: anton1,anton2,anton3,antonW,anton4,anton5,contact1,anton6,anton7b,assocB
+  엔딩 뒤 노을메일: anton1,cafe2,anton2,anton3,antonW,cafe4,anton4,anton5,contact1,cafe6,anton6,cafe7,anton7b,assocB
   안톤 마지막 메일: 고마워요 A Anton anton.s@dr-mail.dr 방금 전 고마워요. 사례금을 포기하는 게 지훈 씨에게 얼마나 큰일인지 알아요. 23년 전에는 그 사람이 저를 건너게 해 줬고, 이번에는 지훈 씨가 그 사람을 지켜 줬어요. 저는 이스크라에 조금 더 남아서, 팀에서 그 사람을 찾는 일을 늦춰 볼게요. 지훈 씨 덕분에 시간을 벌었어요. 들키면 위험하겠지만
   이스크라 접속 불가: true
 == 선택한 대화(일부): 안녕하세요. 선정해 주셔서 감사해요 / 수업 없는 시간에 한두 시간 정도요. 알바 때문에 불규칙해요 / 어려운 건 아니죠? / 솔직히 그게 제일 걱정이에요. 이걸로 보탬이 되면 좋겠어요 / 네, 기다릴게요 / 알겠어요. 해 볼게요

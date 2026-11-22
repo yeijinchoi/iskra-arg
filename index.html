@@ -1953,6 +1953,52 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 
 /* 컷씬: 엔딩처럼 검은 화면 위에 도트 그림과 글만 */
 #cutsceneOverlay{background:#000;z-index:200;transition:opacity .6s ease;}
+/* ===== 즐겨찾기 사이트(학사포털·카페 근무표·바르니아어 사전) ===== */
+.chromemenu .cm-head{font-size:11px;font-weight:700;color:var(--chrome-sub);padding:8px 10px 4px;}
+.bmmenu{min-width:220px;}
+.chromemenu .cm-bm{display:none;}
+.chromemenu .cm-sep.first{border-top:none;margin-top:0;padding-top:6px;}
+@media (max-width:640px){.chromemenu .cm-bm{display:block;}}
+.bm-site{--st:#7A2230;min-height:100%;background:#F3F3F3;color:#1C1F24;}
+.bm-site.st-sobek{--st:#56673A;}
+.bm-site.st-dict{--st:#5E4A7E;}
+.bm-head{background:#fff;}
+.bm-head-in{max-width:720px;margin:0 auto;padding:16px 20px;display:flex;align-items:baseline;justify-content:space-between;gap:12px;}
+.bm-brand{font-size:17px;font-weight:700;color:var(--st);letter-spacing:-.01em;}
+.bm-sub{font-size:12px;color:#6B7280;}
+.bm-main{max-width:720px;margin:0 auto;padding:20px 20px 56px;display:grid;gap:14px;}
+.bm-card{background:#fff;border-radius:16px;padding:18px 20px;box-shadow:0 20px 50px rgba(0,0,0,.05);}
+.bm-card h3{font-size:15px;font-weight:700;margin:0 0 4px;}
+.bm-card .bm-note{font-size:12.5px;color:#6B7280;margin:0 0 10px;line-height:1.6;}
+.bm-row{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding:10px 0;border-top:1px solid #E6E6E6;font-size:13.5px;line-height:1.55;}
+.bm-row:first-of-type{border-top:none;}
+.bm-row > span:first-child{color:#6B7280;flex-shrink:0;}
+.bm-row > b{font-weight:600;text-align:right;}
+.bm-row.total > b{font-weight:700;}
+.bm-pill{font-size:12px;font-weight:600;color:#1C1F24;background:#EEEEEE;border-radius:999px;padding:2px 9px;white-space:nowrap;}
+.bm-btn{height:36px;padding:0 16px;border:none;border-radius:9px;background:var(--st);color:#fff;font:inherit;font-size:13px;font-weight:600;cursor:pointer;transition:opacity .15s ease;}
+.bm-btn:hover{opacity:.88;}
+.bm-post{padding:14px 0;border-top:1px solid #E6E6E6;}
+.bm-post:first-of-type{border-top:none;}
+.bm-post .who{font-size:13px;font-weight:600;}
+.bm-post .when{font-size:12px;color:#6B7280;margin-left:6px;font-weight:400;}
+.bm-post p{font-size:13.5px;line-height:1.6;margin:6px 0 10px;}
+.bm-post .foot{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:12.5px;color:#6B7280;}
+.bm-empty{font-size:13px;color:#6B7280;padding:8px 0 2px;}
+.bm-search{display:flex;gap:8px;margin:6px 0 2px;}
+.bm-search input{flex:1;min-width:0;height:40px;border:none;border-radius:9px;background:#F3F3F3;padding:0 14px;font:inherit;font-size:15px;color:#1C1F24;outline:none;}
+.bm-word{padding:12px 0 4px;}
+.bm-word .w{font-size:20px;font-weight:700;color:var(--st);}
+.bm-word .pr{font-size:13px;color:#6B7280;margin-left:8px;}
+.bm-word .m{font-size:13.5px;margin:6px 0 0;line-height:1.6;}
+.bm-word .ex{font-size:13px;color:#4B5563;margin:6px 0 0;line-height:1.6;}
+.bm-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;}
+.bm-chips button{font:inherit;font-size:13px;font-weight:500;background:#EEEEEE;color:#1C1F24;border:none;border-radius:999px;padding:6px 12px;cursor:pointer;transition:background .15s ease;}
+.bm-chips button:hover{background:#E4E4E4;}
+.bm-memo{padding:10px 0;border-top:1px solid #E6E6E6;font-size:13.5px;line-height:1.6;}
+.bm-memo:first-of-type{border-top:none;}
+.bm-memo b{font-weight:600;color:var(--st);margin-right:6px;}
+@media (max-width:640px){.bm-head-in,.bm-main{padding-left:16px;padding-right:16px;}.bm-head-in{flex-direction:column;gap:2px;}.bm-search input{font-size:16px;}}
 /* 하루가 끝나고 다음 날이 시작될 때 브라운관 모니터가 꺼졌다 켜지는 효과 */
 #crt{position:fixed;inset:0;z-index:9000;pointer-events:none;display:none;overflow:hidden;}
 #crt.show{display:block;pointer-events:auto;}
@@ -2038,7 +2084,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   /* 폰 브라우저처럼: 탭 줄 대신 주소창 + 탭 수 버튼 */
   .tabstrip{display:none;}
   .toolbar{padding:8px 8px;gap:2px;}
-  .toolbar .navbtn[aria-label="앞으로"],.toolbar .navbtn[aria-label="홈"],.toolbar .navbtn[aria-label="북마크"]{display:none;}
+  .toolbar .navbtn[aria-label="앞으로"],.toolbar .navbtn[aria-label="홈"],.toolbar .bmwrap{display:none;}
   .addressbar{flex:1;min-width:0;height:36px;font-size:13px;}
   .navbtn{width:36px;height:36px;}
   .navbtn .ic{width:18px;height:18px;}
@@ -2777,6 +2823,16 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   #panel-oldmail .omrow .omsender{width:120px;}
 }
 /* ===== 오류 제보 창(게임 밖 기능: 중립 회색 톤) ===== */
+.cl-sec{margin:0 0 14px;}
+.cl-h{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 4px;font-size:13.5px;font-weight:700;}
+.cl-n{font-size:12.5px;font-weight:500;color:#5F6670;}
+.cl-row{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-top:1px dashed #E0E0E0;font-size:13px;}
+.cl-row b{font-weight:500;color:#5F6670;white-space:nowrap;}
+.cl-row.off span{color:#9AA0A8;}
+.cl-chips{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0 2px;border-top:1px dashed #E0E0E0;}
+.cl-chips span{font-size:12.5px;background:#EEEEEE;border-radius:999px;padding:4px 10px;}
+.cl-left{margin:0;padding:8px 0;font-size:12.5px;color:#5F6670;border-top:1px dashed #E0E0E0;}
+.cl-chips + .cl-left{border-top:none;}
 .bug-modal{position:fixed;inset:0;z-index:600;display:flex;align-items:center;justify-content:center;padding:16px;background:rgba(20,22,26,.38);}
 .bug-modal.hidden{display:none;}
 .bug-card{width:100%;max-width:440px;box-sizing:border-box;background:#FFFFFF;border-radius:16px;box-shadow:0 20px 50px rgba(0,0,0,.18);padding:24px 26px 20px;font-family:'Noto Sans KR',sans-serif;color:#1F2329;max-height:calc(100dvh - 32px);overflow-y:auto;}
@@ -2821,6 +2877,14 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
 <div id="crt" aria-hidden="true"><div class="crt-hole"></div></div>
+<div class="bug-modal hidden" id="collectModal" role="dialog" aria-modal="true" aria-labelledby="collectTitle" onclick="if(event.target===this)collectClose()">
+  <div class="bug-card cl-card">
+    <p class="bug-title" id="collectTitle">수집 노트</p>
+    <p class="bug-sub">지금까지 찾은 엔딩과 숨은 것들이에요. 처음부터 다시 해도 남아 있어요.</p>
+    <div id="collectBody"></div>
+    <div class="bug-btns"><button type="button" class="bug-send" onclick="collectClose()">닫기</button></div>
+  </div>
+</div>
 <div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
   <form class="bug-card" onsubmit="event.preventDefault();bugSend()" autocomplete="off">
     <p class="bug-title" id="bugTitle">오류 제보하기</p>
@@ -2846,13 +2910,24 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
       <svg class="ic" viewBox="0 0 24 24"><rect x="5" y="10" width="14" height="10" rx="2"/><path d="M7 10V8a5 5 0 0 1 10 0v2"/></svg>
       <span id="addrText">iskra.dr</span>
     </div>
-    <button class="navbtn" aria-label="북마크"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg></button>
+    <div class="menuwrap bmwrap"><button class="navbtn" aria-label="즐겨찾기" onclick="toggleBmMenu(event)"><svg class="ic" viewBox="0 0 24 24"><path d="m12 3 2.6 5.9 6.4.6-4.9 4.3 1.5 6.3L12 17l-5.6 3.1 1.5-6.3-4.9-4.3 6.4-.6L12 3Z"/></svg></button>
+      <div class="chromemenu bmmenu hidden" id="bmMenu"><div class="cm-head">즐겨찾기</div>
+        <button onclick="bmOpen('dnu')">도렌 국립대 학사포털</button>
+        <button onclick="bmOpen('sobek')">카페 소베크 · 근무표</button>
+        <button onclick="bmOpen('dict')">바르니아어-도렌어 사전</button>
+      </div></div>
     <button class="navbtn" id="captureBtn" onclick="doCapture()" aria-label="캡처"><svg class="ic" viewBox="0 0 24 24"><path d="M3 8a2 2 0 0 1 2-2h1.3l.7-1.3A2 2 0 0 1 8.7 3.6h6.6a2 2 0 0 1 1.7 1.1L17.7 6H19a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/><circle cx="12" cy="13" r="3.4"/></svg><span class="captip">의심스러운 거래 내역을 찾으면 이 버튼을 눌러 화면을 캡처하세요</span></button>
     <button class="tabcountbtn" id="tabCountBtn" onclick="openTabSwitcher()" aria-label="탭 목록">1</button>
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
       <div class="bugtip" id="bugTip" role="status"><p>베타 테스트 중이에요.<br>오류를 발견하면 이 메뉴의<br>'오류 제보하기'로 알려 주세요.<br>'처음부터 다시 하기'도 여기 있어요.</p><button type="button" class="bt-ok" onclick="bugTipClose()">확인</button></div>
       <div class="chromemenu hidden" id="chromeMenu">
+        <div class="cm-bm"><div class="cm-sep first">즐겨찾기</div>
+          <button onclick="bmOpen('dnu')">도렌 국립대 학사포털</button>
+          <button onclick="bmOpen('sobek')">카페 소베크 · 근무표</button>
+          <button onclick="bmOpen('dict')">바르니아어-도렌어 사전</button>
+          <div class="cm-sep">메뉴</div></div>
+        <button onclick="collectOpen()">수집 노트</button>
         <button onclick="bugOpen()">오류 제보하기</button>
         <button onclick="resetProgress()"><!--DEV-->진행 상황 초기화 (베타테스트용)<!--/DEV--><!--REL 처음부터 다시 하기 --></button>
         <!--DEV-->
@@ -3313,6 +3388,9 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 </div>
 </div>
 
+<div id="panel-dnu" class="panel hidden"><div class="bm-site st-dnu" id="bmDnu"></div></div>
+<div id="panel-sobek" class="panel hidden"><div class="bm-site st-sobek" id="bmSobek"></div></div>
+<div id="panel-dict" class="panel hidden"><div class="bm-site st-dict" id="bmDict"></div></div>
 <div id="panel-orginfo" class="panel hidden">
 <div class="og-topbar"><div class="og-topbar-inner"><span>도렌 행정전산포털</span><span class="og-topbar-links"><span>사이트맵</span><span>이용안내</span><span>ENG</span></span></div></div>
 <div class="og-header">
@@ -3784,6 +3862,7 @@ function switchTab(id){
   if(k === 'mail'){ try{ renderList(); }catch(e){} if(typeof refreshChips === 'function') refreshChips(); }
   if(k === 'report' && !document.getElementById('rpPage').innerHTML.trim()) rpRender(false);
   if(k === 'board') bdEnter();
+  if(k === 'dnu' || k === 'sobek' || k === 'dict'){ try{ bmRender(k); }catch(e){} }
   try{ doubtSeen(k); }catch(e){}
   if(k === 'article' && t){
     renderArticleBody(t.articleId);
@@ -4286,6 +4365,292 @@ function kpHtml(q){
     <div class="kp-rel"><span>관련 검색</span>${k.rel.map(r => `<button type="button" onclick="runSearch('${r}')">${r}</button>`).join('')}</div>
   </div>`;
 }
+/* ===== 즐겨찾기: 레나의 옛 즐겨찾기 사이트 3곳(학사포털·카페 소베크 근무표·바르니아어 사전) ===== */
+const BM_SITES = {
+  dnu:  {title:'학사포털 - 도렌 국립대', addr:'portal.dnu.dr/tuition', fav:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#7A2230" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9l10-5 10 5-10 5z"/><path d="M6 11v5c3 2 9 2 12 0v-5"/></svg>'},
+  sobek:{title:'근무표 - 카페 소베크', addr:'sobek.cafe/staff', fav:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#56673A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13v5a5 5 0 0 1-5 5H9a5 5 0 0 1-5-5z"/><path d="M17 10h1.5a2.5 2.5 0 0 1 0 5H17"/><path d="M8 3v3M12 3v3"/></svg>'},
+  dict: {title:'바르니아어-도렌어 사전', addr:'dict.varnia-lang.dr', fav:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#5E4A7E" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h11a3 3 0 0 1 3 3v13H8a3 3 0 0 1-3-3z"/><path d="M5 17a3 3 0 0 1 3-3h11"/></svg>'}
+};
+Object.keys(BM_SITES).forEach(k => { TAB_META[k] = {keep:true, icon:'data:image/svg+xml;utf8,' + encodeURIComponent(BM_SITES[k].fav)}; });
+function toggleBmMenu(e){ e.stopPropagation(); document.getElementById('chromeMenu').classList.add('hidden'); document.getElementById('bmMenu').classList.toggle('hidden'); }
+document.addEventListener('click', e => { const m = document.getElementById('bmMenu'); if(m && !m.classList.contains('hidden') && !m.contains(e.target)) m.classList.add('hidden'); });
+function bmOpen(k){
+  const st = BM_SITES[k]; if(!st) return;
+  ['bmMenu', 'chromeMenu'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('hidden'); });
+  openTab(k, st.title, st.fav);
+  setAddr(k, st.addr);
+  bmRender(k);
+  collectAdd('sites', k);
+}
+function bmRender(k){
+  if(k === 'dnu') dnuRender(); else if(k === 'sobek') sobekRender(); else if(k === 'dict') dictRender();
+}
+function bmHead(brand, sub){ return '<div class="bm-head"><div class="bm-head-in"><span class="bm-brand">' + brand + '</span><span class="bm-sub">' + sub + '</span></div></div>'; }
+const won = v => v.toLocaleString() + '원';
+
+/* 학사포털: 등록금 고지서. 2학기 등록금 324만 원, 기한 11월 30일 */
+const TUITION = 3240000;
+function dnuRender(){
+  const el = document.getElementById('bmDnu'); if(!el) return;
+  const paid = endingChosen === 'A';
+  el.innerHTML = bmHead('도렌 국립대학교 학사포털', playerName + ' 세인 학생 · 로그인됨') + '<div class="bm-main">' +
+    '<div class="bm-card"><h3>2026학년도 2학기 등록금 고지서</h3><p class="bm-note">분할 납부를 원하면 납부 기한 전까지 학사지원팀에 신청하세요.</p>' +
+      '<div class="bm-row"><span>등록금</span><b>' + won(TUITION) + '</b></div>' +
+      '<div class="bm-row"><span>장학금 감면</span><b>0원</b></div>' +
+      '<div class="bm-row total"><span>납부할 금액</span><b>' + won(TUITION) + '</b></div>' +
+      '<div class="bm-row"><span>납부 기한</span><b>2026년 11월 30일</b></div>' +
+      '<div class="bm-row"><span>납부 상태</span><b><span class="bm-pill">' + (paid ? '완납' : '미납') + '</span></b></div></div>' +
+    '<div class="bm-card"><h3>장학금 심사 결과</h3>' +
+      '<div class="bm-row"><span>이주민 가정 학업장려 장학금</span><b>선발되지 않음</b></div>' +
+      '<div class="bm-row"><span>교내 근로 장학생</span><b>대기 순번 14번</b></div>' +
+      '<p class="bm-note" style="margin:10px 0 0">올해는 지원자가 많아 선발 인원을 줄였습니다. 다음 학기에 다시 지원할 수 있습니다.</p></div>' +
+    '<div class="bm-card"><h3>학사 공지</h3>' +
+      '<div class="bm-row"><span>11. 03.</span><b>2학기 등록금 분할 납부 신청 안내</b></div>' +
+      '<div class="bm-row"><span>10. 28.</span><b>기말시험 기간 도서관 24시간 개방</b></div>' +
+      '<div class="bm-row"><span>10. 20.</span><b>이주민 가정 학생 상담 주간 운영</b></div></div>' +
+  '</div>';
+}
+
+/* 카페 소베크 근무표: 날마다 대타 요청이 올라오고, 맡으면 그날 밤 시급이 들어옴 */
+const SHIFT_WAGE = 10500;
+const SHIFT_POSTS = [
+  {d:2, who:'소피', time:'18:00~22:00', h:4, text:'과제 마감이 겹쳐서 오늘 저녁 근무를 못 하게 됐어요. 대신해 줄 수 있는 사람 있을까요?'},
+  {d:4, who:'민', time:'17:00~22:00', h:5, text:'동생 학교 행사가 갑자기 잡혔어요. 마감까지 부탁해요. 다음에 꼭 갚을게요.'},
+  {d:6, who:'점장', time:'18:00~21:00', h:3, text:'오늘 저녁에 단체 예약이 있어서 한 사람 더 필요해요. 가능한 사람은 말해 주세요.'},
+  {d:7, who:'소피', time:'18:00~22:00', h:4, text:'감기 기운이 있어서요… 혹시 오늘 저녁 가능한 사람 있을까요?'}
+];
+var cafeShifts = {};   /* {날짜번호: {paid:true/false}} */
+function sobekRender(){
+  const el = document.getElementById('bmSobek'); if(!el) return;
+  const today = narrToday();
+  const posts = SHIFT_POSTS.filter(x => x.d <= today).slice().reverse();
+  const postHtml = posts.map(x => {
+    const mine = cafeShifts[x.d], open = x.d === today && !mine && !dayEndPending && !endingChosen;
+    let foot;
+    if(mine) foot = '<span>' + playerName + josa(playerName, '이', '가') + ' 맡음 · ' + x.h + '시간 · ' + won(x.h * SHIFT_WAGE) + (mine.paid ? ' 입금됨' : ' (오늘 밤 입금)') + '</span>';
+    else if(open) foot = '<span>' + x.h + '시간 · 시급 ' + won(SHIFT_WAGE) + '</span><button type="button" class="bm-btn" onclick="sobekTake(' + x.d + ')">제가 할게요</button>';
+    else foot = '<span>' + (x.d === today ? '오늘은 더 맡을 수 없어요' : '다른 사람이 맡았어요') + '</span>';
+    return '<div class="bm-post"><div class="who">' + x.who + '<span class="when">' + NARR_DAYS[x.d] + ' · ' + x.time + '</span></div><p>' + x.text + '</p><div class="foot">' + foot + '</div></div>';
+  }).join('');
+  el.innerHTML = bmHead('카페 소베크', '직원 전용 · ' + playerName) + '<div class="bm-main">' +
+    '<div class="bm-card"><h3>대타 구해요</h3><p class="bm-note">근무를 맡으면 그날 밤 시급이 입금돼요. 하루에 한 번만 맡을 수 있어요.</p>' + (postHtml || '<p class="bm-empty">아직 올라온 요청이 없어요.</p>') + '</div>' +
+    '<div class="bm-card"><h3>' + playerName + '의 고정 근무</h3>' +
+      '<div class="bm-row"><span>월 · 수</span><b>14:00~20:00</b></div>' +
+      '<div class="bm-row"><span>토</span><b>10:00~18:00</b></div>' +
+      '<p class="bm-note" style="margin:10px 0 0">시험 기간에는 미리 말해 주면 빼 줄게요. — 점장</p></div>' +
+  '</div>';
+}
+function sobekTake(d){
+  if(cafeShifts[d] || d !== narrToday()) return;
+  cafeShifts[d] = {paid:false};
+  collectAdd('shifts', String(d));
+  saveProgress(); sobekRender();
+  showCaptureToast('오늘 저녁 근무를 맡았어요. 시급은 오늘 밤 입금돼요.', 'ok');
+}
+/* 맡은 근무의 시급: 하루 마무리 내역(silent) 또는 잠들 때 입금 */
+function cafePay(silent){
+  const items = [];
+  Object.keys(cafeShifts).forEach(d => {
+    const sh = cafeShifts[d]; if(sh.paid) return;
+    const x = SHIFT_POSTS.find(p => p.d === +d); if(!x) return;
+    sh.paid = true;
+    const amt = x.h * SHIFT_WAGE, label = '카페 소베크 · 대타 근무 ' + x.h + '시간';
+    bankBalance += amt; bankTx.unshift({amount: amt, label: label, fresh: !silent});
+    items.push({amount: amt, label: label});
+  });
+  if(items.length){
+    renderBankcard();
+    if(!silent) setTimeout(() => osNotify('도렌은행', '입금 ' + items.reduce((n, x) => n + x.amount, 0).toLocaleString() + '원', items.map(x => x.label).join(', ') + ' · 잔액 ' + bankBalance.toLocaleString() + '원', 'bank'), 4200);
+    try{ saveProgress(); }catch(e){}
+  }
+  return items;
+}
+/* 새 날이 시작될 때 대타 요청이 있으면 카페 단체 메일(노을메일) */
+function cafeMorning(){
+  const today = narrToday(), x = SHIFT_POSTS.find(p => p.d === today); if(!x || endingChosen) return;
+  const id = cafeMailDef(today); if(!id) return;
+  setTimeout(() => antonAdd(id), 9000);
+}
+function cafeMailDef(d){
+  const x = SHIFT_POSTS.find(p => p.d === d); if(!x) return null;
+  const id = 'cafe' + d;
+  if(!ANTON_MAILS.some(m => m.id === id)) ANTON_MAILS.push({id: id, sender:'카페 소베크', addr:'sobek.cafe@dr-mail.dr', subject:'[소베크] 오늘 저녁 대타 구해요 (' + x.who + ')', preview: x.text, time:'', unread:true,
+    body:[x.who + ': ' + x.text, '근무 ' + x.time + ' · ' + x.h + '시간', '<a href="#" class="inlink" onclick="event.preventDefault();bmOpen(\'sobek\')">근무표에서 맡기 →</a>', '카페 소베크 직원 단체 메일입니다.']});
+  if(!MAIL_AT_DEFAULT[id]) MAIL_AT_DEFAULT[id] = {d:null, f:d, t:'오전 9:12'};
+  return id;
+}
+
+/* 바르니아어 사전: 레나가 엄마와 말하려고 찾아본 단어들 */
+const DICT = [
+  {k:'엄마', v:'ama', p:'아마', m:'어머니를 부르는 말.', ex:'아마, 할 타 세나? — 엄마, 밥 먹었어요?'},
+  {k:'밥 먹었어요?', v:'hal ta sena?', p:'할 타 세나', m:'안부를 묻는 인사. 끼니를 챙겼는지 묻는다.'},
+  {k:'고마워요', v:'tavé', p:'타베', m:'고맙다는 말. 헤어질 때 인사로도 쓴다.'},
+  {k:'괜찮아요', v:'sel na', p:'셀 나', m:'괜찮다, 걱정하지 마라.'},
+  {k:'미안해요', v:'oslin', p:'오슬린', m:'미안하다는 말. 손윗사람에게는 끝을 길게 끈다.'},
+  {k:'보고 싶어요', v:'viren tu', p:'비렌 투', m:'보고 싶다. 멀리 있는 사람에게 쓴다.'},
+  {k:'고향', v:'erun', p:'에룬', m:'태어나고 자란 곳. 돌아갈 곳이라는 뜻도 있다.'},
+  {k:'집', v:'kesa', p:'케사', m:'사는 집.'},
+  {k:'가족', v:'aresh', p:'아레시', m:'한집에 사는 사람들. 떨어져 사는 가족도 포함한다.'},
+  {k:'생일 축하해요', v:'lumé sorai', p:'루메 소라이', m:'생일을 축하하는 말. 직역하면 \'빛이 온 날\'.'},
+  {k:'사랑해요', v:'ten varo', p:'텐 바로', m:'사랑한다. 가족 사이에는 잘 쓰지 않는다고 한다.'},
+  {k:'촛불', v:'lin', p:'린', m:'촛불, 작은 불. 기리는 자리에 켜는 불을 가리키기도 한다.'},
+  {k:'졸업', v:'ostar', p:'오스타르', m:'학업을 마침. \'문을 나서다\'에서 온 말.'},
+  {k:'기억하다', v:'senna', p:'센나', m:'기억하다, 잊지 않다.'}
+];
+const DICT_NOTES = [
+  ['아마', '어릴 때는 이렇게 불렀다. 언제부터 \'엄마\'라고 부르게 됐는지 모르겠다.'],
+  ['타베', '엄마가 전화를 끊을 때마다 하는 말.'],
+  ['셀 나', '엄마가 괜찮다고 할 때. 안 괜찮을 때도 이렇게 말한다.'],
+  ['오슬린', '아직 한 번도 못 써 봤다.'],
+  ['에룬', '엄마는 이 말을 하고 나면 한참 조용해진다.'],
+  ['루메 소라이', '엄마 생신이 다음 달. 이번에는 바르니아어로 말해 보기.'],
+  ['오스타르', '엄마한테 제일 먼저 하고 싶은 말.']
+];
+var dictCur = '';
+function dictRender(){
+  const el = document.getElementById('bmDict'); if(!el) return;
+  const e = DICT.find(x => x.k === dictCur);
+  const recent = ['생일 축하해요', '미안해요', '괜찮아요', '고향', '엄마'];
+  const word = dictCur ? (e ? '<div class="bm-word"><span class="w">' + e.v + '</span><span class="pr">[' + e.p + ']</span><p class="m"><b>' + e.k + '</b> — ' + e.m + '</p>' + (e.ex ? '<p class="ex">' + e.ex + '</p>' : '') + '</div>'
+    : '<p class="bm-empty">\'' + msgEsc(dictCur) + '\'에 해당하는 말이 사전에 없습니다.</p>') : '';
+  el.innerHTML = bmHead('바르니아어-도렌어 사전', '도렌어로 찾기') + '<div class="bm-main">' +
+    '<div class="bm-card"><h3>단어 찾기</h3><form class="bm-search" onsubmit="event.preventDefault();dictLook(this.q.value)"><input name="q" type="text" placeholder="도렌어 단어를 입력하세요" value="' + (dictCur ? msgEsc(dictCur) : '') + '" autocomplete="off"><button type="submit" class="bm-btn">찾기</button></form>' + word +
+      '<p class="bm-note" style="margin:12px 0 0">최근 찾은 말</p><div class="bm-chips">' + recent.map(k => '<button type="button" onclick="dictLook(\'' + k + '\')">' + k + '</button>').join('') + '</div></div>' +
+    '<div class="bm-card"><h3>내 단어장</h3><p class="bm-note">단어 옆에 적어 둔 메모</p>' + DICT_NOTES.map(n => '<div class="bm-memo"><b>' + n[0] + '</b>' + n[1] + '</div>').join('') + '</div>' +
+  '</div>';
+}
+function dictLook(q){
+  dictCur = String(q || '').trim();
+  const e = DICT.find(x => x.k === dictCur || x.k.replace(/\s/g, '') === dictCur.replace(/\s/g, ''));
+  if(e){ dictCur = e.k; collectAdd('words', e.k); }
+  dictRender();
+}
+/* ===== 다나 잡담: 한가할 때 말을 걸면, 다나는 대답하면서 레나에 대해 하나씩 더 묻는다(사적인 말실수 포함). 한 번씩만 ===== */
+const DANA_TALK = [
+  {r:'다나 씨는 어디서 일해요?', re:'저요? 시내 쪽 사무실이요. 레나 씨는 학교가 도렌 국립대였죠? 집에서 학교까지 멀어요?'},
+  {r:'개발자는 무슨 일을 해요?', re:'사람들이 뭘 찾는지 보고, 더 잘 찾게 만드는 일이요. 생각보다 많이 보여요, 사람들이 찾는 거요.'},
+  {r:'점심은 드셨어요?', re:'아직이요, 일이 좀 밀려서요. 레나 씨는 요즘 카페 일 바쁘세요? 근무가 월요일이랑 수요일이죠?'},
+  {r:'다른 테스터도 많아요?', re:'몇 분 더 계세요. 근데 레나 씨처럼 끝까지 해 주시는 분은 드물어요. 지난번 분은… 중간에 그만두셨거든요.'},
+  {r:'주말엔 뭐 해요?', re:'일이 없으면 쉬어요. 레나 씨는 주말에 어머님 댁에 가세요? 어머님은 요즘 어떻게 지내세요?'},
+  {r:'바르니아어 할 줄 알아요?', re:'조금이요. 일하다 보니 자주 보게 돼서요. 레나 씨는 어머님이랑 바르니아어로 얘기하세요?'},
+  {r:'이스크라는 언제 정식으로 나와요?', re:'아직 정해진 건 없어요. 베타가 잘 끝나야 하니까요. 그러니까 레나 씨가 잘해 주셔야 해요 :)'},
+  {r:'다나가 본명이에요?', re:'…다들 그렇게 부르니까요. 이름이 뭐가 중요하겠어요. 레나 씨도 레나 씨잖아요.'}
+];
+function danaTalkNext(){
+  if(endingChosen || badEnding || reportStage === 'open' || msgState.left) return null;
+  const used = msgState.talked || [];
+  const i = DANA_TALK.findIndex((x, j) => used.indexOf(j) < 0);
+  return i < 0 ? null : Object.assign({i: i}, DANA_TALK[i]);
+}
+function danaTalk(){
+  const t = danaTalkNext(); if(!t) return;
+  msgState.talked = (msgState.talked || []).concat([t.i]);
+  collectAdd('talks', String(t.i));
+  msgBotSay(t.re);
+}
+/* ===== 수집 노트 창 ===== */
+function collectOpen(){
+  try{ document.getElementById('chromeMenu').classList.add('hidden'); }catch(e){}
+  const c = collectGet(), has = (k, id) => !!(c[k] && c[k][id]);
+  const cnt = k => Object.keys(c[k] || {}).length;
+  const row = (on, head, label) => '<div class="cl-row' + (on ? '' : ' off') + '"><span>' + head + ' · ' + (on ? label : '???') + '</span><b>' + (on ? '봤음' : '') + '</b></div>';
+  const end = [['A', '사례금'], ['B', '침묵']].map(e => row(has('endings', e[0]), '엔딩 ' + e[0], e[1])).join('');
+  const bad = Object.keys(BAD_ENDINGS).map((k, i) => row(has('bads', k), '배드엔딩 ' + (i + 1), BAD_ENDINGS[k].title)).join('');
+  const found = EGGS.filter(e => has('eggs', e.id)), left = EGGS.length - found.length;
+  const eggs = (found.length ? '<div class="cl-chips">' + found.map(e => '<span>' + e.name + '</span>').join('') + '</div>' : '') +
+    '<p class="cl-left">' + (left ? '이스크라에서 검색하면 나오는 숨은 결과가 ' + left + '개 더 있어요.' : '숨은 검색어를 모두 찾았어요.') + '</p>';
+  const bar = (n, all) => '<span class="cl-n">' + n + ' / ' + all + '</span>';
+  document.getElementById('collectBody').innerHTML =
+    '<div class="cl-sec"><p class="cl-h">엔딩 ' + bar(cnt('endings'), 2) + '</p>' + end + '</div>' +
+    '<div class="cl-sec"><p class="cl-h">배드엔딩 ' + bar(cnt('bads'), Object.keys(BAD_ENDINGS).length) + '</p>' + bad + '</div>' +
+    '<div class="cl-sec"><p class="cl-h">숨은 검색어 ' + bar(cnt('eggs'), EGGS.length) + '</p>' + eggs + '</div>' +
+    '<div class="cl-sec"><p class="cl-h">그 밖에</p>' +
+      '<div class="cl-row"><span>즐겨찾기 사이트 둘러보기</span><b>' + cnt('sites') + ' / 3</b></div>' +
+      '<div class="cl-row"><span>카페 소베크 대타 근무</span><b>' + cnt('shifts') + ' / ' + SHIFT_POSTS.length + '</b></div>' +
+      '<div class="cl-row"><span>바르니아어 단어 찾기</span><b>' + cnt('words') + ' / ' + DICT.length + '</b></div>' +
+      '<div class="cl-row"><span>다나와 잡담</span><b>' + cnt('talks') + ' / ' + DANA_TALK.length + '</b></div></div>';
+  document.getElementById('collectModal').classList.remove('hidden');
+}
+function collectClose(){ document.getElementById('collectModal').classList.add('hidden'); }
+/* ===== 수집 노트: 엔딩·배드엔딩·숨은 검색어·알바 등. '처음부터 다시 하기'를 해도 남음 ===== */
+const COLLECT_KEY = 'iskra_collect';
+function collectGet(){ try{ return JSON.parse(localStorage.getItem(COLLECT_KEY) || '{}') || {}; }catch(e){ return {}; } }
+function collectAdd(kind, id){
+  const c = collectGet(); c[kind] = c[kind] || {};
+  if(c[kind][id]) return false;
+  c[kind][id] = Date.now();
+  try{ localStorage.setItem(COLLECT_KEY, JSON.stringify(c)); }catch(e){}
+  return true;
+}
+/* ===== 숨은 검색어(이스터에그): 특정 검색어에만 나오는 결과. 찾은 것은 수집 노트에 기록 ===== */
+function eggNorm(q){ return String(q || '').replace(/\s+/g, '').toLowerCase(); }
+const EGGS = [
+  {id:'dana', name:"'다나'", keys:['다나', 'dana', '이스크라다나', '다나개발자', '이스크라팀소개', '팀소개'], card: () => ({
+    title:'이스크라 팀 소개', kind:'iskra.dr/about/team · 2026년 9월 갱신', src:'iskra 소개',
+    sum:'이스크라를 만드는 사람들을 소개합니다. 여러 사이트에 흩어진 정보를 한 사람, 한 단체의 이야기로 이어 주는 검색을 만들고 있습니다.',
+    facts:[['검색 품질', '마르텐 오르 외 4명'], ['데이터', '안톤 세른 외 2명'], ['디자인', '유리 벨 외 1명'], ['베타 운영', '베타테스트팀(공용 계정)']],
+    more:"'다나'와 일치하는 구성원이 없습니다.", rel:['이스크라', '이스크라 채용'] }),
+    after: () => { if(!badEnding && !endingChosen && !msgState.left) setTimeout(() => msgBotSay('방금 저를 검색하셨더라고요 :) 저는 외부 협력사 소속이라 팀 소개에는 안 나와요. 궁금한 게 있으면 그냥 여기로 물어보세요.'), 6000); } },
+  {id:'me', name:'내 이름', keys:[], match: n => n === eggNorm(playerName) || n === eggNorm(playerName + '세인') || n === eggNorm('세인' + playerName), card: () => {
+    const mine = searchLog.slice(0, -1).filter(x => eggNorm(x) !== eggNorm(playerName)).slice(-4).reverse();
+    const said = (msgState.log || []).filter(l => l.t === 'me').length;
+    return {
+      title: playerName + ' 세인', kind:'로그인한 회원님의 이름과 일치합니다', src:'내 활동',
+      sum:'공개된 검색 결과는 없습니다. 대신 회원님이 이스크라에서 남긴 활동을 모아 보여 드립니다.',
+      facts:[['최근 검색', mine.length ? mine.map(msgEsc).join(', ') : '없음'], ['스크랩', scrapped.length + '건'], ['메신저 대화', said + '건'], ['계정 유형', '베타테스터']],
+      more:'이 기록은 서비스 개선을 위해 베타테스트팀과 공유됩니다.', rel:['개인정보 처리방침'] }; } },
+  {id:'privacy', name:"'개인정보 처리방침'", keys:['개인정보처리방침', '개인정보', '처리방침'], card: () => ({
+    title:'개인정보 처리방침', kind:'이스크라 베타 · 제7조까지 공개', src:'iskra 약관',
+    sum:'베타테스터의 검색어, 열어 본 문서, 화면 캡처, 메신저 대화, 연동한 외부 계정 정보는 서비스 개선 목적으로 수집됩니다.',
+    facts:[['보관 기간', '베타 종료 후 정해지지 않음'], ['제3자 제공', '협력 기관 (명단 비공개)'], ['열람 요청', '베타 기간에는 받지 않음'], ['문의', 'beta@iskra.dr']],
+    more:'제8조부터는 아직 공개되지 않았습니다.', rel:['이스크라'] }) },
+  {id:'anton', name:"'안톤'", keys:['안톤', 'anton', '안톤세른', 'antonsern'], card: () => ({
+    title:'안톤 세른', kind:'이스크라 · 데이터 담당', src:'구성원',
+    sum:'흩어진 기록을 한 사람의 이야기로 잇는 일을 합니다. 그래서 어떤 기록은 잇지 않는 것이 맞다고 생각합니다.',
+    facts:[['소속', '이스크라 데이터팀'], ['입사', '2026년 3월'], ['연락', '사내 메신저만 사용'], ['한 줄', '찾지 않아도 되는 이름도 있습니다']],
+    more:'', rel:['이스크라 팀 소개'] }) },
+  {id:'iskra', name:"'이스크라'", keys:['이스크라', 'iskra'], card: () => ({
+    title:'이스크라', kind:'검색 포털 · 베타 서비스 중', src:'지금 보고 계신 곳',
+    sum:'여러 사이트에 흩어진 정보를 한곳에서 찾아 주는 검색 포털. 2026년 9월 체험단을 모집해 비공개 베타를 시작했다. 이름은 \'불씨\'를 뜻하는 옛말에서 따왔다고 알려져 있다.',
+    facts:[['시작', '2026년 9월 (비공개 베타)'], ['운영사', '확인되지 않음'], ['서버 위치', '공개되지 않음'], ['이용자', '베타테스터 소수']],
+    more:'', rel:['다나', '이스크라 채용', '개인정보 처리방침'] }) },
+  {id:'hire', name:"'이스크라 채용'", keys:['이스크라채용', '채용', 'iskra채용'], card: () => ({
+    title:'이스크라 채용', kind:'모집 중인 공고 1건', src:'채용',
+    sum:'정규 채용 공고는 없습니다. 아래 체험단은 상시 모집합니다.',
+    facts:[['모집', '베타테스터 (체험단)'], ['우대', '바르니아어를 할 줄 아는 분'], ['우대', '도렌 국립대학교 재학생'], ['우대', '등록금 등 목돈이 필요한 분']],
+    more:'선정된 분께는 따로 연락드립니다. 지원서는 받지 않습니다.', rel:['이스크라'] }) },
+  {id:'search', name:"'검색'", keys:['검색', 'search', '검색엔진'], card: () => ({
+    title:'검색', kind:'명사', src:'iskra 사전',
+    sum:'찾고 싶은 것을 찾는 일. 지금 하고 계신 일입니다.',
+    facts:[['예문', '이스크라에서 검색하면 다 나와요.'], ['비슷한 말', '조회, 탐색, 조사']],
+    more:'검색한 사람이 누구인지도, 검색하면 다 나옵니다.', rel:['이스크라'] }) },
+  {id:'cafe', name:"'카페 소베크'", keys:['카페소베크', '소베크', 'sobek', 'cafesobek'], card: () => ({
+    title:'카페 소베크', kind:'카페 · 마렌 거리 12', src:'이스크라 지도',
+    sum:'마렌 거리 모퉁이의 작은 카페. 저녁 시간에는 대학생 아르바이트생이 일한다.',
+    facts:[['영업', '매일 10:00~22:00'], ['대표 메뉴', '꿀 라떼, 보리 쿠키'], ['리뷰', '"저녁 알바생이 바르니아어로 인사해 줘서 좋았어요."'], ['리뷰', '"시험 기간엔 자리가 없어요."']],
+    more:'', rel:['이스크라'] }) }
+];
+function eggFind(q){
+  const n = eggNorm(q); if(!n) return null;
+  return EGGS.find(e => e.keys.indexOf(n) >= 0 || (e.match && e.match(n))) || null;
+}
+function eggHtml(q){
+  const e = eggFind(q); if(!e) return '';
+  const k = e.card();
+  return `
+  <div class="kp egg">
+    <div class="kp-head"><div><div class="kp-title">${k.title}</div><div class="kp-kind">${k.kind}</div></div><span class="kp-src">${k.src}</span></div>
+    <p class="kp-sum">${k.sum}</p>
+    <dl class="kp-facts">${k.facts.map(f => `<div><dt>${f[0]}</dt><dd>${f[1]}</dd></div>`).join('')}</dl>
+    ${k.more ? `<p class="kp-more">${k.more}</p>` : ''}
+    ${k.rel && k.rel.length ? `<div class="kp-rel"><span>관련 검색</span>${k.rel.map(r => `<button type="button" onclick="runSearch('${r}')">${r}</button>`).join('')}</div>` : ''}
+  </div>`;
+}
+function eggFound(q){
+  const e = eggFind(q); if(!e) return;
+  const first = collectAdd('eggs', e.id);
+  if(first && e.after) e.after();
+}
 function renderSearchResults(q){
   const matches = matchItems(q);
   const body = document.getElementById('srBody');
@@ -4295,7 +4660,7 @@ function renderSearchResults(q){
   const groups = {news:[], blog:[], hot:[]};
   matches.forEach(a => { const t = groups[a.type] ? a.type : 'news'; groups[t].push(a); });
 
-  const kpBlock = kpHtml(q);
+  const kpBlock = eggHtml(q) || kpHtml(q);
   if(matches.length === 0){
     nav.innerHTML = '';
     meta.textContent = '';
@@ -4359,6 +4724,7 @@ function runSearch(q){
   openTab('searchresult', `${q} - iskra`, '&#128269;');
   document.getElementById('srSearchInput').value = q;
   renderSearchResults(q);
+  try{ eggFound(q); }catch(e){}
   setBack('searchresult', false);
   setAddr('searchresult', 'iskra.dr/search?q=' + encodeURIComponent(q));
   saveProgress();
@@ -5459,6 +5825,7 @@ function antonResume(){
 function antonRestore(ids, readIds){
   setTimeout(() => { try{ omSortList(); omRenderList(); }catch(e){} }, 0);
   if(!ANTON_MAILS.some(x => x.id === CONTACT1_MAIL.id)) ANTON_MAILS.push(CONTACT1_MAIL);
+  (ids || []).forEach(id => { if(/^cafe\d$/.test(id)) try{ cafeMailDef(+id.slice(4)); }catch(e){} });
   (ids || []).forEach(id => { antonAdd(id, true); const m = ANTON_MAILS.find(x => x.id === id); if(m && (readIds||[]).indexOf(id) < 0){ m.unread = true; m._notice = true; } });
 }
 /* 푼 질문에 붙은 안톤의 주석 열람 */
@@ -5593,7 +5960,9 @@ function goToMainScreen(){
 }
 function endDay(){
   gameDay++;
-  chargeLiving(Math.min(narrResolved() + 1, 9), false, 2400);   /* 잠들면 다음 날까지 지난 날짜만큼 생활비·공과금 출금 */
+  chargeLiving(Math.min(narrResolved() + 1, 9), false, 2400);
+  cafePay(false);
+  setTimeout(() => { try{ cafeMorning(); }catch(e){} }, 0);   /* 잠들면 다음 날까지 지난 날짜만큼 생활비·공과금 출금 */
   /* 잠들고 나면 다음 날 메일이 곧바로 도착(델라 메일 3초, 의뢰 메일 6초 안에) */
   Object.keys(pendingDeliveries).forEach(uid => { const d = pendingDeliveries[uid]; if(!/^(assign\d|contact1)$/.test(d.mailId || '')) return; const due = Date.now() + (d.mailId === 'contact1' ? 3000 : 6000); if(d.due > due){ d.due = due; armTimer(uid, due - Date.now()); } });
   if(reportAfterSleep){ reportAfterSleep = false; setTimeout(() => { if(!endingChosen && reportStage !== 'open') reportOpen(); }, 2600); }
@@ -5642,8 +6011,10 @@ function dayStatementHtml(){
   const S = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL, SUCCESS6_MAIL, SUCCESS7_MAIL, SUCCESS8_MAIL][n - 1];
   const r = S && REWARD_BY_MAIL[S.id];
   const out = chargeLiving(Math.min(n + 1, 9), true) || [];
+  const wage = cafePay(true) || [];
   const rows = [];
   if(r) rows.push({label: r.label.replace('이스크라 베타테스트팀 · ', '이스크라 · '), amount: r.amount});
+  wage.forEach(x => rows.push(x));
   out.forEach(x => rows.push({label: x.label, amount: x.amount}));
   if(!rows.length) return '';
   const fmt = v => (v < 0 ? '−' : '+') + Math.abs(v).toLocaleString() + '원';
@@ -7279,6 +7650,7 @@ function checkpointRestore(){
 }
 function badStart(key){
   if(endingChosen || badEnding || !BAD_ENDINGS[key]) return;
+  try{ collectAdd('bads', key); }catch(e){}
   badEnding = key; msgState.ackO = []; msgState.chain = []; msgSave(); saveProgress();
   try{ rpAntonSync(); }catch(e){}
   endingKey = 'BAD_' + key; endingIdx = 0;
@@ -7309,6 +7681,7 @@ function badFire(key){
 function finalChoiceOpen(){ finalConfirm('A', RP_LOC); }
 function finalEnding(k, variant){
   endingChosen = k;
+  try{ collectAdd('endings', k); }catch(e){}
   endingVariant = k === 'B' ? (variant || 'close') : '';
   if(k === 'B' && endingVariant === 'close') rpSig = '';
   const inp = document.getElementById('rpLoc'); if(inp) rpLocVal = inp.value;
@@ -7503,7 +7876,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
-      bankBalance, bankTx, paidThrough, reportAfterSleep, dayEndPending, scrapped, notesDone, introSeen,
+      bankBalance, bankTx, paidThrough, cafeShifts, reportAfterSleep, dayEndPending, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue, mailAt, antonTalk,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -7572,6 +7945,7 @@ function loadProgress(){
   assign3Word = saved.assign3Word || '';
   bankBalance = saved.bankBalance || 0;
   paidThrough = saved.paidThrough || 1;
+  cafeShifts = saved.cafeShifts || {};
   reportAfterSleep = !!saved.reportAfterSleep;
   dayEndPending = !!saved.dayEndPending;
   omOpened = !!saved.omOpened;
@@ -7825,6 +8199,7 @@ function msgRenderChips(){
     chips = [['now','지금 뭘 하면 돼요?'],['hint','힌트 주세요'],['cap','캡처는 어떻게 해요?'],['mail','메일은 어디서 보나요?']];
     { const dn = doubtAvail(); if(dn) chips.push(['doubt', DOUBT[dn].chip]); }
     if(!endingChosen && reportStage !== 'open' && antonIds.indexOf('anton6') >= 0 && !msgState.confronted) chips.push(['confront','이거 테스트 아니죠?']);
+    { const tk = danaTalkNext(); if(tk) chips.push(['talk', tk.r]); }
     if(!endingChosen && reportStage !== 'open' && msgStage().n >= 2) chips.push(['quit','테스트 그만둘래요']);
   }
   const hold = msgPending > 0 || msgTyping || msgFireHold > 0;
@@ -8001,6 +8376,7 @@ function msgReply(intent){
   else if(intent === 'quit') msgStartChain([{x: '그만두시겠다는 거예요? 지금까지 하신 테스트는 정산이 다 끝났어요. 정말 그만두시겠어요?', o: [{r: '네, 그만둘게요', re: '알겠어요. 그동안 정말 수고 많으셨어요.', bad: 'quit', fire: 'bad:quit'}, {r: '아니요, 계속할게요', re: '좋아요, 하시던 테스트 이어서 진행해 주세요.'}]}], 300);
   else if(intent === 'confront'){ msgState.confronted = true; msgStartChain([{x: '네? 무슨 말씀이세요?', o: [{r: '누군가를 찾고 있는 거잖아요', re: '레나 씨, 베타 테스트 약관 7조를 다시 읽어 보십시오. 베타 계정은 지금부터 정지됩니다.', bad: 'confront', fire: 'bad:confront'}, {r: '아니에요, 그냥 물어봤어요', re: '…네. 테스트에만 집중해 주세요.'}]}], 300); }
   else if(intent === 'doubt') msgDoubt();
+  else if(intent === 'talk') danaTalk();
   else if(intent === 'cap') msgBotSay("주소창 오른쪽에 카메라 아이콘 보이시죠? 그걸 누르면 캡처 모드가 켜져요. 캡처하고 싶은 기록이나 화면을 클릭하면 저장되고, 의뢰 메일 회신 창에 자동으로 붙어요. 취소는 Esc예요.");
   else if(intent === 'mail') msgBotSay("이스크라 첫 화면의 '메일' 아이콘으로 들어가시거나, 새 메일이 올 때 뜨는 알림을 눌러도 돼요. 의뢰 메일을 열면 아래쪽에 회신하는 칸이 있어요.");
   else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두시면 왼쪽 아래 스크랩 창에서 다시 보실 수 있어요. 단서를 비교할 때 편해요.");
@@ -8112,7 +8488,7 @@ function msgChip(id, label){
   if(/^pick\d+$/.test(id)){ const o = msgState.ackO[parseInt(id.slice(4), 10)]; if(o && o.bad) checkpointSave(); }
   if(msgTyping) return;
   msgTyping = true; msgRenderChips();
-  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront', doubt:'doubt'};
+  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront', doubt:'doubt', talk:'talk'};
   const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
   q.classList.add('busy');
   inp.value = ''; inp.classList.add('typing');
