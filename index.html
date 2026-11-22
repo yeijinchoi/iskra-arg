@@ -1944,6 +1944,33 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 
 /* 컷씬: 엔딩처럼 검은 화면 위에 도트 그림과 글만 */
 #cutsceneOverlay{background:#000;z-index:200;transition:opacity .6s ease;}
+/* 하루가 끝나고 다음 날이 시작될 때 브라운관 모니터가 꺼졌다 켜지는 효과 */
+#crt{position:fixed;inset:0;z-index:9000;pointer-events:none;display:none;overflow:hidden;}
+#crt.show{display:block;pointer-events:auto;}
+#crt .crt-hole{position:absolute;left:50%;top:50%;width:100%;height:100%;transform:translate(-50%,-50%);
+  background:rgba(235,242,255,0);box-shadow:0 0 18px 4px rgba(225,236,255,.85),0 0 0 200vmax #000;}
+#crt.black{background:#000;}
+#crt.black .crt-hole{display:none;}
+#crt.off .crt-hole{animation:crtOff .75s cubic-bezier(.6,0,.4,1) forwards;}
+#crt.on .crt-hole{animation:crtOn .9s cubic-bezier(.3,0,.3,1) forwards;}
+@keyframes crtOff{
+  0%{width:100%;height:100%;background:rgba(235,242,255,0);opacity:1;}
+  42%{width:100%;height:3px;background:rgba(235,242,255,.95);opacity:1;}
+  78%{width:4px;height:3px;background:rgba(235,242,255,1);opacity:1;}
+  100%{width:0;height:0;background:rgba(235,242,255,1);opacity:0;}
+}
+@keyframes crtOn{
+  0%{width:0;height:0;background:rgba(235,242,255,1);}
+  18%{width:4px;height:3px;background:rgba(235,242,255,1);}
+  45%{width:100%;height:3px;background:rgba(235,242,255,.95);}
+  78%{width:100%;height:100%;background:rgba(235,242,255,.28);}
+  100%{width:100%;height:100%;background:rgba(235,242,255,0);}
+}
+#crt.rm .crt-hole{animation:none!important;display:none;}
+#crt.rm{background:#000;transition:opacity .5s ease;opacity:0;}
+#crt.rm.off,#crt.rm.black{opacity:1;}
+#crt.rm.on{opacity:0;}
+
 @media (max-width:560px){#cutsceneOverlay .cutscene-card{padding:0 18px;}#cutsceneOverlay .cutscene-title{font-size:19px;}#cutsceneOverlay .cutscene-text{font-size:15px;}}
 
 /* ===== 검색 지식 패널(백과 카드) ===== */
@@ -2784,6 +2811,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 </style>
 
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
+<div id="crt" aria-hidden="true"><div class="crt-hole"></div></div>
 <div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
   <form class="bug-card" onsubmit="event.preventDefault();bugSend()" autocomplete="off">
     <p class="bug-title" id="bugTitle">오류 제보하기</p>
@@ -5541,7 +5569,7 @@ function goToMainScreen(){
 }
 function endDay(){
   gameDay++;
-  chargeLiving(Math.min(narrResolved() + 1, 9), false, 1200);   /* 잠들면 다음 날까지 지난 날짜만큼 생활비·공과금 출금 */
+  chargeLiving(Math.min(narrResolved() + 1, 9), false, 2400);   /* 잠들면 다음 날까지 지난 날짜만큼 생활비·공과금 출금 */
   /* 잠들고 나면 다음 날 메일이 곧바로 도착(델라 메일 3초, 의뢰 메일 6초 안에) */
   Object.keys(pendingDeliveries).forEach(uid => { const d = pendingDeliveries[uid]; if(!/^(assign\d|contact1)$/.test(d.mailId || '')) return; const due = Date.now() + (d.mailId === 'contact1' ? 3000 : 6000); if(d.due > due){ d.due = due; armTimer(uid, due - Date.now()); } });
   if(reportAfterSleep){ reportAfterSleep = false; setTimeout(() => { if(!endingChosen && reportStage !== 'open') reportOpen(); }, 2600); }
@@ -5604,10 +5632,27 @@ function dayStatementHtml(){
 var dayEndPending = false;
 function csBindButtons(ov){
   dayEndPending = true; try{ saveProgress(); }catch(e){}
-  document.getElementById('cutsceneSleep').onclick = e => { e.stopPropagation(); ov.classList.remove('show'); sleepNow(); };
+  document.getElementById('cutsceneSleep').onclick = e => { e.stopPropagation(); if(crtBusy) return; ov.classList.remove('show'); sleepNow(650); };
   document.getElementById('cutsceneMore').onclick = e => { e.stopPropagation(); ov.classList.remove('show'); sleepPillSync(); };
 }
-function sleepNow(){ dayEndPending = false; sleepPillSync(); endDay(); }
+/* 잠들기: 브라운관이 꺼지고(가로줄 → 점) 잠시 어두웠다가, 다음 날 다시 켜짐(점 → 가로줄 → 화면) */
+var crtBusy = false;
+function crtTransition(mid, wait){
+  const o = document.getElementById('crt');
+  if(!o){ mid(); return; }
+  crtBusy = true;
+  let rm = false; try{ rm = matchMedia('(prefers-reduced-motion: reduce)').matches; }catch(e){}
+  const set = c => { o.className = c ? 'show ' + c + (rm ? ' rm' : '') : ''; };
+  setTimeout(() => {
+    set('off');
+    setTimeout(() => {
+      set('black');
+      try{ mid(); }catch(e){ console.error(e); }
+      setTimeout(() => { set('on'); setTimeout(() => { set(''); crtBusy = false; }, 950); }, 1000);
+    }, 780);
+  }, wait || 0);
+}
+function sleepNow(wait){ if(crtBusy) return; dayEndPending = false; sleepPillSync(); crtTransition(endDay, wait); }
 function sleepPillSync(){
   const b = document.getElementById('sleepPill'); if(!b) return;
   const ov = document.getElementById('cutsceneOverlay');
