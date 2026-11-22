@@ -1866,6 +1866,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-oldmail .bankcard .banktx-row{display:flex;align-items:baseline;justify-content:space-between;gap:8px;font-size:12px;}
 #panel-oldmail .bankcard .banktx-row .tlabel{color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 #panel-oldmail .bankcard .banktx-row .tamount{flex-shrink:0;font-weight:700;color:var(--accent);font-variant-numeric:tabular-nums;}
+#panel-oldmail .bankcard .banktx-row .tamount.neg,#panel-oldmail .bankcard .banktx-row.fresh .tamount.neg,.banktx-row .tamount.neg{color:var(--ink);font-weight:500;}
 #panel-oldmail .bankcard .banktx-row.fresh .tamount{color:#1E9E5A;}
 #panel-oldmail .bankcard .bankempty{margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:11.5px;color:var(--muted);}
 #panel-oldmail .omsplit{display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:28px;align-items:start;}
@@ -4640,6 +4641,32 @@ function depositReward(mailId){
   renderBankcard();
   osNotify('도렌은행', '입금 ' + r.amount.toLocaleString() + '원', r.label + ' · 잔액 ' + bankBalance.toLocaleString() + '원', 'bank');
 }
+/* 생활비·공과금: 이야기 속 날짜가 지날 때마다 통장에서 빠져나감(돈을 벌어야 하는 압박) */
+const DAILY_LIVING = 11000;   /* 하루 식비·교통비 */
+const BILLS = [
+  {m:11, d:5,  amount:54000, label:'도렌텔레콤 · 휴대폰 요금'},
+  {m:11, d:10, amount:18400, label:'도렌전력 · 10월분 전기요금'}
+];
+let paidThrough = 1;   /* 생활비를 낸 마지막 이야기 속 날짜(NARR_DAYS 번호). 1 = 10월 31일(1차) */
+function chargeLiving(toDay, silent){
+  if(!(toDay > paidThrough)) return;
+  const a = narrDate(paidThrough), b = narrDate(toDay); if(!a || !b) return;
+  const days = Math.round((b - a) / 86400000);
+  const items = [];
+  if(days > 0) items.push({amount: -DAILY_LIVING * days, label: '생활비(식비·교통비) · ' + days + '일분'});
+  BILLS.forEach(x => { const t = new Date(2026, x.m - 1, x.d); if(t > a && t <= b) items.push({amount: -x.amount, label: x.label}); });
+  paidThrough = toDay;
+  if(!items.length) return;
+  const sum = items.reduce((n, x) => n - x.amount, 0);
+  bankBalance -= sum;
+  items.forEach(x => bankTx.unshift({amount: x.amount, label: x.label, fresh: !silent}));
+  renderBankcard();
+  if(!silent){
+    const body = items.map(x => x.label.split(' · ')[x.label.indexOf('생활비') === 0 ? 0 : 1] || x.label).join(', ') + ' · 잔액 ' + bankBalance.toLocaleString() + '원';
+    setTimeout(() => osNotify('도렌은행', '출금 ' + sum.toLocaleString() + '원', body, 'bank'), 6500);   /* 새 의뢰 메일 알림과 겹치지 않게 조금 뒤에 */
+    try{ saveProgress(); }catch(e){}
+  }
+}
 function renderBankcard(){
   const el = document.getElementById('bankcard');
   if(!el) return;
@@ -4651,7 +4678,7 @@ function renderBankcard(){
       ${bankTx.slice(0,3).map(t => `
         <div class="banktx-row${t.fresh ? ' fresh' : ''}">
           <span class="tlabel">${t.label}</span>
-          <span class="tamount">+${t.amount.toLocaleString()}원</span>
+          <span class="tamount${t.amount < 0 ? ' neg' : ''}">${t.amount < 0 ? '−' : '+'}${Math.abs(t.amount).toLocaleString()}원</span>
         </div>
       `).join('')}
     </div>` : `<div class="bankempty">입출금 내역이 없습니다</div>`}
@@ -5569,6 +5596,7 @@ function fireDelivery(uid){
   } else if(mail && !(d.skipIfPresent && FOLDERS.inbox.some(m => m.id === mail.id))){
     deliverMail(mail);
     depositReward(mail.id);
+    { const am = /^assign(\d)$/.exec(mail.id); if(am && +am[1] >= 2) chargeLiving(+am[1]); }
   }
   if(d.effect) applyEffect(d.effect);
   refreshChips();
@@ -7314,7 +7342,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
-      bankBalance, bankTx, scrapped, notesDone, introSeen,
+      bankBalance, bankTx, paidThrough, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue, mailAt, antonTalk,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -7382,6 +7410,7 @@ function loadProgress(){
   searchLog = saved.searchLog || [];
   assign3Word = saved.assign3Word || '';
   bankBalance = saved.bankBalance || 0;
+  paidThrough = saved.paidThrough || 1;
   omOpened = !!saved.omOpened;
   (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
   mailAt = saved.mailAt || {};
@@ -8035,6 +8064,7 @@ function applyJump(n){
     const r = REWARD_BY_MAIL[SUCC[i].id];
     bankBalance += r.amount; bankTx.unshift({amount:r.amount, label:r.label, fresh:false});
   }
+  paidThrough = 1; chargeLiving(Math.min(n, 8), true);
   renderBankcard();
   /* 받은메일함: 튜토리얼 + 지난 차수 의뢰 메일(읽음) + 이번 차수 의뢰 메일(안읽음) */
   FOLDERS.inbox.length = 0;
