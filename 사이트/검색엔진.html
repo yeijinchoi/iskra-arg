@@ -219,6 +219,15 @@ body.capture-mode #panel-alumni .al-cert:hover{outline:2px solid var(--al-maroon
 .addressbar span#addrText{overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 
 .menuwrap{position:relative;}
+/* 게임 시작 때 한 번: ⋮ 메뉴 아래 '오류 제보는 여기서' 말풍선 */
+.bugtip{position:absolute;top:calc(100% + 10px);right:-4px;width:max-content;max-width:calc(100vw - 24px);background:var(--ink);color:var(--bg);
+  font-size:12.5px;font-weight:500;line-height:1.55;padding:12px 14px 10px;border-radius:10px;text-align:left;white-space:normal;
+  box-shadow:0 10px 28px rgba(0,0,0,.18);z-index:71;opacity:0;transform:translateY(-4px);pointer-events:none;transition:opacity .2s ease,transform .2s ease;}
+.bugtip.show{opacity:1;transform:translateY(0);pointer-events:auto;}
+.bugtip::before{content:'';position:absolute;bottom:100%;right:14px;border:7px solid transparent;border-bottom-color:var(--ink);}
+.bugtip p{margin:0;white-space:nowrap;}
+.bugtip .bt-ok{display:block;margin:8px 0 0 auto;background:none;border:0;color:inherit;font:inherit;font-size:12.5px;font-weight:600;padding:4px 2px;cursor:pointer;opacity:.85;transition:opacity .15s ease;}
+.bugtip .bt-ok:hover{opacity:1;text-decoration:underline;}
 .chromemenu{position:absolute;top:calc(100% + 6px);right:0;background:var(--chrome-bar);border:1px solid var(--chrome-border);border-radius:8px;box-shadow:0 8px 24px rgba(0,0,0,.18);padding:4px;z-index:70;min-width:200px;}
 .chromemenu button{width:100%;text-align:left;background:none;border:none;padding:9px 10px;border-radius:6px;font-size:12.5px;color:var(--chrome-text);cursor:pointer;font-family:inherit;}
 .chromemenu button:hover{background:var(--chrome-strip);}
@@ -2842,6 +2851,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
     <button class="tabcountbtn" id="tabCountBtn" onclick="openTabSwitcher()" aria-label="탭 목록">1</button>
     <div class="menuwrap">
       <button class="navbtn" onclick="toggleChromeMenu(event)" aria-label="메뉴"><svg class="ic" viewBox="0 0 24 24"><circle cx="12" cy="5" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="12" r="1.4" fill="currentColor" stroke="none"/><circle cx="12" cy="19" r="1.4" fill="currentColor" stroke="none"/></svg></button>
+      <div class="bugtip" id="bugTip" role="status"><p>베타 테스트 중이에요.<br>오류를 발견하면 이 메뉴의<br>'오류 제보하기'로 알려 주세요.<br>'처음부터 다시 하기'도 여기 있어요.</p><button type="button" class="bt-ok" onclick="bugTipClose()">확인</button></div>
       <div class="chromemenu hidden" id="chromeMenu">
         <button onclick="bugOpen()">오류 제보하기</button>
         <button onclick="resetProgress()"><!--DEV-->진행 상황 초기화 (베타테스트용)<!--/DEV--><!--REL 처음부터 다시 하기 --></button>
@@ -3856,8 +3866,20 @@ function chromeReload(){
 }
 function goHome(){ openTab('search', '이스크라', '&#10022;'); }
 
+/* 오류 제보 안내 말풍선: 게임을 시작하면 한 번만. 확인을 누르거나 메뉴를 열면 닫힘 */
+const BUGTIP_KEY = 'iskra_bugtip';
+function bugTipShow(delay){
+  let seen = false; try{ seen = !!localStorage.getItem(BUGTIP_KEY); }catch(e){}
+  if(seen) return;
+  setTimeout(() => { const t = document.getElementById('bugTip'); if(t) t.classList.add('show'); }, delay || 0);
+}
+function bugTipClose(){
+  const t = document.getElementById('bugTip'); if(t) t.classList.remove('show');
+  try{ localStorage.setItem(BUGTIP_KEY, '1'); }catch(e){}
+}
 function toggleChromeMenu(e){
   e.stopPropagation();
+  bugTipClose();
   document.getElementById('chromeMenu').classList.toggle('hidden');
 }
 document.addEventListener('click', (e) => {
@@ -6863,6 +6885,7 @@ function omNoticeOk(){
   document.getElementById('omSetup').classList.add('hidden');
   try{ bgmSync(); }catch(e){}
   omOpenMail();
+  bugTipShow(1500);
 }
 var DLT_ROWS = [{"id": "d1", "date": "2026-10-28", "kind": "물류", "addr": "서쪽 회관 지하 보일러실", "party": "도렌난방설비", "note": "난방 점검 부품 납품", "sign": "수령 확인: 루카 발렌 (관리인)"}, {"id": "d2", "date": "2026-10-21", "kind": "통신", "addr": "서쪽 회관 지하 내선 12", "party": "연합회 사무국", "note": "정기 통화 (3분)", "sign": "응답자: 미기재"}, {"id": "d3", "date": "2026-10-14", "kind": "물류", "addr": "서쪽 회관 1층 로비", "party": "한결사무용품", "note": "복사용지 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d4", "date": "2026-10-09", "kind": "통신", "addr": "서쪽 회관 대표 회선", "party": "상회 사무실", "note": "정기 통화 (1분)", "sign": "응답자: 사무국"}, {"id": "d5", "date": "2026-09-30", "kind": "물류", "addr": "서쪽 회관 2층 회의실", "party": "도렌케이터링", "note": "다과 납품", "sign": "수령 확인: 사무국 직원"}, {"id": "d6", "date": "2026-10-25", "kind": "물류", "addr": "북쪽 창고 3동", "party": "도렌평야 영농조합", "note": "쌀 포대 입고", "sign": "수령 확인: 창고 근무자"}, {"id": "d7", "date": "2026-10-19", "kind": "통신", "addr": "북쪽 창고 사무실", "party": "상회 사무실", "note": "재고 확인 통화", "sign": "응답자: 창고 근무자"}, {"id": "d8", "date": "2026-10-17", "kind": "물류", "addr": "연합회 본관 1층", "party": "도렌난방설비", "note": "난방유 납품", "sign": "수령 확인: 경비"}, {"id": "d9", "date": "2026-10-12", "kind": "통신", "addr": "연합회 본관 대표 회선", "party": "이스크라 부동산", "note": "매물 문의 (2분)", "sign": "응답자: 사무국"}, {"id": "d10", "date": "2026-10-06", "kind": "물류", "addr": "마렌 거리 44, 2층", "party": "한결사무용품", "note": "우편물 수령", "sign": "수령 확인: 사무실 직원"}];
 var dltLoggedIn = false, dlCurrent = null, dlLastQ = '';
@@ -8336,6 +8359,7 @@ msgInit();
 /*DEV*/try{ const _j = sessionStorage.getItem('iskra_jump'); if(_j){ sessionStorage.removeItem('iskra_jump'); applyJump(parseInt(_j,10)); } }catch(e){}/*/DEV*/
 try{ endingResume(); }catch(e){}
 try{ sleepPillSync(); }catch(e){}
+try{ if(omOpened) bugTipShow(1500); }catch(e){}
 try{ if(reportAfterSleep && !endingChosen && reportStage !== 'open') setTimeout(() => showCutscene('day:8'), 1500); }catch(e){}
 /*DEV*/try{ const _b = sessionStorage.getItem('iskra_bad'); if(_b){ sessionStorage.removeItem('iskra_bad'); setTimeout(() => { checkpointSave(); badStart(_b); }, 1200); } }catch(e){}/*/DEV*/
 /*DEV*/try{ const _e = sessionStorage.getItem('iskra_end'); if(_e){ sessionStorage.removeItem('iskra_end'); setTimeout(() => { if(_e === 'C') reportOpen(); else { finalChoiceOpen(); finalEnding(_e); } }, 1200); } }catch(e){}/*/DEV*/
