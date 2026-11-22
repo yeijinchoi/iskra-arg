@@ -1802,7 +1802,10 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #msgPanel .mstat{font-size:12px;color:rgba(255,255,255,.82);margin-top:3px;}
 #msgPanel .mclose{margin-left:auto;background:rgba(255,255,255,.18);border:none;color:#fff;width:32px;height:32px;border-radius:50%;cursor:pointer;font-size:18px;line-height:1;font-family:inherit;transition:background .15s;}
 #msgPanel .mclose:hover{background:rgba(255,255,255,.32);}
-#msgLog{flex:1;overflow-y:auto;padding:18px 14px 10px;background:var(--bg);display:flex;flex-direction:column;gap:3px;scroll-behavior:smooth;}
+#msgLog{flex:1;overflow-y:auto;padding:18px 14px 10px;background:var(--bg);display:flex;flex-direction:column;gap:3px;scroll-behavior:smooth;overscroll-behavior:contain;}
+#msgPanel{overscroll-behavior:contain;}
+/* 휴대폰: 대화창이 열려 있는 동안 뒤 화면이 같이 스크롤되지 않게 */
+@media (max-width:640px){html.msg-lock,html.msg-lock body{overflow:hidden;}}
 .mrow2{display:flex;align-items:flex-end;gap:8px;margin-top:8px;}
 .mrow2.me{justify-content:flex-end;}
 .mrow2 .ma{image-rendering:pixelated;width:28px;height:28px;border-radius:50%;background:var(--dana-photo) 44% 100%/110% no-repeat,#DFC7FC;flex-shrink:0;visibility:hidden;}
@@ -6385,6 +6388,11 @@ const ARCHIVE_RECORDS = [
     body:["도렌 가정법원은 아래 신청인의 개명을 허가하였기에 공고합니다.", "신청인: 니나 코스타 (바르니아 출신, 도렌 거주)", "변경 후 이름: 니나 레온", "신청 사유: 가족 사별", "허가일: 2010년 6월 11일", "도렌 가정법원"]
   },
   {
+    id:'arc8', section:'공고', date:'2015.09.08', query:['개명', '공고'],
+    title:"개명 허가 공고 — 출신 바르니아, ○○○ → 다니엘 소렌",
+    body:["도렌 가정법원은 아래 신청인의 개명을 허가하였기에 공고합니다.", "신청인: ○○○ (바르니아 출신, 도렌 거주)", "변경 후 이름: 다니엘 소렌", "신청 사유: 가족 사별", "허가일: 2015년 9월 8일", "※ 개인정보 보호를 위해 변경 전 이름은 지면에 싣지 않습니다.", "도렌 가정법원"]
+  },
+  {
     id:'arc7', section:'공고', date:'2004.01.30', query:['개명', '공고'],
     title:"개명 허가 공고 — 출신 도렌, 요한 바이스 → 요한 카이",
     body:["도렌 가정법원은 아래 신청인의 개명을 허가하였기에 공고합니다.", "신청인: 요한 바이스 (도렌 출신, 도렌 거주)", "변경 후 이름: 요한 카이", "신청 사유: 가족 사별", "허가일: 2004년 1월 30일", "도렌 가정법원"]
@@ -6468,7 +6476,7 @@ function arDetailClick(){
 }
 function performCaptureArchive(){
   if(!arCurrentRecord) return;
-  if(['arc4','arc5','arc6','arc7'].indexOf(arCurrentRecord.id) >= 0) capturedEvidence7 = arCurrentRecord; else capturedEvidence5 = arCurrentRecord;
+  if(['arc4','arc5','arc6','arc7','arc8'].indexOf(arCurrentRecord.id) >= 0) capturedEvidence7 = arCurrentRecord; else capturedEvidence5 = arCurrentRecord;
   exitCaptureMode();
   showCaptureToast(`캡처됨: ${arCurrentRecord.title}`, 'ok');
   refreshChips();
@@ -8059,6 +8067,17 @@ function applyJump(n){
 }
 
 /*/DEV*/
+/* 휴대폰에서 대화창이 열려 있으면 뒤 화면 스크롤을 잠금(대화 목록 끝에서 스크롤이 넘어가거나, 다나가 입력 중일 때 빈 곳을 쓸어도 배경이 움직이지 않게) */
+(function(){
+  const pn = document.getElementById('msgPanel'); if(!pn) return;
+  const sync = () => document.documentElement.classList.toggle('msg-lock', pn.classList.contains('open') && !pn.classList.contains('closing'));
+  new MutationObserver(sync).observe(pn, {attributes: true, attributeFilter: ['class']}); sync();
+  pn.addEventListener('touchmove', e => {
+    const t = e.target, log = document.getElementById('msgLog'), q = document.getElementById('msgQuick');
+    if((log && log.contains(t)) || (q && q.contains(t))) return;   /* 대화 목록·선택지 줄은 원래대로 스크롤 */
+    if(e.cancelable) e.preventDefault();
+  }, {passive: false});
+})();
 /* ===== 오류 제보: 구글 시트(Apps Script 웹 앱)로 전송 ===== */
 const BUG_ENDPOINT = 'https://script.google.com/macros/s/AKfycbymkTjfycmCEhvoIS8b3QPpbV00r-sw3jUEYO1eWD66EhFaYqBQ7GP79Z8FzP92t63cNg/exec';   /* Apps Script 웹 앱 주소(…/exec). 비어 있으면 보내지 않음 */
 const BUG_VER = '2026-11-21b';
