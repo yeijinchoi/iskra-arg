@@ -2767,8 +2767,23 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .bug-send{background:#1F2329;color:#FFFFFF;font-weight:600;}
 .bug-send:disabled{opacity:.5;cursor:default;}
 @media (max-width:640px){.bug-card{padding:20px 18px 16px;}.bug-card textarea,.bug-card input{font-size:16px;}}
+#cutsceneOverlay .cutscene-bank{max-width:420px;margin:26px auto 6px;padding:14px 0 4px;border-top:1px dashed rgba(255,255,255,.18);font-size:13px;color:rgba(255,255,255,.82);font-variant-numeric:tabular-nums;text-align:left;}
+#cutsceneOverlay .cutscene-bank .cb-head{margin:0 0 8px;font-size:11.5px;letter-spacing:.08em;color:rgba(255,255,255,.5);}
+#cutsceneOverlay .cutscene-bank .cb-row{display:flex;justify-content:space-between;gap:16px;padding:4px 0;}
+#cutsceneOverlay .cutscene-bank .cb-row b{font-weight:500;color:#FFFFFF;white-space:nowrap;}
+#cutsceneOverlay .cutscene-bank .cb-row.out b{color:rgba(255,255,255,.6);}
+#cutsceneOverlay .cutscene-bank .cb-bal{margin-top:6px;padding-top:8px;border-top:1px solid rgba(255,255,255,.12);}
+#cutsceneOverlay .cutscene-bank .cb-bal b{font-weight:700;}
+#cutsceneOverlay .cutscene-btns{display:flex;justify-content:center;gap:28px;flex-wrap:wrap;margin-top:26px;}
+#cutsceneOverlay .cutscene-btns .cutscene-sleep{margin-top:0;padding:6px 28px;}
+#cutsceneOverlay .cutscene-btns .cutscene-more{color:#8A8F86;border-bottom-color:#4A504A;}
+#cutsceneOverlay .cutscene-bank{max-width:none;}
+.sleep-pill{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:88;display:none;font-family:'Noto Sans KR',sans-serif;font-size:13.5px;font-weight:600;color:#FFFFFF;background:#1F2329;border:none;border-radius:999px;padding:11px 22px;box-shadow:0 10px 30px rgba(0,0,0,.22);cursor:pointer;}
+.sleep-pill.show{display:block;animation:fadeIn .25s ease;}
+.sleep-pill:hover{background:#2C3138;}
 </style>
 
+<button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
 <div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
   <form class="bug-card" onsubmit="event.preventDefault();bugSend()" autocomplete="off">
     <p class="bug-title" id="bugTitle">오류 제보하기</p>
@@ -4058,9 +4073,15 @@ const HINTS = [
   {id:140, type:'news', tags:['인터뷰', '기억'], cat:"생활", title:"[인터뷰] 수프 장인 \"기억에 남는 맛은 결국 어머니의 맛\"", outlet:"보스토일보", time:"1주 전", c:4,
     comments:[{"u": "ㅇㅇ", "t": "수프 먹고 싶다"}],
     body:["40년 경력의 수프 장인이 자신의 요리 철학을 들려줬다.", "— 수프를 만들게 된 계기가 있나요. \"어린 시절 추운 겨울에 어머니가 끓여 주신 수프 한 그릇이 계기였습니다. 그 따뜻함을 다른 사람에게도 주고 싶었어요.\"", "— 맛의 비결은 무엇인가요. \"비결이랄 게 없습니다. 재료를 서두르지 않고 오래 우려내는 것뿐이에요. 기억에 남는 맛은 결국 어머니의 맛이라고 생각합니다.\"", "— 앞으로 계획은요. \"제자들에게 레시피를 물려주는 일을 하고 싶습니다. 맛은 사람에게서 사람으로 이어지는 거니까요.\""]},
+  {id:127, company:'바르니아인 연합회', tags:['바르니아','연합회'], cat:"사회", title:"바르니아인 연합회, 회원 게시판 새 단장…준회원 제도로 자녀 세대 참여 늘린다", outlet:"도렌통신", time:"2주 전", c:5,
+    comments:[{"u": "교포2세", "t": "부모님 모임 소식을 저도 볼 수 있으면 좋겠네요"}, {"u": "현지교민", "t": "준회원은 추천받아야 하는 거죠?"}, {"u": "구경꾼", "t": "누가 올리고 누가 확인했는지 남는 건 좋은 듯"}],
+    body:["도렌에 사는 바르니아 출신 주민들의 모임인 바르니아인 연합회가 회원 게시판을 새로 단장했다고 밝혔다. 모임 안내와 구호·장학 소식을 회원끼리 나누는 공간이다.", "연합회는 이번 개편과 함께, 정회원의 추천을 받으면 가족이나 지인도 '준회원'으로 게시판을 볼 수 있게 했다. 이주민 2세와 젊은 세대의 참여를 늘리려는 취지다.", "연합회 관계자는 \"어르신들 소식을 자녀 세대도 함께 볼 수 있게 하고 싶었다\"며 \"글마다 누가 올리고 누가 확인했는지 남도록 해 운영을 투명하게 했다\"고 설명했다."]},
+  {id:128, company:'도렌 공공기록 열람센터', tags:['도렌','공공기록'], cat:"사회", title:"공공기록 열람센터, 물류·통신 기록 온라인 열람 시범 운영", outlet:"도렌통신", time:"1주 전", c:9,
+    comments:[{"u": "현실주의자", "t": "이거 개인 동선 다 드러나는 거 아닌가요"}, {"u": "구경꾼", "t": "택배 수령인 이름까지 나온다는 거죠?"}, {"u": "교포2세", "t": "계정은 아무나 안 준다니 다행이긴 한데"}],
+    body:["도렌 행정구 공공기록 열람센터가 주소별 물류·통신 기록을 온라인으로 열람할 수 있는 서비스를 시범 운영한다고 밝혔다. 그동안은 센터를 직접 찾아가 신청서를 내야 했다.", "열람은 승인된 계정으로만 가능하다. 주소나 장소 이름으로 검색하면 그곳에서 오간 배송·수령 기록과 통신 개통 기록이 나오며, 수령 확인란에는 실제로 물건을 받은 사람의 이름이 남는다.", "일각에서는 \"개인의 생활 동선이 드러날 수 있다\"는 우려도 나왔다. 센터 측은 \"열람 목적을 확인한 뒤에만 계정을 내주고 있다\"고 설명했다."]},
   {id:126, company:'도렌통신', tags:['개명','공고'], cat:"사회", title:"이주민 개명 허가 공고, 도렌통신 지면과 온라인 아카이브에 함께 게재", outlet:"도렌통신", time:"2주 전", c:4,
     comments:[{"u": "교포2세", "t": "개명 공고가 이렇게 다 공개되는 줄 몰랐네요"}, {"u": "현실주의자", "t": "신청 사유까지 나오는 건 좀 과한 거 아닌가"}, {"u": "구경꾼", "t": "아카이브에서 옛날 공고도 찾아지나요"}],
-    body:["도렌 가정법원이 허가한 개명 공고가 올해부터 도렌통신 지면과 온라인 디지털 아카이브에 함께 게재된다. 그동안 법원 게시판에만 붙던 공고를 누구나 열람할 수 있게 한다는 취지다.", "공고에는 신청인의 출신, 변경 후 이름, 신청 사유, 허가일이 기재된다. 개인정보 보호를 위해 변경 전 이름은 싣지 않는다.", "아카이브에서는 '개명'이라는 키워드로 과거 공고를 검색할 수 있다. 법원 관계자는 \"이주민 사회에서 개명 신청이 꾸준히 이어지고 있어 공고 열람 수요가 크다\"고 설명했다."]},
+    body:["도렌 가정법원이 허가한 개명 공고가 올해부터 도렌통신 지면과 온라인 디지털 아카이브에 함께 게재된다. 그동안 법원 게시판에만 붙던 공고를 누구나 열람할 수 있게 한다는 취지다.", "공고에는 신청인의 출신, 변경 전과 후의 이름, 신청 사유, 허가일이 기재된다.", "아카이브에서는 '개명'이라는 키워드로 과거 공고를 검색할 수 있다. 법원 관계자는 \"이주민 사회에서 개명 신청이 꾸준히 이어지고 있어 공고 열람 수요가 크다\"고 설명했다."]},
   {id:150, ending:'A', importance:99, img:'ending/street.png', tags:['서쪽 회관','단속','연행','바르니아'], cat:"사회", title:"서쪽 회관 일대 새벽 단속…회관 관리인 등 바르니아계 주민 여러 명 연행", outlet:"도렌통신", time:"방금 전", c:58,
     comments:[{u:'교포2세',t:'연합회 게시판도 안 열려요'},{u:'현실주의자',t:'정보를 입수했다는데 그 정보는 어디서 나온 건지'},{u:'구경꾼',t:'관리인 할아버지, 몇 년째 그 건물을 지키던 분인데'}],
     body:["14일 새벽 도렌 서쪽 회관 일대에서 당국의 단속이 진행돼, 회관 관리인을 포함한 바르니아계 주민 여러 명이 연행됐다. 단속은 동이 트기 전 30분가량 이어졌다.", "당국은 \"관련 정보를 입수해 사실관계를 확인하고 있다\"고만 밝혔다. 연행된 이들의 신원과 혐의는 공개되지 않았다.", "바르니아인 연합회와는 이날 오전부터 연락이 닿지 않고 있으며, 연합회 회원 게시판도 접속이 끊긴 상태다.", "인근 주민은 \"그 회관에서는 해마다 이맘때 조용히 촛불을 켜는 모임이 있었을 뿐\"이라고 말했다."]},
@@ -4650,14 +4671,14 @@ const BILLS = [
 let paidThrough = 1;
 var reportAfterSleep = false;   /* 8차 뒤 하루 마무리 → 잠들면 결과 확인서 */   /* 생활비를 낸 마지막 이야기 속 날짜(NARR_DAYS 번호). 1 = 10월 31일(1차) */
 function chargeLiving(toDay, silent, delay){
-  if(!(toDay > paidThrough)) return;
-  const a = narrDate(paidThrough), b = narrDate(toDay); if(!a || !b) return;
+  if(!(toDay > paidThrough)) return [];
+  const a = narrDate(paidThrough), b = narrDate(toDay); if(!a || !b) return [];
   const days = Math.round((b - a) / 86400000);
   const items = [];
   if(days > 0) items.push({amount: -DAILY_LIVING * days, label: '생활비(식비·교통비) · ' + days + '일분'});
   BILLS.forEach(x => { const t = new Date(2026, x.m - 1, x.d); if(t > a && t <= b) items.push({amount: -x.amount, label: x.label}); });
   paidThrough = toDay;
-  if(!items.length) return;
+  if(!items.length) return [];
   const sum = items.reduce((n, x) => n - x.amount, 0);
   bankBalance -= sum;
   items.forEach(x => bankTx.unshift({amount: x.amount, label: x.label, fresh: !silent}));
@@ -4667,6 +4688,7 @@ function chargeLiving(toDay, silent, delay){
     setTimeout(() => osNotify('도렌은행', '출금 ' + sum.toLocaleString() + '원', body, 'bank'), delay == null ? 1200 : delay);
     try{ saveProgress(); }catch(e){}
   }
+  return items;
 }
 function renderBankcard(){
   const el = document.getElementById('bankcard');
@@ -5190,7 +5212,7 @@ function applyEffect(name){
   else if(name === 'chainAssign4'){ antonSchedule(3); queueDelivery('assign4', 45000, ASSIGNMENT4_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS3_MAIL.id] = 124; }
   else if(name === 'chainAssign5'){ antonSchedule(4); queueDelivery('assign5', 45000, ASSIGNMENT5_MAIL.id, {skipIfPresent:true}); pendingCutscene[SUCCESS4_MAIL.id] = 125; }
   else if(name === 'chainContact1'){ antonSchedule(5); pendingCutscene[SUCCESS5_MAIL.id] = 'day:5'; queueDelivery('contact1', 60000, CONTACT1_MAIL.id, {skipIfPresent:true, effect:'chainAssign6'}); }
-  else if(name === 'chainAssign6'){ queueDelivery('assign6', 90000, ASSIGNMENT6_MAIL.id, {skipIfPresent:true}); }
+  else if(name === 'chainAssign6'){ queueDelivery('assign6', 12000, ASSIGNMENT6_MAIL.id, {skipIfPresent:true}); }
   else if(name === 'chainAssign7'){ pendingCutscene[SUCCESS6_MAIL.id] = 'day:6'; queueDelivery('assign7', 45000, ASSIGNMENT7_MAIL.id, {skipIfPresent:true, effect:'hint126'}); }
   else if(name === 'chainAssign8'){ pendingCutscene[SUCCESS7_MAIL.id] = 'day:7'; queueDelivery('assign8', 45000, ASSIGNMENT8_MAIL.id, {skipIfPresent:true}); }
   else if(name === 'finalChoice'){ setTimeout(() => { if(!endingChosen && reportStage !== 'open' && !reportAfterSleep && !document.getElementById('cutsceneOverlay').classList.contains('show')) msgFire('reportNext'); }, 30000); }   /* 다나에게 답하지 않아도 하루 마무리 → 다음 날 확인서 */
@@ -5520,6 +5542,8 @@ function goToMainScreen(){
 function endDay(){
   gameDay++;
   chargeLiving(Math.min(narrResolved() + 1, 9), false, 1200);   /* 잠들면 다음 날까지 지난 날짜만큼 생활비·공과금 출금 */
+  /* 잠들고 나면 다음 날 메일이 곧바로 도착(델라 메일 3초, 의뢰 메일 6초 안에) */
+  Object.keys(pendingDeliveries).forEach(uid => { const d = pendingDeliveries[uid]; if(!/^(assign\d|contact1)$/.test(d.mailId || '')) return; const due = Date.now() + (d.mailId === 'contact1' ? 3000 : 6000); if(d.due > due){ d.due = due; armTimer(uid, due - Date.now()); } });
   if(reportAfterSleep){ reportAfterSleep = false; setTimeout(() => { if(!endingChosen && reportStage !== 'open') reportOpen(); }, 2600); }
   renderList();
   TABS = TABS.filter(t => t.kind === 'search' || t.kind === 'mail' || t.kind === 'oldmail');
@@ -5537,7 +5561,7 @@ function maybeShowCutscene(mailId){
   setTimeout(() => { csWaiting = Math.max(0, csWaiting - 1); showCutscene(hintId); }, CUTSCENE_DELAY_MS);
 }
 function showCutscene(hintId){
-  if(/^day:\d$/.test(String(hintId))){ showDayEnd(+String(hintId).slice(4)); return; }
+  if(/^day:\d$/.test(String(hintId))){ const art = {5:127, 6:126, 7:128, 8:123}[+String(hintId).slice(4)]; if(art && HINTS.some(x => x.id === art)) hintId = art; else { showDayEnd(+String(hintId).slice(4)); return; } }
   const a = HINTS.find(x => x.id === hintId);
   if(!a) return;
   addDynamicArticle(hintId);
@@ -5550,20 +5574,45 @@ function showCutscene(hintId){
   parts.push('<p class="cutscene-cat cs-in" style="' + at(0.45) + '">' + a.cat + ' · ' + a.outlet + ' · ' + a.time + '</p>');
   parts.push('<h2 class="cutscene-title cs-in" style="' + at(0.8) + '">' + a.title + '</h2>');
   a.body.forEach(p => parts.push('<p class="cutscene-text cs-in" style="' + at(0.95) + '">' + p + '</p>'));
-  parts.push('<button type="button" class="cutscene-sleep cs-in" id="cutsceneSleep" style="' + at(0) + '">오늘은 이만 잠들기</button>');
+  { const st = dayStatementHtml(); if(st) parts.push('<div class="cutscene-bank cs-in" style="' + at(0.9) + '">' + st + '</div>'); }
+  parts.push('<div class="cutscene-btns cs-in" style="' + at(0) + '"><button type="button" class="cutscene-sleep" id="cutsceneSleep">오늘은 이만 잠들기</button><button type="button" class="cutscene-sleep cutscene-more" id="cutsceneMore">사이트 더 둘러보기</button></div>');
   document.getElementById('cutsceneBody').innerHTML = parts.join('');
   ov.scrollTop = 0;
   ov.classList.add('show');
   clearTimeout(window._csReady);
   window._csReady = setTimeout(() => card.classList.add('ready'), t * 1000 + 500);
   ov.onclick = () => { card.classList.add('skip', 'ready'); };
-  document.getElementById('cutsceneSleep').onclick = e => {
-    e.stopPropagation();
-    ov.classList.remove('show');
-    endDay();
-  };
+  csBindButtons(ov);
+}
+/* 하루 마무리 화면의 통장 내역: 오늘 들어온 사례금(+)과 다음 날까지의 생활비·공과금(−, 이때 출금), 잔액 */
+function dayStatementHtml(){
+  const n = narrResolved(); if(!n) return '';
+  const S = [SUCCESS_MAIL, SUCCESS2_MAIL, SUCCESS3_MAIL, SUCCESS4_MAIL, SUCCESS5_MAIL, SUCCESS6_MAIL, SUCCESS7_MAIL, SUCCESS8_MAIL][n - 1];
+  const r = S && REWARD_BY_MAIL[S.id];
+  const out = chargeLiving(Math.min(n + 1, 9), true) || [];
+  const rows = [];
+  if(r) rows.push({label: r.label.replace('이스크라 베타테스트팀 · ', '이스크라 · '), amount: r.amount});
+  out.forEach(x => rows.push({label: x.label, amount: x.amount}));
+  if(!rows.length) return '';
+  const fmt = v => (v < 0 ? '−' : '+') + Math.abs(v).toLocaleString() + '원';
+  return '<p class="cb-head">도렌은행 · 오늘의 입출금</p>' +
+    rows.map(x => '<div class="cb-row' + (x.amount < 0 ? ' out' : '') + '"><span>' + x.label + '</span><b>' + fmt(x.amount) + '</b></div>').join('') +
+    '<div class="cb-row cb-bal"><span>잔액</span><b>' + bankBalance.toLocaleString() + '원</b></div>';
 }
 /* 관련 기사가 없는 날(5·6·7차 뒤)의 하루 마무리: 기사 컷씬과 같은 검은 화면 + 잠들기 */
+/* 하루 마무리 버튼: 바로 잠들기, 또는 사이트를 더 둘러본 뒤 화면 아래 버튼으로 잠들기(그날 안톤의 미션 등) */
+var dayEndPending = false;
+function csBindButtons(ov){
+  dayEndPending = true; try{ saveProgress(); }catch(e){}
+  document.getElementById('cutsceneSleep').onclick = e => { e.stopPropagation(); ov.classList.remove('show'); sleepNow(); };
+  document.getElementById('cutsceneMore').onclick = e => { e.stopPropagation(); ov.classList.remove('show'); sleepPillSync(); };
+}
+function sleepNow(){ dayEndPending = false; sleepPillSync(); endDay(); }
+function sleepPillSync(){
+  const b = document.getElementById('sleepPill'); if(!b) return;
+  const ov = document.getElementById('cutsceneOverlay');
+  b.classList.toggle('show', dayEndPending && !(ov && ov.classList.contains('show')) && !endingChosen && !badEnding);
+}
 function showDayEnd(n){
   const ov = document.getElementById('cutsceneOverlay'), card = ov.querySelector('.cutscene-card');
   card.classList.remove('skip', 'ready');
@@ -5581,14 +5630,14 @@ function showDayEnd(n){
   parts.push('<h2 class="cutscene-title cs-in" style="' + at(0.8) + '">오늘 하루가 끝났습니다</h2>');
   if(r) parts.push('<p class="cutscene-text cs-in" style="' + at(0.8) + '">통장에 ' + r.amount.toLocaleString() + '원이 들어와 있었습니다. 잔액은 ' + bankBalance.toLocaleString() + '원입니다.</p>');
   lines.forEach(p => parts.push('<p class="cutscene-text cs-in" style="' + at(0.9) + '">' + p + '</p>'));
-  parts.push('<button type="button" class="cutscene-sleep cs-in" id="cutsceneSleep" style="' + at(0) + '">오늘은 이만 잠들기</button>');
+  parts.push('<div class="cutscene-btns cs-in" style="' + at(0) + '"><button type="button" class="cutscene-sleep" id="cutsceneSleep">오늘은 이만 잠들기</button><button type="button" class="cutscene-sleep cutscene-more" id="cutsceneMore">사이트 더 둘러보기</button></div>');
   document.getElementById('cutsceneBody').innerHTML = parts.join('');
   ov.scrollTop = 0;
   ov.classList.add('show');
   clearTimeout(window._csReady);
   window._csReady = setTimeout(() => card.classList.add('ready'), t * 1000 + 500);
   ov.onclick = () => { card.classList.add('skip', 'ready'); };
-  document.getElementById('cutsceneSleep').onclick = e => { e.stopPropagation(); ov.classList.remove('show'); endDay(); };
+  csBindButtons(ov);
 }
 document.addEventListener('keydown', e => {
   const ov = document.getElementById('cutsceneOverlay');
@@ -5610,7 +5659,7 @@ function fireDelivery(uid){
     const resFire = o => /^result:/.test(o.fire || '');
     const unanswered = (msgState.ackO || []).some(resFire) || (msgState.chain || []).some(it => (it.o || []).some(resFire));
     const ov = document.getElementById('cutsceneOverlay');
-    if(unanswered || csWaiting > 0 || (ov && ov.classList.contains('show'))){
+    if(unanswered || csWaiting > 0 || dayEndPending || (ov && ov.classList.contains('show'))){
       if(unanswered) msgClearOpts();
       d.due = Date.now() + 4000; armTimer(uid, 4000); return;
     }
@@ -5659,7 +5708,7 @@ function hideAssignReply(){ document.getElementById('assignReplyBox').classList.
 function sendAssignReply(){
   msgClearOpts();
   const correct = !!capturedEvidence && capturedEvidence.item === '쌀' && capturedEvidence.to === '그라노프 물류허브';
-  queueDelivery('result1', 15000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
+  queueDelivery('result1', 8000, correct ? SUCCESS_MAIL.id : RETRY_MAIL.id, {
     pendingFlag: 'assignmentPending',
     resolvedFlag: correct ? 'assignmentResolved' : null,
     effect: correct ? 'chainAssign2' : 'hint116'
@@ -5673,7 +5722,7 @@ function hideAssign2Reply(){ document.getElementById('assign2ReplyBox').classLis
 function sendAssign2Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence2 && capturedEvidence2.id === 'org1' && !!capturedEvidence3 && capturedEvidence3.id === 'listing1';
-  queueDelivery('result2', 15000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
+  queueDelivery('result2', 8000, correct ? SUCCESS2_MAIL.id : RETRY2_MAIL.id, {
     pendingFlag: 'assignment2Pending',
     resolvedFlag: correct ? 'assignment2Resolved' : null,
     effect: correct ? 'chainAssign3' : null
@@ -5690,7 +5739,7 @@ function sendAssign3Reply(){
   const kw = (document.getElementById('assign3Keyword').value || '').trim();
   const correct = ASSIGN3_KEYWORDS.some(k => kw.includes(k));
   if(correct) assign3Word = kw;
-  queueDelivery('result3', 15000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
+  queueDelivery('result3', 8000, correct ? SUCCESS3_MAIL.id : RETRY3_MAIL.id, {
     pendingFlag: 'assignment3Pending',
     resolvedFlag: correct ? 'assignment3Resolved' : null,
     effect: correct ? 'chainAssign4' : null
@@ -5703,7 +5752,7 @@ function hideAssign4Reply(){ document.getElementById('assign4ReplyBox').classLis
 function sendAssign4Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence4 && capturedEvidence4.id === 'alum1';
-  queueDelivery('result4', 15000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
+  queueDelivery('result4', 8000, correct ? SUCCESS4_MAIL.id : RETRY4_MAIL.id, {
     pendingFlag: 'assignment4Pending',
     resolvedFlag: correct ? 'assignment4Resolved' : null,
     effect: correct ? 'chainAssign5' : null
@@ -5716,7 +5765,7 @@ function hideAssign7Reply(){ document.getElementById('assign7ReplyBox').classLis
 function sendAssign7Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence7 && capturedEvidence7.id === 'arc5';
-  queueDelivery('result7', 15000, correct ? SUCCESS7_MAIL.id : RETRY7_MAIL.id, {
+  queueDelivery('result7', 8000, correct ? SUCCESS7_MAIL.id : RETRY7_MAIL.id, {
     pendingFlag: 'assignment7Pending',
     resolvedFlag: correct ? 'assignment7Resolved' : null,
     effect: correct ? 'chainAssign8' : null
@@ -5728,7 +5777,7 @@ function hideAssign8Reply(){ document.getElementById('assign8ReplyBox').classLis
 function sendAssign8Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence8 && capturedEvidence8.id === 'd1';
-  queueDelivery('result8', 15000, correct ? SUCCESS8_MAIL.id : RETRY8_MAIL.id, {
+  queueDelivery('result8', 8000, correct ? SUCCESS8_MAIL.id : RETRY8_MAIL.id, {
     pendingFlag: 'assignment8Pending',
     resolvedFlag: correct ? 'assignment8Resolved' : null,
     effect: correct ? 'finalChoice' : null
@@ -5740,7 +5789,7 @@ function hideAssign6Reply(){ document.getElementById('assign6ReplyBox').classLis
 function sendAssign6Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence6 && capturedEvidence6.id === 'b4';
-  queueDelivery('result6', 15000, correct ? SUCCESS6_MAIL.id : RETRY6_MAIL.id, {
+  queueDelivery('result6', 8000, correct ? SUCCESS6_MAIL.id : RETRY6_MAIL.id, {
     pendingFlag: 'assignment6Pending',
     resolvedFlag: correct ? 'assignment6Resolved' : null,
     effect: correct ? 'chainAssign7' : null
@@ -5752,7 +5801,7 @@ function hideAssign5Reply(){ document.getElementById('assign5ReplyBox').classLis
 function sendAssign5Reply(){
   msgClearOpts();
   const correct = !!capturedEvidence5 && (capturedEvidence5.id === 'arc2' || capturedEvidence5.id === 'arc3');
-  queueDelivery('result5', 15000, correct ? SUCCESS5_MAIL.id : RETRY5_MAIL.id, {
+  queueDelivery('result5', 8000, correct ? SUCCESS5_MAIL.id : RETRY5_MAIL.id, {
     pendingFlag: 'assignment5Pending',
     resolvedFlag: correct ? 'assignment5Resolved' : null,
     effect: correct ? 'chainContact1' : null
@@ -7372,7 +7421,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
-      bankBalance, bankTx, paidThrough, reportAfterSleep, scrapped, notesDone, introSeen,
+      bankBalance, bankTx, paidThrough, reportAfterSleep, dayEndPending, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue, mailAt, antonTalk,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -7442,6 +7491,7 @@ function loadProgress(){
   bankBalance = saved.bankBalance || 0;
   paidThrough = saved.paidThrough || 1;
   reportAfterSleep = !!saved.reportAfterSleep;
+  dayEndPending = !!saved.dayEndPending;
   omOpened = !!saved.omOpened;
   (saved.omReadIds || []).forEach(id => { const m = [NEW_MAIL, INTRO_TUITION_MAIL].find(x => x.id === id); if(m) m.unread = false; });
   mailAt = saved.mailAt || {};
@@ -7664,9 +7714,9 @@ function msgRender(){
     const last = !next || next.t !== m.t || !nextSameDay;
     if(m.t === 'sys'){ html += '<div class="msys">'+msgEsc(m.x)+'</div>'; prev = m; return; }
     if(m.t === 'me'){
-      html += '<div class="mrow2 me'+(first?'':' cont')+'">'+(last?'<span class="st">'+(m.read?'읽음 · ':'')+msgClock(m.ts)+'</span>':'')+'<div class="mm me">'+msgEsc(m.x)+'</div></div>';
+      html += '<div class="mrow2 me'+(first?'':' cont')+'">'+(last?'<span class="st">'+(m.read?'읽음 · ':'')+msgTime(m)+'</span>':'')+'<div class="mm me">'+msgEsc(m.x)+'</div></div>';
     } else {
-      html += '<div class="mrow2'+(first?' first':' cont')+'"><span class="ma"></span><div class="mm bot">'+m.x+'</div>'+(last?'<span class="tm">'+msgClock(m.ts)+'</span>':'')+'</div>';
+      html += '<div class="mrow2'+(first?' first':' cont')+'"><span class="ma"></span><div class="mm bot">'+m.x+'</div>'+(last?'<span class="tm">'+msgTime(m)+'</span>':'')+'</div>';
     }
     prev = m;
   });
@@ -7705,9 +7755,16 @@ function msgDayNow(){
   const started = FOLDERS.inbox.some(m => m.id === 'assign1' || m.id === 'tutorial1');
   return started ? Math.min(9, gameDay + 1) : 0;
 }
+/* 메신저 시각: 그날 정해진 시각에서 시작해 실제로 흐른 만큼 진행(첫날 저녁 6:20, 의뢰 날 오전 10:00, 확인서·엔딩 날 오전 9:00) */
+function msgStoryMin(d){
+  const base = d === 0 ? 18 * 60 + 20 : d >= 9 ? 9 * 60 : 10 * 60;
+  if(!msgState.dayStart || msgState.dayStart.d !== d) msgState.dayStart = {d: d, real: Date.now()};
+  return Math.min(23 * 60 + 59, base + Math.floor((Date.now() - msgState.dayStart.real) / 60000));
+}
+function msgTime(m){ return typeof m.tm === 'number' ? clockStr(m.tm) : msgClock(m.ts); }
 function msgDayLabel(d){ const dt = narrDate(d); return dt ? (NARR_DAYS[d] + ' ' + '일월화수목금토'[dt.getDay()] + '요일') : ''; }
 function msgPush(role, text, silent){
-  msgState.log.push({t:role, x:text, ts:Date.now(), read:false, d:msgDayNow()});
+  { const d = msgDayNow(); msgState.log.push({t:role, x:text, ts:Date.now(), read:false, d:d, tm:msgStoryMin(d)}); }
   if(role === 'bot' && !msgOpen && !silent){ msgState.unread++; msgPeekShow(text); try{ if(navigator.vibrate) navigator.vibrate(40); }catch(e){} }
   msgSave(); msgRender();
 }
@@ -7803,10 +7860,16 @@ function msgResult(id){
   const arr = JSON.parse(JSON.stringify(seq));
   if(/^success/.test(id)) arr[0].dep = id;
   msgStartChain(arr, 1200, true);
+  /* 결과를 알린 뒤 잠시 읽을 시간을 주고, 답을 고르지 않았어도 하루 마무리(잠들기)로 넘어감 */
+  if(/^success/.test(id)) setTimeout(() => {
+    const resFire = o => /^(result:|reportNext$)/.test(o.fire || '');
+    const pend = (msgState.ackO || []).some(resFire) || (msgState.chain || []).some(it => (it.o || []).some(resFire));
+    if(pend && !msgTyping) msgClearOpts();
+  }, 11000);
 }
 function msgFire(name){
   if(name.indexOf('bad:') === 0){ badFire(name.slice(4)); return; }
-  if(name === 'reportNext'){ if(!endingChosen && reportStage !== 'open'){ reportAfterSleep = true; saveProgress(); setTimeout(() => showDayEnd(8), 2600); } return; }
+  if(name === 'reportNext'){ if(!endingChosen && reportStage !== 'open'){ reportAfterSleep = true; saveProgress(); setTimeout(() => showCutscene('day:8'), 2600); } return; }
   if(name === 'reportOpen'){ if(!endingChosen && reportStage !== 'open') reportOpen(); return; }
   if(name.indexOf('result:') === 0){
     const id = name.slice(7);
@@ -8217,7 +8280,8 @@ updateInboxBadge();
 msgInit();
 /*DEV*/try{ const _j = sessionStorage.getItem('iskra_jump'); if(_j){ sessionStorage.removeItem('iskra_jump'); applyJump(parseInt(_j,10)); } }catch(e){}/*/DEV*/
 try{ endingResume(); }catch(e){}
-try{ if(reportAfterSleep && !endingChosen && reportStage !== 'open') setTimeout(() => showDayEnd(8), 1500); }catch(e){}
+try{ sleepPillSync(); }catch(e){}
+try{ if(reportAfterSleep && !endingChosen && reportStage !== 'open') setTimeout(() => showCutscene('day:8'), 1500); }catch(e){}
 /*DEV*/try{ const _b = sessionStorage.getItem('iskra_bad'); if(_b){ sessionStorage.removeItem('iskra_bad'); setTimeout(() => { checkpointSave(); badStart(_b); }, 1200); } }catch(e){}/*/DEV*/
 /*DEV*/try{ const _e = sessionStorage.getItem('iskra_end'); if(_e){ sessionStorage.removeItem('iskra_end'); setTimeout(() => { if(_e === 'C') reportOpen(); else { finalChoiceOpen(); finalEnding(_e); } }, 1200); } }catch(e){}/*/DEV*/
 </script>
