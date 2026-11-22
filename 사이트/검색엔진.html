@@ -4497,10 +4497,14 @@ function dnuRender(){
 /* 카페 소베크 근무표: 날마다 대타 요청이 올라오고, 맡으면 그날 밤 시급이 들어옴 */
 const SHIFT_WAGE = 10500;
 const SHIFT_POSTS = [
+  {d:1, who:'민', time:'18:00~21:00', h:3, text:'오늘 저녁에 갑자기 조별 과제 회의가 잡혔어요. 세 시간만 대신해 줄 사람 있을까요?'},
   {d:2, who:'소피', time:'18:00~22:00', h:4, text:'과제 마감이 겹쳐서 오늘 저녁 근무를 못 하게 됐어요. 대신해 줄 수 있는 사람 있을까요?'},
+  {d:3, who:'점장', time:'17:00~21:00', h:4, text:'오늘 원두 들어오는 날이라 저녁에 손이 모자라요. 가능한 사람은 말해 주세요.'},
   {d:4, who:'민', time:'17:00~22:00', h:5, text:'동생 학교 행사가 갑자기 잡혔어요. 마감까지 부탁해요. 다음에 꼭 갚을게요.'},
+  {d:5, who:'소피', time:'19:00~22:00', h:3, text:'오늘 저녁 가족 모임이 있어서요. 마감 세 시간만 부탁해요!'},
   {d:6, who:'점장', time:'18:00~21:00', h:3, text:'오늘 저녁에 단체 예약이 있어서 한 사람 더 필요해요. 가능한 사람은 말해 주세요.'},
-  {d:7, who:'소피', time:'18:00~22:00', h:4, text:'감기 기운이 있어서요… 혹시 오늘 저녁 가능한 사람 있을까요?'}
+  {d:7, who:'소피', time:'18:00~22:00', h:4, text:'감기 기운이 있어서요… 혹시 오늘 저녁 가능한 사람 있을까요?'},
+  {d:8, who:'민', time:'18:00~22:00', h:4, text:'시험이 내일이라 오늘은 도저히 못 나가겠어요. 마지막으로 한 번만 부탁해요.'}
 ];
 var cafeShifts = {};   /* {날짜번호: {paid:true/false}} */
 function sobekRender(){
@@ -6061,7 +6065,7 @@ function omStartGate(){
     setTimeout(() => icon.classList.remove('ding'), 500);
   }, 1400);
 }
-const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dr-mail.dr", "subject": "[카페 소베크] 다음 주 근무표 안내", "preview": "다음 주 근무표 보내 드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "다음 주(11월 첫째 주) 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 그 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dr", "subject": "[연합회] 11월 정기모임 안내", "preview": "11월 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "11월 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 마렌 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "가족분들과 함께 오셔도 좋습니다.", "회원 전용 안내는 회원 게시판에 먼저 올라옵니다.<br>게시판: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('board','연합회 게시판','V')\">varnia-assoc.dr</a>", "바르니아인 연합회 사무국"], "translated": false}, {"id": "mom", "sender": "미라 (엄마)", "addr": "mira.s@dr-mail.dr", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락하렴.", "다음 달 둘째 주 토요일에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dr", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
+const OLDMAIL_EXTRA = [{"id": "cafe", "sender": "카페 소베크", "addr": "sobek.cafe@dr-mail.dr", "subject": "[카페 소베크] 다음 주 근무표 안내", "preview": "다음 주 근무표 보내 드려요. 변경이 필요하면 미리 말해 주세요.", "time": "10월 29일", "unread": false, "body": ["레나 학생, 안녕하세요. 카페 소베크 점장입니다.", "다음 주(11월 첫째 주) 근무표 안내드립니다.<br>월·수 14:00~20:00 / 토 10:00~18:00", "소피 선배가 그 주에 휴가라서, 혹시 토요일 오후에 한 타임 더 도와줄 수 있으면 알려 주세요. 시험 기간이면 무리하지 않아도 괜찮아요.", "대타 요청은 직원 근무표에 올라와요.<br><a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();bmOpen('sobek')\">카페 소베크 근무표 보기 →</a>", "수고하세요. 점장 드림"], "translated": false}, {"id": "assoc", "sender": "바르니아인 연합회 사무국", "addr": "union@varnia-assoc.dr", "subject": "[연합회] 11월 정기모임 안내", "preview": "11월 정기모임은 둘째 주 토요일, 연합회 회관에서 열립니다.", "time": "10월 27일", "unread": false, "body": ["회원 여러분께,", "11월 정기모임 안내드립니다.", "일시: 11월 둘째 주 토요일 오후 3시<br>장소: 마렌 거리 연합회 회관", "안건: ① 고향 소식 공유 ② 겨울 구호성금 모금 ③ 통행증 갱신 대행 신청 안내", "가족분들과 함께 오셔도 좋습니다.", "회원 전용 안내는 회원 게시판에 먼저 올라옵니다.<br>게시판: <a href=\"#\" class=\"inlink\" onclick=\"event.preventDefault();openTab('board','연합회 게시판','V')\">varnia-assoc.dr</a>", "바르니아인 연합회 사무국"], "translated": false}, {"id": "mom", "sender": "미라 (엄마)", "addr": "mira.s@dr-mail.dr", "subject": "레나에게", "preview": "밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "time": "10월 24일", "unread": false, "body": ["레나, 밥은 잘 챙겨 먹고 있니? 요즘 일교차가 크니 감기 조심해야 한다.", "고향 외삼촌한테서 소식이 왔는데, 바르니아는 통제가 심해져 메일은 고사하고 전화도 잘 안 된다는구나.<br>통행증이 아직 안 나와서 올겨울에도 오기 어렵겠다고 하더라. 외할머니 산소에는 올해도 내가 대신 꽃을 놓고 왔다.", "등록금 내야 할 때가 되지 않았니?<br>걱정하지 마라. 엄마가 이번 달 야간 일을 조금 더 해 보마. 돈이 필요하면 꼭 연락하렴.", "다음 달 둘째 주 토요일에 연합회 모임이 있다던데, 네가 시간이 되면 같이 가자꾸나.<br>사람들이 너 많이 컸겠다고 보고 싶어 해.", "사랑한다, 우리 딸.<br>엄마가"], "translated": true}, {"id": "power", "sender": "도렌전력 고객센터", "addr": "bill@dorenpower.dr", "subject": "10월분 전기요금 청구서", "preview": "10월분 전기요금 청구서가 발행되었습니다.", "time": "10월 20일", "unread": false, "body": ["고객님, 안녕하세요. 도렌전력입니다.", "10월분 전기요금 청구서가 발행되었습니다.<br>청구 금액: 18,400원<br>납부 기한: 11월 10일", "자동이체를 신청하시면 매월 편리하게 납부하실 수 있습니다."], "translated": false}];
 const OLDMAIL_LIST = [NEW_MAIL, INTRO_TUITION_MAIL].concat(OLDMAIL_EXTRA);
 /* ===== 안톤(백스토리) — 기관이 별생각 없이 만든 스크랩 기능을 안톤이 안에서 고쳐 두었다.
    의뢰를 마칠 때마다 안톤의 질문이 하나씩 열리고, 인터넷 기록을 찾아 근거를 스크랩한 뒤 답해야 한다 ===== */
@@ -8737,6 +8741,7 @@ function msgFire(name){
   if(name === 'introDone'){
     queueDelivery('tutorial1', 1500, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
     queueDelivery('assign1', 32000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
+    setTimeout(() => { try{ if(narrToday() === 1) cafeMorning(); }catch(e){} }, 60000);   /* 첫날 저녁 대타 요청(카페 미니게임 입구) */
   }
 }
 function msgPick(i){
