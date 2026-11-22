@@ -5749,6 +5749,7 @@ function fireDelivery(uid){
   }
   if(d.effect) applyEffect(d.effect);
   refreshChips();
+  try{ msgRenderChips(); }catch(e){}
   saveProgress();
 }
 function forceDayEnd(){
@@ -5769,6 +5770,7 @@ function queueDelivery(uid, delayMs, mailId, opts){
   if(opts.pendingFlag) setFlag(opts.pendingFlag, true);
   saveProgress();
   armTimer(uid, delayMs);
+  try{ msgRenderChips(); }catch(e){}
 }
 function resumePendingDeliveries(saved){
   pendingDeliveries = saved || {};
@@ -7811,6 +7813,8 @@ function msgRenderChips(){
   let chips;
   if(msgState.ackO.length){
     chips = msgState.ackO.map((o,i) => ['pick'+i, o.r]);
+  } else if(Object.keys(pendingDeliveries || {}).some(u => /^result\d$/.test(u))){
+    chips = [];   /* 회신 메일을 보냈으면 결과가 올 때까지 선택지를 막음 */
   } else if(msgState.followup){
     chips = [['yes','도움 됐어요'],['no','아직 모르겠어요'],['cap','캡처는 어떻게 해요?']];
   } else if(msgStage().n === 0){
