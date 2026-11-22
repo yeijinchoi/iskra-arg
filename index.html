@@ -3423,6 +3423,18 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-alumni .an2-search,#panel-alumni .an2-quick button,#panel-alumni .an2-card,#panel-alumni .an2-c{background:#FFFFFF;}
 #panel-alumni,#panel-alumni .al-page{background:#FAFAFA!important;}
 .re2-search input{background:#FFFFFF;border:1px solid #E3E3E3;}
+/* 네모칸 테두리 없애기: #FAFAFA 바탕엔 흰 카드, 흰 바탕엔 #FAFAFA 카드, 작은 칸·표시는 옅은 회색 면 */
+.sp-tile,.vc,.an2-quick button,.an2-card,.an2-c,.re2-card,.na2-tabs button{border:none!important;}
+.sp-tile,.vc,.an2-quick button,.an2-card,.an2-c,.re2-card,.na2-tabs button:not(.on){background:#FFFFFF;}
+.sp .ap-sec .sp-tile{background:#FAFAFA;}
+.sp-tile:hover,.vc:hover,.an2-quick button:hover,.re2-card.link:hover,.na2-tabs button:not(.on):hover{background:#F5F5F5;}
+.vc.big:hover{background:#FFFFFF;}
+.gv-card{border:none!important;background:#FAFAFA;}
+.sp-date{border:none!important;background:#F5F5F5;}
+.tt-c{border:none!important;background:#F5F5F5!important;}
+.vc small,.re2-card .t em{border:none!important;background:#F5F5F5;}
+.ap-chips button,.ap-tag{border:none!important;background:#F5F5F5;}
+.an2-card span{border-top:none;padding-top:0;}
 </style>
 
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
