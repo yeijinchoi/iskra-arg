@@ -5,3 +5,8 @@
 ._*
 .DS_Store
 *.code-workspace
+
+# 테스트 실행 결과물
+play_*.png
+play_log.txt
+play_report_save.json
