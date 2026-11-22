@@ -3195,6 +3195,117 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 #panel-orginfo .og-nav button:hover:not(.active),#panel-listing .ls-nav button:hover:not(.active),#panel-alumni .al-nav button:hover:not(.active),#panel-archive .ar-nav button:hover:not(.active){background:#F5F5F5;}
 #panel-search{background:#FFFFFF;}
 #panel-oldmail .omsetup::before,#panel-oldmail .omsetup::after{display:none;}
+/* 근무표(국내 근무·휴가 앱 레퍼런스) */
+.sf{padding:22px 20px 40px;}
+.sf-h{margin:0 0 14px;font-size:24px;font-weight:700;letter-spacing:-.02em;color:var(--ink);}
+.sf-tabs{display:flex;gap:18px;border-bottom:1px solid #E6E6E6;margin-bottom:18px;}
+.sf-tabs button{background:none;border:none;padding:0 0 10px;font:inherit;font-size:15px;font-weight:500;color:#9AA0A8;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;}
+.sf-tabs button.on{color:var(--ink);font-weight:700;border-bottom-color:var(--ink);}
+.sf-tabs em{font-style:normal;font-size:12px;color:var(--st);margin-left:2px;}
+.sf-month{text-align:center;margin:0 0 12px;font-size:15px;font-weight:600;}
+.sf-week{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin-bottom:18px;}
+.sf-d{display:flex;flex-direction:column;align-items:center;gap:2px;padding:8px 0 6px;position:relative;}
+.sf-d b{font-size:17px;font-weight:600;}
+.sf-d small{font-size:12px;color:#6B7280;}
+.sf-d.sun b,.sf-d.sun small{color:#C2412D;}
+.sf-d.on{background:#2B2B2B;}
+.sf-d.on b,.sf-d.on small{color:#FFFFFF;}
+.sf-d em{width:4px;height:4px;border-radius:50%;background:var(--st);margin-top:2px;}
+.sf-d.on em{background:#FFFFFF;}
+.sf-row{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:1px solid #EEEEEE;font-size:15px;}
+.sf-row span{color:var(--ink);}
+.sf-row b{font-weight:600;}
+.sf-bar{margin:2px 0 14px;}
+.sf-track{position:relative;height:8px;background:#EEEEEE;}
+.sf-track i{position:absolute;top:0;bottom:0;}
+.sf-track i.fix{background:var(--st);}
+.sf-track i.cover{background:#C29A3A;}
+.sf-ticks{display:flex;justify-content:space-between;margin-top:4px;font-size:11px;color:#9AA0A8;}
+.sf-list{list-style:none;margin:0;padding:0;border-top:1px solid #EEEEEE;}
+.sf-list li{display:flex;align-items:center;gap:10px;padding:14px 0;border-bottom:1px solid #EEEEEE;font-size:15px;}
+.sf-list li i{width:8px;height:8px;border-radius:50%;}
+.sf-list li i.fix{background:var(--st);}
+.sf-list li i.cover{background:#C29A3A;}
+.sf-list li b{margin-left:auto;font-weight:500;}
+.sf-list li.off{color:#6B7280;}
+.sf-req{list-style:none;margin:0;padding:0;}
+.sf-req li{padding:14px 0;border-bottom:1px solid #EEEEEE;}
+.sf-req .t{display:flex;align-items:baseline;gap:8px;}
+.sf-req .t b{font-size:15px;font-weight:600;}
+.sf-req .t small{font-size:12.5px;color:#6B7280;}
+.sf-req p{margin:4px 0 10px;font-size:14px;line-height:1.55;color:#3A3F45;}
+.sf-req .a{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px;color:#6B7280;}
+.sf-foot{margin:20px 0 0;font-size:12.5px;color:#9AA0A8;}
+/* 학사포털(학생 포털 앱 레퍼런스) */
+.sp-top{padding:22px 18px 18px;border-bottom:1px solid #E6E6E6;}
+.sp-uni{margin:0;font-size:12.5px;color:#6B7280;}
+.sp-top h1{margin:4px 0 2px;font-size:22px;font-weight:700;letter-spacing:-.02em;}
+.sp-sub{margin:0;font-size:13px;color:#6B7280;}
+.sp-tiles{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.sp-tile{position:relative;text-align:left;background:#FFFFFF;border:1px solid #E3E3E3;padding:14px 14px 12px;font:inherit;cursor:pointer;transition:background .15s ease;}
+.sp-tile:hover{background:#F5F5F5;}
+.sp-tile b{display:block;font-size:15px;font-weight:600;}
+.sp-tile small{display:block;margin-top:2px;font-size:12.5px;color:#6B7280;}
+.sp-tile i{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-style:normal;font-size:18px;color:#9AA0A8;}
+.sp-ev{list-style:none;margin:0;padding:0;}
+.sp-ev li{display:flex;gap:12px;align-items:center;padding:10px 0;border-top:1px solid #EEEEEE;}
+.sp-ev li:first-child{border-top:none;padding-top:0;}
+.sp-date{width:44px;flex-shrink:0;text-align:center;border:1px solid #E3E3E3;padding:4px 0;}
+.sp-date small{display:block;font-size:11px;color:#6B7280;}
+.sp-date b{display:block;font-size:17px;font-weight:700;color:var(--st);}
+.sp-ev div b{display:block;font-size:14px;font-weight:600;}
+.sp-ev div small{font-size:12.5px;color:#6B7280;}
+/* 사전(단어장 앱 레퍼런스) */
+.vd{padding:22px 18px 40px;}
+.vd-h{margin:0;font-size:22px;font-weight:700;color:var(--st);letter-spacing:-.02em;}
+.vd-sub{margin:4px 0 16px;font-size:13px;color:#6B7280;}
+.vd-search{position:static;padding:0;margin-bottom:16px;}
+.vc{border:1px solid #E3E3E3;padding:14px 16px;margin-bottom:10px;cursor:pointer;transition:background .15s ease;}
+.vc:hover{background:#F5F5F5;}
+.vc.big{cursor:default;border-color:#CFCFCF;}
+.vc.big:hover{background:#FFFFFF;}
+.vc small{display:inline-block;font-size:11.5px;color:#6B7280;border:1px solid #DDDDDD;border-radius:4px;padding:0 6px;}
+.vc b{display:block;margin-top:6px;font-size:22px;font-weight:700;color:var(--ink);}
+.vc.big b{font-size:28px;color:var(--st);}
+.vc span{display:block;font-size:14px;color:#4B5563;margin-top:2px;}
+.vc p{margin:8px 0 0;font-size:14px;line-height:1.6;}
+.vc p.ex{color:#4B5563;padding-top:8px;border-top:1px solid #EEEEEE;}
+.vc p.memo{font-size:13px;color:#6B7280;margin-top:6px;}
+.vd-h2{font-size:16px;font-weight:700;margin:22px 0 10px;}
+.vd-h2 small{font-size:13px;color:#6B7280;font-weight:500;margin-left:4px;}
+.vd-none{margin:0 0 14px;}
+/* 단체정보마당: 공공 교육포털 메인 레퍼런스 */
+.gv2{text-align:center;padding-top:28px;}
+.gv2 .gv-h1{font-size:30px;}
+.gv2 .gv-desc{margin:8px 0 24px;}
+.gv2 .gv-search{border:none;padding:0;max-width:720px;margin:0 auto;background:none;}
+.gv2 .gv-row{border:2px solid #1D2530;gap:0;}
+.gv2 .gv-row select{border:none;border-right:1px solid #DDDDDD;background:#FFFFFF;padding:0 14px;font:inherit;font-size:15px;color:#1D2530;height:52px;}
+.gv2 .gv-row input{border:none;height:52px;font-size:16px;}
+.gv2 .gv-row button{height:52px;border-radius:0;padding:0 30px;}
+.gv2 .gv-hint{text-align:center;}
+.gv-h2{text-align:left;margin:40px 0 12px;border-bottom:1px solid #1D2530;padding-bottom:10px;}
+.gv-h2 h2{margin:0;font-size:18px;font-weight:700;color:#1D2530;}
+.gv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;}
+.gv-card{border:1px solid #DDDDDD;padding:18px 18px 16px;display:flex;flex-direction:column;gap:8px;min-height:120px;}
+.gv-card small{font-size:12.5px;color:#2C5877;font-weight:600;}
+.gv-card b{font-size:15px;font-weight:600;color:#1D2530;line-height:1.5;flex:1;}
+.gv-card span{font-size:12.5px;color:#6B7484;}
+.gv-info{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;text-align:left;margin:24px 0 0;padding-top:18px;border-top:1px solid #E6E6E6;}
+.gv-info dt{font-size:13px;font-weight:600;color:#1D2530;}
+.gv-info dd{margin:3px 0 0;font-size:13px;color:#4A5463;line-height:1.55;}
+@media (max-width:640px){.gv-cards,.gv-info{grid-template-columns:1fr;}.gv2 .gv-row select{padding:0 8px;}.gv2 .gv-row button{padding:0 16px;}.gv2 .gv-h1{font-size:24px;}}
+/* 라덴통상 ERP 로그인: 국내 로그인 화면 레퍼런스(왼쪽 정렬 큰 제목·옅은 회색 입력칸·꽉 찬 버튼) */
+#panel-raden .gate{background:#FFFFFF!important;}
+#panel-raden .gatebox.gate-split{border:none!important;box-shadow:none!important;max-width:400px;}
+#panel-raden .gate-brand{background:none!important;border:none!important;padding:0 0 22px!important;flex-direction:row!important;align-items:center;justify-content:flex-start!important;gap:10px!important;}
+#panel-raden .gb-mark{width:32px!important;height:32px!important;border:none!important;}
+#panel-raden .gb-title{font-size:14px!important;font-weight:600!important;margin:0!important;}
+#panel-raden .gb-title br,#panel-raden .gb-sub{display:none;}
+#panel-raden .gate-form{padding:0!important;}
+#panel-raden .gate-form .gf-h{font-size:28px!important;font-weight:700!important;margin:0 0 6px!important;}
+#panel-raden .gate-form input{background:#F5F5F5!important;border:none!important;height:50px;font-size:15px;}
+#panel-raden .gate-form .gbtn{height:52px;font-size:16px;}
 </style>
 
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
@@ -3742,27 +3853,20 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 </div>
 
 <div id="ogHome" class="og-page">
-  <div class="gv">
-    <p class="gv-crumb">홈 &rsaquo; 단체 등록정보 조회</p>
+  <div class="gv gv2">
     <h1 class="gv-h1">단체 등록정보 조회</h1>
     <p class="gv-desc">도렌 상공회의소와 지방자치단체에 등록된 민간단체의 등록 현황을 조회합니다.</p>
     <form class="gv-search" onsubmit="ogSearch(event)">
-      <label for="ogSearchInput">단체명 · 등록번호</label>
-      <div class="gv-row"><input id="ogSearchInput" type="text" placeholder="단체명 또는 등록번호" autocomplete="off"><button type="submit">조회</button></div>
+      <div class="gv-row"><select aria-label="검색 구분"><option>단체명</option><option>등록번호</option></select><input id="ogSearchInput" type="text" placeholder="검색어를 입력하세요" autocomplete="off"><button type="submit">조회</button></div>
       <p class="gv-hint">대표자 성명은 개인정보 보호를 위해 일부를 가려서 표시합니다.</p>
     </form>
-    <div class="gv-cols">
-      <section class="gv-box"><h2>공지사항</h2>
-        <table class="gv-tbl"><thead><tr><th>번호</th><th>제목</th><th>등록일</th></tr></thead><tbody>
-          <tr><td>42</td><td>2026년 하반기 결산서류 제출 안내</td><td>2026.10.19</td></tr>
-          <tr><td>41</td><td>등록정보 변경 시 첨부서류 간소화 시행</td><td>2026.09.02</td></tr>
-          <tr><td>40</td><td>시스템 정기 점검 안내 (매주 일요일 02:00~04:00)</td><td>2026.07.14</td></tr>
-        </tbody></table></section>
-      <section class="gv-box"><h2>조회 안내</h2>
-        <dl class="gv-dl"><div><dt>조회 항목</dt><dd>단체명, 등록번호, 등록 상태, 대표자, 소재지, 설립일, 등록기관, 목적사업</dd></div>
-        <div><dt>이용 시간</dt><dd>24시간 (매주 일요일 02:00~04:00 점검)</dd></div>
-        <div><dt>문의</dt><dd>민원 상담 110 (평일 09:00~18:00)</dd></div></dl></section>
+    <div class="gv-h2"><h2>공지사항</h2></div>
+    <div class="gv-cards">
+      <div class="gv-card"><small>안내</small><b>2026년 하반기 결산서류 제출 안내</b><span>2026.10.19</span></div>
+      <div class="gv-card"><small>제도</small><b>등록정보 변경 시 첨부서류 간소화 시행</b><span>2026.09.02</span></div>
+      <div class="gv-card"><small>점검</small><b>시스템 정기 점검 안내 (매주 일요일 02:00~04:00)</b><span>2026.07.14</span></div>
     </div>
+    <dl class="gv-info"><div><dt>조회 항목</dt><dd>단체명, 등록번호, 등록 상태, 대표자, 소재지, 설립일, 등록기관, 목적사업</dd></div><div><dt>이용 시간</dt><dd>24시간 (매주 일요일 02:00~04:00 점검)</dd></div><div><dt>문의</dt><dd>민원 상담 110 (평일 09:00~18:00)</dd></div></dl>
   </div>
 </div>
 
@@ -4707,6 +4811,7 @@ document.addEventListener('click', e => { const m = document.getElementById('bmM
 function bmOpen(k){
   const st = BM_SITES[k]; if(!st) return;
   ['bmMenu', 'chromeMenu'].forEach(id => { const el = document.getElementById(id); if(el) el.classList.add('hidden'); });
+  if(k === 'sobek'){ const td = narrToday(); sobekTab = SHIFT_POSTS.some(x => x.d === td && !cafeShifts[x.d]) && !dayEndPending ? 'req' : 'work'; }
   openTab(k, st.title, st.fav);
   setAddr(k, st.addr);
   bmRender(k);
@@ -4720,38 +4825,45 @@ const won = v => v.toLocaleString() + '원';
 
 /* 학사포털: 등록금 고지서. 2학기 등록금 324만 원, 기한 11월 30일 */
 const TUITION = 3240000;
+/* 학사포털: 학생 포털 앱 화면(인사말·검색, 바로가기 타일, 다가오는 일정) */
+function dnuGo(id){ const t = document.getElementById(id); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); }
 function dnuRender(){
   const el = document.getElementById('bmDnu'); if(!el) return;
   const paid = endingChosen === 'A';
   const td = narrDate(narrToday()) || new Date(2026, 9, 30);
   const dday = Math.max(0, Math.round((new Date(2026, 10, 30) - td) / 86400000));
-  /* 레나의 2학기 시간표(월·수 오후는 카페 근무라 비워 둠) */
   const CL = [
-    {n:'도렌어 글쓰기', r:'인문관 204', d:[0, 2], s:9, e:10.25, c:'#EFE6DA'},
-    {n:'현대사회와 이주', r:'사회관 311', d:[1, 3], s:10.5, e:11.75, c:'#E3E8DD'},
-    {n:'통계학 입문', r:'자연관 105', d:[0, 2], s:11, e:12.25, c:'#E2E5EC'},
-    {n:'기록과 기억', r:'인문관 402', d:[1, 3], s:13.5, e:14.75, c:'#EEE1E3'},
-    {n:'바르니아어 기초', r:'외국어관 B12', d:[4], s:15, e:17, c:'#E9E3D2'}
+    {n:'도렌어 글쓰기', r:'인문관 204', d:[0, 2], s:9, e:10.25},
+    {n:'현대사회와 이주', r:'사회관 311', d:[1, 3], s:10.5, e:11.75},
+    {n:'통계학 입문', r:'자연관 105', d:[0, 2], s:11, e:12.25},
+    {n:'기록과 기억', r:'인문관 402', d:[1, 3], s:13.5, e:14.75},
+    {n:'바르니아어 기초', r:'외국어관 B12', d:[4], s:15, e:17}
   ];
-  const H0 = 9, H1 = 18, rowH = 34;
+  const H0 = 9, H1 = 18, rowH = 32;
   const grid = '<div class="tt"><div class="tt-h"><span></span>' + ['월', '화', '수', '목', '금'].map(d => '<span>' + d + '</span>').join('') + '</div>' +
     '<div class="tt-b" style="height:' + (H1 - H0) * rowH + 'px">' +
       '<div class="tt-hours">' + Array.from({length: H1 - H0}, (_, i) => '<span style="top:' + i * rowH + 'px">' + (H0 + i) + '</span>').join('') + '</div>' +
       Array.from({length: H1 - H0}, (_, i) => '<i class="tt-line" style="top:' + i * rowH + 'px"></i>').join('') +
       CL.map(c => c.d.map(d => '<div class="tt-c" style="left:calc(28px + (100% - 28px) / 5 * ' + d + ');top:' + (c.s - H0) * rowH + 'px;height:' + (c.e - c.s) * rowH + 'px"><b>' + c.n + '</b><span>' + c.r + '</span></div>').join('')).join('') +
     '</div></div>';
-  el.innerHTML = '<div class="ap">' +
-    '<header class="ap-hd"><div><small>도렌 국립대학교</small><h1>학사포털</h1></div><span class="ap-me">' + msgEsc(playerName.slice(0, 1)) + '</span></header>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>2학기 등록금</h2><span class="ap-tag">' + (paid ? '완납' : '미납') + '</span></div>' +
-      '<p class="ap-big">' + won(TUITION) + '</p>' +
-      '<p class="ap-sub">' + (paid ? '납부가 확인되었습니다.' : '납부 기한 11월 30일 · <b class="ap-acc">D-' + dday + '</b>') + '</p>' +
-      '<ul class="ap-kv"><li><span>장학금 감면</span><b>0원</b></li><li><span>분할 납부</span><b>기한 전 신청 가능</b></li></ul></section>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>내 시간표</h2><span class="ap-meta">2026년 2학기 · 15학점</span></div>' + grid + '</section>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>장학금 심사 결과</h2></div>' +
-      '<ul class="ap-list"><li><b>이주민 가정 학업장려 장학금</b><p>선발되지 않았습니다. 올해는 지원자가 많아 선발 인원을 줄였습니다.</p><small>10/24 · 학생지원팀</small></li>' +
+  const tile = (id, t, sub) => '<button type="button" class="sp-tile" onclick="dnuGo(\'' + id + '\')"><b>' + t + '</b><small>' + sub + '</small><i>&rsaquo;</i></button>';
+  const ev = (m, d, t, sub) => '<li><span class="sp-date"><small>' + m + '월</small><b>' + d + '</b></span><div><b>' + t + '</b><small>' + sub + '</small></div></li>';
+  el.innerHTML = '<div class="ap sp">' +
+    '<div class="sp-top"><p class="sp-uni">도렌 국립대학교 학사포털</p><h1>안녕하세요, ' + msgEsc(playerName) + ' 님</h1><p class="sp-sub">2026학년도 2학기 · 재학</p></div>' +
+    '<section class="ap-sec"><div class="ap-sh"><h2>바로가기</h2></div><div class="sp-tiles">' +
+      tile('dnuFee', '등록금', paid ? '완납' : 'D-' + dday + ' · 미납') + tile('dnuTt', '시간표', '15학점') + tile('dnuSch', '장학금', '심사 결과') + tile('dnuNews', '학사 공지', '새 공지 1') +
+    '</div></section>' +
+    '<section class="ap-sec"><div class="ap-sh"><h2>다가오는 일정</h2></div><ul class="sp-ev">' +
+      ev(11, 30, '2학기 등록금 납부 마감', paid ? '납부 완료' : '분할 납부는 기한 전 신청') + ev(12, 1, '기말시험 기간 시작', '도서관 24시간 개방') + ev(12, 19, '2학기 종강', '성적 공개 12월 29일') +
+    '</ul></section>' +
+    '<section class="ap-sec" id="dnuFee"><div class="ap-sh"><h2>2학기 등록금</h2><span class="ap-tag">' + (paid ? '완납' : '미납') + '</span></div>' +
+      '<p class="ap-big">' + won(TUITION) + '</p><ul class="ap-kv"><li><span>납부 기한</span><b>2026년 11월 30일</b></li><li><span>장학금 감면</span><b>0원</b></li><li><span>분할 납부</span><b>기한 전 신청 가능</b></li></ul></section>' +
+    '<section class="ap-sec" id="dnuTt"><div class="ap-sh"><h2>내 시간표</h2><span class="ap-meta">2026년 2학기</span></div>' + grid + '</section>' +
+    '<section class="ap-sec" id="dnuSch"><div class="ap-sh"><h2>장학금 심사 결과</h2></div><ul class="ap-list">' +
+      '<li><b>이주민 가정 학업장려 장학금</b><p>선발되지 않았습니다. 올해는 지원자가 많아 선발 인원을 줄였습니다.</p><small>10/24 · 학생지원팀</small></li>' +
       '<li><b>교내 근로 장학생</b><p>대기 순번 14번입니다. 자리가 나면 문자로 알려 드립니다.</p><small>10/20 · 학생지원팀</small></li></ul></section>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>학사 공지</h2></div>' +
-      '<ul class="ap-list"><li><b>2학기 등록금 분할 납부 신청 안내</b><p>11월 30일까지 학사포털에서 신청하면 두 번에 나눠 낼 수 있습니다.</p><small>11/03 · 학사지원팀</small></li>' +
+    '<section class="ap-sec" id="dnuNews"><div class="ap-sh"><h2>학사 공지</h2></div><ul class="ap-list">' +
+      '<li><b>2학기 등록금 분할 납부 신청 안내</b><p>11월 30일까지 학사포털에서 신청하면 두 번에 나눠 낼 수 있습니다.</p><small>11/03 · 학사지원팀</small></li>' +
       '<li><b>기말시험 기간 도서관 24시간 개방</b><p>12월 1일부터 2주 동안 중앙도서관 1층 열람실을 24시간 엽니다.</p><small>10/28 · 중앙도서관</small></li>' +
       '<li><b>이주민 가정 학생 상담 주간 운영</b><p>학업·생활·진로 상담을 학생상담센터에서 예약 없이 받을 수 있습니다.</p><small>10/20 · 학생상담센터</small></li></ul></section>' +
   '</div>';
@@ -4770,35 +4882,48 @@ const SHIFT_POSTS = [
   {d:8, who:'민', time:'18:00~22:00', h:4, text:'시험이 내일이라 오늘은 도저히 못 나가겠어요. 마지막으로 한 번만 부탁해요.'}
 ];
 var cafeShifts = {};   /* {날짜번호: {paid:true/false}} */
+/* 카페 근무표: 국내 근무·휴가 앱 화면(큰 제목·탭·월 선택·주간 날짜 띠·주간 근무시간·시간 막대·근무 목록) */
+var sobekTab = 'work';
 function sobekRender(){
   const el = document.getElementById('bmSobek'); if(!el) return;
   const today = narrToday(), td = narrDate(today) || new Date(2026, 9, 31);
   const dayName = '일월화수목금토';
-  /* 이번 주(월~일) 근무: 고정 근무 월·수 14~20, 토 10~18 + 맡은 대타 */
   const mon = new Date(td); mon.setDate(td.getDate() - ((td.getDay() + 6) % 7));
-  const FIX = {1:'14-20', 3:'14-20', 6:'10-18'};
   const week = Array.from({length: 7}, (_, i) => { const d = new Date(mon); d.setDate(mon.getDate() + i); return d; });
-  const coverOn = d => { const k = NARR_DAYS.findIndex((x, i) => { const nd = narrDate(i); return nd && nd.getTime() === d.getTime(); }); const p = k >= 0 && SHIFT_POSTS.find(x => x.d === k); return p && cafeShifts[k] ? p.time.replace(/:00/g, '').replace('~', '-') : ''; };
-  const strip = '<div class="wk">' + week.map(d => { const on = d.getTime() === td.getTime(), fx = FIX[d.getDay()], cv = coverOn(d);
-    return '<div class="wk-d' + (on ? ' on' : '') + '"><small>' + dayName[d.getDay()] + '</small><b>' + d.getDate() + '</b>' + (fx ? '<span>' + fx + '</span>' : '') + (cv ? '<span class="cv">대타 ' + cv + '</span>' : '') + (!fx && !cv ? '<span class="off">휴무</span>' : '') + '</div>'; }).join('') + '</div>';
-  const todayPost = SHIFT_POSTS.find(x => x.d === today), mineToday = cafeShifts[today], fixToday = FIX[td.getDay()];
-  const nowLine = mineToday && todayPost ? '오늘 ' + todayPost.time + ' 대타 근무' : fixToday ? '오늘 ' + fixToday.replace('-', ':00~') + ':00 고정 근무' : '오늘은 근무가 없어요';
-  const earned = Object.keys(cafeShifts).reduce((n, k) => { const p = SHIFT_POSTS.find(x => x.d === +k); return n + (p ? p.h * SHIFT_WAGE + (cafeShifts[k].tips || 0) : 0); }, 0);
-  const posts = SHIFT_POSTS.filter(x => x.d <= today).slice().reverse();
-  const postHtml = posts.map(x => {
-    const mine = cafeShifts[x.d], open = x.d === today && !mine && !dayEndPending && !endingChosen;
-    let act;
-    if(mine) act = '<span class="st">' + (mine.paid ? '입금 완료' : '오늘 밤 입금') + ' · ' + won(x.h * SHIFT_WAGE + (mine.tips || 0)) + '</span>' + (!mine.played && !mine.paid && x.d === today && !dayEndPending ? '<button type="button" class="ap-btn" onclick="cgOpen(' + x.d + ')">근무하러 가기</button>' : '');
-    else if(open) act = '<span class="st">' + x.h + '시간 · ' + won(x.h * SHIFT_WAGE) + '</span><button type="button" class="ap-btn" onclick="sobekTake(' + x.d + ')">제가 할게요</button>';
-    else act = '<span class="st">' + (x.d === today ? '오늘은 더 맡을 수 없어요' : '다른 사람이 맡았어요') + '</span>';
-    return '<li class="rq' + (open ? ' open' : '') + '"><span class="av">' + x.who.slice(0, 1) + '</span><div class="rq-b"><div class="rq-t"><b>' + x.who + '</b><small>' + NARR_DAYS[x.d] + ' · ' + x.time + '</small></div><p>' + x.text + '</p><div class="rq-a">' + act + '</div></div></li>';
-  }).join('');
-  el.innerHTML = '<div class="ap">' +
-    '<header class="ap-hd"><div><small>카페 소베크 · 직원</small><h1>근무표</h1></div><span class="ap-me">' + msgEsc(playerName.slice(0, 1)) + '</span></header>' +
-    '<section class="ap-sec"><p class="ap-date">' + (td.getMonth() + 1) + '월 ' + td.getDate() + '일 ' + dayName[td.getDay()] + '요일</p><p class="ap-now">' + nowLine + '</p>' + strip + '</section>' +
-    '<section class="ap-sec"><ul class="ap-kv"><li><span>이번 달 대타 수입</span><b>' + won(earned) + '</b></li><li><span>시급</span><b>' + won(SHIFT_WAGE) + '</b></li></ul></section>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>대타 요청</h2><span class="ap-meta">맡으면 바로 근무 시작</span></div>' + (postHtml ? '<ul class="rqs">' + postHtml + '</ul>' : '<p class="ap-empty">아직 올라온 요청이 없어요.</p>') + '</section>' +
-    '<section class="ap-sec"><p class="ap-note">시험 기간에는 미리 말해 주면 빼 줄게요. — 점장</p></section>' +
+  const FIX = {1:[14, 20], 3:[14, 20], 6:[10, 18]};
+  const dayIdx = d => NARR_DAYS.findIndex((x, i) => { const nd = narrDate(i); return nd && nd.getTime() === d.getTime(); });
+  const shiftsOn = d => { const out = []; const f = FIX[d.getDay()]; if(f) out.push({k:'고정 근무', s:f[0], e:f[1], c:'fix'});
+    const k = dayIdx(d), p = k >= 0 && SHIFT_POSTS.find(x => x.d === k);
+    if(p && cafeShifts[k]){ const t = p.time.split('~').map(x => +x.split(':')[0]); out.push({k:'대타 (' + p.who + ')', s:t[0], e:t[1], c:'cover'}); }
+    return out; };
+  const weekH = week.reduce((n, d) => n + shiftsOn(d).reduce((m, x) => m + (x.e - x.s), 0), 0);
+  const todayS = shiftsOn(td), todayH = todayS.reduce((m, x) => m + (x.e - x.s), 0);
+  const md = d => (d.getMonth() + 1) + '.' + d.getDate() + ' (' + dayName[d.getDay()] + ')';
+  const bar = '<div class="sf-bar"><div class="sf-track">' + todayS.map(x => '<i class="' + x.c + '" style="left:' + ((x.s - 6) / 16 * 100) + '%;width:' + ((x.e - x.s) / 16 * 100) + '%"></i>').join('') + '</div><div class="sf-ticks">' + [6, 8, 10, 12, 14, 16, 18, 20, 22].map(h => '<span>' + h + '</span>').join('') + '</div></div>';
+  const strip = '<div class="sf-week">' + week.map(d => '<div class="sf-d' + (d.getTime() === td.getTime() ? ' on' : '') + (d.getDay() === 0 ? ' sun' : '') + '"><b>' + d.getDate() + '</b><small>' + dayName[d.getDay()] + '</small>' + (shiftsOn(d).length ? '<em></em>' : '') + '</div>').join('') + '</div>';
+  let body;
+  if(sobekTab === 'work'){
+    body = strip +
+      '<div class="sf-row"><span>' + md(week[0]) + ' - ' + md(week[6]) + '</span><b>' + weekH + '시간 근무</b></div>' +
+      '<div class="sf-row"><span>근무시간</span><b>' + (todayH ? todayH + '시간' : '오늘은 휴무') + '</b></div>' + bar +
+      '<ul class="sf-list">' + (todayS.length ? todayS.map(x => '<li><i class="' + x.c + '"></i><span>' + x.k + '</span><b>' + String(x.s).padStart(2, '0') + ':00 - ' + x.e + ':00</b></li>').join('') : '<li class="off"><span>오늘은 잡힌 근무가 없어요.</span></li>') + '</ul>';
+  } else {
+    const posts = SHIFT_POSTS.filter(x => x.d <= today).slice().reverse();
+    body = '<ul class="sf-req">' + posts.map(x => {
+      const mine = cafeShifts[x.d], open = x.d === today && !mine && !dayEndPending && !endingChosen;
+      let act;
+      if(mine) act = '<span>' + (mine.paid ? '입금 완료' : '오늘 밤 입금') + ' · ' + won(x.h * SHIFT_WAGE + (mine.tips || 0)) + '</span>' + (!mine.played && !mine.paid && x.d === today && !dayEndPending ? '<button type="button" class="ap-btn" onclick="cgOpen(' + x.d + ')">근무하러 가기</button>' : '');
+      else if(open) act = '<span>' + x.h + '시간 · ' + won(x.h * SHIFT_WAGE) + '</span><button type="button" class="ap-btn" onclick="sobekTake(' + x.d + ')">제가 할게요</button>';
+      else act = '<span>' + (x.d === today ? '오늘은 더 맡을 수 없어요' : '다른 사람이 맡았어요') + '</span>';
+      return '<li><div class="t"><b>' + x.who + '</b><small>' + NARR_DAYS[x.d] + ' · ' + x.time + '</small></div><p>' + x.text + '</p><div class="a">' + act + '</div></li>';
+    }).join('') + '</ul>';
+  }
+  const reqN = SHIFT_POSTS.filter(x => x.d === today && !cafeShifts[x.d]).length;
+  el.innerHTML = '<div class="ap sf">' +
+    '<h1 class="sf-h">근무표</h1>' +
+    '<div class="sf-tabs"><button type="button" class="' + (sobekTab === 'work' ? 'on' : '') + '" onclick="sobekTab=\'work\';sobekRender()">내 근무</button><button type="button" class="' + (sobekTab === 'req' ? 'on' : '') + '" onclick="sobekTab=\'req\';sobekRender()">대타 요청' + (reqN ? ' <em>' + reqN + '</em>' : '') + '</button></div>' +
+    '<p class="sf-month">' + td.getFullYear() + '년 ' + (td.getMonth() + 1) + '월</p>' + body +
+    '<p class="sf-foot">카페 소베크 · 시급 ' + won(SHIFT_WAGE) + '</p>' +
   '</div>';
 }
 function sobekTake(d){
@@ -5171,22 +5296,18 @@ const DICT_NOTES = [
   ['오스타르', '엄마한테 제일 먼저 하고 싶은 말.']
 ];
 var dictCur = '';
+/* 사전: 단어장 앱 화면(품사 라벨·큰 단어·뜻의 카드 목록) */
+const DICT_POS = {'엄마':'명사', '밥 먹었어요?':'표현', '고마워요':'표현', '괜찮아요':'표현', '미안해요':'표현', '보고 싶어요':'표현', '고향':'명사', '집':'명사', '가족':'명사', '생일 축하해요':'표현', '사랑해요':'표현', '촛불':'명사', '졸업':'명사', '기억하다':'동사'};
 function dictRender(){
   const el = document.getElementById('bmDict'); if(!el) return;
   const e = DICT.find(x => x.k === dictCur);
-  const recent = ['생일 축하해요', '미안해요', '괜찮아요', '고향', '엄마'];
-  const entry = dictCur ? (e
-    ? '<section class="ap-sec"><div class="dw"><span class="dw-lang">도렌어 → 바르니아어</span><h2 class="dw-w">' + e.v + '</h2><p class="dw-p">[' + e.p + ']</p><p class="dw-k">' + e.k + '</p></div>' +
-        '<ol class="dw-m"><li>' + e.m + '</li></ol>' + (e.ex ? '<div class="dw-ex"><small>예문</small><p>' + e.ex + '</p></div>' : '') + '</section>'
-    : '<section class="ap-sec"><p class="ap-empty">\'' + msgEsc(dictCur) + '\'에 해당하는 말이 사전에 없습니다.</p></section>') : '';
-  el.innerHTML = '<div class="ap">' +
-    '<header class="ap-hd dict"><div><small>바르니아어-도렌어</small><h1>사전</h1></div></header>' +
-    '<form class="ap-search" onsubmit="event.preventDefault();dictLook(this.q.value)"><input name="q" type="text" placeholder="도렌어 단어 검색" value="' + (dictCur ? msgEsc(dictCur) : '') + '" autocomplete="off"><button type="submit">검색</button></form>' +
-    entry +
-    '<section class="ap-sec"><div class="ap-sh"><h2>최근 검색</h2></div><div class="ap-chips">' + recent.map(k => '<button type="button" onclick="dictLook(\'' + k + '\')">' + k + '</button>').join('') + '</div></section>' +
-    '<section class="ap-sec"><div class="ap-sh"><h2>내 단어장</h2><span class="ap-meta">' + DICT_NOTES.length + '개</span></div><ul class="ap-list">' +
-      DICT_NOTES.map(n => { const w = DICT.find(x => x.p === n[0]); return '<li class="wb" onclick="dictLook(\'' + (w ? w.k : '') + '\')"><b>' + n[0] + (w ? ' <span>' + w.k + '</span>' : '') + '</b><p>' + n[1] + '</p></li>'; }).join('') +
-    '</ul></section>' +
+  const card = (w, big) => '<div class="vc' + (big ? ' big' : '') + '"' + (big ? '' : ' onclick="dictLook(\'' + w.k + '\')"') + '><small>' + (DICT_POS[w.k] || '표현') + '</small><b>' + w.v + '</b><span>' + w.k + ' · [' + w.p + ']</span>' + (big ? '<p>' + w.m + '</p>' + (w.ex ? '<p class="ex">' + w.ex + '</p>' : '') : '') + '</div>';
+  const notes = DICT_NOTES.map(n => { const w = DICT.find(x => x.p === n[0]); return w ? '<div class="vc" onclick="dictLook(\'' + w.k + '\')"><small>' + (DICT_POS[w.k] || '표현') + '</small><b>' + w.v + '</b><span>' + w.k + '</span><p class="memo">' + n[1] + '</p></div>' : ''; }).join('');
+  el.innerHTML = '<div class="ap vd">' +
+    '<h1 class="vd-h">바르니아어 사전</h1><p class="vd-sub">도렌어로 찾고, 바르니아어로 말해 보세요.</p>' +
+    '<form class="ap-search vd-search" onsubmit="event.preventDefault();dictLook(this.q.value)"><input name="q" type="text" placeholder="도렌어 단어 검색" value="' + (dictCur ? msgEsc(dictCur) : '') + '" autocomplete="off"><button type="submit">검색</button></form>' +
+    (dictCur ? (e ? card(e, true) : '<p class="ap-empty vd-none">\'' + msgEsc(dictCur) + '\'에 해당하는 말이 사전에 없습니다.</p>') : '') +
+    '<h2 class="vd-h2">내 단어장 <small>' + DICT_NOTES.length + '</small></h2>' + notes +
   '</div>';
 }
 function dictLook(q){
