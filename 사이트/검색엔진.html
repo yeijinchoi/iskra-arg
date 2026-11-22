@@ -4653,7 +4653,7 @@ function pxSprite(key, dir, frame){
     const len = st === 'long' ? 16 : st === 'bob' ? 10 : st === 'pony' ? 8 : 7;
     rect(17, hy + 4, 6, len, C.hair); rect(20, hy + 4, 3, len, C.hairS);
     if(st === 'pony'){ rect(23, hy + 8, 2, 2, C.hair); rect(23, hy + 10, 3, 8, C.hair); rect(25, hy + 11, 1, 7, C.hairS); }
-    rect(11, hy + 9, 1, 3, '#2A1C16');
+    rect(12, hy + 8, 1, 3, '#2A1C16');   /* 눈: 얼굴 앞쪽 끝(코 자리)에서 안쪽·위로 */
   }
   /* --- 외곽선: 채운 칸 둘레의 빈 칸을 어두운 색으로 --- */
   const out = g.map(r => r.slice());
