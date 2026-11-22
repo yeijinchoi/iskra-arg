@@ -2834,12 +2834,8 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .cg-stage{--t:calc(100cqw / 16);position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:6px;background:#111;user-select:none;-webkit-user-select:none;}
 .cg-map{position:absolute;inset:0;width:100%;height:100%;image-rendering:pixelated;}
 .cg-act{position:absolute;left:0;top:0;width:var(--t);height:var(--t);transform:translate(calc(var(--x) * var(--t)), calc(var(--y) * var(--t)));transition:transform .14s linear;pointer-events:none;}
-.cg-act img{position:absolute;image-rendering:pixelated;}
-.cg-act.walk img{animation:cgBob .28s steps(2) infinite;}
+.cg-act img{position:absolute;left:0;top:calc(var(--t) * -.5);width:var(--t);height:calc(var(--t) * 1.5);image-rendering:pixelated;}
 .cg-act.flip img{transform:scaleX(-1);}
-.cg-act.walk.flip img{animation-name:cgBobF;}
-@keyframes cgBob{50%{transform:translateY(-3%);}}
-@keyframes cgBobF{0%,100%{transform:scaleX(-1);}50%{transform:scaleX(-1) translateY(-3%);}}
 .cg-act.leave{opacity:0;transition:opacity .5s ease;}
 .cg-act.come{animation:cgCome .5s ease both;}
 @keyframes cgCome{from{opacity:0;}}
@@ -2866,7 +2862,7 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 .cg-help{margin:0;color:#8A8F96;font-size:12px;text-align:center;}
 @media (hover:none), (max-width:640px){.cg-pad{display:flex;}.cg-help{display:none;}}
 @media (max-width:640px){.cg{padding:10px;align-items:flex-start;padding-top:max(16px, env(safe-area-inset-top));}.cg-hud{gap:10px;font-size:12px;}}
-@media (prefers-reduced-motion:reduce){.cg-act{transition:none;}.cg-act.walk img{animation:none;}}
+@media (prefers-reduced-motion:reduce){.cg-act{transition:none;}}
 /* 수집 노트: 영수증 */
 #collectModal .rc-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;max-height:calc(100dvh - 32px);width:100%;max-width:340px;}
 .rc-paper{--zz:8px;position:relative;width:100%;box-sizing:border-box;overflow-y:auto;background:#FFFFFF;color:#2A2D31;
@@ -4552,10 +4548,138 @@ function cafePay(silent){
   }
   return items;
 }
+/* 도트 캐릭터 직접 찍기: 32×48 격자(배경 한 칸 = 32px), 위에서 비스듬히 내려다본 각도. 방향 down/up/left(right는 좌우 반전), 걷기 프레임 0(서기)·1·2, 앉기 */
+const PX_CHARS = {
+  lena: {skin:'#D8A47F', skinS:'#B9845F', hair:'#4A3124', hairS:'#33211A', top:'#E6DFD0', topS:'#BDB4A3', bot:'#3B3431', botS:'#2A2422', shoe:'#231B17', apron:'#5B6237', apronS:'#454B29', style:'pony'},
+  c1:   {skin:'#6A4632', skinS:'#4F3324', hair:'#B9B5AD', hairS:'#8F8B84', top:'#8A5A35', topS:'#6B4427', bot:'#2F3647', botS:'#222836', shoe:'#211A15', style:'short'},
+  c2:   {skin:'#E0B48F', skinS:'#C19470', hair:'#1F1B1B', hairS:'#141111', top:'#4C5C3F', topS:'#38452E', bot:'#4A4038', botS:'#362E28', shoe:'#5C5650', style:'student'},
+  c3:   {skin:'#EDC6A5', skinS:'#CFA584', hair:'#9E4E2B', hairS:'#7A3A1F', top:'#8E8B86', topS:'#6E6B66', bot:'#3A3939', botS:'#292828', shoe:'#3B2A20', style:'bob'},
+  c4:   {skin:'#B7825F', skinS:'#966445', hair:'#1D1919', hairS:'#100D0D', top:'#B08A3B', topS:'#8C6C2A', bot:'#4E5A3E', botS:'#3A432D', shoe:'#3A2A20', style:'long', skirt:true}
+};
+const PX_OUT = '#1A120E';
+function pxSprite(key, dir, frame){
+  const C = PX_CHARS[key], W = 32, H = 48;
+  const g = Array.from({length:H}, () => Array(W).fill(null));
+  const put = (x, y, c) => { if(x >= 0 && x < W && y >= 0 && y < H && c) g[y][x] = c; };
+  const rect = (x0, y0, w, h, c) => { for(let y = y0; y < y0 + h; y++) for(let x = x0; x < x0 + w; x++) put(x, y, c); };
+  const ell = (cx, cy, rx, ry, c, test) => { for(let y = Math.floor(cy - ry); y <= Math.ceil(cy + ry); y++) for(let x = Math.floor(cx - rx); x <= Math.ceil(cx + rx); x++){ const v = ((x + .5 - cx) / rx) ** 2 + ((y + .5 - cy) / ry) ** 2; if(v <= 1 && (!test || test(x, y))) put(x, y, c); } };
+  const side = dir === 'left', back = dir === 'up', sit = frame === 'sit' || frame === 'sit2';
+  const bob = (frame === 1 || frame === 2) ? -1 : (frame === 'sit2' ? 1 : 0);   /* 걸음 디딜 때 몸이 1px 오르내림 */
+  const oy = (sit ? 3 : 0);
+  /* --- 다리 --- */
+  if(sit){
+    /* 옆모습으로 의자에 앉음: 허벅지는 앞(왼쪽)으로, 종아리는 아래로 */
+    rect(10, 33 + oy, 9, 4, C.bot); rect(10, 36 + oy, 9, 1, C.botS);
+    rect(10, 37 + oy, 4, 6, C.bot); rect(13, 37 + oy, 1, 6, C.botS);
+    rect(8, 43 + oy, 6, 2, C.shoe);
+  } else if(C.skirt && !side){
+    rect(10, 33 + bob, 12, 10, C.bot); rect(18, 33 + bob, 4, 10, C.botS);
+    const l = frame === 1 ? -1 : 0, r = frame === 2 ? -1 : 0;
+    rect(12, 43 + l, 3, 2, C.skin); rect(17, 43 + r, 3, 2, C.skin);
+    rect(11, 45 + l, 4, 1, C.shoe); rect(17, 45 + r, 4, 1, C.shoe);
+  } else if(C.skirt && side){
+    const s = frame === 1 ? 2 : frame === 2 ? -2 : 0;
+    rect(11, 33 + bob, 10, 10, C.bot); rect(17, 33 + bob, 4, 10, C.botS);
+    rect(14 + s, 43, 3, 2, C.skin); rect(13 + s, 45, 4, 1, C.shoe);
+    rect(16 - s, 43, 3, 2, C.skinS); rect(16 - s, 45, 4, 1, C.shoe);
+  } else if(!side){
+    /* 앞·뒤: 한쪽 발이 들리며 번갈아 걸음 */
+    const l = frame === 1 ? -2 : 0, r = frame === 2 ? -2 : 0;
+    rect(12, 34 + bob, 4, 10 + l - bob, C.bot); rect(16, 34 + bob, 4, 10 + r - bob, C.bot); rect(19, 34 + bob, 1, 10 + r - bob, C.botS); rect(15, 34 + bob, 1, 10 + l - bob, C.botS);
+    rect(11, 44 + l, 5, 2, C.shoe); rect(16, 44 + r, 5, 2, C.shoe);
+  } else {
+    /* 옆모습: 다리를 앞뒤로 벌림 */
+    const s = frame === 1 ? 3 : frame === 2 ? -3 : 0;
+    const leg = (dx, col) => { for(let y = 34 + bob; y < 44; y++){ const t = (y - 34) / 10; const x = Math.round(14 + dx * t); rect(x, y, 4, 1, col); } };
+    leg(-s, C.botS); leg(s, C.bot);
+    rect(Math.round(13 - s), 44, 5, 2, C.shoe); rect(Math.round(13 + s), 44, 5, 2, C.shoe);
+  }
+  /* --- 몸통 --- */
+  const ty = 21 + bob + oy;
+  if(!side){
+    ell(16, ty + 2, 6, 3, C.top); rect(10, ty + 2, 12, 12, C.top); rect(19, ty + 2, 3, 12, C.topS);
+    if(C.apron && !back){ rect(12, ty + 4, 8, 13, C.apron); rect(17, ty + 4, 3, 13, C.apronS); rect(13, ty + 3, 1, 1, C.apron); rect(18, ty + 3, 1, 1, C.apron); rect(14, ty + 9, 4, 1, C.apronS); }
+    if(C.apron && back){ rect(10, ty + 9, 12, 1, C.apron); rect(14, ty + 9, 4, 3, C.apronS); }
+    if(key === 'c1' && !back){ rect(15, ty + 1, 2, 12, C.topS); put(16, ty + 5, '#D9C9A8'); put(16, ty + 8, '#D9C9A8'); }
+    if(key === 'c3' && !back){ rect(15, ty + 1, 2, 13, C.topS); }
+  } else {
+    ell(16, ty + 2, 4, 3, C.top); rect(12, ty + 2, 8, 12, C.top); rect(18, ty + 2, 2, 12, C.topS);
+    if(C.apron){ rect(11, ty + 4, 3, 13, C.apron); rect(12, ty + 9, 8, 1, C.apronS); }
+  }
+  /* --- 팔 --- */
+  if(!side){
+    const sw = frame === 1 ? 1 : frame === 2 ? -1 : 0;
+    rect(8, ty + 2 + sw, 2, 9, C.top); rect(22, ty + 2 - sw, 2, 9, C.topS);
+    rect(8, ty + 11 + sw, 2, 2, C.skin); rect(22, ty + 11 - sw, 2, 2, C.skinS);
+  } else if(sit){
+    rect(12, ty + 3, 3, 7, C.topS); rect(10, ty + 9, 4, 2, C.skin);
+  } else {
+    const sw = frame === 1 ? -2 : frame === 2 ? 2 : 0;
+    for(let y = 0; y < 9; y++) rect(15 + Math.round(sw * y / 9), ty + 2 + y, 3, 1, C.topS);
+    rect(15 + sw, ty + 11, 3, 2, C.skin);
+  }
+  /* --- 목·머리 --- */
+  const hy = 4 + bob + oy;
+  rect(14, hy + 14, 4, 3, C.skinS);
+  if(!side){
+    ell(16, hy + 8, 6.6, 7.2, back ? C.hair : C.skin);
+    if(!back){ rect(9, hy + 9, 1, 2, C.skinS); rect(22, hy + 9, 1, 2, C.skinS); }
+  } else {
+    ell(15.5, hy + 8, 6.2, 7.2, C.skin);
+  }
+  /* --- 머리카락 --- */
+  const st = C.style;
+  if(!side && !back){
+    ell(16, hy + 5, 7, 5.2, C.hair, (x, y) => y <= hy + 7 || x <= 10 || x >= 21);
+    rect(9, hy + 5, 2, st === 'long' ? 14 : st === 'bob' ? 9 : 5, C.hair); rect(21, hy + 5, 2, st === 'long' ? 14 : st === 'bob' ? 9 : 5, C.hairS);
+    if(st === 'long'){ rect(8, hy + 12, 2, 10, C.hair); rect(22, hy + 12, 2, 10, C.hairS); }
+    if(st === 'short' || st === 'student'){ rect(9, hy + 8, 2, 2, C.skin); rect(21, hy + 8, 2, 2, C.skin); }
+    rect(12, hy + 7, 3, 1, C.hairS); rect(18, hy + 6, 3, 1, C.hairS);   /* 앞머리 결 */
+    /* 눈 */
+    rect(12, hy + 10, 2, 2, '#2A1C16'); rect(18, hy + 10, 2, 2, '#2A1C16');
+    put(12, hy + 10, '#4A3A30'); put(18, hy + 10, '#4A3A30');
+    if(st === 'student'){ const G = '#77736E'; for(const ex of [11, 17]){ rect(ex, hy + 12, 4, 1, G); put(ex, hy + 10, G); put(ex, hy + 11, G); put(ex + 3, hy + 10, G); put(ex + 3, hy + 11, G); } rect(15, hy + 10, 2, 1, G); }
+    rect(15, hy + 14, 2, 1, C.skinS);   /* 입 */
+    if(key === 'c1'){ rect(12, hy + 9, 2, 1, C.hair); rect(18, hy + 9, 2, 1, C.hair); }   /* 흰 눈썹 */
+  } else if(back){
+    ell(16, hy + 8, 6.8, 7.4, C.hair); rect(19, hy + 3, 3, 12, C.hairS);
+    if(st === 'pony'){ rect(15, hy + 13, 3, 9, C.hair); rect(17, hy + 14, 1, 8, C.hairS); rect(15, hy + 12, 3, 1, '#7A5B3A'); }
+    if(st === 'long'){ rect(10, hy + 12, 12, 11, C.hair); rect(18, hy + 12, 4, 11, C.hairS); }
+    if(st === 'bob'){ rect(9, hy + 11, 14, 4, C.hair); rect(19, hy + 11, 4, 4, C.hairS); }
+    if(st === 'short' || st === 'student'){ rect(9, hy + 9, 2, 3, C.skin); rect(21, hy + 9, 2, 3, C.skinS); }
+  } else {
+    /* 옆모습(왼쪽을 봄): 뒤통수·옆머리 */
+    ell(16, hy + 5.2, 7, 5.4, C.hair, (x, y) => y <= hy + 6 || x >= 16);
+    rect(16, hy + 5, 7, st === 'long' ? 16 : st === 'bob' ? 10 : 8, C.hair); rect(20, hy + 5, 3, st === 'long' ? 16 : st === 'bob' ? 10 : 8, C.hairS);
+    if(st === 'pony'){ rect(22, hy + 8, 3, 3, C.hair); rect(23, hy + 11, 3, 8, C.hair); rect(24, hy + 12, 2, 7, C.hairS); put(22, hy + 8, '#7A5B3A'); }
+    if(st === 'short' || st === 'student'){ rect(16, hy + 9, 4, 4, C.skin); rect(17, hy + 10, 2, 2, C.skinS); }
+    if(st === 'bob' || st === 'long' || st === 'pony'){ rect(17, hy + 9, 2, 3, C.skinS); }
+    rect(10, hy + 7, 4, 1, C.hairS);
+    rect(11, hy + 10, 2, 2, '#2A1C16'); put(11, hy + 10, '#4A3A30');
+    if(st === 'student'){ const G = '#77736E'; rect(10, hy + 12, 4, 1, G); put(13, hy + 10, G); put(13, hy + 11, G); rect(14, hy + 10, 3, 1, G); }
+    if(key === 'c1') rect(11, hy + 9, 2, 1, C.hair);
+    rect(10, hy + 14, 2, 1, C.skinS);
+  }
+  /* --- 외곽선: 채운 칸 둘레의 빈 칸을 어두운 색으로 --- */
+  const out = g.map(r => r.slice());
+  for(let y = 0; y < H; y++) for(let x = 0; x < W; x++){
+    if(g[y][x]) continue;
+    if([[1,0],[-1,0],[0,1],[0,-1]].some(([dx, dy]) => g[y + dy] && g[y + dy][x + dx])) out[y][x] = PX_OUT;
+  }
+  /* 발밑 그림자 */
+  const shadow = [];
+  for(let x = 10; x < 23; x++){ if(!out[46][x]) shadow.push([x, 46]); if(x > 11 && x < 21 && !out[47][x]) shadow.push([x, 47]); }
+  const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+  const ctx = cv.getContext('2d');
+  ctx.fillStyle = 'rgba(0,0,0,.28)'; shadow.forEach(([x, y]) => ctx.fillRect(x, y, 1, 1));
+  for(let y = 0; y < H; y++) for(let x = 0; x < W; x++) if(out[y][x]){ ctx.fillStyle = out[y][x]; ctx.fillRect(x, y, 1, 1); }
+  return cv;
+}
+const PX_CACHE = {};
+function pxURL(key, dir, frame){ const k = key + dir + frame; return PX_CACHE[k] || (PX_CACHE[k] = pxSprite(key, dir, frame).toDataURL()); }
 /* ===== 카페 소베크 대타 미니게임(쯔꾸르풍): 손님 자리에서 주문을 받고, 카운터에서 챙겨서 가져다준다. 약 70초 ===== */
 const CG_W = 16, CG_H = 9;
-const CG_SPR = {lena:[19,242,129.5], c1:[24,250,132], c2:[37,220,127.5], c3:[35,223,125], c4:[17,251,128]};   /* 256 캔버스 안 [위, 아래, 가운데x] */
-const CG_SEATS = [{x:3, y:4, from:[4,4]}, {x:12, y:4, from:[11,4]}, {x:6, y:6, from:[7,6]}, {x:10, y:6, from:[9,6]}];
+const CG_SEATS = [{x:3, y:4, from:[4,4], face:'left'}, {x:12, y:4, from:[11,4], face:'right'}, {x:6, y:6, from:[7,6], face:'left'}, {x:10, y:6, from:[9,6], face:'right'}];   /* 손님은 테이블 쪽을 보고 앉음 */
 const CG_MENU = ['꿀 라떼', '홍차', '보리 쿠키'];
 const CG_SAY = {c1:['꿀 라떼 하나 부탁해요.', '홍차 한 잔 주시겠어요?', '보리 쿠키 있으면 하나 주세요.'], c2:['꿀 라떼요! 따뜻한 걸로요.', '홍차 주세요. 공부하다 졸려서요.', '보리 쿠키 하나요.'], c3:['꿀 라떼 한 잔이요.', '홍차로 할게요.', '보리 쿠키 하나 포장 말고 여기서요.'], c4:['꿀 라떼 주세요.', '홍차 한 잔 부탁드려요.', '보리 쿠키 하나 주세요.']};
 const CG_DUR = 70000, CG_PATIENCE = 26000;
@@ -4567,13 +4691,19 @@ function cgBlocked(x, y){
   if(y >= 6 && ((x >= 3 && x <= 6) || (x >= 10 && x <= 12))) return true;   /* 아래쪽 두 테이블 */
   return false;
 }
-function cgSprite(key, x, y, h){
-  const b = CG_SPR[key], K = h * 256 / (b[1] - b[0]);
+function cgSprite(key, x, y){
   const el = document.createElement('div'); el.className = 'cg-act'; el.style.setProperty('--x', x); el.style.setProperty('--y', y);
-  el.innerHTML = '<img src="img/cafe/' + key + '.png" alt="" style="width:calc(var(--t) * ' + K.toFixed(3) + ');left:calc(var(--t) * ' + (0.5 - K * b[2] / 256).toFixed(3) + ');top:calc(var(--t) * ' + (0.96 - K * b[1] / 256).toFixed(3) + ')">';
+  el.innerHTML = '<img alt="">';
   el.style.zIndex = 10 + y;
   document.getElementById('cgActors').appendChild(el);
   return el;
+}
+/* 방향(down/up/left/right)과 프레임으로 그림 바꾸기. right는 left를 좌우로 뒤집어 씀 */
+function cgFace(el, key, dir, frame){
+  const img = el.querySelector('img');
+  const src = pxURL(key, dir === 'right' ? 'left' : dir, frame);
+  if(img.getAttribute('src') !== src) img.setAttribute('src', src);
+  el.classList.toggle('flip', dir === 'right');
 }
 function cgOpen(d){
   const post = SHIFT_POSTS.find(p => p.d === d); if(!post) return;
@@ -4581,7 +4711,7 @@ function cgOpen(d){
   document.getElementById('cgActors').innerHTML = '';
   cg = {d: d, post: post, start0: h0 * 60 + m0, mins: post.h * 60, t0: 0, elapsed: 0, running: false, done: false,
     x: 7, y: 5, dir: 'down', hold: null, served: 0, tips: 0, cust: [], spawnAt: 0, msgQ: [], msgCb: null, choice: null, keys: {}, lastStep: 0, raf: 0};
-  cg.me = cgSprite('lena', cg.x, cg.y, 1.5);
+  cg.me = cgSprite('lena', cg.x, cg.y); cgFace(cg.me, 'lena', 'down', 0); cg.walkUntil = 0; cg.stepN = 0;
   document.getElementById('cafeGame').classList.remove('hidden');
   cgHud();
   cgSay('점장', playerName + ', 오늘 저녁 잘 부탁해요. 손님 자리 옆에 서서 말을 걸면 주문을 받을 수 있어요.', () =>
@@ -4603,9 +4733,9 @@ function cgSpawn(){
   const used = cg.cust.map(c => c.key), keys = ['c1', 'c2', 'c3', 'c4'].filter(k => used.indexOf(k) < 0);
   const key = keys[Math.floor(Math.random() * keys.length)];
   const want = Math.floor(Math.random() * CG_MENU.length);
-  const el = cgSprite(key, seat.x, seat.y, 1.38); el.classList.add('come');
-  if(seat.x > 7) el.classList.add('flip');
-  const c = {seat: seat, key: key, want: want, state: 'new', t: cg.elapsed, el: el};
+  const el = cgSprite(key, seat.x, seat.y); el.classList.add('come');
+  const c = {seat: seat, key: key, want: want, state: 'new', t: cg.elapsed, el: el, ph: Math.random() * 2000};
+  cgFace(el, key, seat.face, 'sit');
   el.insertAdjacentHTML('beforeend', '<div class="cg-bub">!<i></i></div>');
   cg.cust.push(c);
 }
@@ -4629,18 +4759,18 @@ function cgLoop(now){
     cg.cust.slice().forEach(c => { if(cg.elapsed - c.t > CG_PATIENCE) cgLeave(c, false); else cgBub(c); });
     const k = cg.keys, dir = k.up ? 'up' : k.down ? 'down' : k.left ? 'left' : k.right ? 'right' : null;
     if(dir && !cgBusy() && now - cg.lastStep > 150){ cg.lastStep = now; cgStep(dir); }
-    else if(!dir && now - cg.lastStep > 200) cg.me.classList.remove('walk');
+    cg.cust.forEach(c => cgFace(c.el, c.key, c.seat.face, Math.floor((now + c.ph) / 1100) % 2 ? 'sit2' : 'sit'));
     if(cg.elapsed >= CG_DUR) cgEnd();
     cgHud();
   }
+  if(cg.me){ const walking = now < cg.walkUntil; cgFace(cg.me, 'lena', cg.dir, walking ? [1, 0, 2, 0][Math.floor(now / 110) % 4] : 0); }
   cg.raf = requestAnimationFrame(cgLoop);
 }
 function cgBusy(){ return !document.getElementById('cgMsg').classList.contains('hidden') || !!cg.choice; }
 function cgStep(dir){
   cg.dir = dir;
   const dx = dir === 'left' ? -1 : dir === 'right' ? 1 : 0, dy = dir === 'up' ? -1 : dir === 'down' ? 1 : 0;
-  cg.me.classList.toggle('flip', dir === 'left');
-  if(!cgBlocked(cg.x + dx, cg.y + dy)){ cg.x += dx; cg.y += dy; cg.me.style.setProperty('--x', cg.x); cg.me.style.setProperty('--y', cg.y); cg.me.style.zIndex = 10 + cg.y; cg.me.classList.add('walk'); }
+  if(!cgBlocked(cg.x + dx, cg.y + dy)){ cg.x += dx; cg.y += dy; cg.me.style.setProperty('--x', cg.x); cg.me.style.setProperty('--y', cg.y); cg.me.style.zIndex = 10 + cg.y; cg.walkUntil = performance.now() + 230; }
 }
 function cgAction(){
   if(!cg) return;
