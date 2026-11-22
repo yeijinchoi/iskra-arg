@@ -2823,6 +2823,35 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
   #panel-oldmail .omrow .omsender{width:120px;}
 }
 /* ===== 오류 제보 창(게임 밖 기능: 중립 회색 톤) ===== */
+/* 수집 노트: 영수증 */
+#collectModal .rc-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;max-height:calc(100dvh - 32px);width:100%;max-width:340px;}
+.rc-paper{--zz:8px;position:relative;width:100%;box-sizing:border-box;overflow-y:auto;background:#FFFFFF;color:#2A2D31;
+  font-family:ui-monospace,'SFMono-Regular',Menlo,Consolas,'Noto Sans KR',monospace;font-size:12.5px;line-height:1.55;
+  padding:26px 22px 22px;filter:drop-shadow(0 14px 28px rgba(0,0,0,.18));
+  -webkit-mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/16px 51% repeat-x;
+  mask:conic-gradient(from -45deg at bottom,#0000,#000 1deg 89deg,#0000 90deg) bottom/16px 51% repeat-x,conic-gradient(from 135deg at top,#0000,#000 1deg 89deg,#0000 90deg) top/16px 51% repeat-x;}
+.rc-paper.print{animation:rcPrint .45s ease-out both;}
+@keyframes rcPrint{from{transform:translateY(-14px);opacity:0;}to{transform:none;opacity:1;}}
+@media (prefers-reduced-motion:reduce){.rc-paper.print{animation:none;}}
+.rc-top{text-align:center;}
+.rc-brand{margin:0;font-size:11px;letter-spacing:.3em;text-transform:uppercase;color:#6B7076;}
+.rc-title{margin:4px 0 8px;font-size:17px;font-weight:700;letter-spacing:.12em;}
+.rc-meta{margin:0;font-size:11.5px;color:#5F6670;}
+.rc-sep{border-top:1px dashed #BDBDBD;margin:12px 0;}
+.rc-sep.dbl{border-top:3px double #BDBDBD;}
+.rc-h{display:flex;justify-content:space-between;font-weight:700;margin:0 0 4px;}
+.rc-h b{font-weight:500;color:#5F6670;}
+.rc-l{display:flex;align-items:baseline;gap:6px;padding:2px 0;}
+.rc-l span{min-width:0;}
+.rc-l i{flex:1;border-bottom:1px dotted #CFCFCF;transform:translateY(-3px);min-width:12px;}
+.rc-l b{font-weight:500;white-space:nowrap;}
+.rc-l.off{color:#9AA0A8;}
+.rc-total{display:flex;justify-content:space-between;font-size:15px;font-weight:700;}
+.rc-foot{margin:0;text-align:center;font-size:11.5px;color:#5F6670;}
+.rc-bar{height:38px;margin:14px 8px 4px;background:repeating-linear-gradient(90deg,#2A2D31 0 2px,transparent 2px 4px,#2A2D31 4px 5px,transparent 5px 8px,#2A2D31 8px 11px,transparent 11px 12px,#2A2D31 12px 13px,transparent 13px 16px);}
+.rc-no{margin:0;text-align:center;font-size:11px;letter-spacing:.2em;color:#5F6670;}
+.rc-close{flex-shrink:0;height:40px;padding:0 22px;border:none;border-radius:9px;background:#FFFFFF;color:#1F2329;font:inherit;font-family:'Noto Sans KR',sans-serif;font-size:13.5px;font-weight:500;cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.14);transition:background .15s ease;}
+.rc-close:hover{background:#F0F0F0;}
 .cl-sec{margin:0 0 14px;}
 .cl-h{display:flex;justify-content:space-between;align-items:baseline;margin:0 0 4px;font-size:13.5px;font-weight:700;}
 .cl-n{font-size:12.5px;font-weight:500;color:#5F6670;}
@@ -2878,11 +2907,9 @@ body.nm-long #panel-report .rv-seal{width:auto;min-width:40px;padding:0 6px;bord
 <button type="button" class="sleep-pill" id="sleepPill" onclick="sleepNow()">오늘은 이만 잠들기</button>
 <div id="crt" aria-hidden="true"><div class="crt-hole"></div></div>
 <div class="bug-modal hidden" id="collectModal" role="dialog" aria-modal="true" aria-labelledby="collectTitle" onclick="if(event.target===this)collectClose()">
-  <div class="bug-card cl-card">
-    <p class="bug-title" id="collectTitle">수집 노트</p>
-    <p class="bug-sub">지금까지 찾은 엔딩과 숨은 것들이에요. 처음부터 다시 해도 남아 있어요.</p>
-    <div id="collectBody"></div>
-    <div class="bug-btns"><button type="button" class="bug-send" onclick="collectClose()">닫기</button></div>
+  <div class="rc-wrap">
+    <div class="rc-paper" id="collectBody"></div>
+    <button type="button" class="rc-close" onclick="collectClose()">닫기</button>
   </div>
 </div>
 <div class="bug-modal hidden" id="bugModal" role="dialog" aria-modal="true" aria-labelledby="bugTitle" onclick="if(event.target===this)bugClose()">
@@ -4553,23 +4580,41 @@ function collectOpen(){
   try{ document.getElementById('chromeMenu').classList.add('hidden'); }catch(e){}
   const c = collectGet(), has = (k, id) => !!(c[k] && c[k][id]);
   const cnt = k => Object.keys(c[k] || {}).length;
-  const row = (on, head, label) => '<div class="cl-row' + (on ? '' : ' off') + '"><span>' + head + ' · ' + (on ? label : '???') + '</span><b>' + (on ? '봤음' : '') + '</b></div>';
-  const end = [['A', '사례금'], ['B', '침묵']].map(e => row(has('endings', e[0]), '엔딩 ' + e[0], e[1])).join('');
-  const bad = Object.keys(BAD_ENDINGS).map((k, i) => row(has('bads', k), '배드엔딩 ' + (i + 1), BAD_ENDINGS[k].title)).join('');
-  const found = EGGS.filter(e => has('eggs', e.id)), left = EGGS.length - found.length;
-  const eggs = (found.length ? '<div class="cl-chips">' + found.map(e => '<span>' + e.name + '</span>').join('') + '</div>' : '') +
-    '<p class="cl-left">' + (left ? '이스크라에서 검색하면 나오는 숨은 결과가 ' + left + '개 더 있어요.' : '숨은 검색어를 모두 찾았어요.') + '</p>';
-  const bar = (n, all) => '<span class="cl-n">' + n + ' / ' + all + '</span>';
+  const line = (label, val, off) => '<div class="rc-l' + (off ? ' off' : '') + '"><span>' + label + '</span><i></i><b>' + val + '</b></div>';
+  const head = (t, n, all) => '<div class="rc-h"><span>' + t + '</span><b>' + n + '/' + all + '</b></div>';
+  const badKeys = Object.keys(BAD_ENDINGS);
+  const found = EGGS.filter(e => has('eggs', e.id));
+  const etc = [['즐겨찾기 사이트', 'sites', 3], ['카페 대타 근무', 'shifts', SHIFT_POSTS.length], ['바르니아어 단어', 'words', DICT.length], ['다나와 잡담', 'talks', DANA_TALK.length]];
+  const total = cnt('endings') + cnt('bads') + found.length + etc.reduce((n, x) => n + Math.min(cnt(x[1]), x[2]), 0);
+  const all = 2 + badKeys.length + EGGS.length + etc.reduce((n, x) => n + x[2], 0);
+  const d = narrDate(narrToday()) || new Date(2026, 9, 30);
+  const p2 = v => String(v).padStart(2, '0');
+  const stamp = d.getFullYear() + '.' + p2(d.getMonth() + 1) + '.' + p2(d.getDate()) + ' (' + '일월화수목금토'[d.getDay()] + ')';
+  const no = 'ISK-' + p2(total) + p2(all) + '-' + String(Object.keys(c.eggs || {}).length * 7 + 1103).slice(-4);
   document.getElementById('collectBody').innerHTML =
-    '<div class="cl-sec"><p class="cl-h">엔딩 ' + bar(cnt('endings'), 2) + '</p>' + end + '</div>' +
-    '<div class="cl-sec"><p class="cl-h">배드엔딩 ' + bar(cnt('bads'), Object.keys(BAD_ENDINGS).length) + '</p>' + bad + '</div>' +
-    '<div class="cl-sec"><p class="cl-h">숨은 검색어 ' + bar(cnt('eggs'), EGGS.length) + '</p>' + eggs + '</div>' +
-    '<div class="cl-sec"><p class="cl-h">그 밖에</p>' +
-      '<div class="cl-row"><span>즐겨찾기 사이트 둘러보기</span><b>' + cnt('sites') + ' / 3</b></div>' +
-      '<div class="cl-row"><span>카페 소베크 대타 근무</span><b>' + cnt('shifts') + ' / ' + SHIFT_POSTS.length + '</b></div>' +
-      '<div class="cl-row"><span>바르니아어 단어 찾기</span><b>' + cnt('words') + ' / ' + DICT.length + '</b></div>' +
-      '<div class="cl-row"><span>다나와 잡담</span><b>' + cnt('talks') + ' / ' + DANA_TALK.length + '</b></div></div>';
-  document.getElementById('collectModal').classList.remove('hidden');
+    '<div class="rc-top"><p class="rc-brand">iskra beta</p><p class="rc-title" id="collectTitle">수집 영수증</p>' +
+      '<p class="rc-meta">' + stamp + '<br>손님 ' + msgEsc(playerName) + ' 세인 · 베타테스터</p></div>' +
+    '<div class="rc-sep"></div>' +
+    head('엔딩', cnt('endings'), 2) +
+      [['A', '사례금'], ['B', '침묵']].map(e => line('엔딩 ' + e[0] + (has('endings', e[0]) ? ' · ' + e[1] : ''), has('endings', e[0]) ? '봤음' : '-', !has('endings', e[0]))).join('') +
+    '<div class="rc-sep"></div>' +
+    head('배드엔딩', cnt('bads'), badKeys.length) +
+      badKeys.map((k, i) => line('배드엔딩 ' + (i + 1) + (has('bads', k) ? ' · ' + BAD_ENDINGS[k].title : ''), has('bads', k) ? '봤음' : '-', !has('bads', k))).join('') +
+    '<div class="rc-sep"></div>' +
+    head('숨은 검색어', found.length, EGGS.length) +
+      (found.length ? found.map(e => line(e.name, '찾음')).join('') : '') +
+      (EGGS.length - found.length ? line('아직 못 찾은 검색어', (EGGS.length - found.length) + '개', true) : '') +
+    '<div class="rc-sep"></div>' +
+    '<div class="rc-h"><span>그 밖에</span><b></b></div>' +
+      etc.map(x => line(x[0], Math.min(cnt(x[1]), x[2]) + '/' + x[2], !cnt(x[1]))).join('') +
+    '<div class="rc-sep dbl"></div>' +
+    '<div class="rc-total"><span>합계</span><b>' + total + ' / ' + all + '</b></div>' +
+    '<div class="rc-sep"></div>' +
+    '<p class="rc-foot">처음부터 다시 해도 이 영수증은 남습니다.<br>이용해 주셔서 감사합니다.</p>' +
+    '<div class="rc-bar" aria-hidden="true"></div><p class="rc-no">' + no + '</p>';
+  const m = document.getElementById('collectModal');
+  m.classList.remove('hidden');
+  const pp = m.querySelector('.rc-paper'); pp.classList.remove('print'); void pp.offsetWidth; pp.classList.add('print');
 }
 function collectClose(){ document.getElementById('collectModal').classList.add('hidden'); }
 /* ===== 수집 노트: 엔딩·배드엔딩·숨은 검색어·알바 등. '처음부터 다시 하기'를 해도 남음 ===== */
