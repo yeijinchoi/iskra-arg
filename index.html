@@ -3576,7 +3576,7 @@ body.nm-long #panel-report .rv-seal{border-radius:12px!important;}
         </div>
         <div class="cm-sep">히든 엔딩 바로가기 (베타테스트용)</div>
         <div class="cm-jump">
-          <button onclick="jumpToHidden('work')">워커홀릭</button><button onclick="jumpToHidden('dana')">다나</button><button onclick="jumpToHidden('rich')">영앤리치</button>
+          <button onclick="jumpToHidden('work')">근로소득</button><button onclick="jumpToHidden('dana')">다나</button><button onclick="jumpToHidden('rich')">영앤리치</button>
         </div>
         <!--/DEV-->
       </div>
@@ -8767,9 +8767,9 @@ function badFire(key){
   location.reload();
 }
 /*/DEV*/
-/* ===== 히든 엔딩: 워커홀릭(근로소득으로 등록금) / 천생연분(다나에게 고백) / 영앤리치(둘 다) ===== */
+/* ===== 히든 엔딩: 근로소득의 꿈(근로소득으로 등록금) / 천생연분(다나에게 고백) / 영앤리치(둘 다) ===== */
 const HIDDEN_ENDINGS = {
-  work: {title:'워커홀릭: 근로소득의 꿈', slides: () => [
+  work: {title:'근로소득의 꿈', slides: () => [
     ['workaholic', '레나는 이스크라 의뢰 메일 대신 카페 소베크 근무표를 열었습니다.'],
     ['bank', '대타 ' + Object.keys(cafeShifts).length + '번, 단체 주문 ' + cafeOrders + '건. 통장에 찍힌 숫자는 전부 레나가 직접 번 돈이었습니다.'],
     ['school', '11월 30일이 오기 전에, 등록금 ' + TUITION.toLocaleString() + '원을 모두 냈습니다.'],
