@@ -626,6 +626,8 @@ body.capture-mode #panel-dlt .dl-card{cursor:crosshair;outline:2px dashed #1C4E8
 .ending-title small{display:block;font-size:12px;letter-spacing:.3em;color:#8FA08A;margin-bottom:14px;}
 .ending-title b{font-size:30px;color:#ECECE4;}
 .ending-title.bad small{color:#C8665C;}
+.ending-title.hid small{color:#D9C27A;}
+.sp-pay{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding:12px 14px;background:#F5F5F5;border-radius:10px;font-size:13px;color:#555;}
 .final-card.ending-stage .fe{justify-content:center;}
 .final-card{max-width:560px;width:100%;color:#EDEEF0;}
 .final-card .ft{font-size:11.5px;font-weight:700;color:#C98A5B;letter-spacing:.12em;margin-bottom:12px;}
@@ -3572,6 +3574,10 @@ body.nm-long #panel-report .rv-seal{border-radius:12px!important;}
         <div class="cm-jump">
           <button onclick="jumpToBad('betray')">밀고</button><button onclick="jumpToBad('quit')">포기</button><button onclick="jumpToBad('confront')">따짐</button><button onclick="jumpToBad('replace')">교체</button>
         </div>
+        <div class="cm-sep">히든 엔딩 바로가기 (베타테스트용)</div>
+        <div class="cm-jump">
+          <button onclick="jumpToHidden('work')">워커홀릭</button><button onclick="jumpToHidden('dana')">다나</button><button onclick="jumpToHidden('rich')">영앤리치</button>
+        </div>
         <!--/DEV-->
       </div>
     </div>
@@ -5028,7 +5034,8 @@ const TUITION = 3240000;
 function dnuGo(id){ const t = document.getElementById(id); if(t) t.scrollIntoView({behavior:'smooth', block:'start'}); }
 function dnuRender(){
   const el = document.getElementById('bmDnu'); if(!el) return;
-  const paid = endingChosen === 'A';
+  const paid = endingChosen === 'A' || badEnding === 'h:work' || badEnding === 'h:rich';
+  const canPay = !paid && hiddenCanPay();
   const td = narrDate(narrToday()) || new Date(2026, 9, 30);
   const dday = Math.max(0, Math.round((new Date(2026, 10, 30) - td) / 86400000));
   const CL = [
@@ -5056,7 +5063,8 @@ function dnuRender(){
       ev(11, 30, '2학기 등록금 납부 마감', paid ? '납부 완료' : '분할 납부는 기한 전 신청') + ev(12, 1, '기말시험 기간 시작', '도서관 24시간 개방') + ev(12, 19, '2학기 종강', '성적 공개 12월 29일') +
     '</ul></section>' +
     '<section class="ap-sec" id="dnuFee"><div class="ap-sh"><h2>2학기 등록금</h2><span class="ap-tag">' + (paid ? '완납' : '미납') + '</span></div>' +
-      '<p class="ap-big">' + won(TUITION) + '</p><ul class="ap-kv"><li><span>납부 기한</span><b>2026년 11월 30일</b></li><li><span>장학금 감면</span><b>0원</b></li><li><span>분할 납부</span><b>기한 전 신청 가능</b></li></ul></section>' +
+      '<p class="ap-big">' + won(TUITION) + '</p><ul class="ap-kv"><li><span>납부 기한</span><b>2026년 11월 30일</b></li><li><span>장학금 감면</span><b>0원</b></li><li><span>분할 납부</span><b>기한 전 신청 가능</b></li></ul>' +
+      (canPay ? '<div class="sp-pay"><span>내 통장 잔액 ' + won(bankBalance) + '</span><button type="button" class="ap-btn" onclick="hiddenPay()">등록금 납부하기</button></div>' : '') + '</section>' +
     '<section class="ap-sec" id="dnuTt"><div class="ap-sh"><h2>내 시간표</h2><span class="ap-meta">2026년 2학기</span></div>' + grid + '</section>' +
     '<section class="ap-sec" id="dnuSch"><div class="ap-sh"><h2>장학금 심사 결과</h2></div><ul class="ap-list">' +
       '<li><b>이주민 가정 학업장려 장학금</b><p>선발되지 않았습니다. 올해는 지원자가 많아 선발 인원을 줄였습니다.</p><small>10/24 · 학생지원팀</small></li>' +
@@ -5117,6 +5125,10 @@ function sobekRender(){
       return '<li><div class="t"><b>' + x.who + '</b><small>' + NARR_DAYS[x.d] + ' · ' + x.time + '</small></div><p>' + x.text + '</p><div class="a">' + act + '</div></li>';
     }).join('') + '</ul>';
   }
+  if(sobekTab === 'req' && cafeOrdersOn()){
+    const can = !endingChosen && !badEnding;
+    body = '<ul class="sf-req"><li><div class="t"><b>점장</b><small>연말 단체 주문 · 건당 수당</small></div><p>연말이라 단체 주문이 계속 들어와요. 시간 날 때 한 건씩 받아 줘요. 끝나면 수당이랑 팁은 바로 넣어 줄게요.</p><div class="a"><span>' + (cafeOrders ? '지금까지 ' + cafeOrders + '건' : '건당') + ' · ' + won(ORDER_PAY) + '</span>' + (can ? '<button type="button" class="ap-btn" onclick="cgOpenOrder()">주문 받기</button>' : '') + '</div></li></ul>' + body;
+  }
   const reqN = SHIFT_POSTS.filter(x => x.d === today && !cafeShifts[x.d]).length;
   el.innerHTML = '<div class="ap sf">' +
     '<h1 class="sf-h">근무표</h1>' +
@@ -5124,6 +5136,26 @@ function sobekRender(){
     '<p class="sf-month">' + td.getFullYear() + '년 ' + (td.getMonth() + 1) + '월</p>' + body +
     '<p class="sf-foot">카페 소베크 · 시급 ' + won(SHIFT_WAGE) + '</p>' +
   '</div>';
+}
+/* ===== 히든: 근로소득(카페 대타 시급·팁·단체 주문 수당). 이스크라 사례금은 빠짐 ===== */
+var workIncome = 0, cafeOrders = 0;
+const ORDER_PAY = 120000;
+const ORDER_POST = {d:'order', who:'점장', time:'19:00~22:00', h:3};
+function cafeOrdersOn(){ return cafeOrders > 0 || Object.keys(cafeShifts).some(k => cafeShifts[k].played || cafeShifts[k].paid); }
+function workAdd(amt){
+  const before = workIncome; workIncome += amt;
+  if(before < TUITION && workIncome >= TUITION && !endingChosen && !badEnding)
+    setTimeout(() => osNotify('도렌 국립대 학사포털', '등록금 납부 안내', '2학기 등록금 ' + TUITION.toLocaleString() + '원 · 지금 통장 잔액으로 낼 수 있어요', 'mail', () => bmOpen('dnu')), 7000);
+}
+function hiddenCanPay(){ return !endingChosen && !badEnding && workIncome >= TUITION && bankBalance >= TUITION; }
+function cgOpenOrder(){ if(endingChosen || badEnding || cg) return; cgOpen('order'); }
+function orderPay(tips, served){
+  cafeOrders++;
+  const amt = ORDER_PAY + (tips || 0), label = '카페 소베크 · 단체 주문 수당' + (tips ? ' + 팁' : '');
+  bankBalance += amt; bankTx.unshift({amount: amt, label: label, fresh: true}); workAdd(amt);
+  renderBankcard();
+  setTimeout(() => osNotify('도렌은행', '입금 ' + amt.toLocaleString() + '원', label + ' · 잔액 ' + bankBalance.toLocaleString() + '원', 'bank'), 900);
+  try{ saveProgress(); }catch(e){}
 }
 function sobekTake(d){
   if(cafeShifts[d] || d !== narrToday()) return;
@@ -5140,7 +5172,7 @@ function cafePay(silent){
     const x = SHIFT_POSTS.find(p => p.d === +d); if(!x) return;
     sh.paid = true;
     const amt = x.h * SHIFT_WAGE + (sh.tips || 0), label = '카페 소베크 · 대타 근무 ' + x.h + '시간' + (sh.tips ? ' + 팁' : '');
-    bankBalance += amt; bankTx.unshift({amount: amt, label: label, fresh: !silent});
+    bankBalance += amt; bankTx.unshift({amount: amt, label: label, fresh: !silent}); workAdd(amt);
     items.push({amount: amt, label: label});
   });
   if(items.length){
@@ -5303,14 +5335,20 @@ function cgFace(el, key, dir, frame){
   el.classList.toggle('flip', dir === 'right');
 }
 function cgOpen(d){
-  const post = SHIFT_POSTS.find(p => p.d === d); if(!post) return;
+  const post = d === 'order' ? ORDER_POST : SHIFT_POSTS.find(p => p.d === d); if(!post) return;
   const [h0, m0] = post.time.split('~')[0].split(':').map(Number);
   document.getElementById('cgActors').innerHTML = '';
   cg = {d: d, post: post, start0: h0 * 60 + m0, mins: post.h * 60, t0: 0, elapsed: 0, running: false, done: false,
     x: 7, y: 5, dir: 'down', hold: null, served: 0, tips: 0, cust: [], spawnAt: 0, msgQ: [], msgCb: null, choice: null, keys: {}, lastStep: 0, raf: 0};
   cg.me = cgSprite('lena', cg.x, cg.y); cgFace(cg.me, 'lena', 'down', 0); cg.walkUntil = 0; cg.stepN = 0;
+  cg.order = d === 'order';
   document.getElementById('cafeGame').classList.remove('hidden');
   cgHud();
+  if(cg.order){
+    cgSay('점장', '단체 주문 ' + (cafeOrders + 1) + '번째예요! 오늘은 손님이 몰리니까 빨리빨리 부탁해요.', () => { cg.running = true; cg.t0 = performance.now(); cgSpawn(); cgSpawn(); });
+    cg.raf = requestAnimationFrame(cgLoop);
+    return;
+  }
   cgSay('점장', playerName + ', 오늘 저녁 잘 부탁해요. 손님 자리 옆에 서서 말을 걸면 주문을 받을 수 있어요.', () =>
     cgSay('점장', '카운터 앞에서 말을 걸면 음료나 쿠키를 챙길 수 있어요. 손님이 오래 기다리면 그냥 가 버리니까 서둘러요!', () => { cg.running = true; cg.t0 = performance.now(); cgSpawn(); cgSpawn(); }));
   cg.raf = requestAnimationFrame(cgLoop);
@@ -5352,7 +5390,7 @@ function cgLoop(now){
   if(!cg) return;
   if(cg.running && !cg.done){
     cg.elapsed = now - cg.t0;
-    if(cg.elapsed >= cg.spawnAt + 7000 && cg.cust.length < 4){ cg.spawnAt = cg.elapsed; cgSpawn(); }
+    if(cg.elapsed >= cg.spawnAt + (cg.order ? 4500 : 7000) && cg.cust.length < 4){ cg.spawnAt = cg.elapsed; cgSpawn(); }
     cg.cust.slice().forEach(c => { if(cg.elapsed - c.t > CG_PATIENCE) cgLeave(c, false); else cgBub(c); });
     const k = cg.keys, dir = k.up ? 'up' : k.down ? 'down' : k.left ? 'left' : k.right ? 'right' : null;
     if(dir && !cgBusy() && now - cg.lastStep > 150){ cg.lastStep = now; cgStep(dir); }
@@ -5382,7 +5420,7 @@ function cgAction(){
     if(c.state === 'new'){ c.state = 'wait'; cgBub(c); cgSay('손님', CG_SAY[c.key][c.want]); return; }
     if(!cg.hold){ cgSay('손님', CG_MENU[c.want] + josa(CG_MENU[c.want], '을', '를') + ' 기다리고 있어요.'); return; }
     if(cg.hold !== CG_MENU[c.want]){ cgSay('손님', '어… 저는 ' + CG_MENU[c.want] + josa(CG_MENU[c.want], '을', '를') + ' 시켰는데요.'); return; }
-    const left = Math.max(0, 1 - (cg.elapsed - c.t) / CG_PATIENCE), tip = left > .5 ? 2000 : 1000;
+    const left = Math.max(0, 1 - (cg.elapsed - c.t) / CG_PATIENCE), tip = (left > .5 ? 2000 : 1000) * (cg.order ? 2 : 1);
     cg.hold = null; cg.served++; cg.tips += tip; cgLeave(c, true); cgHud(); return;
   }
   if(ty === 3 && tx >= 4 && tx <= 11 && cg.dir === 'up'){ cgChoose(['꿀 라떼', '홍차', '보리 쿠키', '아무것도 안 들기']); return; }
@@ -5412,7 +5450,9 @@ function cgEnd(){
   if(cg.done) return;
   cg.done = true; cg.running = false; cg.choice = null; cgChoiceRender();
   cg.cust.slice().forEach(c => cgLeave(c, false));
-  cgSay('점장', '수고했어요! 오늘 손님 ' + cg.served + '명, 팁은 ' + cg.tips.toLocaleString() + '원이에요. 시급이랑 같이 오늘 밤에 넣어 줄게요.', cgClose);
+  if(cg.order){ cgSay('점장', '단체 주문 끝! 손님 ' + cg.served + '명, 팁은 ' + cg.tips.toLocaleString() + '원이에요. 수당이랑 같이 지금 바로 넣어 줄게요.', cgClose); return; }
+  const first = !cafeOrdersOn();
+  cgSay('점장', '수고했어요! 오늘 손님 ' + cg.served + '명, 팁은 ' + cg.tips.toLocaleString() + '원이에요. 시급이랑 같이 오늘 밤에 넣어 줄게요.', first ? () => cgSay('점장', '아, 그리고 요즘 연말 단체 주문이 밀려 있어요. 시간 날 때 근무표 앱 \'대타 요청\'에서 한 건씩 받아 줘요. 건당 ' + won(ORDER_PAY) + '이에요.', cgClose) : cgClose);
 }
 function cgQuit(){
   if(!cg) return;
@@ -5422,7 +5462,8 @@ function cgQuit(){
 function cgClose(){
   if(!cg) return;
   cancelAnimationFrame(cg.raf);
-  const sh = cafeShifts[cg.d]; if(sh && !sh.paid){ sh.tips = cg.tips; sh.served = cg.served; sh.played = true; }
+  if(cg.order){ if(cg.done) orderPay(cg.tips, cg.served); }
+  else { const sh = cafeShifts[cg.d]; if(sh && !sh.paid){ sh.tips = cg.tips; sh.served = cg.served; sh.played = true; } }
   cg = null;
   document.getElementById('cafeGame').classList.add('hidden');
   try{ saveProgress(); sobekRender(); }catch(e){}
@@ -5517,14 +5558,14 @@ function dictLook(q){
 }
 /* ===== 다나 잡담: 한가할 때 말을 걸면, 다나는 대답하면서 레나에 대해 하나씩 더 묻는다(사적인 말실수 포함). 한 번씩만 ===== */
 const DANA_TALK = [
-  {r:'다나 씨는 어디서 일해요?', re:'저요? 시내 쪽 사무실이요. 레나 씨는 학교가 도렌 국립대였죠? 집에서 학교까지 멀어요?'},
-  {r:'개발자는 무슨 일을 해요?', re:'사람들이 뭘 찾는지 보고, 더 잘 찾게 만드는 일이요. 생각보다 많이 보여요, 사람들이 찾는 거요.'},
-  {r:'점심은 드셨어요?', re:'아직이요, 일이 좀 밀려서요. 레나 씨는 요즘 카페 일 바쁘세요? 근무가 월요일이랑 수요일이죠?'},
-  {r:'다른 테스터도 많아요?', re:'몇 분 더 계세요. 근데 레나 씨처럼 끝까지 해 주시는 분은 드물어요. 지난번 분은… 중간에 그만두셨거든요.'},
-  {r:'주말엔 뭐 해요?', re:'일이 없으면 쉬어요. 레나 씨는 주말에 어머님 댁에 가세요? 어머님은 요즘 어떻게 지내세요?'},
-  {r:'바르니아어 할 줄 알아요?', re:'조금이요. 일하다 보니 자주 보게 돼서요. 레나 씨는 어머님이랑 바르니아어로 얘기하세요?'},
-  {r:'이스크라는 언제 정식으로 나와요?', re:'아직 정해진 건 없어요. 베타가 잘 끝나야 하니까요. 그러니까 레나 씨가 잘해 주셔야 해요 :)'},
-  {r:'다나가 본명이에요?', re:'…다들 그렇게 부르니까요. 이름이 뭐가 중요하겠어요. 레나 씨도 레나 씨잖아요.'}
+  {r:'다나 씨는 어디서 일해요?', re:'저요? 시내 쪽 사무실이요. 레나 씨는 학교가 도렌 국립대였죠? 집에서 학교까지 멀어요?', n:'버스로 40분쯤 걸려요', nr:'그럼 아침 수업 있는 날은 힘드시겠네요.', f:'다나 씨 사무실이 학교 가는 길이면 좋겠네요', fr:'…네? 사무실은 아무나 못 들어와요. 테스트 얘기로 돌아가죠.'},
+  {r:'개발자는 무슨 일을 해요?', re:'사람들이 뭘 찾는지 보고, 더 잘 찾게 만드는 일이요. 생각보다 많이 보여요, 사람들이 찾는 거요.', n:'조금 무섭네요', nr:'무서울 건 없어요. 다들 그냥 필요한 걸 찾는 거니까요.', f:'그럼 제가 다나 씨 검색한 것도 보셨겠네요?', fr:'…봤어요. 왜 검색하셨는지는 안 물어볼게요.'},
+  {r:'점심은 드셨어요?', re:'아직이요, 일이 좀 밀려서요. 레나 씨는 요즘 카페 일 바쁘세요? 근무가 월요일이랑 수요일이죠?', n:'토요일도 나가요', nr:'그렇군요. 주말까지 일하시면 많이 피곤하시겠어요.', f:'다음에 카페 오시면 제가 꿀 라떼 살게요', fr:'저 단 거 별로 안 좋아해요. …꿀은 조금 괜찮고요.'},
+  {r:'다른 테스터도 많아요?', re:'몇 분 더 계세요. 근데 레나 씨처럼 끝까지 해 주시는 분은 드물어요. 지난번 분은… 중간에 그만두셨거든요.', n:'왜 그만두셨어요?', nr:'사정이 있으셨겠죠. 저도 자세히는 몰라요.', f:'저는 다나 씨 때문에라도 끝까지 할게요', fr:'…그런 말은 보고서에 못 적어요. 그래도 기억은 해 둘게요.'},
+  {r:'주말엔 뭐 해요?', re:'일이 없으면 쉬어요. 레나 씨는 주말에 어머님 댁에 가세요? 어머님은 요즘 어떻게 지내세요?', n:'그럭저럭 지내세요', nr:'다행이에요. 가끔 연락드리세요.', f:'주말엔 어머니 말고 다나 씨 보러 가고 싶은데요', fr:'레나 씨. 저 지금 근무 중이에요. …주말엔 근무 아니긴 해요.'},
+  {r:'바르니아어 할 줄 알아요?', re:'조금이요. 일하다 보니 자주 보게 돼서요. 레나 씨는 어머님이랑 바르니아어로 얘기하세요?', n:'조금밖에 못 해요', nr:'조금이라도 하시는 게 어디예요.', f:'\'오슬린\'이라는 말, 다나 씨한테 처음 써 볼까요?', fr:'…미안할 일 하실 거예요? 그 말은 아껴 두세요. 저한테 말고요.'},
+  {r:'이스크라는 언제 정식으로 나와요?', re:'아직 정해진 건 없어요. 베타가 잘 끝나야 하니까요. 그러니까 레나 씨가 잘해 주셔야 해요 :)', n:'열심히 해 볼게요', nr:'네, 믿고 있을게요.', f:'다나 씨가 웃으니까 더 잘하고 싶어지네요', fr:'…이모티콘 하나에 너무 의미 두지 마세요. 저 원래 이런 거 잘 안 써요.'},
+  {r:'다나가 본명이에요?', re:'…다들 그렇게 부르니까요. 이름이 뭐가 중요하겠어요. 레나 씨도 레나 씨잖아요.', n:'그렇긴 하네요', nr:'그렇죠. 부르기 편하면 된 거예요.', f:'그럼 진짜 이름은 나중에 직접 만나서 알려 주세요', fr:'…생각해 볼게요. 이런 말은 처음 들어 봐요.'}
 ];
 function danaTalkNext(){
   if(endingChosen || badEnding || reportStage === 'open' || msgState.left) return null;
@@ -5536,7 +5577,20 @@ function danaTalk(){
   const t = danaTalkNext(); if(!t) return;
   msgState.talked = (msgState.talked || []).concat([t.i]);
   collectAdd('talks', String(t.i));
-  msgBotSay(t.re);
+  /* 보통 대답 / 엉뚱하게 수작 거는 대답. 수작을 FLIRT_NEED번 넘게 걸면 '할 말 있어요'가 열림(히든) */
+  msgStartChain([{x: t.re, o: [{r: t.n, re: t.nr}, {r: t.f, re: t.fr, fire: 'flirt'}]}]);
+}
+const FLIRT_NEED = 4;
+function confessAvail(){ return !endingChosen && !badEnding && !msgState.left && reportStage !== 'open' && (msgState.flirt || 0) >= FLIRT_NEED; }
+function danaConfess(){
+  if(!confessAvail()) return;
+  msgStartChain([{x: '…네. 말씀하세요.', o: [{r: '저 다나 씨 좋아하는 것 같아요', re: '', fire: 'love1'}, {r: '아니에요, 다음에 할게요', re: '…네. 그럼 다음에요.'}]}]);
+}
+function hiddenLove(){
+  if(endingChosen || badEnding) return;
+  const rich = workIncome >= TUITION;
+  msgBotSay(rich ? '…그럼 저도 오늘 사직서 쓸게요. 시킨 일 말고, 하고 싶은 일 해 볼래요.' : '…저도 이제 시킨 일 말고 하고 싶은 일을 해 볼게요.', null, 600);
+  setTimeout(() => hiddenStart(rich ? 'rich' : 'dana'), 5200);
 }
 /* ===== 수집 노트 창 ===== */
 function collectOpen(){
@@ -5549,7 +5603,9 @@ function collectOpen(){
   const found = EGGS.filter(e => has('eggs', e.id));
   const etc = [['즐겨찾기 사이트', 'sites', 3], ['카페 대타 근무', 'shifts', SHIFT_POSTS.length], ['바르니아어 단어', 'words', DICT.length], ['다나와 잡담', 'talks', DANA_TALK.length]];
   const total = cnt('endings') + cnt('bads') + found.length + etc.reduce((n, x) => n + Math.min(cnt(x[1]), x[2]), 0);
-  const all = 2 + badKeys.length + EGGS.length + etc.reduce((n, x) => n + x[2], 0);
+  const hidKeys = Object.keys(HIDDEN_ENDINGS), HID_HINT = {work: '메일 대신 근무표', dana: '잡담이 길어지면', rich: '돈도 사랑도'};
+  const total2 = total + cnt('hidden');
+  const all = 2 + badKeys.length + hidKeys.length + EGGS.length + etc.reduce((n, x) => n + x[2], 0);
   document.getElementById('collectBody').innerHTML =
     '<div class="rc-top"><p class="rc-title" id="collectTitle">수집 노트</p>' +
       '<p class="rc-meta">지금까지 찾은 엔딩과 숨은 것들이에요.<br>처음부터 다시 해도 남아 있어요.</p></div>' +
@@ -5560,6 +5616,9 @@ function collectOpen(){
     head('배드엔딩', cnt('bads'), badKeys.length) +
       badKeys.map((k, i) => line('배드엔딩 ' + (i + 1) + (has('bads', k) ? ' · ' + BAD_ENDINGS[k].title : ''), has('bads', k) ? '봤음' : '-', !has('bads', k))).join('') +
     '<div class="rc-sep"></div>' +
+    head('히든 엔딩', cnt('hidden'), hidKeys.length) +
+      hidKeys.map(k => line(has('hidden', k) ? HIDDEN_ENDINGS[k].title : '??? · ' + HID_HINT[k], has('hidden', k) ? '봤음' : '-', !has('hidden', k))).join('') +
+    '<div class="rc-sep"></div>' +
     head('숨은 검색어', found.length, EGGS.length) +
       (found.length ? found.map(e => line(e.name, '찾음')).join('') : '') +
       (EGGS.length - found.length ? line('아직 못 찾은 검색어', (EGGS.length - found.length) + '개', true) : '') +
@@ -5567,7 +5626,7 @@ function collectOpen(){
     '<div class="rc-h"><span>그 밖에</span><b></b></div>' +
       etc.map(x => line(x[0], Math.min(cnt(x[1]), x[2]) + '/' + x[2], !cnt(x[1]))).join('') +
     '<div class="rc-sep dbl"></div>' +
-    '<div class="rc-total"><span>모두</span><b>' + total + ' / ' + all + '</b></div>' +
+    '<div class="rc-total"><span>모두</span><b>' + total2 + ' / ' + all + '</b></div>' +
     '<div class="rc-bar" aria-hidden="true"></div>';
   const m = document.getElementById('collectModal');
   m.classList.remove('hidden');
@@ -8708,6 +8767,51 @@ function badFire(key){
   location.reload();
 }
 /*/DEV*/
+/* ===== 히든 엔딩: 워커홀릭(근로소득으로 등록금) / 개발자 마누라(다나에게 고백) / 영앤리치(둘 다) ===== */
+const HIDDEN_ENDINGS = {
+  work: {title:'워커홀릭: 근로소득의 꿈', slides: () => [
+    ['workaholic', '레나는 이스크라 의뢰 메일 대신 카페 소베크 근무표를 열었습니다.'],
+    ['bank', '대타 ' + Object.keys(cafeShifts).length + '번, 단체 주문 ' + cafeOrders + '건. 통장에 찍힌 숫자는 전부 레나가 직접 번 돈이었습니다.'],
+    ['school', '11월 30일이 오기 전에, 등록금 ' + TUITION.toLocaleString() + '원을 모두 냈습니다.'],
+    ['monitor_off', '이스크라에서 온 메일은 읽지 않은 채 쌓여 갔습니다. 레나는 열어 보지 않았습니다.'],
+    ['cafe', '당신은 수상한 메일 대신 성실하게 일해서 금전적 문제를 해결했습니다.']]},
+  dana: {title:'개발자 마누라가 생긴 대학생', slides: () => [
+    ['messenger', '그날 밤, 다나는 처음으로 테스트와 상관없는 말을 길게 썼습니다.'],
+    ['monitor_off', '다음 날 아침, 이스크라 베타 테스트는 내부 사정으로 중단됐습니다. 남은 의뢰 메일은 오지 않았습니다.'],
+    ['cafe', '토요일 오후, 카페 소베크 창가 자리에 처음 보는 손님이 앉아 꿀 라떼를 시켰습니다. 연보라색 목도리를 하고 있었습니다.'],
+    ['bank0', '등록금은 여전히 모자랐습니다. 그래도 이제 같이 계산기를 두드려 주는 사람이 생겼습니다.'],
+    ['school', '2년 뒤 졸업식 날, 다나는 꽃다발 대신 반지를 들고 왔습니다.']]},
+  rich: {title:'영앤리치', slides: () => [
+    ['bank', '등록금을 내고도 통장에는 레나가 번 돈이 남아 있었습니다.'],
+    ['messenger', '그날 밤, 다나는 회사에 사직서를 냈습니다. 누가 시킨 일이 아니라 처음으로 스스로 정한 일이었습니다.'],
+    ['office', '두 사람은 시내의 작은 사무실에 새 회사를 차렸습니다. 아무도 몰래 뒤지지 않는 검색. 이름은 아직 정하지 않았습니다.'],
+    ['wedding', '이듬해 봄, 작은 결혼식이 열렸습니다. 하객석 맨 뒷줄에 노을메일로만 알던 사람이 앉아 있었습니다. 얼굴은 끝내 보지 못했지만, 박수 소리는 침착하고 고르게 들렸습니다.'],
+    ['school', '당신은 돈도 사랑도 스스로 얻었습니다.']]}
+};
+function hiddenStart(key){
+  if(endingChosen || badEnding || !HIDDEN_ENDINGS[key]) return;
+  try{ collectAdd('hidden', key); }catch(e){}
+  try{ if(cg) cgClose(); }catch(e){}
+  badEnding = 'h:' + key; msgState.ackO = []; msgState.chain = []; msgSave(); saveProgress();
+  if(key !== 'work' && !msgState.left) msgPush('sys', '다나 님이 대화방을 나갔습니다.', true);
+  endingKey = 'HID_' + key; endingIdx = 0;
+  document.getElementById('finalOverlay').classList.remove('hidden');
+  endingShow();
+  try{ msgRenderChips(); bgmSync(); dnuRender(); }catch(e){}
+}
+function hiddenPay(){
+  if(!hiddenCanPay()) return;
+  bankBalance -= TUITION; bankTx.unshift({amount: -TUITION, label: '도렌 국립대학교 · 2학기 등록금', fresh: true}); renderBankcard();
+  osNotify('도렌은행', '출금 ' + TUITION.toLocaleString() + '원', '도렌 국립대학교 · 2학기 등록금 · 잔액 ' + bankBalance.toLocaleString() + '원', 'bank');
+  saveProgress();
+  setTimeout(() => hiddenStart('work'), 2600);
+}
+/*DEV*/function jumpToHidden(k){
+  if(!confirm("히든 엔딩 '" + HIDDEN_ENDINGS[k].title + "'" + josaRo(HIDDEN_ENDINGS[k].title) + ' 이동합니다. 현재 진행 상황은 사라집니다. 계속할까요?')) return;
+  try{ localStorage.removeItem(SAVE_KEY); localStorage.removeItem(MSG_KEY); sessionStorage.setItem('iskra_hidden', k); }catch(e){}
+  location.reload();
+}
+/*/DEV*/
 function finalChoiceOpen(){ finalConfirm('A', RP_LOC); }
 function finalEnding(k, variant){
   endingChosen = k;
@@ -8726,6 +8830,7 @@ function finalEnding(k, variant){
   endingBgm();
 }
 function endingList(){
+  if(String(endingKey).indexOf('HID_') === 0){ const h = HIDDEN_ENDINGS[endingKey.slice(4)]; return h ? h.slides() : []; }
   if(String(endingKey).indexOf('BAD_') === 0){ const b = BAD_ENDINGS[endingKey.slice(4)]; return b ? b.slides : []; }
   const L = ENDING_SLIDES[endingKey] || [];
   if(moleReported() && (endingKey === 'A' || endingKey === 'B')){   /* 자인을 지목했으면: 연합회가 미리 알고 움직임 */
@@ -8820,7 +8925,7 @@ function danaWatch(){
 }
 /* 불러온 뒤: 엔딩 흔적·보고서·다나의 감시 이어 붙이기 */
 function endingResume(){
-  if(badEnding){ endingKey = 'BAD_' + badEnding; endingIdx = endingList().length; document.getElementById('finalOverlay').classList.remove('hidden'); endingShow(); try{ msgRenderChips(); }catch(e){} return; }
+  if(badEnding){ endingKey = badEnding.indexOf('h:') === 0 ? 'HID_' + badEnding.slice(2) : 'BAD_' + badEnding; endingIdx = endingList().length; document.getElementById('finalOverlay').classList.remove('hidden'); endingShow(); try{ msgRenderChips(); }catch(e){} return; }
   iskraNoticeRender();
   if(endingChosen){
     endingTraces();
@@ -8860,7 +8965,7 @@ var ENDING_SLIDES = {
   B: [['monitor_off','레나는 확인서 창을 닫았습니다.'],['bank0','사례금은 입금되지 않았고, 베타 계정은 11월 30일에 만료됐습니다.'],['messenger','이스크라의 메신저는 더 이상 말을 걸지 않았습니다.'],['cafe','레나는 카페 소베크의 근무 시간을 늘렸고, 밤마다 과제를 했습니다.'],['school','쉽지는 않았지만, 그 선택을 후회하지는 않았습니다.'],['candles_old','11월 14일 저녁, 서쪽 회관 지하에서 사람들은 평소처럼 촛불을 켰습니다. 늦게 도착한 노인이 빈자리에 앉았습니다.'],['mail','안톤에게서 짧은 메일이 왔습니다. "고마워요."']]
 };
 /* 일러스트는 힉스필드로 생성한 픽셀 이미지(ending/*.png)를 사용 */
-['hall','street','bank','school','messenger','candles','candles_old','mail','monitor_off','bank0','cafe','locked','mailbox','captures','mail_return'].forEach(n => { ENDING_SCENES[n] = () => '<img class="ending-pic" src="ending/' + n + '.png" alt="">'; });
+['hall','street','bank','school','messenger','candles','candles_old','mail','monitor_off','bank0','cafe','locked','mailbox','captures','mail_return','workaholic','office','wedding'].forEach(n => { ENDING_SCENES[n] = () => '<img class="ending-pic" src="ending/' + n + '.png" alt="">'; });
 var endingIdx = 0, endingKey = '';
 function endingShow(){
   const c = document.getElementById('finalCard'), list = endingList(), last = endingIdx >= list.length;
@@ -8870,7 +8975,9 @@ function endingShow(){
     c.innerHTML = ENDING_SCENES[sl[0]]() + '<div class="ending-text">' + sl[1] + '</div><button type="button" class="ending-next" onclick="endingNext()">다음</button>';
   } else {
     c.className = 'final-card ending-stage';
-    c.innerHTML = (String(endingKey).indexOf('BAD_') === 0)
+    c.innerHTML = (String(endingKey).indexOf('HID_') === 0)
+      ? '<div class="ending-title hid"><small>HIDDEN ENDING</small><b>' + HIDDEN_ENDINGS[endingKey.slice(4)].title + '</b></div><div class="fe"><button type="button" onclick="collectOpen()">수집 노트 보기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>'
+      : (String(endingKey).indexOf('BAD_') === 0)
       ? '<div class="ending-title bad"><small>BAD ENDING</small><b>' + BAD_ENDINGS[endingKey.slice(4)].title + '</b></div><div class="fe"><button type="button" onclick="checkpointRestore()">직전 선택으로 돌아가기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>'
       : '<div class="ending-title"><small>ENDING ' + endingKey + '</small><b>' + (endingKey === 'A' ? '사례금' : '침묵') + '</b></div><div class="fe"><button type="button" onclick="endingContinue()">계속 둘러보기</button><button type="button" onclick="resetProgress()">처음부터 다시 하기</button></div>';
   }
@@ -8906,7 +9013,7 @@ function saveProgress(){
       assignment3Resolved,
       assignment4Resolved, capturedEvidence4,
       assignment5Resolved, capturedEvidence5, assignment6Resolved, capturedEvidence6, boardLoggedIn, assignment7Resolved, capturedEvidence7, assignment8Resolved, capturedEvidence8, dltLoggedIn, savedLogin, bdDecoded, endingChosen, endingVariant, reportStage, rpLocVal, rpView, rpAntonShown, badEnding, failCount, rpSig, rpAgree1, rpAgree2, endNotified, danaWatched, searchLog, assign3Word,
-      bankBalance, bankTx, paidThrough, cafeShifts, reportAfterSleep, dayEndPending, scrapped, notesDone, introSeen,
+      bankBalance, bankTx, paidThrough, cafeShifts, workIncome, cafeOrders, reportAfterSleep, dayEndPending, scrapped, notesDone, introSeen,
       omOpened, omReadIds: [NEW_MAIL, INTRO_TUITION_MAIL].concat(ANTON_MAILS).filter(m => !m.unread).map(m => m.id), antonIds, antonDue, mailAt, antonTalk,
       pendingDeliveries, pendingCutscene,
       delivered,
@@ -8976,6 +9083,8 @@ function loadProgress(){
   bankBalance = saved.bankBalance || 0;
   paidThrough = saved.paidThrough || 1;
   cafeShifts = saved.cafeShifts || {};
+  cafeOrders = saved.cafeOrders || 0;
+  workIncome = saved.workIncome != null ? saved.workIncome : (bankTx || []).filter(x => x.amount > 0 && /^카페 소베크/.test(x.label)).reduce((n, x) => n + x.amount, 0);
   reportAfterSleep = !!saved.reportAfterSleep;
   dayEndPending = !!saved.dayEndPending;
   omOpened = !!saved.omOpened;
@@ -9231,6 +9340,7 @@ function msgRenderChips(){
     { const dn = doubtAvail(); if(dn) chips.push(['doubt', DOUBT[dn].chip]); }
     if(!endingChosen && reportStage !== 'open' && antonIds.indexOf('anton6') >= 0 && !msgState.confronted) chips.push(['confront','이거 테스트 아니죠?']);
     { const tk = danaTalkNext(); if(tk) chips.push(['talk', tk.r]); }
+    if(confessAvail()) chips.push(['confess', '다나 씨, 할 말 있어요']);
     if(!endingChosen && reportStage !== 'open' && msgStage().n >= 2) chips.push(['quit','테스트 그만둘래요']);
   }
   const hold = msgPending > 0 || msgTyping || msgFireHold > 0;
@@ -9367,6 +9477,9 @@ function msgFire(name){
     if(id === SUCCESS_MAIL.id) updateIskra();
     return;
   }
+  if(name === 'flirt'){ msgState.flirt = (msgState.flirt || 0) + 1; msgSave(); msgRenderChips(); return; }
+  if(name === 'love1'){ if(!endingChosen && !badEnding) msgStartChain([{x: '레나 씨는 제가 누군지 몰라요. 이름도, 회사도 다 진짜가 아니에요. 그래도요?', o: [{r: '그래도요', re: '', fire: 'love'}, {r: '…조금만 생각해 볼게요', re: '네. 그게 맞아요.'}]}]); return; }
+  if(name === 'love'){ hiddenLove(); return; }
   if(name === 'introDone'){
     queueDelivery('tutorial1', 1500, TUTORIAL_MAIL.id, {effect:'hint117', skipIfPresent:true});
     queueDelivery('assign1', 32000, ASSIGNMENT_MAIL.id, {skipIfPresent:true});
@@ -9409,6 +9522,7 @@ function msgReply(intent){
   else if(intent === 'confront'){ msgState.confronted = true; msgStartChain([{x: '네? 무슨 말씀이세요?', o: [{r: '누군가를 찾고 있는 거잖아요', re: '레나 씨, 베타 테스트 약관 7조를 다시 읽어 보십시오. 베타 계정은 지금부터 정지됩니다.', bad: 'confront', fire: 'bad:confront'}, {r: '아니에요, 그냥 물어봤어요', re: '…네. 테스트에만 집중해 주세요.'}]}], 300); }
   else if(intent === 'doubt') msgDoubt();
   else if(intent === 'talk') danaTalk();
+  else if(intent === 'confess') danaConfess();
   else if(intent === 'cap') msgBotSay("주소창 오른쪽에 카메라 아이콘 보이시죠? 그걸 누르면 캡처 모드가 켜져요. 캡처하고 싶은 기록이나 화면을 클릭하면 저장되고, 의뢰 메일 회신 창에 자동으로 붙어요. 취소는 Esc예요.");
   else if(intent === 'mail') msgBotSay("이스크라 첫 화면의 '메일' 아이콘으로 들어가시거나, 새 메일이 올 때 뜨는 알림을 눌러도 돼요. 의뢰 메일을 열면 아래쪽에 회신하는 칸이 있어요.");
   else if(intent === 'scrap') msgBotSay("기사나 게시글을 스크랩해 두시면 왼쪽 아래 스크랩 창에서 다시 보실 수 있어요. 단서를 비교할 때 편해요.");
@@ -9520,7 +9634,7 @@ function msgChip(id, label){
   if(/^pick\d+$/.test(id)){ const o = msgState.ackO[parseInt(id.slice(4), 10)]; if(o && o.bad) checkpointSave(); }
   if(msgTyping) return;
   msgTyping = true; msgRenderChips();
-  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront', doubt:'doubt', talk:'talk'};
+  const map = {now:'now', hint:'hint', cap:'cap', mail:'mail', yes:'yes', no:'no', about:'about', who:'who', pay:'pay', next:'next', quit:'quit', confront:'confront', doubt:'doubt', talk:'talk', confess:'confess'};
   const inp = document.getElementById('msgInput'), btn = document.getElementById('msgSend'), q = document.getElementById('msgQuick');
   q.classList.add('busy');
   inp.value = ''; inp.classList.add('typing');
@@ -9775,6 +9889,7 @@ try{ endingResume(); }catch(e){}
 try{ sleepPillSync(); }catch(e){}
 try{ if(omOpened) bugTipShow(1500); }catch(e){}
 try{ if(reportAfterSleep && !endingChosen && reportStage !== 'open') setTimeout(() => showCutscene('day:8'), 1500); }catch(e){}
+/*DEV*/try{ const _h = sessionStorage.getItem('iskra_hidden'); if(_h){ sessionStorage.removeItem('iskra_hidden'); setTimeout(() => { if(_h !== 'dana'){ workIncome = TUITION; bankBalance = Math.max(bankBalance, TUITION); } hiddenStart(_h); }, 1200); } }catch(e){}/*/DEV*/
 /*DEV*/try{ const _b = sessionStorage.getItem('iskra_bad'); if(_b){ sessionStorage.removeItem('iskra_bad'); setTimeout(() => { checkpointSave(); badStart(_b); }, 1200); } }catch(e){}/*/DEV*/
 /*DEV*/try{ const _e = sessionStorage.getItem('iskra_end'); if(_e){ sessionStorage.removeItem('iskra_end'); setTimeout(() => { if(_e === 'C') reportOpen(); else { finalChoiceOpen(); finalEnding(_e); } }, 1200); } }catch(e){}/*/DEV*/
 </script>
